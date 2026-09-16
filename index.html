@@ -758,25 +758,8 @@
 
 
     /* =========================================================
-       SIGNATURE PROJECTS SECTION WITH FULL BACKGROUND IMAGE
+       SIGNATURE PROJECTS LAYOUT (Reference photograph match)
     ========================================================= */
-
-    .projects-section-bg {
-      position: relative;
-      background: url('oladar1.jpeg') no-repeat center center/cover;
-    }
-
-    .projects-section-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(23, 11, 7, 0.82);
-    }
-
-    .projects-section-bg .container {
-      position: relative;
-      z-index: 2;
-    }
 
     .projects-header {
       display: flex;
@@ -792,10 +775,11 @@
       gap: 30px;
     }
 
+    /* Top full-width card for Oladar Haveli with background image per instructions */
     .project-featured-card {
       position: relative;
       display: grid;
-      grid-template-columns: 1.3fr .9fr;
+      grid-template-columns: 1fr;
       background: var(--brown-deep);
       border: 1px solid rgba(197,161,91,.35);
       cursor: pointer;
@@ -803,25 +787,38 @@
       min-height: 520px;
     }
 
-    .project-featured-card img {
+    .project-featured-bg {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: .45;
       transition: transform 1s var(--ease);
     }
 
-    .project-featured-card:hover img {
+    .project-featured-card:hover .project-featured-bg {
       transform: scale(1.05);
     }
 
+    .project-featured-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(23,11,7,.95) 0%, rgba(23,11,7,.75) 60%, rgba(23,11,7,.4) 100%);
+    }
+
     .project-featured-content {
-      padding: 50px;
+      position: relative;
+      z-index: 2;
+      padding: 60px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: var(--brown);
+      max-width: 650px;
     }
 
+    /* Bottom 3 cards grid: Roop Mahal, Mohan Villa, First Impression Salon */
     .project-row-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -877,7 +874,7 @@
 
 
     /* =========================================================
-       OUR HERITAGE PROJECT SECTION
+       OUR HERITAGE PROJECT SECTION (Oladar Haveli Deep-Dive)
     ========================================================= */
 
     .heritage-project-showcase {
@@ -1284,9 +1281,6 @@
       .project-row-grid {
         grid-template-columns: 1fr;
       }
-      .project-featured-card {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 800px) {
@@ -1451,34 +1445,32 @@
     </section>
 
 
-    <!-- SIGNATURE PROJECTS SECTION WITH FULL BACKGROUND IMAGE -->
-    <section class="section projects-section-bg" id="projects">
+    <!-- SIGNATURE PROJECTS SECTION (Ref match layout with Oladar Haveli background image) -->
+    <section class="section beige" id="projects">
       <div class="container">
         <div class="projects-header">
           <div>
             <div class="eyebrow">Signature Works</div>
-            <h2 class="section-title" style="color:var(--cream);">Our Signature Projects</h2>
+            <h2 class="section-title">Our Signature Projects</h2>
           </div>
-          <p class="section-intro" style="color:var(--cream);">
+          <p class="section-intro">
             Explore our defining heritage masterpieces crafted with uncompromising precision.
           </p>
         </div>
 
         <div class="signature-layout">
-          <!-- Top Full Width Card: Oladar Haveli -->
+          <!-- Top Full Width Card: Oladar Haveli with background image per instructions -->
           <div class="project-featured-card" onclick="openProject('oladar')">
+            <img class="project-featured-bg" src="oladar1.jpeg" alt="Oladar Haveli Background">
             <div class="project-featured-content">
               <div class="eyebrow">Udaipur · Heritage Haveli Construction</div>
               <h3 style="font-family:var(--serif); font-size:48px; color:var(--cream); margin-bottom:15px;">Oladar Haveli</h3>
-              <p style="color:rgba(255,250,240,.75); font-size:14px; line-height:1.8; margin-bottom:25px;">
+              <p style="color:rgba(255,250,240,.85); font-size:14px; line-height:1.8; margin-bottom:25px;">
                 A heritage haveli language composed through carved dodi, glass, painted surfaces and engineered permanence.
               </p>
               <span class="luxury-btn" style="width:fit-content; border-color:var(--gold);">
                 View Project <i class="fa-solid fa-arrow-right"></i>
               </span>
-            </div>
-            <div>
-              <img src="oladar1.jpeg" alt="Oladar Haveli">
             </div>
           </div>
 
