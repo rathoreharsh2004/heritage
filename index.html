@@ -78,7 +78,7 @@
       overflow: hidden;
     }
 
-    img {
+    img, video {
       width: 100%;
       display: block;
     }
@@ -106,7 +106,7 @@
 
 
     /* =========================================================
-       UTILITIES
+       UTILITIES & GLOBAL ALL-CAPS FOR HEADINGS / TAGLINES
     ========================================================= */
 
     .container {
@@ -165,6 +165,11 @@
       color: var(--gold-dark);
     }
 
+    /* ALL HEADINGS AND TAGLINES IN CAPITAL LETTERS PER INSTRUCTIONS */
+    h1, h2, h3, h4, .section-title, .eyebrow, .hero-kicker, .hero-description, .section-intro, .craft-row, .offer-card h3, .offer-card p, .expertise-content h3, .expertise-tags, .project-meta, .detail-meta, .detail-tag {
+      text-transform: uppercase;
+    }
+
     .section-title {
       font-family: var(--serif);
       font-size: clamp(48px, 7vw, 100px);
@@ -189,23 +194,25 @@
       opacity: .78;
     }
 
-    .section-title,
-    .section-intro,
-    .hero-kicker,
-    .hero h1,
-    .project-tagline {
-      text-transform: uppercase;
-    }
-
-    .section-title span {
-      text-transform: uppercase;
-    }
-
     .gold-line {
       width: 90px;
       height: 1px;
       background: var(--gold);
       margin: 30px 0;
+    }
+
+    /* BEIGE SURROUNDING WRAPPER FOR CARDS & IMAGES */
+    .beige-card-wrap {
+      background: var(--beige);
+      border: 1px solid rgba(197,161,91,.4);
+      padding: 16px;
+      color: var(--ink);
+      transition: .5s var(--ease);
+    }
+
+    .brown .beige-card-wrap {
+      background: var(--beige);
+      color: var(--ink);
     }
 
 
@@ -260,15 +267,11 @@
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
 
     @keyframes spinReverse {
-      to {
-        transform: rotate(-360deg);
-      }
+      to { transform: rotate(-360deg); }
     }
 
 
@@ -305,33 +308,20 @@
       gap: 14px;
     }
 
-    .brand-logo {
-      width: 72px;
-      height: 72px;
-      object-fit: contain;
-      flex: 0 0 auto;
-      filter: drop-shadow(0 5px 15px rgba(0,0,0,.22));
-    }
-
-    .preloader-logo {
-      width: 110px;
-      height: 110px;
-      object-fit: contain;
-      display: block;
-      margin: auto;
-      filter: drop-shadow(0 8px 25px rgba(0,0,0,.25));
-    }
-
     .brand-symbol {
       width: 52px;
       height: 52px;
       border: 1px solid var(--gold);
       border-radius: 50%;
+      overflow: hidden;
       display: grid;
       place-items: center;
-      font-family: var(--serif);
-      color: var(--gold);
-      font-size: 26px;
+    }
+
+    .brand-symbol img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .brand-text strong {
@@ -399,12 +389,7 @@
       position: fixed;
       inset: 0;
       z-index: 900;
-      background:
-        linear-gradient(
-          90deg,
-          rgba(23,11,7,.98),
-          rgba(42,22,13,.97)
-        );
+      background: linear-gradient(90deg, rgba(23,11,7,.98), rgba(42,22,13,.97));
       transform: translateY(-100%);
       transition: transform .8s var(--ease);
       padding-top: 130px;
@@ -428,9 +413,9 @@
       display: block;
       width: fit-content;
       font-family: var(--serif);
-      font-size: clamp(42px, 6vw, 80px);
+      font-size: clamp(36px, 5vw, 65px);
       line-height: .95;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       color: var(--cream);
       transition: .4s var(--ease);
     }
@@ -462,7 +447,7 @@
 
 
     /* =========================================================
-       HERO
+       HERO VIDEO BACKGROUND
     ========================================================= */
 
     .hero {
@@ -474,36 +459,20 @@
       background: var(--brown-deep);
     }
 
-    .hero-image,
     .hero-video {
       position: absolute;
       inset: 0;
       width: 100%;
-      height: 115%;
+      height: 100%;
       object-fit: cover;
-      object-position: center;
-      opacity: .68;
-      transform: scale(1.06);
-      animation: heroZoom 12s ease-out forwards;
-    }
-
-    @keyframes heroZoom {
-      to {
-        transform: scale(1);
-      }
+      opacity: .65;
     }
 
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(23,11,7,.25),
-          rgba(23,11,7,.45) 45%,
-          rgba(23,11,7,.98)
-        );
+      background: linear-gradient(180deg, rgba(23,11,7,.25), rgba(23,11,7,.45) 45%, rgba(23,11,7,.98));
     }
 
     .hero-content {
@@ -525,8 +494,8 @@
     .hero h1 {
       max-width: 1000px;
       font-family: var(--serif);
-      font-size: clamp(65px, 10vw, 155px);
-      line-height: .78;
+      font-size: clamp(55px, 9vw, 140px);
+      line-height: .8;
       font-weight: 500;
       letter-spacing: -.05em;
     }
@@ -622,7 +591,7 @@
 
 
     /* =========================================================
-       LEGACY
+       LEGACY (ABOUT)
     ========================================================= */
 
     .legacy-grid {
@@ -667,78 +636,10 @@
 
 
     /* =========================================================
-       ROYAL RAJASTHAN
+       OUR HERITAGE CRAFTSMANSHIP (10 CARDS WITH DOME/SQUARE SHAPES)
     ========================================================= */
 
-    .royal-intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      margin-bottom: 70px;
-    }
-
-    .heritage-visual {
-      position: relative;
-      height: 720px;
-      overflow: hidden;
-    }
-
-    .heritage-visual img {
-      height: 100%;
-      object-fit: cover;
-      transition: transform 1.2s var(--ease);
-    }
-
-    .heritage-visual:hover img {
-      transform: scale(1.06);
-    }
-
-    .heritage-caption {
-      position: absolute;
-      bottom: 30px;
-      left: 30px;
-      right: 30px;
-      padding: 30px;
-      background: rgba(23,11,7,.75);
-      color: var(--cream);
-      backdrop-filter: blur(10px);
-    }
-
-    .heritage-caption h3 {
-      font-family: var(--serif);
-      font-size: 40px;
-      margin-bottom: 8px;
-    }
-
-    .element-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-content: center;
-    }
-
-    .element-pill {
-      padding: 13px 18px;
-      border: 1px solid rgba(36,22,14,.22);
-      text-transform: uppercase;
-      letter-spacing: .13em;
-      font-size: 10px;
-      transition: .35s var(--ease);
-    }
-
-    .element-pill:hover {
-      background: var(--brown);
-      color: var(--cream);
-      border-color: var(--brown);
-      transform: translateY(-5px);
-    }
-
-
-    /* =========================================================
-       EXPERTISE
-    ========================================================= */
-
-    .expertise-header {
+    .craftsmanship-header {
       display: flex;
       justify-content: space-between;
       gap: 50px;
@@ -746,92 +647,257 @@
       margin-bottom: 70px;
     }
 
-    .expertise-header .section-intro {
-      max-width: 480px;
-    }
-
-    .expertise-list {
-      border-top: 1px solid rgba(197,161,91,.3);
-    }
-
-    .expertise-item {
-      position: relative;
+    .craft-cards-grid {
       display: grid;
-      grid-template-columns: 100px 1fr 40px;
-      gap: 35px;
-      padding: 34px 0;
-      border-bottom: 1px solid rgba(197,161,91,.25);
-      transition: .5s var(--ease);
+      grid-template-columns: repeat(5, 1fr);
+      gap: 25px;
+    }
+
+    .craft-card-item {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform .4s var(--ease);
+    }
+
+    .craft-card-item:hover {
+      transform: translateY(-8px);
+    }
+
+    .craft-card-img-wrap {
+      width: 100%;
+      height: 320px;
+      position: relative;
       overflow: hidden;
+      margin-bottom: 15px;
     }
 
-    .expertise-item::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(197,161,91,.06);
-      transform: translateX(-100%);
-      transition: .6s var(--ease);
+    /* Shape variations for the 10 cards: Square (even/odd sequence) or Dome */
+    .craft-card-item.shape-square .craft-card-img-wrap {
+      border-radius: 4px;
     }
 
-    .expertise-item:hover::before {
-      transform: translateX(0);
+    .craft-card-item.shape-dome .craft-card-img-wrap {
+      border-radius: 140px 140px 10px 10px;
     }
 
-    .expertise-number {
-      position: relative;
+    .craft-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s var(--ease);
+    }
+
+    .craft-card-item:hover .craft-card-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .craft-card-info h3 {
       font-family: var(--serif);
-      font-size: 25px;
-      color: var(--gold);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+      line-height: 1.2;
     }
 
-    .expertise-content {
-      position: relative;
-    }
-
-    .expertise-content h3 {
-      font-family: var(--serif);
-      font-size: 34px;
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
-
-    .expertise-content p {
-      max-width: 850px;
-      line-height: 1.8;
-      opacity: .7;
-      font-size: 14px;
-    }
-
-    .expertise-tags {
-      margin-top: 14px;
-      color: var(--gold-light);
+    .craft-card-info p {
       font-size: 11px;
-      line-height: 1.8;
-      letter-spacing: .03em;
-    }
-
-    .expertise-arrow {
-      position: relative;
-      color: var(--gold);
-      font-size: 17px;
-      transition: .4s var(--ease);
-    }
-
-    .expertise-item:hover .expertise-arrow {
-      transform: rotate(45deg);
+      line-height: 1.6;
+      opacity: .8;
+      color: var(--ink);
     }
 
 
     /* =========================================================
-       APPROACH
+       MATERIAL BOARD SECTION (M1 - M8, Square/Dome shapes)
     ========================================================= */
 
-    .approach {
-      min-height: 780px;
-      display: flex;
-      align-items: center;
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin-top: 60px;
     }
+
+    .material-item {
+      cursor: pointer;
+      transition: transform .4s var(--ease);
+    }
+
+    .material-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .material-img-wrap {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .material-item.shape-square .material-img-wrap {
+      border-radius: 4px;
+    }
+
+    .material-item.shape-dome .material-img-wrap {
+      border-radius: 150px 150px 8px 8px;
+    }
+
+    .material-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .material-item h4 {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+
+    /* =========================================================
+       SIGNATURE PROJECTS LAYOUT (Reference photograph match)
+    ========================================================= */
+
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 40px;
+      margin-bottom: 70px;
+    }
+
+    .signature-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* Top full-width card for Oladar Haveli */
+    .project-featured-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.3fr .9fr;
+      background: var(--brown-deep);
+      border: 1px solid rgba(197,161,91,.35);
+      cursor: pointer;
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    .project-featured-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s var(--ease);
+    }
+
+    .project-featured-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .project-featured-content {
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--brown);
+    }
+
+    /* Bottom 3 cards grid: Roop Mahal, Mohan Villa, First Impression Salon */
+    .project-row-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .project-card-box {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .project-card-box .beige-card-wrap {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .project-card-img {
+      width: 100%;
+      height: 340px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .project-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s var(--ease);
+    }
+
+    .project-card-box:hover .project-card-img img {
+      transform: scale(1.06);
+    }
+
+    .project-card-info h3 {
+      font-family: var(--serif);
+      font-size: 32px;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .project-card-info p {
+      font-size: 13px;
+      color: var(--ink);
+      opacity: .8;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+
+    /* =========================================================
+       OUR HERITAGE PROJECT SECTION (Oladar Haveli Deep-Dive)
+    ========================================================= */
+
+    .heritage-project-showcase {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .heritage-proj-item {
+      cursor: pointer;
+    }
+
+    .heritage-proj-img {
+      height: 420px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .heritage-proj-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease);
+    }
+
+    .heritage-proj-item:hover .heritage-proj-img img {
+      transform: scale(1.05);
+    }
+
+
+    /* =========================================================
+       APPROACH & OFFER SECTIONS
+    ========================================================= */
 
     .approach-grid {
       display: grid;
@@ -871,27 +937,14 @@
 
     .principle h4 {
       font-family: var(--serif);
-      font-size: 29px;
+      font-size: 26px;
       font-weight: 500;
     }
-
-    .multiplication {
-      margin-top: 35px;
-      font-family: var(--serif);
-      font-size: 25px;
-      color: var(--gold-dark);
-    }
-
-
-    /* =========================================================
-       WHAT WE OFFER
-    ========================================================= */
 
     .offer-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 1px;
-      background: rgba(36,22,14,.2);
+      gap: 20px;
       margin-top: 70px;
     }
 
@@ -921,368 +974,20 @@
 
     .offer-card h3 {
       font-family: var(--serif);
-      font-size: 28px;
-      line-height: 1;
+      font-size: 24px;
+      line-height: 1.1;
       margin-bottom: 18px;
     }
 
     .offer-card p {
       font-size: 12px;
       line-height: 1.8;
-      opacity: .7;
+      opacity: .8;
     }
 
 
     /* =========================================================
-       SIGNATURE PROJECTS
-    ========================================================= */
-
-    .projects-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 40px;
-      margin-bottom: 70px;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 22px;
-      align-items: start;
-    }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      background: var(--beige-light);
-      color: var(--ink);
-      cursor: pointer;
-      padding: 10px;
-      border: 1px solid rgba(152,118,56,.25);
-      transition: transform .6s var(--ease), box-shadow .6s var(--ease);
-    }
-
-    .project-card:nth-child(1) {
-      grid-column: span 8;
-      grid-template-columns: 1.22fr .78fr;
-      min-height: 430px;
-    }
-
-    .project-card:nth-child(2),
-    .project-card:nth-child(3),
-    .project-card:nth-child(4) {
-      grid-column: span 4;
-      min-height: 470px;
-    }
-
-    .project-card:nth-child(3) {
-      margin-top: 55px;
-    }
-
-    .project-card:nth-child(4) {
-      margin-top: 0;
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 60px rgba(42,22,13,.16);
-    }
-
-    .project-card img {
-      position: relative;
-      inset: auto;
-      width: 100%;
-      height: 100%;
-      min-height: 250px;
-      object-fit: cover;
-      transition: transform 1s var(--ease);
-    }
-
-    .project-card:hover img {
-      transform: scale(1.045);
-    }
-
-    .project-card::after {
-      display: none;
-    }
-
-    .project-content {
-      position: relative;
-      z-index: 2;
-      padding: 30px 25px 25px;
-      width: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: var(--brown-deep);
-      color: var(--cream);
-    }
-
-    .project-card:nth-child(n+2) .project-content {
-      justify-content: flex-start;
-      min-height: 205px;
-      margin-top: 0;
-    }
-
-    .project-index {
-      color: var(--gold-light);
-      font-family: var(--serif);
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
-    .project-content h3 {
-      font-family: var(--serif);
-      font-size: clamp(31px, 3.3vw, 48px);
-      line-height: .9;
-      font-weight: 500;
-      margin-bottom: 13px;
-      text-transform: uppercase;
-    }
-
-    .project-meta {
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      font-size: 8px;
-      color: rgba(255,250,240,.66);
-      line-height: 1.6;
-    }
-
-    .project-tagline {
-      margin-top: 12px;
-      font-size: 11px;
-      line-height: 1.65;
-      color: rgba(255,250,240,.76);
-      text-transform: uppercase;
-    }
-
-    .project-view {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      width: fit-content;
-      margin-top: 20px;
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: .15em;
-      font-size: 9px;
-    }
-
-    .project-view i {
-      transition: transform .35s var(--ease);
-    }
-
-    .project-card:hover .project-view i {
-      transform: translateX(5px);
-    }
-
-
-    /* =========================================================
-       HERITAGE CRAFTSMANSHIP
-    ========================================================= */
-
-    .craft-header {
-      margin-bottom: 65px;
-    }
-
-    .craft-cards {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .craft-card {
-      position: relative;
-      background: var(--beige-light);
-      color: var(--ink);
-      padding: 10px;
-      cursor: pointer;
-      border: 1px solid rgba(152,118,56,.28);
-      transition: transform .6s var(--ease), box-shadow .6s var(--ease);
-      overflow: hidden;
-    }
-
-    .craft-card:nth-child(even) {
-      margin-top: 48px;
-    }
-
-    .craft-card:hover {
-      transform: translateY(-9px);
-      box-shadow: 0 24px 55px rgba(23,11,7,.18);
-    }
-
-    .craft-card-media {
-      position: relative;
-      overflow: hidden;
-      background: var(--brown-deep);
-      aspect-ratio: 1 / 1.08;
-    }
-
-    .craft-card.dome .craft-card-media,
-    .craft-card.dome {
-      border-radius: 50% 50% 8px 8px;
-    }
-
-    .craft-card.square .craft-card-media {
-      border-radius: 4px;
-    }
-
-    .craft-card-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 1s var(--ease);
-    }
-
-    .craft-card:hover .craft-card-media img {
-      transform: scale(1.07);
-    }
-
-    .craft-card-body {
-      padding: 22px 14px 18px;
-    }
-
-    .craft-number {
-      display: block;
-      font-family: var(--serif);
-      color: var(--gold-dark);
-      font-size: 18px;
-      margin-bottom: 9px;
-    }
-
-    .craft-card h3 {
-      font-family: var(--serif);
-      font-size: 24px;
-      line-height: .98;
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .craft-card p {
-      font-size: 10px;
-      line-height: 1.65;
-      opacity: .72;
-      text-transform: uppercase;
-    }
-
-    .craft-card-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 17px;
-      color: var(--gold-dark);
-      font-size: 8px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .craft-card-more i {
-      transition: transform .35s var(--ease);
-    }
-
-    .craft-card:hover .craft-card-more i {
-      transform: translateX(5px);
-    }
-
-    /* =========================================================
-       HERITAGE LANGUAGE
-    ========================================================= */
-
-    .language-stage {
-      position: relative;
-      min-height: 700px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .language-bg {
-      position: absolute;
-      inset: 0;
-      opacity: .2;
-      object-fit: cover;
-      filter: grayscale(1);
-    }
-
-    .language-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .language-content h2 {
-      font-family: var(--serif);
-      font-size: clamp(55px, 8vw, 120px);
-      line-height: .85;
-      font-weight: 500;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .language-words {
-      margin-top: 50px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .language-word {
-      border: 1px solid rgba(197,161,91,.4);
-      padding: 11px 17px;
-      color: var(--gold-light);
-      text-transform: uppercase;
-      font-size: 9px;
-      letter-spacing: .15em;
-      transition: .35s;
-    }
-
-    .language-word:hover {
-      background: var(--gold);
-      color: var(--brown-deep);
-    }
-
-
-    /* =========================================================
-       PROMISE
-    ========================================================= */
-
-    .promise {
-      min-height: 650px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-    }
-
-    .promise-text {
-      font-family: var(--serif);
-      font-size: clamp(48px, 7vw, 100px);
-      line-height: .88;
-      max-width: 1050px;
-      margin: auto;
-    }
-
-    .promise-text em {
-      color: var(--gold);
-      font-style: normal;
-    }
-
-    .promise-sub {
-      margin-top: 45px;
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      opacity: .65;
-    }
-
-
-    /* =========================================================
-       CONTACT
+       CONTACT & FOOTER
     ========================================================= */
 
     .contact-grid {
@@ -1312,20 +1017,6 @@
       color: var(--gold-dark);
     }
 
-    .contact-item small {
-      display: block;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .15em;
-      margin-bottom: 5px;
-      opacity: .55;
-    }
-
-    .contact-item strong {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
     .form {
       padding: 50px;
       background: var(--brown);
@@ -1334,8 +1025,7 @@
 
     .form h3 {
       font-family: var(--serif);
-      font-size: 50px;
-      font-weight: 500;
+      font-size: 40px;
       margin-bottom: 35px;
     }
 
@@ -1362,7 +1052,6 @@
       color: var(--cream);
       padding: 13px 0;
       outline: none;
-      border-radius: 0;
     }
 
     .field select option {
@@ -1373,15 +1062,6 @@
       min-height: 100px;
       resize: vertical;
     }
-
-    .form button {
-      background: transparent;
-    }
-
-
-    /* =========================================================
-       FOOTER
-    ========================================================= */
 
     footer {
       background: var(--brown-deep);
@@ -1398,8 +1078,7 @@
 
     .footer-brand h2 {
       font-family: var(--serif);
-      font-size: 45px;
-      font-weight: 500;
+      font-size: 40px;
     }
 
     .footer-brand p {
@@ -1426,32 +1105,16 @@
       transition: .3s;
     }
 
-    .footer-col a:hover {
-      color: var(--gold);
-      opacity: 1;
-      transform: translateX(4px);
-    }
-
     .footer-bottom {
       border-top: 1px solid rgba(197,161,91,.18);
       padding-top: 25px;
       display: flex;
       justify-content: space-between;
-      gap: 30px;
       font-size: 9px;
       text-transform: uppercase;
       letter-spacing: .12em;
       opacity: .55;
     }
-
-    .footer-credit {
-      color: var(--gold);
-    }
-
-
-    /* =========================================================
-       FLOATING ACTIONS
-    ========================================================= */
 
     .floating-actions {
       position: fixed;
@@ -1472,107 +1135,12 @@
       background: var(--gold);
       color: var(--brown-deep);
       box-shadow: 0 12px 30px rgba(0,0,0,.3);
-      transition: .35s var(--ease);
-    }
-
-    .floating-btn:hover {
-      transform: translateY(-5px) scale(1.05);
     }
 
 
     /* =========================================================
-       REVEAL
+       PROJECT DETAIL / SUB-PAGE VIEW
     ========================================================= */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(50px);
-      transition:
-        opacity 1s var(--ease),
-        transform 1s var(--ease);
-    }
-
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-60px);
-      transition:
-        opacity 1s var(--ease),
-        transform 1s var(--ease);
-    }
-
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(60px);
-      transition:
-        opacity 1s var(--ease),
-        transform 1s var(--ease);
-    }
-
-    .reveal.visible,
-    .reveal-left.visible,
-    .reveal-right.visible {
-      opacity: 1;
-      transform: translate(0);
-    }
-
-
-    /* =========================================================
-       PROJECT DETAIL VIEW
-    ========================================================= */
-
-
-    .craft-detail-hero .detail-hero-image {
-      filter: saturate(.95);
-    }
-
-    .craft-detail-copy h3 {
-      font-family: var(--serif);
-      font-size: 30px;
-      color: var(--gold-light);
-      margin: 35px 0 12px;
-      text-transform: uppercase;
-    }
-
-    .detail-gallery .gallery-item {
-      overflow: hidden;
-      background: var(--beige-light);
-      padding: 10px !important;
-    }
-
-    .detail-gallery .gallery-item img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 320px;
-      object-fit: cover;
-      transition: transform .8s var(--ease);
-    }
-
-    .detail-gallery .gallery-item:hover img {
-      transform: scale(1.035);
-    }
-
-    .detail-gallery .gallery-item:nth-child(n) {
-      grid-column: span 6;
-      padding-top: 0;
-    }
-
-    .detail-gallery .gallery-item:nth-child(3n + 1) {
-      grid-column: span 7;
-    }
-
-    .detail-gallery .gallery-item:nth-child(3n + 2) {
-      grid-column: span 5;
-      margin-top: 60px;
-    }
-
-    .detail-gallery .gallery-item:nth-child(3n) {
-      grid-column: span 6;
-    }
-
-    .detail-back-row {
-      margin-bottom: 35px;
-    }
 
     .project-detail {
       display: none;
@@ -1608,11 +1176,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(
-          transparent 20%,
-          rgba(23,11,7,.95)
-        );
+      background: linear-gradient(transparent 20%, rgba(23,11,7,.95));
     }
 
     .detail-hero-content {
@@ -1625,14 +1189,13 @@
 
     .detail-hero-content h1 {
       font-family: var(--serif);
-      font-size: clamp(65px, 11vw, 150px);
-      line-height: .78;
+      font-size: clamp(55px, 10vw, 130px);
+      line-height: .8;
       font-weight: 500;
     }
 
     .detail-meta {
       margin-top: 30px;
-      text-transform: uppercase;
       letter-spacing: .18em;
       color: var(--gold-light);
       font-size: 10px;
@@ -1661,2456 +1224,846 @@
 
     .detail-story h2 {
       font-family: var(--serif);
-      font-size: 65px;
+      font-size: 55px;
       line-height: .9;
-      font-weight: 500;
     }
 
     .detail-story-copy {
       line-height: 2;
       font-size: 15px;
-      opacity: .75;
-    }
-
-    .detail-story-copy p {
-      margin-bottom: 25px;
-    }
-
-    .detail-elements {
-      margin-top: 70px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .detail-tag {
-      border: 1px solid rgba(197,161,91,.4);
-      padding: 12px 17px;
-      color: var(--gold-light);
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .12em;
+      opacity: .8;
     }
 
     .detail-gallery {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 50px;
     }
 
-    .gallery-image {
-      height: 520px;
+    .gallery-card-item {
+      height: 500px;
+      position: relative;
+    }
+
+    .gallery-card-item img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-    }
-
-    .gallery-item:nth-child(1) {
-      grid-column: span 7;
-    }
-
-    .gallery-item:nth-child(2) {
-      grid-column: span 5;
-      padding-top: 100px;
-    }
-
-    .gallery-item:nth-child(3) {
-      grid-column: span 5;
-    }
-
-    .gallery-item:nth-child(4) {
-      grid-column: span 7;
-      padding-top: 100px;
-    }
-
-    .gallery-item:nth-child(5) {
-      grid-column: span 8;
-    }
-
-    .gallery-item:nth-child(6) {
-      grid-column: span 4;
-      padding-top: 80px;
-    }
-
-    .detail-cta {
-      text-align: center;
-      padding: 150px 20px;
-      background: var(--beige);
-      color: var(--ink);
-    }
-
-    .detail-cta h2 {
-      font-family: var(--serif);
-      font-size: clamp(50px, 7vw, 100px);
-      line-height: .85;
-      font-weight: 500;
     }
 
 
     /* =========================================================
-       RESPONSIVE
+       RESPONSIVE BREAKPOINTS
     ========================================================= */
 
     @media (max-width: 1100px) {
-
-      .container,
-      .hero-content,
-      .detail-hero-content {
-        width: min(calc(100% - 50px), var(--container));
+      .craft-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-
-      .legacy-grid,
-      .approach-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-      }
-
-      .legacy-copy {
-        padding-right: 0;
-      }
-
-      .royal-intro {
-        grid-template-columns: 1fr;
-      }
-
       .offer-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-
-      .craft-cards {
-        grid-template-columns: repeat(3, 1fr);
+      .material-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-
-      .project-card:nth-child(1) {
-        grid-column: span 12;
-      }
-
-      .project-card:nth-child(2),
-      .project-card:nth-child(3),
-      .project-card:nth-child(4) {
-        grid-column: span 4;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .footer-brand {
-        grid-column: 1 / -1;
-      }
-
-      .detail-story {
+      .project-row-grid {
         grid-template-columns: 1fr;
-        gap: 50px;
+      }
+      .project-featured-card {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 800px) {
-
-      .section {
-        padding: 90px 0;
-      }
-
-      .container,
-      .hero-content,
-      .detail-hero-content {
-        width: min(calc(100% - 35px), var(--container));
-      }
-
-      .brand-text {
-        display: none;
-      }
-
-      .hero-content {
-        padding-bottom: 60px;
-      }
-
-      .hero-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero-scroll {
-        writing-mode: horizontal-tb;
-        flex-direction: row;
-      }
-
-      .hero-scroll::after {
-        width: 50px;
-        height: 1px;
-      }
-
-      .expertise-header,
-      .projects-header {
-        display: block;
-      }
-
-      .projects-grid {
+      .craft-cards-grid, .material-grid, .offer-grid {
         grid-template-columns: 1fr;
       }
-
-      .project-card:nth-child(1),
-      .project-card:nth-child(2),
-      .project-card:nth-child(3),
-      .project-card:nth-child(4) {
-        grid-column: auto;
-        margin-top: 0;
-      }
-
-      .project-card:nth-child(1) {
+      .heritage-project-showcase {
         grid-template-columns: 1fr;
       }
-
-      .craft-cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .craft-card:nth-child(even) {
-        margin-top: 30px;
-      }
-
-      .expertise-item {
-        grid-template-columns: 55px 1fr 20px;
-        gap: 15px;
-      }
-
-      .expertise-content h3 {
-        font-size: 27px;
-      }
-
-      .projects-grid {
+      .detail-gallery {
         grid-template-columns: 1fr;
-      }
-
-      .project-card:nth-child(2),
-      .project-card:nth-child(3) {
-        margin-top: 0;
-      }
-
-      .project-card {
-        min-height: 540px;
-      }
-
-      .craft-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .craft-image {
-        min-height: 450px;
-      }
-
-      .craft-list {
-        padding: 35px 25px;
-      }
-
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .menu-side {
-        display: none;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 50px;
-      }
-
-      .footer-brand {
-        grid-column: auto;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-      }
-
-      .form {
-        padding: 30px 22px;
-      }
-
-      .gallery-item,
-      .gallery-item:nth-child(n) {
-        grid-column: span 12;
-        padding-top: 0;
-      }
-
-      .gallery-image {
-        height: 430px;
-      }
-
-      .back-projects {
-        left: 20px;
-        top: 100px;
-      }
-    }
-
-    @media (max-width: 520px) {
-
-      .section-title {
-        font-size: 55px;
-      }
-
-      .hero h1 {
-        font-size: 64px;
-      }
-
-      .legacy-image {
-        height: 470px;
-      }
-
-      .heritage-visual {
-        height: 500px;
-      }
-
-      .offer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .craft-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .craft-card,
-      .craft-card:nth-child(even) {
-        margin-top: 0;
-      }
-
-      .project-card {
-        min-height: 0;
-      }
-
-      .project-card img {
-        min-height: 280px;
-      }
-
-      .project-content {
-        padding: 28px;
-      }
-
-      .project-content h3 {
-        font-size: 48px;
-      }
-
-      .craft-row {
-        font-size: 20px;
-      }
-
-      .floating-actions {
-        right: 15px;
-        bottom: 15px;
       }
     }
 
   </style>
 </head>
 
-
 <body>
 
-  <!-- =========================================================
-       PRELOADER
-  ========================================================== -->
-
+  <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="loader-inner">
-      <img class="preloader-logo" src="logo.jpeg" alt="Rathore Heritage Developers logo">
+      <div class="loader-mark"></div>
       <div class="loader-text">Rathore Heritage</div>
     </div>
   </div>
 
 
-  <!-- =========================================================
-       HEADER
-  ========================================================== -->
-
+  <!-- HEADER -->
   <header id="header">
-
     <div class="container nav">
-
       <a href="#home" class="brand" onclick="goHome()">
-
-        <img class="brand-logo" src="logo.jpeg" alt="Rathore Heritage Developers logo">
-
+        <div class="brand-symbol">
+          <img src="logo.jpeg" alt="Rathore Logo">
+        </div>
         <div class="brand-text">
           <strong>RATHORE</strong>
           <small>HERITAGE DEVELOPERS</small>
         </div>
-
       </a>
-
       <button class="menu-trigger" id="menuTrigger">
-
         <span>Menu</span>
-
         <span class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </span>
-
       </button>
-
     </div>
-
   </header>
 
 
-  <!-- =========================================================
-       MENU
-  ========================================================== -->
-
+  <!-- FULLSCREEN MENU -->
   <div class="menu-overlay" id="menuOverlay">
-
     <div class="container menu-grid">
-
       <nav class="menu-links">
-
         <a href="#home">Home</a>
         <a href="#legacy">Our Legacy</a>
-        <a href="#expertise">Our Heritage Our Heritage Craftsmanship</a>
+        <a href="#craftsmanship">Our Heritage Craftsmanship</a>
+        <a href="#materialboard">Material Board</a>
+        <a href="#projects">Signature Projects</a>
+        <a href="#heritageproj">Our Heritage Project</a>
         <a href="#approach">Our Approach</a>
         <a href="#offer">What We Offer</a>
-        <a href="#projects">Projects</a>
-        <a href="#expertise">OUR HERITAGE CRAFTSMANSHIP</a>
         <a href="#contact">Contact</a>
-
       </nav>
-
       <div class="menu-side">
-
-        <img
-          class="menu-image"
-          src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-          alt="Rajasthan heritage architecture"
-        >
-
+        <img class="menu-image" src="about.jpeg" alt="Rajasthan architecture">
         <div class="menu-side-copy">
-
           <div class="eyebrow">Rathore Heritage</div>
-
-          <p>
-            Where timeless Indian heritage meets royal living.
-          </p>
-
+          <p>Where timeless Indian heritage meets royal living.</p>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
 
-  <!-- =========================================================
-       HOME VIEW
-  ========================================================== -->
-
+  <!-- HOME VIEW -->
   <main class="home-view" id="homeView">
 
-
-    <!-- HERO -->
-
+    <!-- HERO SECTION WITH VIDEO -->
     <section class="hero" id="home">
-
-      <video
-        class="hero-video hero-image"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        aria-label="Rathore Heritage Developers heritage architecture"
-      >
+      <video class="hero-video" autoplay muted loop playsinline>
         <source src="hero.mp4" type="video/mp4">
       </video>
-
       <div class="hero-content">
-
-        <div class="hero-kicker">
-          Rathore Heritage Developers
-        </div>
-
-        <h1>
-          Where <em>Royalty</em><br>
-          Becomes Legacy.
-        </h1>
-
+        <div class="hero-kicker">Rathore Heritage Developers</div>
+        <h1>Where <em>Royalty</em> Becomes Legacy.</h1>
         <div class="hero-bottom">
-
           <div>
-
             <p class="hero-description">
-              CREATING AUTHENTIC HERITAGE SPACES INSPIRED BY THE ROYAL
-              ARCHITECTURE AND TIMELESS CRAFTSMANSHIP OF RAJASTHAN.
-              FROM HAVELIS AND VILLAS TO HERITAGE INTERIORS,
-              EVERY DETAIL IS CRAFTED TO PRESERVE A LIVING LEGACY.
+              Creating authentic heritage spaces inspired by royal architecture and timeless craftsmanship of Rajasthan. From havelis and villas to heritage interiors, every detail is crafted to preserve a living legacy.
             </p>
-
-            <a href="#projects" class="luxury-btn magnetic">
-              Explore Our Signature Projects
-              <i class="fa-solid fa-arrow-right"></i>
+            <a href="#projects" class="luxury-btn">
+              Explore Signature Projects <i class="fa-solid fa-arrow-right"></i>
             </a>
-
           </div>
-
-          <div class="hero-scroll">
-            Scroll to discover
-          </div>
-
+          <div class="hero-scroll">Scroll to discover</div>
         </div>
-
       </div>
-
     </section>
 
 
-    <!-- =======================================================
-         LEGACY
-    ======================================================== -->
-
+    <!-- LEGACY (ABOUT) -->
     <section class="section brown" id="legacy">
-
       <div class="container legacy-grid">
-
-        <div class="legacy-image-wrap reveal-left">
-
-          <img
-            class="legacy-image"
-            src="about.jpeg"
-            alt="Indian heritage interior"
-          >
-
+        <div class="legacy-image-wrap">
+          <img class="legacy-image" src="about.jpeg" alt="About Rathore Heritage">
           <div class="image-frame"></div>
-
         </div>
-
-        <div class="legacy-copy reveal-right">
-
-          <div class="eyebrow">
-            Our Legacy
-          </div>
-
-          <h2 class="section-title">
-            Architecture<br>
-            That <span>Remembers.</span>
-          </h2>
-
+        <div class="legacy-copy">
+          <div class="eyebrow">About Rathore Heritage Developers</div>
+          <h2 class="section-title">Architecture That Remembers.</h2>
           <div class="gold-line"></div>
-
           <p>
-            Rathore Heritage Developers specializes in authentic
-            heritage construction with deep expertise in traditional
-            architectural craftsmanship.
+            Rathore Heritage Developers specializes in authentic heritage construction with deep expertise in traditional architectural craftsmanship. We design luxurious heritage spaces including havelis, villas, resorts, and palace-style interiors that reflect royal elegance and cultural authenticity.
           </p>
-
           <p>
-            We design luxurious heritage spaces including havelis,
-            villas, resorts and palace-style interiors that reflect
-            royal elegance and cultural authenticity.
+            Our projects feature signature elements like Heritage Dodi entrances, Thekri glass work, heritage-style bars, intricately carved furniture, decorative pillars, and traditional Jhomer chandeliers. Ceilings are artistically detailed with Mor Pankh (peacock feather) themes, along with authentic Pipla Patti and Tordi craftsmanship.
           </p>
-
           <p>
-            From Heritage Dodi entrances and Thekri glass work to
-            carved furniture, decorative pillars, Mor Pankh ceilings,
-            Pipla Patti, Tordi craftsmanship, Ghokda-style domes and
-            Khajur Patti marble detailing, every element is considered
-            as part of the larger story.
+            We also design Ghokda-style domes and marble borders with Khajur Patti detailing, preserving the true essence of heritage architecture. By blending traditional artistry with strong civil engineering practices, we ensure strength, durability, and timeless beauty in every project.
           </p>
-
-          <p>
-            Our approach brings traditional artistry together with
-            strong civil engineering practices to achieve strength,
-            durability and timeless beauty.
-          </p>
-
-          <div class="signature">
-            Royal spaces. Timeless legacy.
-          </div>
-
+          <div class="signature">Royal spaces. Timeless legacy.</div>
         </div>
-
       </div>
-
     </section>
 
 
-    <!-- =======================================================
-         ROYAL RAJASTHAN
-    ======================================================== -->
-
-    <section class="section beige">
-
+    <!-- OUR HERITAGE CRAFTSMANSHIP (10 Cards: Square & Dome sequence) -->
+    <section class="section beige" id="craftsmanship">
       <div class="container">
-
-        <div class="royal-intro">
-
-          <div class="reveal-left">
-
-            <div class="eyebrow">
-              Inspired by Royal Rajasthan
-            </div>
-
-            <h2 class="section-title">
-              The Language<br>
-              of <span>Royalty.</span>
-            </h2>
-
-            <p class="section-intro">
-              Rajasthan's architectural language lives in its proportions,
-              courtyards, arches, carved surfaces, jharokhas, domes and
-              handcrafted details. We translate that vocabulary into
-              spaces made for modern generations.
-            </p>
-
+        <div class="craftsmanship-header">
+          <div>
+            <div class="eyebrow">Our Craftsmanship</div>
+            <h2 class="section-title">Our Heritage Craftsmanship</h2>
           </div>
-
-          <div class="element-cloud reveal-right">
-
-            <div class="element-pill">Jharokha</div>
-            <div class="element-pill">Toran</div>
-            <div class="element-pill">Chhatri</div>
-            <div class="element-pill">Dome</div>
-            <div class="element-pill">Jali</div>
-            <div class="element-pill">Mehrab</div>
-            <div class="element-pill">Baradari</div>
-            <div class="element-pill">Arches</div>
-            <div class="element-pill">Pillars</div>
-            <div class="element-pill">Cornices</div>
-            <div class="element-pill">Brackets</div>
-            <div class="element-pill">Pipla Patti</div>
-            <div class="element-pill">Tordi</div>
-            <div class="element-pill">Khajur Patti</div>
-            <div class="element-pill">Thekri Glass</div>
-            <div class="element-pill">Belgium Glass</div>
-            <div class="element-pill">Carved Stone</div>
-            <div class="element-pill">Royal Furniture</div>
-
-          </div>
-
-        </div>
-
-        <div class="heritage-visual reveal">
-
-          <img
-            src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1800&q=90"
-            alt="Rajasthan palace architecture"
-          >
-
-          <div class="heritage-caption">
-
-            <div class="eyebrow">
-              Living Heritage
-            </div>
-
-            <h3>
-              Inspired by the royal soul of Rajasthan.
-            </h3>
-
-            <p>
-              Traditional forms, authentic materials and detailed
-              craftsmanship become spaces that feel royal, authentic
-              and timeless.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =======================================================
-         HERITAGE EXPERTISE
-    ======================================================== -->
-
-    
-    <!-- =======================================================
-         OUR HERITAGE CRAFTSMANSHIP
-    ======================================================== -->
-
-    <section class="section brown" id="expertise">
-
-      <div class="container">
-
-        <div class="craft-header reveal">
-
-          <div class="eyebrow">
-            OUR HERITAGE CRAFTSMANSHIP
-          </div>
-
-          <h2 class="section-title">
-            CRAFTED<br>
-            <span>WITHOUT COMPROMISE.</span>
-          </h2>
-
           <p class="section-intro">
-            WE FOCUS ON EVERY DETAIL - FROM FLOORING TO CEILING, LIGHTING TO FURNITURE - TO DELIVER A COMPLETE ROYAL PALACE-STYLE HERITAGE EXPERIENCE.
+            We focus on every detail — from flooring to ceiling, lighting to furniture — to deliver a complete royal palace-style heritage experience.
           </p>
-
         </div>
 
-        <div class="craft-cards">
-
-          <article class="craft-card dome reveal" onclick="openCraft('craft01')">
-            <div class="craft-card-media">
-              <img src="card1.jpeg" alt="Complete Heritage Building & Room Transformation" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">01</span>
-              <h3>Complete Heritage Building & Room Transformation</h3>
-              <p>FROM STRUCTURE TO FINISHING, WE TRANSFORM COMPLETE SPACES INTO COHESIVE ROYAL HERITAGE ENVIRONMENTS.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card square reveal" onclick="openCraft('craft02')">
-            <div class="craft-card-media">
-              <img src="card2.jpeg" alt="Traditional Jharokha Design & Architectural Elements" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">02</span>
-              <h3>Traditional Jharokha Design & Architectural Elements</h3>
-              <p>TIMELESS JHAROKHAS, ARCHES, DOMES AND ARCHITECTURAL DETAILS INSPIRED BY RAJASTHAN'S ROYAL LANGUAGE.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card dome reveal" onclick="openCraft('craft03')">
-            <div class="craft-card-media">
-              <img src="card3.jpeg" alt="Pipal Patti & Aasnot Patti Wall Detailing" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">03</span>
-              <h3>Pipal Patti & Aasnot Patti Wall Detailing</h3>
-              <p>INTRICATE WALL AND SURFACE DETAILING THAT BRINGS TRADITIONAL HERITAGE CHARACTER INTO EVERY SPACE.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card square reveal" onclick="openCraft('craft04')">
-            <div class="craft-card-media">
-              <img src="card4.jpeg" alt="Thekari Glass & Premium Belgium Glass Work" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">04</span>
-              <h3>Thekari Glass & Premium Belgium Glass Work</h3>
-              <p>HANDCRAFTED GLASS INLAY AND PREMIUM BELGIUM GLASS WORK FOR LIGHT, REFLECTION AND ROYAL DEPTH.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card dome reveal" onclick="openCraft('craft05')">
-            <div class="craft-card-media">
-              <img src="card5.jpeg" alt="Royal Chandeliers (Jhumer) & Antique Wall Lighting" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">05</span>
-              <h3>Royal Chandeliers (Jhumer) & Antique Wall Lighting</h3>
-              <p>STATEMENT JHUMER CHANDELIERS AND ANTIQUE LIGHTING THAT CREATE A WARM PALACE-LIKE ATMOSPHERE.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card square reveal" onclick="openCraft('craft06')">
-            <div class="craft-card-media">
-              <img src="card6.jpeg" alt="Hanging Lights & Palace-style Illumination" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">06</span>
-              <h3>Hanging Lights & Palace-style Illumination</h3>
-              <p>LAYERED HANGING LIGHTS AND DECORATIVE ILLUMINATION DESIGNED TO ENHANCE HERITAGE ARCHITECTURE.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card dome reveal" onclick="openCraft('craft07')">
-            <div class="craft-card-media">
-              <img src="card7.jpeg" alt="Handcrafted Paintings & Intricate Carving" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">07</span>
-              <h3>Handcrafted Paintings & Intricate Carving</h3>
-              <p>ARTISTIC PAINTINGS AND DETAILED CARVING THAT ADD HUMAN CRAFTSMANSHIP AND CULTURAL SOUL.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card square reveal" onclick="openCraft('craft08')">
-            <div class="craft-card-media">
-              <img src="card8.jpeg" alt="Custom Heritage Furniture" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">08</span>
-              <h3>Custom Heritage Furniture</h3>
-              <p>CARVED FURNITURE, OTTOMANS, STUDY TABLES AND BEDROOM SETS CUSTOMISED FOR ROYAL INTERIORS.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card dome reveal" onclick="openCraft('craft09')">
-            <div class="craft-card-media">
-              <img src="card9.jpeg" alt="Royal Curtains & Interior Styling" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">09</span>
-              <h3>Royal Curtains & Interior Styling</h3>
-              <p>CURTAINS, TEXTILES AND LAYERED INTERIOR STYLING THAT COMPLETE THE ROYAL HERITAGE EXPERIENCE.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
-
-          <article class="craft-card square reveal" onclick="openCraft('craft10')">
-            <div class="craft-card-media">
-              <img src="card10.jpeg" alt="Heritage Flooring & Decorative Ceiling Work" loading="lazy">
-            </div>
-            <div class="craft-card-body">
-              <span class="craft-number">10</span>
-              <h3>Heritage Flooring & Decorative Ceiling Work</h3>
-              <p>HERITAGE FLOORING, MARBLE DETAILS AND DECORATIVE CEILINGS FINISHED WITH CARE FROM FLOOR TO CEILING.</p>
-              <span class="craft-card-more">View Craft <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-          </article>
-
+        <div class="craft-cards-grid" id="craftCardsGrid">
+          <!-- Injected dynamically via script with correct sequence of Square / Dome and card1 - card10 images -->
         </div>
-
       </div>
-
     </section>
 
 
+    <!-- MATERIAL BOARD SECTION (M1 - M8) -->
+    <section class="section brown" id="materialboard">
+      <div class="container">
+        <div class="eyebrow">Material Collection</div>
+        <h2 class="section-title">Material Board</h2>
+        <div class="gold-line"></div>
+        <p class="section-intro" style="margin-bottom: 40px;">
+          Authentic material selection curated for texture, richness, and enduring structural fidelity.
+        </p>
 
-    <!-- =======================================================
-         APPROACH
-    ======================================================== -->
+        <div class="material-grid" id="materialGrid">
+          <!-- Injected dynamically for M1 - M8 with alternating square and dome shapes -->
+        </div>
+      </div>
+    </section>
 
+
+    <!-- SIGNATURE PROJECTS SECTION (Ref match layout) -->
+    <section class="section beige" id="projects">
+      <div class="container">
+        <div class="projects-header">
+          <div>
+            <div class="eyebrow">Signature Works</div>
+            <h2 class="section-title">Our Signature Projects</h2>
+          </div>
+          <p class="section-intro">
+            Explore our defining heritage masterpieces crafted with uncompromising precision.
+          </p>
+        </div>
+
+        <div class="signature-layout">
+          <!-- Top Full Width Card: Oladar Haveli -->
+          <div class="project-featured-card" onclick="openProject('oladar')">
+            <div class="project-featured-content">
+              <div class="eyebrow">Udaipur · Heritage Haveli Construction</div>
+              <h3 style="font-family:var(--serif); font-size:48px; color:var(--cream); margin-bottom:15px;">Oladar Haveli</h3>
+              <p style="color:rgba(255,250,240,.75); font-size:14px; line-height:1.8; margin-bottom:25px;">
+                A heritage haveli language composed through carved dodi, glass, painted surfaces and engineered permanence.
+              </p>
+              <span class="luxury-btn" style="width:fit-content; border-color:var(--gold);">
+                View Project <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </div>
+            <div>
+              <img src="oladar1.jpeg" alt="Oladar Haveli">
+            </div>
+          </div>
+
+          <!-- Bottom 3 Cards Grid -->
+          <div class="project-row-grid">
+            <!-- Roop Mahal -->
+            <div class="project-card-box" onclick="openProject('roopmahal')">
+              <div class="beige-card-wrap">
+                <div class="project-card-img">
+                  <img src="roop1.jpeg" alt="Roop Mahal">
+                </div>
+                <div class="project-card-info">
+                  <div class="eyebrow">Udaipur · Luxury Heritage Villa</div>
+                  <h3>Roop Mahal</h3>
+                  <p>A villa experience shaped around royal proportion, texture and refined hospitality.</p>
+                  <span class="luxury-btn" style="border-color:var(--gold-dark); color:var(--ink);">
+                    View Project <i class="fa-solid fa-arrow-right"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mohan Villa -->
+            <div class="project-card-box" onclick="openProject('mohan')">
+              <div class="beige-card-wrap">
+                <div class="project-card-img">
+                  <img src="mohan1.jpeg" alt="Mohan Villa">
+                </div>
+                <div class="project-card-info">
+                  <div class="eyebrow">Udaipur · Heritage Style Villa / Farmhouse</div>
+                  <h3>Mohan Villa</h3>
+                  <p>A farmhouse vocabulary elevated through heritage planning and hand-finished detail.</p>
+                  <span class="luxury-btn" style="border-color:var(--gold-dark); color:var(--ink);">
+                    View Project <i class="fa-solid fa-arrow-right"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- First Impression Salon -->
+            <div class="project-card-box" onclick="openProject('salon')">
+              <div class="beige-card-wrap">
+                <div class="project-card-img">
+                  <img src="first1.jpeg" alt="First Impression Salon">
+                </div>
+                <div class="project-card-info">
+                  <div class="eyebrow">Udaipur · Premium Commercial Interior</div>
+                  <h3>First Impression Salon</h3>
+                  <p>Commercial interiors with a premium heritage sensibility and tactile identity.</p>
+                  <span class="luxury-btn" style="border-color:var(--gold-dark); color:var(--ink);">
+                    View Project <i class="fa-solid fa-arrow-right"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- OUR HERITAGE PROJECT SECTION (Oladar Haveli focused extra showcase) -->
+    <section class="section brown" id="heritageproj">
+      <div class="container">
+        <div class="eyebrow">Featured Execution</div>
+        <h2 class="section-title">Our Heritage Project - Oladar Haveli</h2>
+        <div class="gold-line"></div>
+        <p class="section-intro">
+          The Oladar Haveli project has been designed and executed in a complete traditional heritage style, while ensuring modern structural strength, quality control, and durability from foundation to final finishing.
+        </p>
+
+        <div class="heritage-project-showcase" id="heritageProjGrid">
+          <!-- Injected via script using oladar1-10.jpeg with beige surrounding cards -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- APPROACH -->
     <section class="section beige approach" id="approach">
-
       <div class="container approach-grid">
-
-        <div class="reveal-left">
-
-          <div class="eyebrow">
-            Our Approach
-          </div>
-
+        <div>
+          <div class="eyebrow">Our Approach</div>
           <div class="approach-quote">
-            From<br>
-            Architecture<br>
-            to <em>Art.</em>
+            From<br>Architecture<br>to <em>Art.</em>
           </div>
-
           <div class="gold-line"></div>
-
           <p class="section-intro">
-            We believe heritage architecture is defined not only
-            by its structure, but by the details that give it a soul.
+            We believe heritage architecture is defined not only by its structure, but by the details that give it a soul.
           </p>
-
         </div>
-
-
-        <div class="principles reveal-right">
-
+        <div class="principles">
           <div class="principle">
-
-            <div class="principle-number">
-              01
-            </div>
-
-            <h4>
-              Traditional Craftsmanship
-            </h4>
-
+            <div class="principle-number">01</div>
+            <h4>Traditional Craftsmanship</h4>
           </div>
-
           <div class="principle">
-
-            <div class="principle-number">
-              02
-            </div>
-
-            <h4>
-              Authentic Materials
-            </h4>
-
+            <div class="principle-number">02</div>
+            <h4>Authentic Materials</h4>
           </div>
-
           <div class="principle">
-
-            <div class="principle-number">
-              03
-            </div>
-
-            <h4>
-              Architectural Detailing
-            </h4>
-
+            <div class="principle-number">03</div>
+            <h4>Architectural Detailing</h4>
           </div>
-
           <div class="principle">
-
-            <div class="principle-number">
-              04
-            </div>
-
-            <h4>
-              Modern Construction Understanding
-            </h4>
-
+            <div class="principle-number">04</div>
+            <h4>Modern Construction Understanding</h4>
           </div>
-
-          <div class="multiplication">
-            Craftsmanship × Materials × Detail × Engineering
-          </div>
-
         </div>
-
       </div>
-
     </section>
 
 
-    <!-- =======================================================
-         WHAT WE OFFER
-    ======================================================== -->
-
-    <section class="section beige" id="offer">
-
+    <!-- WHAT WE OFFER -->
+    <section class="section beige" id="offer" style="padding-top:0;">
       <div class="container">
-
-        <div class="reveal">
-
-          <div class="eyebrow">
-            What We Offer
-          </div>
-
-          <h2 class="section-title">
-            Spaces Built<br>
-            for <span>Legacy.</span>
-          </h2>
-
-        </div>
-
+        <div class="eyebrow">What We Offer</div>
+        <h2 class="section-title">Spaces Built for Legacy.</h2>
 
         <div class="offer-grid">
-
-          <article class="offer-card reveal">
-
+          <article class="offer-card">
             <div class="offer-number">01</div>
-
-            <h3>
-              Heritage Haveli Construction
-            </h3>
-
-            <p>
-              Complete traditional haveli development with authentic
-              architectural detailing and strong structural execution.
-            </p>
-
+            <h3>Heritage Haveli Construction</h3>
+            <p>Complete traditional haveli development with authentic architectural detailing and strong structural execution.</p>
           </article>
-
-
-          <article class="offer-card reveal">
-
+          <article class="offer-card">
             <div class="offer-number">02</div>
-
-            <h3>
-              Luxury Heritage Villas
-            </h3>
-
-            <p>
-              Royal-style villas designed with heritage aesthetics
-              and modern civil engineering standards.
-            </p>
-
+            <h3>Luxury Heritage Villas</h3>
+            <p>Royal-style villas designed with heritage aesthetics and modern civil engineering standards.</p>
           </article>
-
-
-          <article class="offer-card reveal">
-
+          <article class="offer-card">
             <div class="offer-number">03</div>
-
-            <h3>
-              Palace-Style Farmhouse Development
-            </h3>
-
-            <p>
-              Grand farmhouse projects featuring domes, carved
-              stonework, decorative pillars and heritage ceilings.
-            </p>
-
+            <h3>Palace-Style Farmhouse Development</h3>
+            <p>Grand farmhouse projects featuring domes, carved stonework, decorative pillars and heritage ceilings.</p>
           </article>
-
-
-          <article class="offer-card reveal">
-
+          <article class="offer-card">
             <div class="offer-number">04</div>
-
-            <h3>
-              Heritage Hotels & Resort Development
-            </h3>
-
-            <p>
-              Culturally rich hospitality spaces crafted with
-              traditional craftsmanship and premium finishing.
-            </p>
-
+            <h3>Heritage Hotels & Resort Development</h3>
+            <p>Culturally rich hospitality spaces crafted with traditional craftsmanship and premium finishing.</p>
           </article>
-
-
-          <article class="offer-card reveal">
-
+          <article class="offer-card">
             <div class="offer-number">05</div>
-
-            <h3>
-              Premium Heritage Commercial Interiors
-            </h3>
-
-            <p>
-              Heritage-inspired interiors featuring Thekri glass,
-              Heritage Dodi, Mor Pankh ceilings, Jhomer chandeliers,
-              carved furniture and customized royal detailing.
-            </p>
-
+            <h3>Premium Heritage Commercial Interiors</h3>
+            <p>Heritage-inspired interiors featuring Thekri glass, Heritage Dodi, Mor Pankh ceilings, and custom royal detailing.</p>
           </article>
-
         </div>
-
       </div>
-
     </section>
 
 
-    <!-- =======================================================
-         SIGNATURE PROJECTS
-    ======================================================== -->
-
-    
-    <!-- =======================================================
-         OUR SIGNATURE PROJECTS
-    ======================================================== -->
-
-    <section class="section beige" id="projects">
-
-      <div class="container">
-
-        <div class="projects-header">
-
-          <div class="reveal-left">
-
-            <div class="eyebrow">
-              OUR SIGNATURE PROJECTS
-            </div>
-
-            <h2 class="section-title">
-              PLACES THAT<br>
-              CARRY <span>STORIES.</span>
-            </h2>
-
-          </div>
-
-          <p class="section-intro reveal-right">
-            EXPLORE SELECTED HERITAGE PROJECTS WHERE ARCHITECTURE, CRAFTSMANSHIP AND ROYAL CHARACTER COME TOGETHER.
-          </p>
-
-        </div>
-
-        <div class="projects-grid">
-
-          <article class="project-card reveal" onclick="openProject('oladar')">
-            <img src="oladar1.jpeg"
-                 alt="OLADAR HAVELI"
-                 loading="lazy">
-
-            <div class="project-content">
-              <div class="project-index">01</div>
-              <h3>OLADAR<br>HAVELI</h3>
-              <div class="project-meta">UDAIPUR · HERITAGE HAVELI CONSTRUCTION</div>
-              <p class="project-tagline">A HERITAGE HAVELI EMBRACING SPACES WITH ROYAL GRACE, WARM PALETTE AND TIMELESS CRAFTSMANSHIP.</p>
-              <div class="project-view">
-                VIEW PROJECT
-                <i class="fa-solid fa-arrow-right"></i>
-              </div>
-            </div>
-          </article>
-
-
-          <article class="project-card reveal" onclick="openProject('roopmahal')">
-            <img src="roop1.jpeg"
-                 alt="ROOP MAHAL"
-                 loading="lazy">
-
-            <div class="project-content">
-              <div class="project-index">02</div>
-              <h3>ROOP MAHAL</h3>
-              <div class="project-meta">UDAIPUR · LUXURY HERITAGE VILLA</div>
-              <p class="project-tagline">A WARM HERITAGE-INSPIRED LUXURY VILLA, WHERE ROYAL DETAILS MEET REFINED ELEGANCE.</p>
-              <div class="project-view">
-                VIEW PROJECT
-                <i class="fa-solid fa-arrow-right"></i>
-              </div>
-            </div>
-          </article>
-
-
-          <article class="project-card reveal" onclick="openProject('mohan')">
-            <img src="mohan1.jpeg"
-                 alt="MOHAN VILLA"
-                 loading="lazy">
-
-            <div class="project-content">
-              <div class="project-index">03</div>
-              <h3>MOHAN VILLA</h3>
-              <div class="project-meta">UDAIPUR · HERITAGE STYLE VILLA / FARMHOUSE</div>
-              <p class="project-tagline">A TRADITIONAL VILLA WHERE HERITAGE CRAFTSMANSHIP MEETS PALACE-LIKE COMFORT.</p>
-              <div class="project-view">
-                VIEW PROJECT
-                <i class="fa-solid fa-arrow-right"></i>
-              </div>
-            </div>
-          </article>
-
-
-          <article class="project-card reveal" onclick="openProject('salon')">
-            <img src="first1.jpeg"
-                 alt="FIRST IMPRESSION SALON"
-                 loading="lazy">
-
-            <div class="project-content">
-              <div class="project-index">04</div>
-              <h3>FIRST IMPRESSION<br>SALON</h3>
-              <div class="project-meta">UDAIPUR · PREMIUM COMMERCIAL INTERIOR</div>
-              <p class="project-tagline">A PREMIUM HERITAGE-THEMED SALON WHERE ROYAL CRAFTSMANSHIP MEETS CONTEMPORARY GROOMING.</p>
-              <div class="project-view">
-                VIEW PROJECT
-                <i class="fa-solid fa-arrow-right"></i>
-              </div>
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =======================================================
-         CRAFTSMANSHIP
-    ======================================================== -->
-
-    
-
-
-    <!-- =======================================================
-         HERITAGE LANGUAGE
-    ======================================================== -->
-
-    <section class="section brown language-stage">
-
-      <img
-        class="language-bg"
-        src="https://images.unsplash.com/photo-1582972236019-ea9c3f5e2f31?auto=format&fit=crop&w=1800&q=85"
-        alt=""
-      >
-
-      <div class="language-content reveal">
-
-        <div class="eyebrow" style="justify-content:center;">
-          Our Heritage Craftsmanship
-        </div>
-
-        <h2>
-          Restoration.<br>
-          Conservation.<br>
-          <span style="color:var(--gold);">
-            Living Heritage.
-          </span>
-        </h2>
-
-        <div class="language-words">
-
-          <span class="language-word">Restoration</span>
-          <span class="language-word">Conservation</span>
-          <span class="language-word">Heritage Construction</span>
-          <span class="language-word">Royal Interiors</span>
-          <span class="language-word">Architectural Elements</span>
-          <span class="language-word">Traditional Craftsmanship</span>
-          <span class="language-word">Custom Detailing</span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =======================================================
-         PROMISE
-    ======================================================== -->
-
-    <section class="section beige promise">
-
-      <div class="container reveal">
-
-        <div class="eyebrow" style="justify-content:center;">
-          Our Promise
-        </div>
-
-        <div class="promise-text">
-
-          “We don't simply recreate the past.
-          <em>We interpret its craftsmanship
-          for the future.</em>”
-
-        </div>
-
-        <div class="promise-sub">
-          Rathore Heritage Developers
-          · Preserving History. Creating Living Heritage.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =======================================================
-         CONTACT
-    ======================================================== -->
-
+    <!-- CONTACT -->
     <section class="section beige" id="contact">
-
       <div class="container contact-grid">
-
-        <div class="reveal-left">
-
-          <div class="eyebrow">
-            Begin Your Heritage Journey
-          </div>
-
-          <h2 class="section-title">
-            Let's Create<br>
-            Something <span>Timeless.</span>
-          </h2>
-
-          <p class="section-intro">
-            Tell us about your vision and begin a conversation
-            around your heritage project.
-          </p>
-
+        <div>
+          <div class="eyebrow">Begin Your Heritage Journey</div>
+          <h2 class="section-title">Let's Create Something Timeless.</h2>
+          <p class="section-intro">Tell us about your vision and begin a conversation around your heritage project.</p>
 
           <div class="contact-details">
-
-
-            <a
-              class="contact-item"
-              href="tel:+919414228829"
-            >
-
-              <div class="contact-icon">
-                <i class="fa-solid fa-phone"></i>
-              </div>
-
+            <a class="contact-item" href="tel:+919414228829">
+              <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
               <div>
-                <small>Call</small>
+                <small style="text-transform:uppercase; font-size:9px; letter-spacing:.15em; opacity:.6;">Call</small>
                 <strong>+91 94142 28829</strong>
               </div>
-
             </a>
-
-
-            <a
-              class="contact-item"
-              href="tel:+917850015839"
-            >
-
-              <div class="contact-icon">
-                <i class="fa-solid fa-phone"></i>
-              </div>
-
+            <a class="contact-item" href="tel:+917850015839">
+              <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
               <div>
-                <small>Call</small>
+                <small style="text-transform:uppercase; font-size:9px; letter-spacing:.15em; opacity:.6;">Call</small>
                 <strong>+91 78500 15839</strong>
               </div>
-
             </a>
-
-
-            <a
-              class="contact-item"
-              href="mailto:rathoreheritagedevelopers@gmail.com"
-            >
-
-              <div class="contact-icon">
-                <i class="fa-solid fa-envelope"></i>
-              </div>
-
+            <a class="contact-item" href="mailto:rathoreheritagedevelopers@gmail.com">
+              <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
               <div>
-                <small>Email</small>
-                <strong>
-                  rathoreheritagedevelopers@gmail.com
-                </strong>
+                <small style="text-transform:uppercase; font-size:9px; letter-spacing:.15em; opacity:.6;">Email</small>
+                <strong>rathoreheritagedevelopers@gmail.com</strong>
               </div>
-
             </a>
-
-
-            <a
-              class="contact-item"
-              href="https://instagram.com/rh_heritagebuilds"
-              target="_blank"
-              rel="noopener"
-            >
-
-              <div class="contact-icon">
-                <i class="fa-brands fa-instagram"></i>
-              </div>
-
-              <div>
-                <small>Instagram</small>
-                <strong>@rh_heritagebuilds</strong>
-              </div>
-
-            </a>
-
           </div>
-
         </div>
 
-
-        <form class="form reveal-right" id="enquiryForm">
-
-          <h3>
-            Start a Conversation.
-          </h3>
-
-
+        <form class="form" id="enquiryForm">
+          <h3>Start a Conversation.</h3>
           <div class="field">
-
             <label>Your Name</label>
-
-            <input
-              type="text"
-              name="name"
-              required
-              placeholder="Enter your name"
-            >
-
+            <input type="text" name="name" required placeholder="Enter your name">
           </div>
-
-
           <div class="field">
-
             <label>Phone Number</label>
-
-            <input
-              type="tel"
-              name="phone"
-              required
-              placeholder="Enter your phone"
-            >
-
+            <input type="tel" name="phone" required placeholder="Enter your phone">
           </div>
-
-
           <div class="field">
-
             <label>Email</label>
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-            >
-
+            <input type="email" name="email" placeholder="Enter your email">
           </div>
-
-
           <div class="field">
-
             <label>Project Type</label>
-
             <select name="projectType">
-
-              <option value="">
-                Select project type
-              </option>
-
-              <option>
-                Heritage Haveli
-              </option>
-
-              <option>
-                Luxury Heritage Villa
-              </option>
-
-              <option>
-                Palace-Style Farmhouse
-              </option>
-
-              <option>
-                Heritage Hotel / Resort
-              </option>
-
-              <option>
-                Heritage Commercial Interior
-              </option>
-
-              <option>
-                Restoration / Conservation
-              </option>
-
-              <option>
-                Custom Heritage Project
-              </option>
-
+              <option value="">Select project type</option>
+              <option>Heritage Haveli</option>
+              <option>Luxury Heritage Villa</option>
+              <option>Palace-Style Farmhouse</option>
+              <option>Heritage Hotel / Resort</option>
+              <option>Heritage Commercial Interior</option>
             </select>
-
           </div>
-
-
           <div class="field">
-
             <label>Your Vision</label>
-
-            <textarea
-              name="message"
-              placeholder="Tell us about your project..."
-            ></textarea>
-
+            <textarea name="message" placeholder="Tell us about your project..."></textarea>
           </div>
-
-
-          <button
-            type="submit"
-            class="luxury-btn magnetic"
-          >
-
-            Send Enquiry
-
-            <i class="fa-solid fa-arrow-right"></i>
-
+          <button type="submit" class="luxury-btn">
+            Send Enquiry <i class="fa-solid fa-arrow-right"></i>
           </button>
-
         </form>
-
       </div>
-
     </section>
 
 
-    <!-- =======================================================
-         FOOTER
-    ======================================================== -->
-
+    <!-- FOOTER -->
     <footer>
-
       <div class="container">
-
         <div class="footer-grid">
-
-
           <div class="footer-brand">
-
-            <h2>
-              Rathore Heritage
-            </h2>
-
-            <p>
-              Preserving history. Creating living heritage.
-              Authentic Rajasthan craftsmanship interpreted
-              for spaces of today and tomorrow.
-            </p>
-
+            <h2>Rathore Heritage</h2>
+            <p>Preserving history. Creating living heritage. Authentic Rajasthan craftsmanship interpreted for spaces of today and tomorrow.</p>
           </div>
-
-
           <div class="footer-col">
-
             <h4>Explore</h4>
-
             <a href="#home">Home</a>
             <a href="#legacy">Our Legacy</a>
-            <a href="#expertise">Our Heritage Our Heritage Craftsmanship</a>
-            <a href="#approach">Our Approach</a>
-            <a href="#offer">What We Offer</a>
-            <a href="#projects">Projects</a>
-            <a href="#expertise">OUR HERITAGE CRAFTSMANSHIP</a>
+            <a href="#craftsmanship">Craftsmanship</a>
+            <a href="#materialboard">Material Board</a>
+            <a href="#projects">Signature Projects</a>
             <a href="#contact">Contact</a>
-
           </div>
-
-
           <div class="footer-col">
-
             <h4>Connect</h4>
-
-            <a href="tel:+919414228829">
-              <i class="fa-solid fa-phone"></i>
-              Call
-            </a>
-
-            <a
-              href="https://wa.me/919414228829"
-              target="_blank"
-              rel="noopener"
-            >
-              <i class="fa-brands fa-whatsapp"></i>
-              WhatsApp
-            </a>
-
-            <a href="mailto:rathoreheritagedevelopers@gmail.com">
-              <i class="fa-solid fa-envelope"></i>
-              Email
-            </a>
-
-            <a
-              href="https://instagram.com/rh_heritagebuilds"
-              target="_blank"
-              rel="noopener"
-            >
-              <i class="fa-brands fa-instagram"></i>
-              Instagram
-            </a>
-
+            <a href="tel:+919414228829"><i class="fa-solid fa-phone"></i> Call</a>
+            <a href="https://wa.me/919414228829" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <a href="mailto:rathoreheritagedevelopers@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+            <a href="https://instagram.com/rh_heritagebuilds" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
           </div>
-
         </div>
-
-
         <div class="footer-bottom">
-
-          <span>
-            © <span id="year"></span>
-            Rathore Heritage Developers
-          </span>
-
-          <span class="footer-credit">
-            Designed by Marwar Infotech
-          </span>
-
+          <span>© <span id="year"></span> Rathore Heritage Developers</span>
+          <span style="color:var(--gold);">Designed by Marwar Infotech</span>
         </div>
-
       </div>
-
     </footer>
-
   </main>
 
 
-  <!-- =========================================================
-       PROJECT DETAIL VIEW
-  ========================================================== -->
-
-  <main
-    class="project-detail"
-    id="projectDetail"
-  >
-
-    <!-- Dynamic content injected by JavaScript -->
-
-  </main>
+  <!-- PROJECT DETAIL VIEW (Dynamic Sub-page) -->
+  <main class="project-detail" id="projectDetail"></main>
 
 
-  <!-- =========================================================
-       FLOATING ACTION BUTTONS
-  ========================================================== -->
-
+  <!-- FLOATING ACTIONS -->
   <div class="floating-actions">
-
-    <a
-      class="floating-btn magnetic"
-      href="https://wa.me/919414228829"
-      target="_blank"
-      rel="noopener"
-      aria-label="WhatsApp"
-    >
-      <i class="fa-brands fa-whatsapp"></i>
+    <a class="floating-btn" href="https://wa.me/919414228829" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <i class="fa-brands fa-whatsapp" style="font-size:22px;"></i>
     </a>
-
-    <a
-      class="floating-btn magnetic"
-      href="tel:+919414228829"
-      aria-label="Call"
-    >
-      <i class="fa-solid fa-phone"></i>
+    <a class="floating-btn" href="tel:+919414228829" aria-label="Call">
+      <i class="fa-solid fa-phone" style="font-size:20px;"></i>
     </a>
-
   </div>
 
 
-  <!-- =========================================================
-       JAVASCRIPT
-  ========================================================== -->
-
+  <!-- JAVASCRIPT LOGIC -->
   <script>
 
-    /* =========================================================
-       PROJECT DATABASE
-    ========================================================= */
+    /* 10 CRAFTSMANSHIP CARDS CONFIGURATION & DOME/SQUARE PATTERN */
+    const craftCardsData = [
+      {
+        title: "Complete Heritage Building & Room Transformation.",
+        tagline: "Total architectural renewal crafted for royal spatial integrity.",
+        image: "card1.jpeg",
+        subImages: ["card11.jpeg", "card12.jpeg", "card13.jpeg", "card14.jpeg", "card15.jpeg"]
+      },
+      {
+        title: "Traditional Jharokha Design & Architectural Elements",
+        tagline: "Ornate projections defining classic Rajasthan exterior poise.",
+        image: "card2.jpeg",
+        subImages: ["card21.jpeg", "card22.jpeg", "card23.jpeg", "card24.jpeg", "card25.jpeg"]
+      },
+      {
+        title: "Pipal Patti & Aasnot Patti Wall Detailing",
+        tagline: "Refined edge motifs giving rhythm to walls and openings.",
+        image: "card3.jpeg",
+        subImages: ["card31.jpeg", "card32.jpeg", "card33.jpeg", "card34.jpeg", "card35.jpeg"]
+      },
+      {
+        title: "Thekari Glass & Premium Belgium Glass Work",
+        tagline: "Reflective fragments and luminous surfaces composed with art.",
+        image: "card4.jpeg",
+        subImages: ["card41.jpeg", "card42.jpeg", "card43.jpeg", "card44.jpeg", "card45.jpeg"]
+      },
+      {
+        title: "Royal Chandeliers (Jhumer) & Antique Wall Lighting",
+        tagline: "Light treated as atmosphere, ceremony and radiant warmth.",
+        image: "card5.jpeg",
+        subImages: ["card51.jpeg", "card52.jpeg", "card53.jpeg", "card54.jpeg", "card55.jpeg"]
+      },
+      {
+        title: "Hanging Lights & Palace-Style Illumination",
+        tagline: "Handcrafted fixtures casting timeless palace luminescence.",
+        image: "card6.jpeg",
+        subImages: ["card61.jpeg", "card62.jpeg", "card63.jpeg", "card64.jpeg", "card65.jpeg"]
+      },
+      {
+        title: "Handcrafted Paintings & Intricate Carving",
+        tagline: "Artistic surfaces preserving classical master storytelling.",
+        image: "card7.jpeg",
+        subImages: ["card71.jpeg", "card72.jpeg", "card73.jpeg", "card74.jpeg", "card75.jpeg"]
+      },
+      {
+        title: "Custom Heritage Furniture (Carved Furniture, Ottoman, Study Tables, Bedroom Sets)",
+        tagline: "Furniture conceived as architecture at human scale.",
+        image: "card8.jpeg",
+        subImages: ["card81.jpeg", "card82.jpeg", "card83.jpeg", "card84.jpeg", "card85.jpeg"]
+      },
+      {
+        title: "Royal Curtains & Interior Styling",
+        tagline: "Textiles draped in regal palettes for grand chamber presence.",
+        image: "card9.jpeg",
+        subImages: ["card91.jpeg", "card92.jpeg", "card93.jpeg", "card94.jpeg", "card95.jpeg"]
+      },
+      {
+        title: "Heritage Flooring & Decorative Ceiling Work",
+        tagline: "Stone, line and repetition refined into quiet luxury.",
+        image: "card10.jpeg",
+        subImages: ["card101.jpeg", "card102.jpeg", "card103.jpeg", "card104.jpeg", "card105.jpeg"]
+      }
+    ];
 
+    // Populate Craftsmanship Cards (5 per line, 2 rows, alternating square and dome shapes)
+    const craftGrid = document.getElementById("craftCardsGrid");
+    craftCardsData.forEach((card, index) => {
+      const shapeClass = (index % 2 === 0) ? "shape-square" : "shape-dome";
+      const div = document.createElement("div");
+      div.className = `craft-card-item ${shapeClass}`;
+      div.innerHTML = `
+        <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column;">
+          <div class="craft-card-img-wrap">
+            <img src="${card.image}" alt="${card.title}" loading="lazy">
+          </div>
+          <div class="craft-card-info" style="flex-grow:1; display:flex; flex-direction:column; justify-content:space-between;">
+            <h3>${card.title}</h3>
+            <p>${card.tagline}</p>
+          </div>
+        </div>
+      `;
+      div.addEventListener("click", () => renderCraftsmanshipDetail(card));
+      craftGrid.appendChild(div);
+    });
+
+
+    // Populate Material Board M1 - M8 (Alternating Square & Dome)
+    const materialGrid = document.getElementById("materialGrid");
+    for (let i = 1; i <= 8; i++) {
+      const shapeClass = (i % 2 !== 0) ? "shape-square" : "shape-dome";
+      const div = document.createElement("div");
+      div.className = `material-item ${shapeClass}`;
+      div.innerHTML = `
+        <div class="beige-card-wrap">
+          <div class="material-img-wrap">
+            <img src="M${i}.jpeg" alt="Material M${i}" loading="lazy">
+          </div>
+          <h4>MATERIAL ELEMENT M${i}</h4>
+        </div>
+      `;
+      materialGrid.appendChild(div);
+    }
+
+
+    // Populate Heritage Project Showcase (Oladar Haveli 1-10 with beige surrounds)
+    const heritageProjGrid = document.getElementById("heritageProjGrid");
+    for (let i = 1; i <= 10; i++) {
+      const div = document.createElement("div");
+      div.className = "heritage-proj-item";
+      div.innerHTML = `
+        <div class="beige-card-wrap">
+          <div class="heritage-proj-img">
+            <img src="oladar${i}.jpeg" alt="Oladar Haveli Detail ${i}" loading="lazy">
+          </div>
+          <h4 style="font-family:var(--serif); font-size:22px; color:var(--ink);">OLADAR HAVELI DETAIL ${i}</h4>
+        </div>
+      `;
+      heritageProjGrid.appendChild(div);
+    }
+
+
+    /* PROJECTS DATABASE FOR SUB-PAGES */
     const projects = {
-
       oladar: {
         title: "OLADAR HAVELI",
         location: "UDAIPUR",
         type: "HERITAGE HAVELI CONSTRUCTION",
         hero: "oladar1.jpeg",
         description: [
-          "The Oladar Haveli project has been designed and executed in a complete traditional heritage style, while ensuring modern structural strength, quality control, and durability from foundation to final finishing.",
-          "The project combines traditional Rajasthani heritage architecture with modern civil engineering standards to ensure both aesthetic beauty and structural safety.",
-          "A grand Heritage Dodi creates a royal first impression. Intricate Thekri glass work has been executed on interior ceilings, decorative aaliya areas and the heritage-style bar.",
-          "The ceilings feature Mor Pankh (Peacock Feather) themed artwork with traditional Pipla Patti and Tordi detailing. Three Ghokda-style domes were constructed at terrace level.",
-          "Premium white marble flooring is used throughout the haveli, with marble borders finished using Khajur Patti detailing. Rooms feature carved heritage furniture, decorative wall pillars and Jhomer chandeliers.",
-          "The Oladar Haveli project represents a blend of traditional heritage craftsmanship and modern civil engineering quality standards, ensuring royal elegance and long-term structural performance."
+          "THE OLADAR HAVELI PROJECT HAS BEEN DESIGNED AND EXECUTED IN A COMPLETE TRADITIONAL HERITAGE STYLE WHILE ENSURING MODERN STRUCTURAL STRENGTH, QUALITY CONTROL AND DURABILITY FROM FOUNDATION TO FINAL FINISHING.",
+          "THE PROJECT COMBINES TRADITIONAL RAJASTHANI HERITAGE ARCHITECTURE WITH MODERN CIVIL ENGINEERING STANDARDS TO ENSURE BOTH AESTHETIC BEAUTY AND STRUCTURAL SAFETY.",
+          "EVERY ARCHITECTURAL AND INTERIOR ELEMENT HAS BEEN CONSIDERED AS PART OF A COMPLETE ROYAL HERITAGE EXPERIENCE."
         ],
-        elements: [
-          "HERITAGE DODI",
-          "THEKRI GLASS WORK",
-          "MOR PANKH CEILING",
-          "PIPLA PATTI",
-          "TORDI",
-          "GHOKDA STYLE DOMES",
-          "HERITAGE BAR",
-          "ROOFTOP SITTING",
-          "KHAJUR PATTI",
-          "WHITE MARBLE FLOORING",
-          "CARVED FURNITURE",
-          "DECORATIVE PILLARS",
-          "JHOMER CHANDELIERS"
-        ],
-        images: Array.from({length:25}, (_,i) => `oladar${i+1}.jpeg`)
+        images: Array.from({length: 25}, (_, i) => `oladar${i+1}.jpeg`)
       },
-
       roopmahal: {
         title: "ROOP MAHAL",
         location: "UDAIPUR",
         type: "LUXURY HERITAGE VILLA",
         hero: "roop1.jpeg",
         description: [
-          "Roop Mahal is a magnificent heritage-style project inspired by the timeless architecture of Rajasthan.",
-          "The exterior showcases beautifully crafted heritage-style windows, traditional arches and elegant façade detailing that reflects the charm of royal havelis.",
-          "The space highlights intricate glass inlay work, artistic carvings and classic heritage furniture that enhance the royal character of the project.",
-          "Every element, from the architectural details to the interior craftsmanship, has been thoughtfully designed to create an authentic heritage ambiance while maintaining luxury and elegance."
+          "ROOP MAHAL IS A MAGNIFICENT HERITAGE-STYLE PROJECT INSPIRED BY THE TIMELESS ARCHITECTURE OF RAJASTHAN.",
+          "THE EXTERIOR SHOWCASES BEAUTIFULLY CRAFTED HERITAGE-STYLE WINDOWS, TRADITIONAL ARCHES AND ELEGANT FAÇADE DETAILING THAT REFLECTS THE CHARM OF ROYAL HAVELIS.",
+          "EVERY ELEMENT FROM THE ARCHITECTURAL DETAILS TO THE INTERIOR CRAFTSMANSHIP HAS BEEN THOUGHTFULLY DESIGNED TO CREATE AN AUTHENTIC HERITAGE AMBIANCE."
         ],
-        elements: [
-          "HERITAGE WINDOWS",
-          "TRADITIONAL ARCHES",
-          "ROYAL FAÇADE",
-          "GLASS INLAY",
-          "ARTISTIC CARVINGS",
-          "HERITAGE FURNITURE",
-          "TRADITIONAL DETAILING",
-          "LUXURY INTERIORS"
-        ],
-        images: Array.from({length:10}, (_,i) => `roop${i+1}.jpeg`)
+        images: Array.from({length: 10}, (_, i) => `roop${i+1}.jpeg`)
       },
-
       mohan: {
         title: "MOHAN VILLA",
         location: "UDAIPUR",
         type: "HERITAGE STYLE VILLA / FARMHOUSE",
         hero: "mohan1.jpeg",
         description: [
-          "Mohan Villa is a luxurious heritage-style villa inspired by the traditional architecture of Rajasthani havelis.",
-          "The design showcases beautifully carved arches, decorative wall artwork and vibrant stained glass windows that enhance natural light and create a royal ambiance.",
-          "The interiors feature intricately crafted heritage furniture with an antique silver finish, adding a palace-like elegance to the living spaces.",
-          "Traditional jharokha-style windows, detailed ceiling artwork and handcrafted décor reflect the timeless craftsmanship and cultural richness of Rajasthan’s royal heritage."
+          "MOHAN VILLA IS A LUXURIOUS HERITAGE-STYLE VILLA INSPIRED BY THE TRADITIONAL ARCHITECTURE OF RAJASTHANI HAVELIS.",
+          "THE DESIGN SHOWCASES BEAUTIFULLY CARVED ARCHES, DECORATIVE WALL ARTWORK AND VIBRANT STAINED-GLASS WINDOWS THAT ENHANCE NATURAL LIGHT.",
+          "TRADITIONAL JHAROKHA-STYLE WINDOWS, DETAILED CEILING ARTWORK AND HANDCRAFTED DÉCOR REFLECT TIMELESS CULTURAL RICHNESS."
         ],
-        elements: [
-          "CARVED ARCHES",
-          "DECORATIVE WALL ARTWORK",
-          "STAINED GLASS",
-          "HERITAGE FURNITURE",
-          "ANTIQUE SILVER FINISH",
-          "JHAROKHA WINDOWS",
-          "CEILING ARTWORK",
-          "HANDCRAFTED DÉCOR"
-        ],
-        images: Array.from({length:10}, (_,i) => `mohan${i+1}.jpeg`)
+        images: Array.from({length: 10}, (_, i) => `mohan${i+1}.jpeg`)
       },
-
       salon: {
         title: "FIRST IMPRESSION SALON",
         location: "UDAIPUR",
         type: "PREMIUM COMMERCIAL INTERIOR",
         hero: "first1.jpeg",
         description: [
-          "First Impression Salon is a luxurious heritage-themed salon inspired by the royal charm of Rajasthan.",
-          "The space features heritage-style interiors, traditional furniture, Belgium glass work and intricate Thekri glass work, reflecting authentic royal craftsmanship.",
-          "Classic detailing, artistic elements and elegant visual treatments enhance the regal ambiance, creating a premium grooming space with a true touch of heritage elegance."
+          "FIRST IMPRESSION SALON IS A LUXURIOUS HERITAGE-THEMED SALON INSPIRED BY THE ROYAL CHARM OF RAJASTHAN.",
+          "THE SPACE FEATURES HERITAGE-STYLE INTERIORS, TRADITIONAL FURNITURE, BELGIUM GLASS WORK AND INTRICATE THEKRI GLASS WORK.",
+          "CLASSIC DETAILING AND ARTISTIC ELEMENTS ENHANCE THE REGAL AMBIANCE, CREATING A PREMIUM GROOMING ENVIRONMENT."
         ],
-        elements: [
-          "HERITAGE INTERIORS",
-          "TRADITIONAL FURNITURE",
-          "BELGIUM GLASS",
-          "THEKRI GLASS",
-          "ROYAL CRAFTSMANSHIP",
-          "CLASSIC DETAILING",
-          "ARTISTIC ELEMENTS",
-          "HERITAGE AMBIANCE"
-        ],
-        images: Array.from({length:10}, (_,i) => `first${i+1}.jpeg`)
-      }
-
-    };
-
-    const craftsmanship = {
-      craft1: {
-        title: "COMPLETE HERITAGE BUILDING & ROOM TRANSFORMATION",
-        hero: "card1.jpeg",
-        tagline: "FROM STRUCTURE TO FINISHING, WE TRANSFORM COMPLETE SPACES INTO COHESIVE ROYAL HERITAGE ENVIRONMENTS.",
-        description: [
-          "A complete heritage transformation brings architectural character, interior detailing, materials, lighting and furniture together as one coherent royal experience.",
-          "Every layer is planned from the building structure through the final decorative finish so the space feels authentic rather than simply decorated."
-        ],
-        elements: ["COMPLETE TRANSFORMATION", "HERITAGE ARCHITECTURE", "INTERIOR DETAILING", "ROYAL FINISHING"],
-        images: Array.from({length:5}, (_,i) => `card1${i+1}.jpeg`)
-      },
-      craft2: {
-        title: "TRADITIONAL JHAROKHA DESIGN & ARCHITECTURAL ELEMENTS",
-        hero: "card2.jpeg",
-        tagline: "TIMELESS JHAROKHAS, ARCHES, DOMES AND ARCHITECTURAL DETAILS INSPIRED BY RAJASTHAN’S ROYAL LANGUAGE.",
-        description: [
-          "Traditional jharokhas and architectural elements give a space its unmistakable Rajasthani identity.",
-          "The detailing can be composed with arches, domes, chhatris, jalis, pillars and other heritage forms to create a balanced royal vocabulary."
-        ],
-        elements: ["JHAROKHA", "ARCHES", "DOMES", "CHHATRIS", "JALIS", "PILLARS"],
-        images: Array.from({length:5}, (_,i) => `card2${i+1}.jpeg`)
-      },
-      craft3: {
-        title: "PIPAL PATTI & AASNOT PATTI WALL DETAILING",
-        hero: "card3.jpeg",
-        tagline: "INTRICATE WALL AND SURFACE DETAILING THAT BRINGS TRADITIONAL HERITAGE CHARACTER INTO EVERY SPACE.",
-        description: [
-          "Pipal Patti and Aasnot Patti detailing adds fine ornamental rhythm to walls and heritage interiors.",
-          "These traditional surface details are used to frame spaces, enrich transitions and strengthen the handcrafted character of the architecture."
-        ],
-        elements: ["PIPAL PATTI", "AASNOT PATTI", "WALL DETAILING", "HERITAGE ORNAMENT"],
-        images: Array.from({length:5}, (_,i) => `card3${i+1}.jpeg`)
-      },
-      craft4: {
-        title: "THEKARI GLASS & PREMIUM BELGIUM GLASS WORK",
-        hero: "card4.jpeg",
-        tagline: "HANDCRAFTED GLASS INLAY AND PREMIUM BELGIUM GLASS WORK FOR LIGHT, REFLECTION AND ROYAL DEPTH.",
-        description: [
-          "Thekri glass work creates intricate reflections and luminous details across ceilings, decorative areas and heritage interiors.",
-          "Premium Belgium glass can be combined with traditional craftsmanship to bring greater depth, colour and light into a royal space."
-        ],
-        elements: ["THEKARI GLASS", "BELGIUM GLASS", "GLASS INLAY", "LIGHT & REFLECTION"],
-        images: Array.from({length:5}, (_,i) => `card4${i+1}.jpeg`)
-      },
-      craft5: {
-        title: "ROYAL CHANDELIERS (JHUMER) & ANTIQUE WALL LIGHTING",
-        hero: "card5.jpeg",
-        tagline: "STATEMENT JHUMER CHANDELIERS AND ANTIQUE LIGHTING THAT CREATE A WARM PALACE-LIKE ATMOSPHERE.",
-        description: [
-          "Royal Jhumer chandeliers become focal points that reinforce the scale and grandeur of heritage interiors.",
-          "Antique wall lighting adds warm layers of illumination while complementing carved surfaces, furniture and traditional architectural details."
-        ],
-        elements: ["JHUMER", "CHANDELIERS", "ANTIQUE WALL LIGHTING", "ROYAL ILLUMINATION"],
-        images: Array.from({length:5}, (_,i) => `card5${i+1}.jpeg`)
-      },
-      craft6: {
-        title: "HANGING LIGHTS & PALACE-STYLE ILLUMINATION",
-        hero: "card6.jpeg",
-        tagline: "LAYERED HANGING LIGHTS AND DECORATIVE ILLUMINATION DESIGNED TO ENHANCE HERITAGE ARCHITECTURE.",
-        description: [
-          "Hanging lights are positioned as part of the architecture, creating visual rhythm and a palace-style atmosphere.",
-          "Layered illumination helps highlight ceilings, walls, furniture and decorative details without overpowering the heritage character."
-        ],
-        elements: ["HANGING LIGHTS", "PALACE ILLUMINATION", "AMBIENT LIGHTING", "DECORATIVE LIGHTING"],
-        images: Array.from({length:5}, (_,i) => `card6${i+1}.jpeg`)
-      },
-      craft7: {
-        title: "HANDCRAFTED PAINTINGS & INTRICATE CARVING",
-        hero: "card7.jpeg",
-        tagline: "ARTISTIC PAINTINGS AND DETAILED CARVING THAT ADD HUMAN CRAFTSMANSHIP AND CULTURAL SOUL.",
-        description: [
-          "Handcrafted paintings and intricate carving bring an unmistakable human touch to heritage interiors.",
-          "Decorative artwork can be integrated with architectural surfaces, furniture and other traditional elements to build a layered visual story."
-        ],
-        elements: ["HANDCRAFTED PAINTINGS", "INTRICATE CARVING", "DECORATIVE ART", "HERITAGE CRAFT"],
-        images: Array.from({length:5}, (_,i) => `card7${i+1}.jpeg`)
-      },
-      craft8: {
-        title: "CUSTOM HERITAGE FURNITURE",
-        hero: "card8.jpeg",
-        tagline: "CARVED FURNITURE, OTTOMANS, STUDY TABLES AND BEDROOM SETS CUSTOMISED FOR ROYAL INTERIORS.",
-        description: [
-          "Custom heritage furniture is designed to belong to the architecture rather than sit separately inside it.",
-          "Carved furniture, ottomans, study tables and bedroom sets can be developed around the proportions, finishes and character of each royal space."
-        ],
-        elements: ["CARVED FURNITURE", "OTTOMANS", "STUDY TABLES", "BEDROOM SETS", "CUSTOM DESIGN"],
-        images: Array.from({length:5}, (_,i) => `card8${i+1}.jpeg`)
-      },
-      craft9: {
-        title: "ROYAL CURTAINS & INTERIOR STYLING",
-        hero: "card9.jpeg",
-        tagline: "CURTAINS, TEXTILES AND LAYERED INTERIOR STYLING THAT COMPLETE THE ROYAL HERITAGE EXPERIENCE.",
-        description: [
-          "Curtains and textiles help define the mood, softness and visual hierarchy of a heritage room.",
-          "Royal interior styling brings together fabrics, furniture, lighting and decorative details so the finished room feels complete and cohesive."
-        ],
-        elements: ["ROYAL CURTAINS", "TEXTILES", "INTERIOR STYLING", "DECORATIVE LAYERS"],
-        images: Array.from({length:5}, (_,i) => `card9${i+1}.jpeg`)
-      },
-      craft10: {
-        title: "HERITAGE FLOORING & DECORATIVE CEILING WORK",
-        hero: "card10.jpeg",
-        tagline: "HERITAGE FLOORING, MARBLE DETAILS AND DECORATIVE CEILINGS FINISHED WITH CARE FROM FLOOR TO CEILING.",
-        description: [
-          "Heritage flooring establishes the foundation of the visual language, while decorative ceiling work completes the architecture overhead.",
-          "Marble borders, traditional patterns, ceiling artwork and refined finishing are coordinated to create a complete palace-style environment."
-        ],
-        elements: ["HERITAGE FLOORING", "MARBLE DETAILING", "DECORATIVE CEILINGS", "CEILING ARTWORK"],
-        images: Array.from({length:5}, (_,i) => `card10${i+1}.jpeg`)
+        images: Array.from({length: 10}, (_, i) => `first${i+1}.jpeg`)
       }
     };
 
 
-    /* =========================================================
-       DOM
-    ========================================================== */
-
-    const header =
-      document.getElementById("header");
-
-    const menuTrigger =
-      document.getElementById("menuTrigger");
-
-    const menuOverlay =
-      document.getElementById("menuOverlay");
-
-    const homeView =
-      document.getElementById("homeView");
-
-    const projectDetail =
-      document.getElementById("projectDetail");
-
-    const preloader =
-      document.getElementById("preloader");
-
-
-    /* =========================================================
-       PRELOADER
-    ========================================================== */
+    /* ROUTING & VIEW CONTROLLERS */
+    const homeView = document.getElementById("homeView");
+    const projectDetail = document.getElementById("projectDetail");
+    const header = document.getElementById("header");
+    const preloader = document.getElementById("preloader");
+    const menuTrigger = document.getElementById("menuTrigger");
+    const menuOverlay = document.getElementById("menuOverlay");
 
     window.addEventListener("load", () => {
-
-      setTimeout(() => {
-        preloader.classList.add("hide");
-      }, 700);
-
-      initReveal();
-
+      setTimeout(() => preloader.classList.add("hide"), 600);
     });
-
-
-    /* =========================================================
-       HEADER SCROLL
-    ========================================================== */
 
     window.addEventListener("scroll", () => {
-
-      if (window.scrollY > 50) {
-        header.classList.add("scrolled");
-      } else {
-        header.classList.remove("scrolled");
-      }
-
+      if (window.scrollY > 50) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
     });
-
-
-    /* =========================================================
-       MENU
-    ========================================================== */
 
     menuTrigger.addEventListener("click", () => {
-
       menuTrigger.classList.toggle("active");
-
       menuOverlay.classList.toggle("open");
-
-      document.body.classList.toggle(
-        "menu-open"
-      );
-
+      document.body.classList.toggle("menu-open");
     });
 
-
-    document
-      .querySelectorAll(".menu-links a")
-      .forEach(link => {
-
-        link.addEventListener("click", () => {
-
-          menuTrigger.classList.remove("active");
-
-          menuOverlay.classList.remove("open");
-
-          document.body.classList.remove("menu-open");
-
-        });
-
+    document.querySelectorAll(".menu-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        menuTrigger.classList.remove("active");
+        menuOverlay.classList.remove("open");
+        document.body.classList.remove("menu-open");
       });
-
-
-    /* =========================================================
-       SCROLL REVEAL
-    ========================================================== */
-
-    function initReveal() {
-
-      const observer =
-        new IntersectionObserver(
-          entries => {
-
-            entries.forEach(entry => {
-
-              if (entry.isIntersecting) {
-
-                entry.target.classList.add("visible");
-
-                observer.unobserve(
-                  entry.target
-                );
-
-              }
-
-            });
-
-          },
-          {
-            threshold: .12
-          }
-        );
-
-
-      document
-        .querySelectorAll(
-          ".reveal, .reveal-left, .reveal-right"
-        )
-        .forEach(el => {
-
-          observer.observe(el);
-
-        });
-
-    }
-
-
-    /* =========================================================
-       MAGNETIC BUTTONS
-    ========================================================== */
-
-    document
-      .querySelectorAll(".magnetic")
-      .forEach(button => {
-
-        button.addEventListener("mousemove", e => {
-
-          const rect =
-            button.getBoundingClientRect();
-
-          const x =
-            e.clientX - rect.left - rect.width / 2;
-
-          const y =
-            e.clientY - rect.top - rect.height / 2;
-
-          button.style.transform =
-            `translate(${x * .18}px, ${y * .18}px)`;
-
-        });
-
-
-        button.addEventListener("mouseleave", () => {
-
-          button.style.transform =
-            "translate(0,0)";
-
-        });
-
-      });
-
-
-    /* =========================================================
-       PROJECT ROUTING
-    ========================================================== */
+    });
 
     function openProject(slug) {
-
-      window.location.hash =
-        "project/" + slug;
-
+      window.location.hash = "project/" + slug;
     }
-
 
     function goHome() {
-
       window.location.hash = "";
-
       projectDetail.classList.remove("active");
-
       homeView.classList.remove("hidden");
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-
 
     function renderProject(slug) {
-
-      const project = projects[slug];
-
-      if (!project) {
-        goHome();
-        return;
-      }
-
-      renderDetail(project, "project");
-
-    }
-
-    function openCraft(slug) {
-      window.location.hash = "craft/" + slug;
-    }
-
-    function renderCraft(slug) {
-
-      const craft = craftsmanship[slug];
-
-      if (!craft) {
-        goHome();
-        return;
-      }
-
-      renderDetail(craft, "craft");
-
-    }
-
-    function renderDetail(item, kind) {
+      const proj = projects[slug];
+      if (!proj) { goHome(); return; }
 
       homeView.classList.add("hidden");
       projectDetail.classList.add("active");
 
-      const backTarget = kind === "craft" ? "expertise" : "projects";
-      const heroClass = kind === "craft" ? "craft-detail-hero" : "";
-
       projectDetail.innerHTML = `
-
-        <section class="project-detail-hero ${heroClass}">
-
-          <img
-            class="detail-hero-image"
-            src="${item.hero}"
-            alt="${item.title}"
-          >
-
-          <a
-            href="#${backTarget}"
-            class="back-projects"
-            onclick="goHome(); setTimeout(() => document.getElementById('${backTarget}').scrollIntoView(), 100);"
-          >
-            ← BACK TO ${kind === "craft" ? "CRAFTSMANSHIP" : "PROJECTS"}
-          </a>
-
+        <section class="project-detail-hero">
+          <img class="detail-hero-image" src="${proj.hero}" alt="${proj.title}">
+          <a href="#projects" class="back-projects" onclick="goHome();">← BACK TO SIGNATURE PROJECTS</a>
           <div class="detail-hero-content">
-
-            <div class="eyebrow">
-              RATHORE HERITAGE DEVELOPERS
-            </div>
-
-            <h1>
-              ${item.title}
-            </h1>
-
-            <div class="detail-meta">
-              ${kind === "project"
-                ? `${item.location} &nbsp; · &nbsp; ${item.type}`
-                : item.tagline}
-            </div>
-
+            <div class="eyebrow">Rathore Heritage Developers</div>
+            <h1>${proj.title}</h1>
+            <div class="detail-meta">${proj.location} &nbsp; · &nbsp; ${proj.type}</div>
           </div>
-
         </section>
-
 
         <section class="detail-section brown">
-
           <div class="container">
-
             <div class="detail-story">
-
-              <div class="reveal-left">
-
-                <div class="eyebrow">
-                  ${kind === "craft" ? "THE CRAFT" : "THE PROJECT"}
-                </div>
-
-                <h2>
-                  A STORY<br>
-                  OF <span style="color:var(--gold);">HERITAGE.</span>
-                </h2>
-
+              <div>
+                <div class="eyebrow">Project Narrative</div>
+                <h2>A STORY OF <span style="color:var(--gold);">HERITAGE.</span></h2>
               </div>
-
-              <div class="detail-story-copy reveal-right">
-
-                ${item.description
-                  .map(paragraph => `<p>${paragraph}</p>`)
-                  .join("")
-                }
-
-                <div class="detail-elements">
-
-                  ${item.elements
-                    .map(tag => `<span class="detail-tag">${tag}</span>`)
-                    .join("")
-                  }
-
-                </div>
-
+              <div class="detail-story-copy">
+                ${proj.description.map(p => `<p>${p}</p>`).join("")}
               </div>
-
             </div>
-
           </div>
-
         </section>
-
 
         <section class="detail-section beige">
-
           <div class="container">
-
-            <div class="eyebrow">
-              ${kind === "craft" ? "CRAFT GALLERY" : "PROJECT GALLERY"}
-            </div>
-
-            <h2 class="section-title">
-              DETAILS THAT<br>
-              BECOME <span>LEGACY.</span>
-            </h2>
-
+            <div class="eyebrow">Complete Gallery Collection</div>
+            <h2 class="section-title">EXCLUSIVE PROJECT <span>PREVIEW.</span></h2>
             <div class="detail-gallery">
-
-              ${item.images
-                .map((image, index) => `
-                  <div class="gallery-item reveal">
-                    <img
-                      class="gallery-image"
-                      src="${image}"
-                      alt="${item.title} detail ${index + 1}"
-                      loading="lazy"
-                    >
+              ${proj.images.map((img, idx) => `
+                <div class="beige-card-wrap">
+                  <div class="gallery-card-item">
+                    <img src="${img}" alt="${proj.title} image ${idx+1}" loading="lazy">
                   </div>
-                `)
-                .join("")
-              }
-
+                </div>
+              `).join("")}
             </div>
-
           </div>
-
         </section>
-
-
-        <section class="detail-cta">
-
-          <div class="reveal">
-
-            <div class="eyebrow" style="justify-content:center;">
-              YOUR HERITAGE STORY
-            </div>
-
-            <h2>
-              READY TO CREATE<br>
-              SOMETHING <span style="color:var(--gold-dark);">TIMELESS?</span>
-            </h2>
-
-            <a
-              href="#contact"
-              class="luxury-btn magnetic"
-              onclick="goHome(); setTimeout(() => document.getElementById('contact').scrollIntoView(), 100);"
-            >
-              BEGIN YOUR JOURNEY
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
-
-          </div>
-
-        </section>
-
       `;
 
-      window.scrollTo({
-        top: 0,
-        behavior: "instant"
-      });
-
-      setTimeout(() => {
-        initReveal();
-        initMagnetic();
-      }, 100);
-
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
 
+    function renderCraftsmanshipDetail(card) {
+      homeView.classList.add("hidden");
+      projectDetail.classList.add("active");
 
-    /* =========================================================
-       MAGNETIC REINITIALIZATION
-    ========================================================== */
+      projectDetail.innerHTML = `
+        <section class="project-detail-hero">
+          <img class="detail-hero-image" src="${card.image}" alt="${card.title}">
+          <a href="#craftsmanship" class="back-projects" onclick="goHome();">← BACK TO CRAFTSMANSHIP</a>
+          <div class="detail-hero-content">
+            <div class="eyebrow">Rathore Heritage Craftsmanship</div>
+            <h1 style="font-size:clamp(40px,7vw,90px);">${card.title}</h1>
+            <div class="detail-meta">${card.tagline}</div>
+          </div>
+        </section>
 
-    function initMagnetic() {
-
-      document
-        .querySelectorAll(".magnetic")
-        .forEach(button => {
-
-          if (button.dataset.magneticReady) {
-            return;
-          }
-
-          button.dataset.magneticReady = "true";
-
-
-          button.addEventListener(
-            "mousemove",
-            e => {
-
-              const rect =
-                button.getBoundingClientRect();
-
-              const x =
-                e.clientX -
-                rect.left -
-                rect.width / 2;
-
-              const y =
-                e.clientY -
-                rect.top -
-                rect.height / 2;
-
-              button.style.transform =
-                `translate(${x * .18}px, ${y * .18}px)`;
-
-            }
-          );
-
-
-          button.addEventListener(
-            "mouseleave",
-            () => {
-
-              button.style.transform =
-                "translate(0,0)";
-
-            }
-          );
-
-        });
-
+        <section class="detail-section beige">
+          <div class="container">
+            <div class="eyebrow">Craft Details & Imagery</div>
+            <h2 class="section-title">PALACE-STYLE <span>ELEMENTS.</span></h2>
+            <div class="detail-gallery">
+              ${card.subImages.map((img, idx) => `
+                <div class="beige-card-wrap">
+                  <div class="gallery-card-item">
+                    <img src="${img}" alt="Craft Detail ${idx+1}" loading="lazy">
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </section>
+      `;
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
-
-
-    /* =========================================================
-       HASH ROUTER
-    ========================================================== */
 
     function handleRoute() {
-
-      const hash =
-        window.location.hash.substring(1);
-
+      const hash = window.location.hash.substring(1);
       if (hash.startsWith("project/")) {
-
-        const slug =
-          hash.split("/")[1];
-
-        renderProject(slug);
-
-      } else if (hash.startsWith("craft/")) {
-
-        const slug =
-          hash.split("/")[1];
-
-        renderCraft(slug);
-
+        renderProject(hash.split("/")[1]);
       } else {
-
         projectDetail.classList.remove("active");
-
         homeView.classList.remove("hidden");
-
       }
-
     }
 
-
-    window.addEventListener(
-      "hashchange",
-      handleRoute
-    );
-
-
+    window.addEventListener("hashchange", handleRoute);
     handleRoute();
 
+    // Footer Year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* =========================================================
-       FORM
-    ========================================================== */
-
-    document
-      .getElementById("enquiryForm")
-      .addEventListener("submit", function(e) {
-
-        e.preventDefault();
-
-
-        const formData =
-          new FormData(this);
-
-
-        const name =
-          formData.get("name");
-
-        const phone =
-          formData.get("phone");
-
-        const email =
-          formData.get("email");
-
-        const type =
-          formData.get("projectType");
-
-        const message =
-          formData.get("message");
-
-
-        const whatsappMessage =
-
-          `Hello Rathore Heritage Developers,
-
-I would like to discuss a heritage project.
-
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
-Project Type: ${type}
-
-Vision:
-${message}`;
-
-
-        const whatsappURL =
-          "https://wa.me/919414228829?text=" +
-          encodeURIComponent(
-            whatsappMessage
-          );
-
-
-        window.open(
-          whatsappURL,
-          "_blank"
-        );
-
-
-        this.reset();
-
-      });
-
-
-    /* =========================================================
-       YEAR
-    ========================================================== */
-
-    document.getElementById("year")
-      .textContent =
-      new Date().getFullYear();
-
-
-    /* =========================================================
-       PARALLAX
-    ========================================================== */
-
-    window.addEventListener(
-      "scroll",
-      () => {
-
-        const heroImage =
-          document.querySelector(".hero-image");
-
-        if (!heroImage) return;
-
-        const scroll =
-          window.scrollY;
-
-        if (scroll < window.innerHeight) {
-
-          heroImage.style.transform =
-            `translateY(${scroll * .12}px) scale(1.02)`;
-
-        }
-
-      },
-      { passive: true }
-    );
-
-
-    /* =========================================================
-       CURSOR EFFECT — DESKTOP
-    ========================================================== */
-
-    if (window.matchMedia("(pointer:fine)").matches) {
-
-      const cursor =
-        document.createElement("div");
-
-      cursor.style.position = "fixed";
-      cursor.style.width = "8px";
-      cursor.style.height = "8px";
-      cursor.style.borderRadius = "50%";
-      cursor.style.background = "var(--gold)";
-      cursor.style.pointerEvents = "none";
-      cursor.style.zIndex = "10000";
-      cursor.style.transform = "translate(-50%, -50%)";
-      cursor.style.transition = "transform .08s linear";
-
-      document.body.appendChild(cursor);
-
-
-      window.addEventListener(
-        "mousemove",
-        e => {
-
-          cursor.style.left =
-            e.clientX + "px";
-
-          cursor.style.top =
-            e.clientY + "px";
-
-        }
-      );
-
-    }
+    // Enquiry form submission
+    document.getElementById("enquiryForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const fd = new FormData(this);
+      const txt = `Hello Rathore Heritage Developers,\n\nI would like to discuss a heritage project.\n\nName: ${fd.get("name")}\nPhone: ${fd.get("phone")}\nEmail: ${fd.get("email")}\nType: ${fd.get("projectType")}\nVision: ${fd.get("message")}`;
+      window.open("https://wa.me/919414228829?text=" + encodeURIComponent(txt), "_blank");
+      this.reset();
+    });
 
   </script>
-
 </body>
 </html>
