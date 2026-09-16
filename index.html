@@ -636,6 +636,89 @@
 
 
     /* =========================================================
+       LEADERSHIP / FOUNDERS SECTION (Square Cards)
+    ========================================================= */
+
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .leader-card {
+      background: var(--beige);
+      border: 1px solid rgba(197,161,91,.5);
+      padding: 40px;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 1 / 1; /* Square card requirement */
+      justify-content: space-between;
+      transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+    }
+
+    .leader-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.3);
+    }
+
+    .leader-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .leader-avatar {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold-dark);
+      flex-shrink: 0;
+    }
+
+    .leader-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .leader-titles h3 {
+      font-family: var(--serif);
+      font-size: 28px;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 5px;
+    }
+
+    .leader-titles span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--gold-dark);
+      font-weight: 600;
+      display: block;
+    }
+
+    .leader-body p {
+      font-size: 14px;
+      line-height: 1.8;
+      opacity: .85;
+      color: var(--ink);
+    }
+
+    .leader-footer {
+      border-top: 1px solid rgba(36,22,14,.15);
+      padding-top: 15px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--gold-dark);
+    }
+
+
+    /* =========================================================
        OUR HERITAGE CRAFTSMANSHIP (10 CARDS WITH DOME/SQUARE SHAPES)
     ========================================================= */
 
@@ -793,7 +876,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.9; /* Made clear and fully visible as requested */
+      opacity: 0.9;
       transition: transform 1s var(--ease);
     }
 
@@ -805,7 +888,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(23,11,7,.85) 0%, rgba(23,11,7,.5) 55%, rgba(23,11,7,.15) 100%); /* Lighter gradient overlay for clear image visibility */
+      background: linear-gradient(90deg, rgba(23,11,7,.85) 0%, rgba(23,11,7,.5) 55%, rgba(23,11,7,.15) 100%);
     }
 
     .project-featured-content {
@@ -1281,6 +1364,12 @@
       .project-row-grid {
         grid-template-columns: 1fr;
       }
+      .leadership-grid {
+        grid-template-columns: 1fr;
+      }
+      .leader-card {
+        aspect-ratio: auto;
+      }
     }
 
     @media (max-width: 800px) {
@@ -1337,6 +1426,7 @@
       <nav class="menu-links">
         <a href="#home">Home</a>
         <a href="#legacy">Our Legacy</a>
+        <a href="#leadership">Leadership</a>
         <a href="#craftsmanship">Our Heritage Craftsmanship</a>
         <a href="#materialboard">Material Board</a>
         <a href="#projects">Signature Projects</a>
@@ -1408,8 +1498,65 @@
     </section>
 
 
+    <!-- FOUNDER & MANAGING DIRECTOR SECTION -->
+    <section class="section beige" id="leadership">
+      <div class="container">
+        <div class="eyebrow">Leadership & Vision</div>
+        <h2 class="section-title">FOUNDER & MANAGING DIRECTOR.</h2>
+        <div class="gold-line"></div>
+        <p class="section-intro" style="margin-bottom: 20px;">
+          Guided by profound passion and expert stewardship, our leadership drives the preservation of authentic royal craftsmanship into modern architectural masterpieces.
+        </p>
+
+        <div class="leadership-grid">
+          <!-- Founder Card -->
+          <div class="leader-card">
+            <div class="leader-header">
+              <div class="leader-avatar">
+                <img src="founder.jpeg" alt="Founder">
+              </div>
+              <div class="leader-titles">
+                <h3>FOUNDER NAME</h3>
+                <span>Founder & Chief Visionary</span>
+              </div>
+            </div>
+            <div class="leader-body">
+              <p>
+                With an unwavering dedication to Rajasthan's architectural history, our founder established Rathore Heritage Developers to breathe new life into classical havelis, palaces, and royal residences, ensuring our cultural legacy endures through generations.
+              </p>
+            </div>
+            <div class="leader-footer">
+              Rathore Heritage Developers
+            </div>
+          </div>
+
+          <!-- Managing Director Card -->
+          <div class="leader-card">
+            <div class="leader-header">
+              <div class="leader-avatar">
+                <img src="md.jpeg" alt="Managing Director">
+              </div>
+              <div class="leader-titles">
+                <h3>MANAGING DIRECTOR NAME</h3>
+                <span>Managing Director</span>
+              </div>
+            </div>
+            <div class="leader-body">
+              <p>
+                Directing strategic execution and civil engineering excellence, our Managing Director bridges traditional artisan craftsmanship with cutting-edge structural precision, guaranteeing exceptional quality from foundation to final palace-style finish.
+              </p>
+            </div>
+            <div class="leader-footer">
+              Rathore Heritage Developers
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- OUR HERITAGE CRAFTSMANSHIP (10 Cards: Square & Dome sequence) -->
-    <section class="section beige" id="craftsmanship">
+    <section class="section brown" id="craftsmanship">
       <div class="container">
         <div class="craftsmanship-header">
           <div>
@@ -1429,7 +1576,7 @@
 
 
     <!-- MATERIAL BOARD SECTION (M1 - M8) -->
-    <section class="section brown" id="materialboard">
+    <section class="section beige" id="materialboard">
       <div class="container">
         <div class="eyebrow">Material Collection</div>
         <h2 class="section-title">Material Board</h2>
@@ -1446,7 +1593,7 @@
 
 
     <!-- SIGNATURE PROJECTS SECTION (Ref match layout with CLEAR Oladar Haveli background image) -->
-    <section class="section beige" id="projects">
+    <section class="section brown" id="projects">
       <div class="container">
         <div class="projects-header">
           <div>
@@ -1533,7 +1680,7 @@
 
 
     <!-- OUR HERITAGE PROJECT SECTION (Oladar Haveli focused extra showcase) -->
-    <section class="section brown" id="heritageproj">
+    <section class="section beige" id="heritageproj">
       <div class="container">
         <div class="eyebrow">Featured Execution</div>
         <h2 class="section-title">Our Heritage Project - Oladar Haveli</h2>
@@ -1703,6 +1850,7 @@
             <h4>Explore</h4>
             <a href="#home">Home</a>
             <a href="#legacy">Our Legacy</a>
+            <a href="#leadership">Leadership</a>
             <a href="#craftsmanship">Craftsmanship</a>
             <a href="#materialboard">Material Board</a>
             <a href="#projects">Signature Projects</a>
