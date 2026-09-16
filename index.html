@@ -672,7 +672,6 @@
       margin-bottom: 15px;
     }
 
-    /* Shape variations for the 10 cards: Square (even/odd sequence) or Dome */
     .craft-card-item.shape-square .craft-card-img-wrap {
       border-radius: 4px;
     }
@@ -759,8 +758,25 @@
 
 
     /* =========================================================
-       SIGNATURE PROJECTS LAYOUT (Reference photograph match)
+       SIGNATURE PROJECTS SECTION WITH FULL BACKGROUND IMAGE
     ========================================================= */
+
+    .projects-section-bg {
+      position: relative;
+      background: url('oladar1.jpeg') no-repeat center center/cover;
+    }
+
+    .projects-section-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(23, 11, 7, 0.82);
+    }
+
+    .projects-section-bg .container {
+      position: relative;
+      z-index: 2;
+    }
 
     .projects-header {
       display: flex;
@@ -776,7 +792,6 @@
       gap: 30px;
     }
 
-    /* Top full-width card for Oladar Haveli */
     .project-featured-card {
       position: relative;
       display: grid;
@@ -807,7 +822,6 @@
       background: var(--brown);
     }
 
-    /* Bottom 3 cards grid: Roop Mahal, Mohan Villa, First Impression Salon */
     .project-row-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -863,7 +877,7 @@
 
 
     /* =========================================================
-       OUR HERITAGE PROJECT SECTION (Oladar Haveli Deep-Dive)
+       OUR HERITAGE PROJECT SECTION
     ========================================================= */
 
     .heritage-project-showcase {
@@ -1437,15 +1451,15 @@
     </section>
 
 
-    <!-- SIGNATURE PROJECTS SECTION (Ref match layout) -->
-    <section class="section beige" id="projects">
+    <!-- SIGNATURE PROJECTS SECTION WITH FULL BACKGROUND IMAGE -->
+    <section class="section projects-section-bg" id="projects">
       <div class="container">
         <div class="projects-header">
           <div>
             <div class="eyebrow">Signature Works</div>
-            <h2 class="section-title">Our Signature Projects</h2>
+            <h2 class="section-title" style="color:var(--cream);">Our Signature Projects</h2>
           </div>
-          <p class="section-intro">
+          <p class="section-intro" style="color:var(--cream);">
             Explore our defining heritage masterpieces crafted with uncompromising precision.
           </p>
         </div>
