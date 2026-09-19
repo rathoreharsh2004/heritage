@@ -188,6 +188,14 @@
       text-transform: uppercase;
     }
 
+    /* CHANGE 1: Hero ko chhodkar baki sabhi sections ki main headings ka color gold/distinct */
+    .section:not(.hero) .section-title {
+      color: var(--gold);
+    }
+    .beige.section .section-title {
+      color: var(--gold-dark);
+    }
+
     .section-title {
       font-family: var(--serif);
       font-size: clamp(38px, 6vw, 100px);
@@ -198,11 +206,11 @@
     }
 
     .section-title span {
-      color: var(--gold);
+      color: var(--cream);
     }
 
     .beige .section-title span {
-      color: var(--gold-dark);
+      color: var(--ink);
     }
 
     .section-intro {
@@ -396,7 +404,6 @@
       font-size: 10px;
     }
 
-    /* ELEGANT HASH/GRID ICON STYLING REPLACING CROSS */
     .hamburger {
       width: 24px;
       height: 24px;
@@ -812,6 +819,78 @@
       text-transform: uppercase;
       letter-spacing: .18em;
       color: var(--gold-dark);
+    }
+
+
+    /* =========================================================
+       HERITAGE CONSULTANCY SECTION (NEW)
+    ========================================================= */
+
+    .consultancy-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .consultancy-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+      }
+    }
+
+    .consultancy-slider-wrap {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .consultancy-slider-wrap {
+        height: 520px;
+      }
+    }
+
+    .consultancy-slider-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s var(--ease);
+    }
+
+    .consultancy-slider-wrap img.active {
+      opacity: 1;
+    }
+
+    .consultancy-slider-controls {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .consultancy-ctrl-btn {
+      width: 44px;
+      height: 44px;
+      background: rgba(23,11,7,0.8);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background .3s;
+    }
+
+    .consultancy-ctrl-btn:hover {
+      background: var(--gold);
+      color: var(--brown-deep);
     }
 
 
@@ -1679,7 +1758,7 @@
     <div class="container nav">
       <a href="#home" class="brand" onclick="goHome()">
         <div class="brand-symbol">
-          <img src="logo.PNG" alt="Rathore Logo">
+          <img src="logo.png" alt="Rathore Logo">
         </div>
         <div class="brand-text">
           <strong>RATHORE</strong>
@@ -1705,6 +1784,7 @@
       <a href="#home">Home</a>
       <a href="#legacy">Our Legacy</a>
       <a href="#leadership">Leadership</a>
+      <a href="#consultancy">Heritage Consultancy</a>
       <a href="#craftsmanship">Craftsmanship</a>
       <a href="#materialboard">Material Board</a>
       <a href="#projects">Signature Projects</a>
@@ -1818,6 +1898,46 @@
             </div>
             <div class="leader-footer">
               Rathore Heritage Developers
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- HERITAGE CONSULTANCY SECTION (NEW) -->
+    <section class="section brown" id="consultancy">
+      <div class="container consultancy-grid">
+        <div>
+          <div class="eyebrow">Expert Guidance</div>
+          <h2 class="section-title">Heritage Consultancy.</h2>
+          <div class="gold-line"></div>
+          <p class="section-intro">
+            We provide comprehensive architectural consultancy, historical restoration planning, and design strategies tailored to traditional and royal building norms.
+          </p>
+          <p class="section-intro" style="margin-top: 15px;">
+            Our consultancy bridges ancestral craftsmanship with contemporary structural engineering, ensuring every detail reflects timeless authenticity and enduring stability.
+          </p>
+          <a href="#contact" class="luxury-btn">
+            Book A Consultation <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="beige-card-wrap">
+          <div class="consultancy-slider-wrap" id="consultancySlider">
+            <img src="con1.jpg" alt="Consultancy 1" class="active">
+            <img src="con2.jpg" alt="Consultancy 2">
+            <img src="con3.jpg" alt="Consultancy 3">
+            <img src="con4.jpg" alt="Consultancy 4">
+            <img src="con5.jpg" alt="Consultancy 5">
+
+            <div class="consultancy-slider-controls">
+              <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Image">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <button class="consultancy-ctrl-btn" id="nextSlide" aria-label="Next Image">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -2121,6 +2241,7 @@
             <a href="#home">Home</a>
             <a href="#legacy">Our Legacy</a>
             <a href="#leadership">Leadership</a>
+            <a href="#consultancy">Consultancy</a>
             <a href="#craftsmanship">Craftsmanship</a>
             <a href="#materialboard">Material Board</a>
             <a href="#projects">Signature Projects</a>
@@ -2160,6 +2281,27 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
+
+    /* HERITAGE CONSULTANCY MANUAL SLIDER LOGIC */
+    const consultancyImgs = document.querySelectorAll("#consultancySlider img");
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      consultancyImgs.forEach((img, i) => {
+        img.classList.toggle("active", i === index);
+      });
+    }
+
+    document.getElementById("nextSlide").addEventListener("click", () => {
+      currentSlide = (currentSlide + 1) % consultancyImgs.length;
+      showSlide(currentSlide);
+    });
+
+    document.getElementById("prevSlide").addEventListener("click", () => {
+      currentSlide = (currentSlide - 1 + consultancyImgs.length) % consultancyImgs.length;
+      showSlide(currentSlide);
+    });
+
 
     /* 10 CRAFTSMANSHIP CARDS CONFIGURATION & DOME/SQUARE PATTERN WITH VIEW MORE BUTTON */
     const craftCardsData = [
