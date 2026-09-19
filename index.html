@@ -14,6 +14,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet"
@@ -395,32 +396,28 @@
       font-size: 10px;
     }
 
-    /* CLEAN HAMBURGER ICON STYLING WITHOUT CROSS SHIFT */
+    /* ELEGANT HASH/GRID ICON STYLING REPLACING CROSS */
     .hamburger {
-      width: 26px;
-      height: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      transition: transform .3s var(--ease);
     }
 
     .hamburger span {
-      height: 2px;
-      width: 100%;
       background: currentColor;
+      border-radius: 1px;
       transition: .3s var(--ease);
     }
 
-    .menu-trigger.active .hamburger span:first-child {
-      transform: translateY(8px) rotate(45deg);
+    .menu-trigger.active .hamburger {
+      transform: rotate(90deg);
     }
 
-    .menu-trigger.active .hamburger span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-trigger.active .hamburger span:last-child {
-      transform: translateY(-8px) rotate(-45deg);
+    .menu-trigger.active .hamburger span {
+      background: var(--gold);
     }
 
 
@@ -1692,6 +1689,7 @@
       <button class="menu-trigger" id="menuTrigger" aria-label="Toggle Menu">
         <span>Menu</span>
         <div class="hamburger">
+          <span></span>
           <span></span>
           <span></span>
           <span></span>
