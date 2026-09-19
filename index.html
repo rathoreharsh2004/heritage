@@ -188,7 +188,7 @@
       text-transform: uppercase;
     }
 
-    /* CHANGE 1: Hero ko chhodkar baki sabhi sections ki main headings ka color gold/distinct */
+    /* Hero ko chhodkar baki sabhi sections ki main headings ka color gold */
     .section:not(.hero) .section-title {
       color: var(--gold);
     }
@@ -785,7 +785,7 @@
     .leader-titles h3 {
       font-family: var(--serif);
       font-size: 22px;
-      color: var(--ink);
+      color: var(--gold-dark); /* Card Tagline / Title color changed to Gold */
       line-height: 1.1;
       margin-bottom: 5px;
     }
@@ -977,7 +977,7 @@
       font-size: 19px;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--ink);
+      color: var(--gold-dark); /* Craft card tagline/title color changed to Gold */
       line-height: 1.2;
     }
 
@@ -985,7 +985,7 @@
       font-size: 11px;
       line-height: 1.6;
       opacity: .8;
-      color: var(--ink);
+      color: var(--ink); /* Description retains standard normal color */
       margin-bottom: 15px;
     }
 
@@ -1047,7 +1047,7 @@
     .material-item h4 {
       font-family: var(--serif);
       font-size: 17px;
-      color: var(--ink);
+      color: var(--gold-dark); /* Material card title color changed to Gold */
     }
 
 
@@ -1185,13 +1185,13 @@
     .project-card-info h3 {
       font-family: var(--serif);
       font-size: 26px;
-      color: var(--ink);
+      color: var(--gold-dark); /* Signature project title color changed to Gold */
       margin-bottom: 8px;
     }
 
     .project-card-info p {
       font-size: 12px;
-      color: var(--ink);
+      color: var(--ink); /* Description normal color */
       opacity: .8;
       line-height: 1.6;
       margin-bottom: 20px;
@@ -1240,6 +1240,12 @@
 
     .heritage-proj-item:hover .heritage-proj-img img {
       transform: scale(1.05);
+    }
+
+    .heritage-proj-item h4 {
+      color: var(--gold-dark); /* Heritage project detail card titles changed to Gold */
+      font-family: var(--serif);
+      font-size: 20px;
     }
 
 
@@ -1301,6 +1307,7 @@
       font-family: var(--serif);
       font-size: 22px;
       font-weight: 500;
+      color: var(--gold-dark); /* Approach principles title color changed to Gold */
     }
 
     @media (min-width: 768px) {
@@ -1353,6 +1360,7 @@
       font-size: 22px;
       line-height: 1.1;
       margin-bottom: 15px;
+      color: var(--gold-dark); /* What we offer card title color changed to Gold */
     }
 
     .offer-card p {
@@ -1758,7 +1766,7 @@
     <div class="container nav">
       <a href="#home" class="brand" onclick="goHome()">
         <div class="brand-symbol">
-          <img src="logo.png" alt="Rathore Logo">
+          <img src="logo.PNG" alt="Rathore Logo">
         </div>
         <div class="brand-text">
           <strong>RATHORE</strong>
@@ -2001,7 +2009,7 @@
             <img class="project-featured-bg" src="oladar1.jpeg" alt="Oladar Haveli Background">
             <div class="project-featured-content">
               <div class="eyebrow">Udaipur · Heritage Haveli Construction</div>
-              <h3 style="font-family:var(--serif); font-size:clamp(32px, 5vw, 48px); color:var(--cream); margin-bottom:12px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Oladar Haveli</h3>
+              <h3 style="font-family:var(--serif); font-size:clamp(32px, 5vw, 48px); color:var(--gold-dark); margin-bottom:12px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Oladar Haveli</h3>
               <p style="color:var(--cream); font-size:13px; line-height:1.7; margin-bottom:20px; text-shadow: 0 1px 6px rgba(0,0,0,0.6); font-weight: 500;">
                 A heritage haveli language composed through carved dodi, glass, painted surfaces and engineered permanence.
               </p>
@@ -2422,7 +2430,7 @@
           <div class="heritage-proj-img">
             <img src="oladar${i}.jpeg" alt="Oladar Haveli Detail ${i}" loading="lazy">
           </div>
-          <h4 style="font-family:var(--serif); font-size:20px; color:var(--ink);">OLADAR HAVELI DETAIL ${i}</h4>
+          <h4 style="font-family:var(--serif); font-size:20px; color:var(--gold-dark);">OLADAR HAVELI DETAIL ${i}</h4>
         </div>
       `;
       heritageProjGrid.appendChild(div);
