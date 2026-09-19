@@ -14,7 +14,6 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet"
@@ -396,24 +395,24 @@
       font-size: 10px;
     }
 
+    /* CLEAN HAMBURGER ICON STYLING WITHOUT CROSS SHIFT */
     .hamburger {
-      width: 30px;
-      height: 24px;
+      width: 26px;
+      height: 18px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 6px;
+      justify-content: space-between;
     }
 
     .hamburger span {
-      height: 1px;
+      height: 2px;
       width: 100%;
       background: currentColor;
-      transition: .4s var(--ease);
+      transition: .3s var(--ease);
     }
 
     .menu-trigger.active .hamburger span:first-child {
-      transform: translateY(3px) rotate(45deg);
+      transform: translateY(8px) rotate(45deg);
     }
 
     .menu-trigger.active .hamburger span:nth-child(2) {
@@ -421,7 +420,7 @@
     }
 
     .menu-trigger.active .hamburger span:last-child {
-      transform: translateY(-9px) rotate(-45deg);
+      transform: translateY(-8px) rotate(-45deg);
     }
 
 
@@ -1683,18 +1682,20 @@
     <div class="container nav">
       <a href="#home" class="brand" onclick="goHome()">
         <div class="brand-symbol">
-          <img src="logo.PNG" alt="Rathore Logo">
+          <img src="logo.png" alt="Rathore Logo">
         </div>
         <div class="brand-text">
           <strong>RATHORE</strong>
           <small>HERITAGE DEVELOPERS</small>
         </div>
       </a>
-      <button class="menu-trigger" id="menuTrigger">
+      <button class="menu-trigger" id="menuTrigger" aria-label="Toggle Menu">
         <span>Menu</span>
-        <span class="hamburger">
-          <span></span><span></span><span></span>
-        </span>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </button>
     </div>
   </header>
@@ -2421,7 +2422,7 @@
               ${proj.images.map((img, idx) => `
                 <div class="beige-card-wrap">
                   <div class="gallery-card-item">
-                    <img src="${img}" alt="${proj.title} image ${idx+1}" loading="lazy">
+                    <img src="${img}" alt="${proj.title} image${idx+1}" loading="lazy">
                   </div>
                 </div>
               `).join("")}
