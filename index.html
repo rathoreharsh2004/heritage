@@ -1749,13 +1749,13 @@
 
     /* Header logo is larger, but disappears from the compact scrolled bar. */
     .brand-symbol {
-      width: 57px;
-      height: 57px;
+      width: 68px;
+      height: 68px;
     }
     @media (min-width: 768px) {
       .brand-symbol {
-        width: 68px;
-        height: 68px;
+        width: 82px;
+        height: 82px;
       }
     }
     header.scrolled .brand {
@@ -1947,6 +1947,125 @@
       }
     }
 
+    /* FINAL REQUESTED ADJUSTMENTS */
+    .brand-text strong {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .015em;
+      white-space: nowrap;
+      text-transform: none;
+    }
+    .brand-text small { display:none; }
+    @media (min-width:768px) {
+      .brand-text strong { font-size:21px; }
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(29px, 4.3vw, 70px);
+      line-height: .95;
+      font-weight: 600;
+      letter-spacing: -.025em;
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    /* Menu panel 50% smaller */
+    .menu-overlay {
+      width: min(160px, calc(50vw - 20px));
+      padding: 12px 14px;
+      max-height: calc(50vh - 50px);
+    }
+    .menu-links { gap:4px; }
+    .menu-links a {
+      font-size:17px;
+      line-height:1;
+      padding:3px 0 5px;
+    }
+
+    /* Featured Execution: 20% smaller image card + compact horizontal tagline bar */
+    .heritage-featured-slider {
+      width:80%;
+      margin:40px auto 0;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+      background:transparent;
+      border:0;
+      overflow:hidden;
+    }
+    .heritage-featured-image {
+      width:100%;
+      height:clamp(300px,43vw,560px);
+      order:1;
+      border:1px solid rgba(197,161,91,.35);
+      overflow:hidden;
+    }
+    .heritage-featured-image img {
+      width:100%;
+      height:100%;
+      min-height:0;
+      object-fit:cover;
+    }
+    .heritage-featured-copy {
+      width:100%;
+      min-height:100px;
+      padding:17px 28px 23px;
+      order:2;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      justify-content:flex-start;
+      gap:25px;
+      background:linear-gradient(135deg,rgba(42,22,13,.98),rgba(23,11,7,.96));
+      border:1px solid rgba(197,161,91,.28);
+      border-top:0;
+    }
+    .heritage-slide-number {
+      flex:0 0 auto;
+      font-family:var(--serif);
+      font-size:12px;
+      margin:0;
+    }
+    .heritage-featured-copy h3 {
+      font-family:var(--serif);
+      font-size:clamp(20px,2.1vw,32px);
+      font-weight:600;
+      line-height:1.05;
+      margin:0;
+      max-width:none;
+      color:var(--gold-light);
+    }
+    .heritage-featured-copy p { display:none; }
+    .heritage-slider-controls {
+      right:16px;
+      bottom:116px;
+    }
+    .heritage-slider-dots {
+      left:28px;
+      bottom:15px;
+    }
+    .heritage-slider-btn {
+      width:38px;
+      height:38px;
+    }
+    @media (max-width:767px) {
+      .heritage-featured-slider { width:92%; }
+      .heritage-featured-image { height:280px; }
+      .heritage-featured-copy {
+        min-height:88px;
+        padding:14px 16px 27px;
+        gap:12px;
+        align-items:flex-start;
+      }
+      .heritage-featured-copy h3 { font-size:22px; }
+      .heritage-slider-controls { right:12px; bottom:98px; }
+      .heritage-slider-dots { left:16px; bottom:11px; }
+    }
+
   </style>
 </head>
 
@@ -1969,8 +2088,7 @@
           <img src="logo.PNG" alt="Rathore Logo">
         </div>
         <div class="brand-text">
-          <strong>RATHORE</strong>
-          <small>HERITAGE DEVELOPERS</small>
+          <strong>Rathore Heritage Developers</strong>
         </div>
       </a>
       <button class="menu-trigger" id="menuTrigger" aria-label="Toggle Menu">
