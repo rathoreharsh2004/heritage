@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   >
 
@@ -531,20 +531,20 @@
       font-size: 10px;
       margin-bottom: 20px;
     }
-
     .hero h1 {
-      max-width: 1000px;
-      font-family: var(--serif);
-      font-size: clamp(42px, 8vw, 130px);
-      line-height: .85;
-      font-weight: 500;
-      letter-spacing: -.03em;
+      font-family: "Allura", cursive;
+      font-size: clamp(32px, 4.8vw, 78px);
+      line-height: 1.02;
+      font-weight: 400;
+      letter-spacing: .01em;
+      max-width: 900px;
     }
 
     .hero h1 em {
       color: var(--gold-light);
       font-style: normal;
     }
+
 
     .hero-bottom {
       display: flex;
@@ -1747,6 +1747,206 @@
       object-fit: cover;
     }
 
+    /* Header logo is larger, but disappears from the compact scrolled bar. */
+    .brand-symbol {
+      width: 57px;
+      height: 57px;
+    }
+    @media (min-width: 768px) {
+      .brand-symbol {
+        width: 68px;
+        height: 68px;
+      }
+    }
+    header.scrolled .brand {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-8px);
+    }
+    header .brand {
+      transition: opacity .35s var(--ease), visibility .35s var(--ease), transform .35s var(--ease);
+    }
+
+    /* Compact menu: transparent, smaller and cursive section names. */
+    .menu-overlay {
+      background: rgba(23,11,7,.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(197,161,91,.28);
+      box-shadow: 0 18px 35px rgba(0,0,0,.18);
+      padding: 18px 22px;
+    }
+    .menu-links {
+      gap: 7px;
+    }
+    .menu-links a {
+      font-family: "Allura", cursive;
+      font-size: 22px;
+      letter-spacing: .02em;
+      text-transform: none;
+      padding: 4px 0 6px;
+      border-bottom: 1px solid rgba(197,161,91,.12);
+    }
+
+    /* Signature project dome treatment, matching the craftsmanship domes. */
+    .project-card-img.shape-dome {
+      border-radius: 130px 130px 8px 8px;
+    }
+
+    /* Featured Execution: one large horizontal slider, image on right (~70%). */
+    .heritage-featured-slider {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: 30% 70%;
+      min-height: 480px;
+      background: var(--brown-deep);
+      border: 1px solid rgba(197,161,91,.35);
+      overflow: hidden;
+      position: relative;
+    }
+    .heritage-featured-copy {
+      padding: 45px 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 3;
+      background: linear-gradient(135deg, rgba(42,22,13,.98), rgba(23,11,7,.94));
+    }
+    .heritage-slide-number {
+      color: var(--gold);
+      font-family: var(--serif);
+      font-size: 14px;
+      letter-spacing: .18em;
+      margin-bottom: 25px;
+    }
+    .heritage-featured-copy h3 {
+      font-family: "Allura", cursive;
+      font-size: clamp(32px, 3.4vw, 58px);
+      font-weight: 400;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+    }
+    .heritage-featured-copy p {
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--cream);
+      opacity: .86;
+      max-width: 330px;
+    }
+    .heritage-featured-image {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .heritage-featured-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: opacity .35s ease, transform 1s var(--ease);
+    }
+    .heritage-featured-slider:hover .heritage-featured-image img {
+      transform: scale(1.025);
+    }
+    .heritage-featured-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(23,11,7,.32), transparent 28%);
+      pointer-events: none;
+    }
+    .heritage-slider-controls {
+      position: absolute;
+      right: 22px;
+      bottom: 20px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .heritage-slider-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(197,161,91,.75);
+      background: rgba(23,11,7,.72);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: .3s ease;
+    }
+    .heritage-slider-btn:hover {
+      background: var(--gold);
+      color: var(--brown-deep);
+    }
+    .heritage-slider-dots {
+      position: absolute;
+      left: 35%;
+      bottom: 25px;
+      z-index: 5;
+      display: flex;
+      gap: 6px;
+    }
+    .heritage-slider-dot {
+      width: 22px;
+      height: 2px;
+      border: 0;
+      padding: 0;
+      background: rgba(255,250,240,.4);
+      cursor: pointer;
+      transition: .3s ease;
+    }
+    .heritage-slider-dot.active {
+      background: var(--gold);
+      width: 34px;
+    }
+
+    /* Footer logo */
+    .footer-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 18px;
+      border: 1px solid rgba(197,161,91,.5);
+      border-radius: 50%;
+      padding: 5px;
+    }
+    @media (max-width: 767px) {
+      .heritage-featured-slider {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .heritage-featured-copy {
+        padding: 30px 24px;
+        min-height: 220px;
+        order: 1;
+      }
+      .heritage-featured-image {
+        order: 2;
+        height: 330px;
+      }
+      .heritage-featured-image img {
+        min-height: 330px;
+      }
+      .heritage-slider-dots {
+        left: 24px;
+        bottom: 15px;
+      }
+      .heritage-slider-controls {
+        right: 15px;
+        bottom: 12px;
+      }
+      .footer-logo {
+        width: 105px;
+        height: 105px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2021,7 +2221,7 @@
             <!-- Roop Mahal -->
             <div class="project-card-box" onclick="openProject('roopmahal')">
               <div class="beige-card-wrap">
-                <div class="project-card-img">
+                <div class="project-card-img shape-dome">
                   <img src="roop1.jpeg" alt="Roop Mahal">
                 </div>
                 <div class="project-card-info">
@@ -2055,7 +2255,7 @@
             <!-- First Impression Salon -->
             <div class="project-card-box" onclick="openProject('salon')">
               <div class="beige-card-wrap">
-                <div class="project-card-img">
+                <div class="project-card-img shape-dome">
                   <img src="first1.jpeg" alt="First Impression Salon">
                 </div>
                 <div class="project-card-info">
@@ -2084,8 +2284,27 @@
           The Oladar Haveli project has been designed and executed in a complete traditional heritage style, while ensuring modern structural strength, quality control, and durability from foundation to final finishing.
         </p>
 
-        <div class="heritage-project-showcase" id="heritageProjGrid">
-          <!-- Injected via script using oladar1-10.jpeg with beige surrounding cards -->
+        <div class="heritage-featured-slider" id="heritageFeaturedSlider">
+          <div class="heritage-featured-copy">
+            <div class="heritage-slide-number" id="heritageSlideNumber">01 / 10</div>
+            <h3 id="heritageSlideTagline">A Legacy Carved Into Every Detail.</h3>
+            <p id="heritageSlideSubline">Traditional artistry, royal proportion and enduring craftsmanship brought together in one living heritage.</p>
+          </div>
+
+          <div class="heritage-featured-image">
+            <img id="heritageFeaturedImage" src="oladar1.jpeg" alt="Oladar Haveli Featured Execution">
+          </div>
+
+          <div class="heritage-slider-dots" id="heritageSliderDots"></div>
+
+          <div class="heritage-slider-controls">
+            <button class="heritage-slider-btn" id="heritagePrev" aria-label="Previous Oladar Haveli image">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button class="heritage-slider-btn" id="heritageNext" aria-label="Next Oladar Haveli image">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -2238,6 +2457,7 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
+            <img class="footer-logo" src="logo.PNG" alt="Rathore Heritage Developers Logo">
             <h2>Rathore Heritage</h2>
             <p>Preserving history. Creating living heritage. Authentic Rajasthan craftsmanship interpreted for spaces of today and tomorrow.</p>
           </div>
@@ -2417,21 +2637,83 @@
     }
 
 
-    // Populate Heritage Project Showcase (Oladar Haveli 1-10 with beige surrounds)
-    const heritageProjGrid = document.getElementById("heritageProjGrid");
-    for (let i = 1; i <= 10; i++) {
-      const div = document.createElement("div");
-      div.className = "heritage-proj-item";
-      div.innerHTML = `
-        <div class="beige-card-wrap">
-          <div class="heritage-proj-img">
-            <img src="oladar${i}.jpeg" alt="Oladar Haveli Detail ${i}" loading="lazy">
-          </div>
-          <h4 style="font-family:var(--serif); font-size:20px; color:var(--gold-dark);">OLADAR HAVELI DETAIL ${i}</h4>
-        </div>
-      `;
-      heritageProjGrid.appendChild(div);
+    // Featured Execution — 10 Oladar Haveli images, one horizontal card.
+    const heritageSlides = [
+      { image: "oladar1.jpeg", tagline: "A Legacy Carved Into Every Detail.", subline: "Traditional artistry, royal proportion and enduring craftsmanship brought together in one living heritage." },
+      { image: "oladar2.jpeg", tagline: "Where Stone Remembers Royal Stories.", subline: "Hand-finished surfaces and architectural rhythm preserve the language of Rajasthan." },
+      { image: "oladar3.jpeg", tagline: "Craftsmanship That Speaks Without Words.", subline: "Every carved element is treated as a signature of heritage, patience and precision." },
+      { image: "oladar4.jpeg", tagline: "A Haveli Shaped By Living Tradition.", subline: "Authentic details create an atmosphere that feels rooted, intimate and unmistakably royal." },
+      { image: "oladar5.jpeg", tagline: "Royal Proportion. Timeless Presence.", subline: "Balanced forms and layered detailing turn traditional architecture into an enduring experience." },
+      { image: "oladar6.jpeg", tagline: "Details Made To Outlive Trends.", subline: "From ornament to finish, each layer is designed for beauty that grows richer with time." },
+      { image: "oladar7.jpeg", tagline: "Heritage, Reimagined For Generations.", subline: "Classical Rajasthan craftsmanship is brought together with modern execution and structural discipline." },
+      { image: "oladar8.jpeg", tagline: "The Soul Of Rajasthan In Every Frame.", subline: "Light, texture and handmade character come together to create a deeply rooted visual identity." },
+      { image: "oladar9.jpeg", tagline: "Built With Patience. Finished With Pride.", subline: "A complete heritage expression where artisanship and engineering meet with quiet confidence." },
+      { image: "oladar10.jpeg", tagline: "A Timeless Address For A Lasting Legacy.", subline: "Oladar Haveli brings architecture, craft and royal living together as one enduring story." }
+    ];
+
+    const heritageFeaturedImage = document.getElementById("heritageFeaturedImage");
+    const heritageSlideNumber = document.getElementById("heritageSlideNumber");
+    const heritageSlideTagline = document.getElementById("heritageSlideTagline");
+    const heritageSlideSubline = document.getElementById("heritageSlideSubline");
+    const heritageSliderDots = document.getElementById("heritageSliderDots");
+    let heritageCurrent = 0;
+    let heritageTimer;
+
+    heritageSlides.forEach((slide, index) => {
+      const dot = document.createElement("button");
+      dot.className = "heritage-slider-dot" + (index === 0 ? " active" : "");
+      dot.setAttribute("aria-label", `Go to Oladar Haveli slide ${index + 1}`);
+      dot.addEventListener("click", () => {
+        heritageCurrent = index;
+        renderHeritageSlide();
+        restartHeritageTimer();
+      });
+      heritageSliderDots.appendChild(dot);
+    });
+
+    function renderHeritageSlide() {
+      const slide = heritageSlides[heritageCurrent];
+      heritageFeaturedImage.style.opacity = "0";
+      setTimeout(() => {
+        heritageFeaturedImage.src = slide.image;
+        heritageFeaturedImage.alt = `Oladar Haveli Featured Execution ${heritageCurrent + 1}`;
+        heritageSlideNumber.textContent = `${String(heritageCurrent + 1).padStart(2, "0")} / 10`;
+        heritageSlideTagline.textContent = slide.tagline;
+        heritageSlideSubline.textContent = slide.subline;
+        heritageFeaturedImage.style.opacity = "1";
+      }, 180);
+
+      document.querySelectorAll(".heritage-slider-dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === heritageCurrent);
+      });
     }
+
+    function nextHeritageSlide() {
+      heritageCurrent = (heritageCurrent + 1) % heritageSlides.length;
+      renderHeritageSlide();
+    }
+
+    function prevHeritageSlide() {
+      heritageCurrent = (heritageCurrent - 1 + heritageSlides.length) % heritageSlides.length;
+      renderHeritageSlide();
+    }
+
+    document.getElementById("heritageNext").addEventListener("click", () => {
+      nextHeritageSlide();
+      restartHeritageTimer();
+    });
+
+    document.getElementById("heritagePrev").addEventListener("click", () => {
+      prevHeritageSlide();
+      restartHeritageTimer();
+    });
+
+    function restartHeritageTimer() {
+      clearInterval(heritageTimer);
+      heritageTimer = setInterval(nextHeritageSlide, 5000);
+    }
+
+    restartHeritageTimer();
 
 
     /* PROJECTS DATABASE FOR SUB-PAGES */
