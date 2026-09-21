@@ -2066,6 +2066,49 @@
       .heritage-slider-dots { left:16px; bottom:11px; }
     }
 
+    /* Latest requested refinements */
+    .brand-text strong {
+      font-family: var(--serif);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: .01em;
+      white-space: nowrap;
+      text-transform: none;
+    }
+    @media (min-width:768px) {
+      .brand-text strong { font-size: 13.5px; }
+    }
+
+    /* Use the same hero/tagline font treatment for the yellow headings. */
+    .section:not(.hero) .section-title,
+    .beige.section .section-title,
+    .section-title,
+    .craft-card-info h3,
+    .project-card-info h3,
+    .heritage-proj-item h4,
+    .leader-titles h3,
+    .offer-card h3,
+    .principle h4,
+    .material-item h4 {
+      font-family: var(--serif);
+    }
+
+    /* Featured Collection card: +15% horizontal and +20% vertical. */
+    .heritage-featured-slider {
+      width: 92%;
+    }
+    .heritage-featured-image {
+      height: clamp(360px, 51.6vw, 672px);
+    }
+    @media (max-width:767px) {
+      .heritage-featured-slider {
+        width: 100%;
+      }
+      .heritage-featured-image {
+        height: 336px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2088,7 +2131,7 @@
           <img src="logo.PNG" alt="Rathore Logo">
         </div>
         <div class="brand-text">
-          <strong>Rathore <em>Heritage</em>Developers</strong>
+          <strong>Rathore Heritage Developers</strong>
         </div>
       </a>
       <button class="menu-trigger" id="menuTrigger" aria-label="Toggle Menu">
