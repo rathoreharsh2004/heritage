@@ -341,10 +341,8 @@
     }
 
     .brand-symbol {
-      width: 44px;
-      height: 44px;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
+      width: 56px;
+      height: 56px;
       overflow: hidden;
       display: grid;
       place-items: center;
@@ -352,15 +350,15 @@
 
     @media (min-width: 768px) {
       .brand-symbol {
-        width: 52px;
-        height: 52px;
+        width: 66px;
+        height: 66px;
       }
     }
 
     .brand-symbol img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .brand-text strong {
@@ -745,7 +743,6 @@
     @media (min-width: 768px) {
       .leader-card {
         padding: 40px;
-        aspect-ratio: 1 / 1;
       }
     }
 
@@ -853,18 +850,22 @@
       }
     }
 
-    .consultancy-slider-wrap img {
+    .consultancy-slider-wrap img,
+    .consultancy-slider-wrap video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       position: absolute;
       inset: 0;
       opacity: 0;
+      pointer-events: none;
       transition: opacity 0.8s var(--ease);
     }
 
-    .consultancy-slider-wrap img.active {
+    .consultancy-slider-wrap img.active,
+    .consultancy-slider-wrap video.active {
       opacity: 1;
+      pointer-events: auto;
     }
 
     .consultancy-slider-controls {
@@ -1749,13 +1750,13 @@
 
     /* Header logo is larger, but disappears from the compact scrolled bar. */
     .brand-symbol {
-      width: 68px;
-      height: 68px;
+      width: 80px;
+      height: 80px;
     }
     @media (min-width: 768px) {
       .brand-symbol {
-        width: 82px;
-        height: 82px;
+        width: 96px;
+        height: 96px;
       }
     }
     header.scrolled .brand {
@@ -1908,13 +1909,10 @@
 
     /* Footer logo */
     .footer-logo {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       object-fit: contain;
       margin-bottom: 18px;
-      border: 1px solid rgba(197,161,91,.5);
-      border-radius: 50%;
-      padding: 5px;
     }
     @media (max-width: 767px) {
       .heritage-featured-slider {
@@ -1942,8 +1940,8 @@
         bottom: 12px;
       }
       .footer-logo {
-        width: 105px;
-        height: 105px;
+        width: 120px;
+        height: 120px;
       }
     }
 
@@ -2174,7 +2172,7 @@
         <source src="hero.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
-        <div class="hero-kicker">Rathore Heritage Developers</div>
+        <div class="hero-kicker">Heritage Restoration · Luxury Havelis · Palaces · Interiors · Resort Consultancy</div>
         <h1>Where Timeless <em>Indian Heritage</em> Meets Royal <em>Legacy</em>.</h1>
         <div class="hero-bottom">
           <div>
@@ -2229,16 +2227,22 @@
           <div class="leader-card">
             <div class="leader-header">
               <div class="leader-avatar">
-                <img src="founder.jpeg" alt="Founder">
+                <img src="founder.jpeg" alt="Balveer Singh Rathore">
               </div>
               <div class="leader-titles">
-                <h3>FOUNDER NAME</h3>
-                <span>Founder & Chief Visionary</span>
+                <h3>Balveer Singh Rathore</h3>
+                <span>Founder & Chief Managing Director</span>
               </div>
             </div>
             <div class="leader-body">
               <p>
-                With an unwavering dedication to Rajasthan's architectural history, our founder established Rathore Heritage Developers to breathe new life into classical havelis, palaces, and royal residences, ensuring our cultural legacy endures through generations.
+                Under the vision and leadership of our Founder and Chief Managing Director, our work blends the timeless essence of traditional Indian heritage with contemporary craftsmanship and modern standards. With over 15 years of experience as a Heritage Developer, he has successfully delivered numerous heritage projects, creating spaces that reflect authenticity, cultural elegance, and architectural excellence. Backed by a highly skilled and dedicated team, he brings extensive knowledge and expertise in heritage construction, restoration, development, and consultancy.
+              </p>
+              <p style="margin-top: 12px;">
+                His experience encompasses a wide range of projects, including luxury havelis, heritage residences, palaces, resorts, heritage hotels, and bespoke traditional interiors. With a deep understanding of traditional architectural elements and their appropriate application, he provides expert guidance on heritage design, proportions, materials, craftsmanship, and construction techniques, from domes, chhatris, jharokhas, jaalis, and mehraabs to intricate stonework, marble detailing, ceilings, and other elements of Rajasthani architecture.
+              </p>
+              <p style="margin-top: 12px;">
+                His vision is to preserve the soul of Rajasthan’s architectural heritage while creating timeless spaces that meet contemporary expectations of quality, functionality, and luxury, ensuring every project carries a distinctive story of craftsmanship, culture, and enduring beauty.
               </p>
             </div>
             <div class="leader-footer">
@@ -2250,16 +2254,19 @@
           <div class="leader-card">
             <div class="leader-header">
               <div class="leader-avatar">
-                <img src="md.jpeg" alt="Managing Director">
+                <img src="md.jpeg" alt="Yashvardhan Singh Rathore" style="object-position: top center;">
               </div>
               <div class="leader-titles">
-                <h3>MANAGING DIRECTOR NAME</h3>
-                <span>Managing Director</span>
+                <h3>Yashvardhan Singh Rathore</h3>
+                <span>Managing Director & Civil Engineer</span>
               </div>
             </div>
             <div class="leader-body">
               <p>
-                Directing strategic execution and civil engineering excellence, our Managing Director bridges traditional artisan craftsmanship with cutting-edge structural precision, guaranteeing exceptional quality from foundation to final palace-style finish.
+                Yashvardhan Singh Rathore is a Civil Engineer with hands-on experience in heritage and high-rise projects, including luxury villas. He has worked as a Site Engineer and Project Manager, managing quality control, site coordination, and technical execution. Skilled in construction detailing, material testing, estimation, BOQs, and project execution, with a strong focus on quality-driven construction.
+              </p>
+              <p style="margin-top: 12px;">
+                He also possesses practical knowledge of heritage craftsmanship, including jharokhas, domes, jaalis, lime mortar techniques, and traditional construction practices. He combines technical civil engineering expertise with modern project management and a deep understanding of traditional Rajasthani heritage architecture.
               </p>
             </div>
             <div class="leader-footer">
@@ -2291,17 +2298,32 @@
 
         <div class="beige-card-wrap">
           <div class="consultancy-slider-wrap" id="consultancySlider">
-            <img src="con1.jpg" alt="Consultancy 1" class="active">
-            <img src="con2.jpg" alt="Consultancy 2">
-            <img src="con3.jpg" alt="Consultancy 3">
-            <img src="con4.jpg" alt="Consultancy 4">
-            <img src="con5.jpg" alt="Consultancy 5">
+            <video class="consultancy-video active" autoplay muted loop playsinline preload="auto">
+              <source src="cons1.mp4" type="video/mp4">
+              <source src="cons1.MOV" type="video/quicktime">
+            </video>
+            <video class="consultancy-video" muted loop playsinline preload="metadata">
+              <source src="cons2.mp4" type="video/mp4">
+              <source src="cons2.MOV" type="video/quicktime">
+            </video>
+            <video class="consultancy-video" muted loop playsinline preload="metadata">
+              <source src="cons3.mp4" type="video/mp4">
+              <source src="cons3.MOV" type="video/quicktime">
+            </video>
+            <video class="consultancy-video" muted loop playsinline preload="metadata">
+              <source src="cons4.mp4" type="video/mp4">
+              <source src="cons4.MOV" type="video/quicktime">
+            </video>
+            <video class="consultancy-video" muted loop playsinline preload="metadata">
+              <source src="cons5.mp4" type="video/mp4">
+              <source src="cons5.MOV" type="video/quicktime">
+            </video>
 
             <div class="consultancy-slider-controls">
-              <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Image">
+              <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Video">
                 <i class="fa-solid fa-arrow-left"></i>
               </button>
-              <button class="consultancy-ctrl-btn" id="nextSlide" aria-label="Next Image">
+              <button class="consultancy-ctrl-btn" id="nextSlide" aria-label="Next Video">
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
             </div>
@@ -2317,7 +2339,7 @@
         <div class="craftsmanship-header">
           <div>
             <div class="eyebrow">Our Craftsmanship</div>
-            <h2 class="section-title">Our Heritage Craftsmanship</h2>
+            <h2 class="section-title">The Art of Heritage</h2>
           </div>
           <p class="section-intro">
             We focus on every detail — from flooring to ceiling, lighting to furniture — to deliver a complete royal palace-style heritage experience.
@@ -2668,86 +2690,106 @@
   <!-- JAVASCRIPT LOGIC -->
   <script>
 
-    /* HERITAGE CONSULTANCY MANUAL SLIDER LOGIC */
-    const consultancyImgs = document.querySelectorAll("#consultancySlider img");
+    /* HERITAGE CONSULTANCY MANUAL SLIDER LOGIC (VIDEOS) */
+    const consultancyVideos = document.querySelectorAll("#consultancySlider video");
     let currentSlide = 0;
 
     function showSlide(index) {
-      consultancyImgs.forEach((img, i) => {
-        img.classList.toggle("active", i === index);
+      consultancyVideos.forEach((vid, i) => {
+        const isActive = (i === index);
+        vid.classList.toggle("active", isActive);
+        if (isActive) {
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
+          vid.currentTime = 0;
+        }
       });
     }
 
     document.getElementById("nextSlide").addEventListener("click", () => {
-      currentSlide = (currentSlide + 1) % consultancyImgs.length;
+      currentSlide = (currentSlide + 1) % consultancyVideos.length;
       showSlide(currentSlide);
     });
 
     document.getElementById("prevSlide").addEventListener("click", () => {
-      currentSlide = (currentSlide - 1 + consultancyImgs.length) % consultancyImgs.length;
+      currentSlide = (currentSlide - 1 + consultancyVideos.length) % consultancyVideos.length;
       showSlide(currentSlide);
     });
+
+    // Initialize first video playback
+    showSlide(0);
 
 
     /* 10 CRAFTSMANSHIP CARDS CONFIGURATION & DOME/SQUARE PATTERN WITH VIEW MORE BUTTON */
     const craftCardsData = [
       {
-        title: "Complete Heritage Building & Room Transformation.",
-        tagline: "Total architectural renewal crafted for royal spatial integrity.",
+        title: "Heritage Style Elevation",
+        tagline: "Traditional façades with Chhatris, Domes, Jharokhas and Mehraabs, inspired by the grandeur of Rajasthan.",
+        description: "Rooted in the royal architectural language of Rajasthan, our heritage style elevations combine classical proportion with sculpted chhatris, soaring domes, and ornate mehraabs. Every façade is thoughtfully engineered and hand-carved to evoke the timeless majesty and stately elegance of historical havelis and palaces.",
         image: "card1.jpeg",
         subImages: ["card11.jpeg", "card12.jpeg", "card13.jpeg", "card14.jpeg", "card15.jpeg"]
       },
       {
-        title: "Traditional Jharokha Design & Architectural Elements",
-        tagline: "Ornate projections defining classic Rajasthan exterior poise.",
+        title: "Heritage Doors & Grand Entrances",
+        tagline: "Bespoke traditional doors, Dodi entrances and royal gateways crafted with timeless character.",
+        description: "Grand entrances and ceremonial Dodi gateways define the regal threshold of heritage architecture. Handcrafted from seasoned solid woods and adorned with heavy brass fittings, hand-carved panels, and authentic arches, our bespoke entrances welcome guests with dignified majesty and enduring character.",
         image: "card2.jpeg",
         subImages: ["card21.jpeg", "card22.jpeg", "card23.jpeg", "card24.jpeg", "card25.jpeg"]
       },
       {
-        title: "Pipal Patti & Aasnot Patti Wall Detailing",
-        tagline: "Refined edge motifs giving rhythm to walls and openings.",
+        title: "Jharokha & Jali Craft",
+        tagline: "Intricate Jharokhas and Jaali work, reflecting the fine craftsmanship of traditional Rajasthani architecture.",
+        description: "Jharokhas and delicate stone jaalis are the iconic soul of royal Rajasthani architecture. Designed to filter natural desert light and generate cooling cross-breezes, our cantilevered balconies and intricately pierced screens create mesmerizing light-and-shadow patterns while maintaining regal privacy.",
         image: "card3.jpeg",
         subImages: ["card31.jpeg", "card32.jpeg", "card33.jpeg", "card34.jpeg", "card35.jpeg"]
       },
       {
-        title: "Thekari Glass & Premium Belgium Glass Work",
-        tagline: "Reflective fragments and luminous surfaces composed with art.",
+        title: "Heritage Cement & Stone Craft",
+        tagline: "Handcrafted cement detailing, sandstone work, pillars, arches and Mehraabs rooted in traditional craftsmanship.",
+        description: "Reviving centuries-old artisan traditions, our cement relief and sandstone masonry bring structural artistry to life. From carved fluted pillars and scalloped mehraabs to handcrafted cornice mouldings, every curve is shaped by master artisans preserving age-old techniques with engineered permanence.",
         image: "card4.jpeg",
         subImages: ["card41.jpeg", "card42.jpeg", "card43.jpeg", "card44.jpeg", "card45.jpeg"]
       },
       {
-        title: "Royal Chandeliers (Jhumer) & Antique Wall Lighting",
-        tagline: "Light treated as atmosphere, ceremony and radiant warmth.",
+        title: "Pipla Patti & Tordi Craft",
+        tagline: "Traditional ceiling ornamentation, borders and Tordi detailing inspired by classic Haveli interiors.",
+        description: "Pipla Patti and Tordi detailing represent the delicate language of classical Rajasthani interior ornamentation. Hand-modelled along wall cornices, lintels, and ceiling borders, these rhythmic leaf and scroll motifs bring subtle dimension, warmth, and aristocratically crafted refinement to haveli chambers.",
         image: "card5.jpeg",
         subImages: ["card51.jpeg", "card52.jpeg", "card53.jpeg", "card54.jpeg", "card55.jpeg"]
       },
       {
-        title: "Hanging Lights & Palace-Style Illumination",
-        tagline: "Handcrafted fixtures casting timeless palace luminescence.",
+        title: "Thekri & Decorative Glass Art",
+        tagline: "Intricate Thekri glass craftsmanship creating rich colour, reflection and royal detailing.",
+        description: "Thekri glass inlay is the crowning jewel of palace craftsmanship, where thousands of hand-cut convex mirror pieces and colored Belgium glass are meticulously set into lime plaster. The resulting mosaics shimmer under chandelier light and candlelight, turning royal halls into radiant sanctuaries of light and wonder.",
         image: "card6.jpeg",
         subImages: ["card61.jpeg", "card62.jpeg", "card63.jpeg", "card64.jpeg", "card65.jpeg"]
       },
       {
-        title: "Handcrafted Paintings & Intricate Carving",
-        tagline: "Artistic surfaces preserving classical master storytelling.",
+        title: "Heritage Marble & Flooring",
+        tagline: "Bespoke marble flooring, traditional patterns and inlay work inspired by royal residences.",
+        description: "Sourced from authentic Rajasthan quarries, our heritage marble flooring combines Makrana, Banswara, and green marbles into exquisite geometric and floral inlay compositions. Hand-polished to a soft satin glow, every courtyard and corridor resonates with timeless luxury and regal coolness.",
         image: "card7.jpeg",
         subImages: ["card71.jpeg", "card72.jpeg", "card73.jpeg", "card74.jpeg", "card75.jpeg"]
       },
       {
-        title: "Custom Heritage Furniture (Carved Furniture, Ottoman, Study Tables, Bedroom Sets)",
-        tagline: "Furniture conceived as architecture at human scale.",
+        title: "Domes, Chhatris & Architectural Forms",
+        tagline: "Signature Domes, Chhatris, Gokhadas and other sculptural architectural elements defining the heritage silhouette.",
+        description: "Sculptural chhatris, fluted domes, and cantilevered gokhadas define the unmistakable silhouette of Rajasthan's architectural royalty. We engineer and carve these monumental silhouettes with geometric precision and artisanal devotion, commanding attention while honoring historical proportions.",
         image: "card8.jpeg",
         subImages: ["card81.jpeg", "card82.jpeg", "card83.jpeg", "card84.jpeg", "card85.jpeg"]
       },
       {
-        title: "Royal Curtains & Interior Styling",
-        tagline: "Textiles draped in regal palettes for grand chamber presence.",
+        title: "Heritage Chandeliers & Jhumars",
+        tagline: "Grand Chandeliers, Jhumars and traditional lighting elements that bring a regal glow to heritage interiors.",
+        description: "Illumination in heritage spaces is an art of creating atmosphere, ceremonial warmth, and royal splendor. We curate and craft grand multi-tiered crystal chandeliers, antique brass jhumars, and delicate lantern fixtures that cast a golden, timeless luminescence across palace-scale ceilings and grand chambers.",
         image: "card9.jpeg",
         subImages: ["card91.jpeg", "card92.jpeg", "card93.jpeg", "card94.jpeg", "card95.jpeg"]
       },
       {
-        title: "Heritage Flooring & Decorative Ceiling Work",
-        tagline: "Stone, line and repetition refined into quiet luxury.",
+        title: "Handcrafted Art, Furniture & Interiors",
+        tagline: "Handcrafted paintings, carved furniture and bespoke interior details that complete the timeless heritage character.",
+        description: "Complete heritage living requires furniture and interior styling conceived as architecture at human scale. From teakwood and rosewood hand-carved thrones, diwans, and brass-studded ottomans to traditional miniature paintings and rich tapestries, we design complete interior environments steeped in royal authenticity and timeless luxury.",
         image: "card10.jpeg",
         subImages: ["card101.jpeg", "card102.jpeg", "card103.jpeg", "card104.jpeg", "card105.jpeg"]
       }
@@ -2760,7 +2802,7 @@
       const div = document.createElement("div");
       div.className = `craft-card-item ${shapeClass}`;
       div.innerHTML = `
-        <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between;">
+        <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;">
           <div>
             <div class="craft-card-img-wrap">
               <img src="${card.image}" alt="${card.title}" loading="lazy">
@@ -3029,11 +3071,27 @@
       projectDetail.innerHTML = `
         <section class="project-detail-hero">
           <img class="detail-hero-image" src="${card.image}" alt="${card.title}">
-          <a href="#craftsmanship" class="back-projects" onclick="goHome();">← BACK TO CRAFTSMANSHIP</a>
+          <a href="#craftsmanship" class="back-projects" onclick="goBackToCraftsmanship(event);">← BACK TO CRAFTSMANSHIP</a>
           <div class="detail-hero-content">
             <div class="eyebrow">Rathore Heritage Craftsmanship</div>
-            <h1 style="font-size:clamp(32px,6vw,80px);">${card.title}</h1>
+            <h1 style="font-size:clamp(32px,6vw,72px);">${card.title}</h1>
             <div class="detail-meta">${card.tagline}</div>
+          </div>
+        </section>
+
+        <section class="detail-section brown">
+          <div class="container">
+            <div class="detail-story">
+              <div>
+                <div class="eyebrow">Our Craft Philosophy</div>
+                <h2>HERITAGE <span style="color:var(--gold);">PHILOSOPHY.</span></h2>
+              </div>
+              <div class="detail-story-copy">
+                <p style="font-family:var(--serif); font-size:clamp(20px, 2.2vw, 25px); line-height:1.8; color:var(--cream); font-weight:400;">
+                  ${card.description}
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -3047,6 +3105,9 @@
                   <div class="gallery-card-item">
                     <img src="${img}" alt="Craft Detail ${idx+1}" loading="lazy">
                   </div>
+                  <div style="padding:14px 18px; text-align:center; font-family:var(--serif); font-size:17px; font-weight:600; letter-spacing:0.06em; color:var(--ink); text-transform:uppercase; border-top:1px solid rgba(197,161,91,0.25);">
+                    Detail ${idx+1}
+                  </div>
                 </div>
               `).join("")}
             </div>
@@ -3054,6 +3115,15 @@
         </section>
       `;
       window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function goBackToCraftsmanship(e) {
+      if (e) e.preventDefault();
+      projectDetail.classList.remove("active");
+      homeView.classList.remove("hidden");
+      const el = document.getElementById("craftsmanship");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function handleRoute() {
