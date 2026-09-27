@@ -2353,7 +2353,7 @@
         <div class="beige-card-wrap">
           <div class="consultancy-slider-wrap" id="consultancySlider">
             <div class="consultancy-video-slide active">
-              <video class="consultancy-video" muted loop playsinline preload="none">
+              <video class="consultancy-video" muted loop playsinline preload="metadata">
                 <source src="cons1.mp4" type="video/mp4">
                 <source src="cons1.MOV" type="video/quicktime">
               </video>
@@ -2363,7 +2363,7 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
+              <video class="consultancy-video" muted loop playsinline preload="metadata">
                 <source src="cons2.mp4" type="video/mp4">
                 <source src="cons2.MOV" type="video/quicktime">
               </video>
@@ -2373,7 +2373,7 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
+              <video class="consultancy-video" muted loop playsinline preload="metadata">
                 <source src="cons3.mp4" type="video/mp4">
                 <source src="cons3.MOV" type="video/quicktime">
               </video>
@@ -2383,7 +2383,7 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
+              <video class="consultancy-video" muted loop playsinline preload="metadata">
                 <source src="cons4.mp4" type="video/mp4">
                 <source src="cons4.MOV" type="video/quicktime">
               </video>
@@ -2393,7 +2393,7 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
+              <video class="consultancy-video" muted loop playsinline preload="metadata">
                 <source src="cons5.mp4" type="video/mp4">
                 <source src="cons5.MOV" type="video/quicktime">
               </video>
@@ -2779,6 +2779,46 @@
     const consultancyPlayStopButtons = document.querySelectorAll("#consultancySlider .consultancy-play-stop");
     let currentSlide = 0;
 
+    /* ── VIDEO POSTER / PREVIEW GENERATION ──────────────────────────
+       Captures the very first frame of every consultancy video and
+       bakes it into the slide as a background-image preview so the
+       slot never looks blank before the user presses Play.
+    ────────────────────────────────────────────────────────────────── */
+    (function generateVideoPreviews() {
+      const canvas = document.createElement("canvas");
+      const ctx    = canvas.getContext("2d");
+
+      consultancyVideos.forEach((vid, idx) => {
+        const slide = consultancySlides[idx];
+
+        function capturePoster() {
+          if (vid.readyState < 2) return;           // frame not ready yet
+          canvas.width  = vid.videoWidth  || 640;
+          canvas.height = vid.videoHeight || 360;
+          try {
+            ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL("image/jpeg", 0.82);
+            // Apply as a background behind the video element
+            slide.style.backgroundImage   = `url("${dataURL}")`;
+            slide.style.backgroundSize    = "cover";
+            slide.style.backgroundPosition= "center";
+          } catch(e) {
+            // cross-origin or security error — silently skip
+          }
+          vid.removeEventListener("loadeddata",   capturePoster);
+          vid.removeEventListener("canplaythrough", capturePoster);
+        }
+
+        if (vid.readyState >= 2) {
+          capturePoster();
+        } else {
+          vid.addEventListener("loadeddata",    capturePoster, { once: true });
+          vid.addEventListener("canplaythrough", capturePoster, { once: true });
+        }
+      });
+    })();
+
+
     function updatePlayStopButton(index, isPlaying) {
       const button = consultancyPlayStopButtons[index];
       if (!button) return;
@@ -2935,7 +2975,7 @@
         tagline: "Handcrafted paintings, carved furniture and bespoke interior details that complete the timeless heritage character.",
         description: "Complete heritage living requires furniture and interior styling conceived as architecture at human scale. From teakwood and rosewood hand-carved thrones, diwans, and brass-studded ottomans to traditional miniature paintings and rich tapestries, we design complete interior environments steeped in royal authenticity and timeless luxury.",
         image: "card10.jpeg",
-        subImages: ["card101.jpeg", "card102.jpeg", "card103.jpeg", "card104.jpeg", "card105.jpeg"]
+        subImages: ["card101.jpeg", "card102.jpeg", "card103.jpeg", "card104.jpeg", "card105.jpeg", "card106.jpeg", "card107.jpeg", "card108.jpeg", "card109.jpeg", "card110.jpeg"]
       }
     ];
 
