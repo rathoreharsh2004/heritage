@@ -863,9 +863,63 @@
     }
 
     .consultancy-slider-wrap img.active,
-    .consultancy-slider-wrap video.active {
+    .consultancy-slider-wrap video.active,
+    .consultancy-video-slide.active {
       opacity: 1;
       pointer-events: auto;
+    }
+
+    .consultancy-video-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s var(--ease);
+    }
+
+    .consultancy-video-slide .consultancy-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .consultancy-play-stop {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      z-index: 12;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(23,11,7,.86);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background .3s, color .3s, transform .3s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .consultancy-play-stop:hover {
+      background: var(--gold);
+      color: var(--brown-deep);
+      transform: scale(1.06);
+    }
+
+    .consultancy-play-stop i {
+      font-size: 14px;
+      margin-left: 2px;
+    }
+
+    .consultancy-play-stop.is-playing i {
+      margin-left: 0;
     }
 
     .consultancy-slider-controls {
@@ -2298,26 +2352,55 @@
 
         <div class="beige-card-wrap">
           <div class="consultancy-slider-wrap" id="consultancySlider">
-            <video class="consultancy-video active" autoplay muted loop playsinline preload="auto">
-              <source src="cons1.mp4" type="video/mp4">
-              <source src="cons1.MOV" type="video/quicktime">
-            </video>
-            <video class="consultancy-video" muted loop playsinline preload="metadata">
-              <source src="cons2.mp4" type="video/mp4">
-              <source src="cons2.MOV" type="video/quicktime">
-            </video>
-            <video class="consultancy-video" muted loop playsinline preload="metadata">
-              <source src="cons3.mp4" type="video/mp4">
-              <source src="cons3.MOV" type="video/quicktime">
-            </video>
-            <video class="consultancy-video" muted loop playsinline preload="metadata">
-              <source src="cons4.mp4" type="video/mp4">
-              <source src="cons4.MOV" type="video/quicktime">
-            </video>
-            <video class="consultancy-video" muted loop playsinline preload="metadata">
-              <source src="cons5.mp4" type="video/mp4">
-              <source src="cons5.MOV" type="video/quicktime">
-            </video>
+            <div class="consultancy-video-slide active">
+              <video class="consultancy-video" muted loop playsinline preload="none">
+                <source src="cons1.mp4" type="video/mp4">
+                <source src="cons1.MOV" type="video/quicktime">
+              </video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 1" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none">
+                <source src="cons2.mp4" type="video/mp4">
+                <source src="cons2.MOV" type="video/quicktime">
+              </video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 2" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none">
+                <source src="cons3.mp4" type="video/mp4">
+                <source src="cons3.MOV" type="video/quicktime">
+              </video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 3" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none">
+                <source src="cons4.mp4" type="video/mp4">
+                <source src="cons4.MOV" type="video/quicktime">
+              </video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 4" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none">
+                <source src="cons5.mp4" type="video/mp4">
+                <source src="cons5.MOV" type="video/quicktime">
+              </video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 5" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
 
             <div class="consultancy-slider-controls">
               <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Video">
@@ -2691,33 +2774,94 @@
   <script>
 
     /* HERITAGE CONSULTANCY MANUAL SLIDER LOGIC (VIDEOS) */
+    const consultancySlides = document.querySelectorAll("#consultancySlider .consultancy-video-slide");
     const consultancyVideos = document.querySelectorAll("#consultancySlider video");
+    const consultancyPlayStopButtons = document.querySelectorAll("#consultancySlider .consultancy-play-stop");
     let currentSlide = 0;
+
+    function updatePlayStopButton(index, isPlaying) {
+      const button = consultancyPlayStopButtons[index];
+      if (!button) return;
+
+      button.classList.toggle("is-playing", isPlaying);
+      button.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+      button.setAttribute("aria-label", isPlaying ? `Stop Video ${index + 1}` : `Play Video ${index + 1}`);
+      button.innerHTML = isPlaying
+        ? '<i class="fa-solid fa-stop"></i>'
+        : '<i class="fa-solid fa-play"></i>';
+    }
+
+    function stopConsultancyVideo(index, reset = true) {
+      const vid = consultancyVideos[index];
+      if (!vid) return;
+
+      vid.pause();
+      if (reset) {
+        try {
+          vid.currentTime = 0;
+        } catch (e) {}
+      }
+      updatePlayStopButton(index, false);
+    }
 
     function showSlide(index) {
       consultancyVideos.forEach((vid, i) => {
         const isActive = (i === index);
-        vid.classList.toggle("active", isActive);
+
         if (isActive) {
-          vid.play().catch(() => {});
+          consultancySlides[i].classList.add("active");
         } else {
-          vid.pause();
-          vid.currentTime = 0;
+          consultancySlides[i].classList.remove("active");
+          stopConsultancyVideo(i, true);
         }
       });
+
+      // Every slide opens paused. Video starts only after the user's Play click.
+      stopConsultancyVideo(index, false);
     }
 
+    consultancyPlayStopButtons.forEach((button, index) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const vid = consultancyVideos[index];
+        if (!vid) return;
+
+        if (index !== currentSlide) {
+          currentSlide = index;
+          showSlide(currentSlide);
+          return;
+        }
+
+        if (vid.paused) {
+          vid.play().then(() => {
+            updatePlayStopButton(index, true);
+          }).catch(() => {
+            updatePlayStopButton(index, false);
+          });
+        } else {
+          stopConsultancyVideo(index, true);
+        }
+      });
+    });
+
+    consultancyVideos.forEach((vid, index) => {
+      vid.addEventListener("play", () => updatePlayStopButton(index, true));
+      vid.addEventListener("pause", () => updatePlayStopButton(index, false));
+      vid.addEventListener("ended", () => updatePlayStopButton(index, false));
+    });
+
     document.getElementById("nextSlide").addEventListener("click", () => {
-      currentSlide = (currentSlide + 1) % consultancyVideos.length;
+      currentSlide = (currentSlide + 1) % consultancySlides.length;
       showSlide(currentSlide);
     });
 
     document.getElementById("prevSlide").addEventListener("click", () => {
-      currentSlide = (currentSlide - 1 + consultancyVideos.length) % consultancyVideos.length;
+      currentSlide = (currentSlide - 1 + consultancySlides.length) % consultancySlides.length;
       showSlide(currentSlide);
     });
 
-    // Initialize first video playback
+    // Initialize first slide without starting any video.
     showSlide(0);
 
 
