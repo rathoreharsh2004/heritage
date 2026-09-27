@@ -2161,6 +2161,171 @@
       }
     }
 
+
+    /* =========================================================
+       RAW MATERIALS / FOUNDATION OF HERITAGE SECTION
+    ========================================================= */
+    .raw-material-section {
+      background:
+        radial-gradient(circle at 12% 20%, rgba(197,161,91,.10), transparent 32%),
+        var(--beige);
+      color: var(--ink);
+    }
+
+    .raw-material-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 55px;
+      align-items: center;
+      margin-top: 55px;
+    }
+
+    @media (min-width: 1024px) {
+      .raw-material-layout {
+        grid-template-columns: 1.05fr .95fr;
+        gap: 90px;
+      }
+    }
+
+    .raw-material-card {
+      position: relative;
+      background: var(--beige-light);
+      border: 1px solid rgba(197,161,91,.5);
+      padding: 14px;
+      box-shadow: 0 18px 45px rgba(36,22,14,.10);
+      overflow: hidden;
+    }
+
+    .raw-material-image-wrap {
+      position: relative;
+      height: 430px;
+      overflow: hidden;
+      background: var(--brown-soft);
+    }
+
+    @media (min-width: 768px) {
+      .raw-material-image-wrap {
+        height: 560px;
+      }
+    }
+
+    .raw-material-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity .45s ease, transform 1s var(--ease);
+    }
+
+    .raw-material-card:hover .raw-material-image-wrap img {
+      transform: scale(1.025);
+    }
+
+    .raw-material-caption {
+      padding: 22px 18px 16px;
+      border-top: 1px solid rgba(197,161,91,.28);
+    }
+
+    .raw-material-counter {
+      font-family: var(--serif);
+      font-size: 12px;
+      letter-spacing: .18em;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+    }
+
+    .raw-material-caption h3 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin: 0;
+    }
+
+    .raw-material-controls {
+      display: flex;
+      gap: 10px;
+      position: absolute;
+      right: 28px;
+      bottom: 84px;
+      z-index: 4;
+    }
+
+    .raw-material-btn {
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--gold);
+      background: rgba(23,11,7,.86);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      transition: .3s var(--ease);
+    }
+
+    .raw-material-btn:hover {
+      background: var(--gold);
+      color: var(--brown-deep);
+      transform: translateY(-2px);
+    }
+
+    .raw-material-copy {
+      padding-right: 0;
+    }
+
+    @media (min-width: 1024px) {
+      .raw-material-copy {
+        padding-right: 35px;
+      }
+    }
+
+    .raw-material-copy .eyebrow {
+      color: var(--gold-dark);
+    }
+
+    .raw-material-copy h2 {
+      font-family: var(--serif);
+      color: var(--gold-dark);
+      font-size: clamp(42px, 5vw, 78px);
+      line-height: .9;
+      font-weight: 500;
+      letter-spacing: -.03em;
+      margin-bottom: 28px;
+    }
+
+    .raw-material-copy .raw-material-main-tagline {
+      font-family: var(--serif);
+      color: var(--gold-dark);
+      font-size: clamp(24px, 2.5vw, 38px);
+      line-height: 1.05;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .raw-material-copy p {
+      color: var(--brown-soft);
+      font-size: 14px;
+      line-height: 1.95;
+      max-width: 610px;
+      opacity: .92;
+    }
+
+    @media (max-width: 767px) {
+      .raw-material-image-wrap {
+        height: 360px;
+      }
+
+      .raw-material-controls {
+        right: 24px;
+        bottom: 78px;
+      }
+
+      .raw-material-btn {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2448,6 +2613,45 @@
 
         <div class="material-grid" id="materialGrid">
           <!-- Injected dynamically for M1 - M8 with alternating square and dome shapes -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- FOUNDATION OF HERITAGE / RAW MATERIALS SECTION -->
+    <section class="section raw-material-section" id="rawmaterials">
+      <div class="container">
+        <div class="eyebrow">The Beginning of Craft</div>
+
+        <div class="raw-material-layout">
+          <div class="raw-material-card">
+            <div class="raw-material-image-wrap">
+              <img id="rawMaterialImage" src="raw1.jpeg" alt="Raw Material Element 1" loading="lazy">
+            </div>
+
+            <div class="raw-material-caption">
+              <div class="raw-material-counter" id="rawMaterialCounter">01 / 10</div>
+              <h3 id="rawMaterialTagline">THE FIRST LAYER OF TIMELESS CRAFT</h3>
+            </div>
+
+            <div class="raw-material-controls">
+              <button class="raw-material-btn" id="rawMaterialPrev" aria-label="Previous Raw Material">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <button class="raw-material-btn" id="rawMaterialNext" aria-label="Next Raw Material">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="raw-material-copy">
+            <div class="eyebrow">Raw Structure · Living Craft</div>
+            <h2>The Foundation of Heritage</h2>
+            <div class="raw-material-main-tagline">Where Every Royal Form Begins With Its First Honest Element.</div>
+            <p>
+              Before a heritage space becomes a haveli, palace or timeless interior, it begins with the raw elements that shape its character. Stone, timber, lime, metal, plaster and handcrafted foundations form the first language of the structure — carrying the texture, strength and soul that later define the finished work.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -3021,6 +3225,47 @@
         </div>
       `;
       materialGrid.appendChild(div);
+    }
+
+
+    // Foundation of Heritage — 10 raw material images with matching taglines.
+    const rawMaterialSlides = [
+      { image: "raw1.jpeg", tagline: "THE FIRST LAYER OF TIMELESS CRAFT" },
+      { image: "raw2.jpeg", tagline: "STONE THAT GIVES HERITAGE ITS STRENGTH" },
+      { image: "raw3.jpeg", tagline: "TIMBER SHAPED FOR A LIVING LEGACY" },
+      { image: "raw4.jpeg", tagline: "LIME AND EARTH, THE SOUL OF TRADITION" },
+      { image: "raw5.jpeg", tagline: "METAL DETAILING THAT CARRIES ROYAL CHARACTER" },
+      { image: "raw6.jpeg", tagline: "HANDCRAFTED SURFACES BORN FROM PATIENCE" },
+      { image: "raw7.jpeg", tagline: "FOUNDATION ELEMENTS BUILT TO ENDURE" },
+      { image: "raw8.jpeg", tagline: "TEXTURES THAT AGE WITH GRACE" },
+      { image: "raw9.jpeg", tagline: "CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
+      { image: "raw10.jpeg", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" }
+    ];
+
+    let rawMaterialIndex = 0;
+    const rawMaterialImage = document.getElementById("rawMaterialImage");
+    const rawMaterialTagline = document.getElementById("rawMaterialTagline");
+    const rawMaterialCounter = document.getElementById("rawMaterialCounter");
+    const rawMaterialPrev = document.getElementById("rawMaterialPrev");
+    const rawMaterialNext = document.getElementById("rawMaterialNext");
+
+    function showRawMaterial(index) {
+      rawMaterialIndex = (index + rawMaterialSlides.length) % rawMaterialSlides.length;
+      const slide = rawMaterialSlides[rawMaterialIndex];
+
+      rawMaterialImage.style.opacity = "0";
+      setTimeout(() => {
+        rawMaterialImage.src = slide.image;
+        rawMaterialImage.alt = slide.tagline;
+        rawMaterialTagline.textContent = slide.tagline;
+        rawMaterialCounter.textContent = `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialSlides.length).padStart(2, "0")}`;
+        rawMaterialImage.style.opacity = "1";
+      }, 180);
+    }
+
+    if (rawMaterialPrev && rawMaterialNext) {
+      rawMaterialPrev.addEventListener("click", () => showRawMaterial(rawMaterialIndex - 1));
+      rawMaterialNext.addEventListener("click", () => showRawMaterial(rawMaterialIndex + 1));
     }
 
 
