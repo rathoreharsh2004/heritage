@@ -266,22 +266,24 @@
     }
 
     .loader-mark {
-      width: 90px;
-      height: 90px;
+      width: 120px;
+      height: 120px;
       margin: auto;
-      border: 1px solid rgba(197,161,91,.4);
-      border-radius: 50%;
       display: grid;
       place-items: center;
-      animation: spin 3s linear infinite;
+      animation: pulseLoader 1.8s ease-in-out infinite;
     }
 
-    .loader-mark::before {
-      content: "R";
-      font-family: var(--serif);
-      font-size: 42px;
-      color: var(--gold);
-      animation: spinReverse 3s linear infinite;
+    .loader-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    @keyframes pulseLoader {
+      0%, 100% { transform: scale(1); opacity: .88; }
+      50% { transform: scale(1.04); opacity: 1; }
     }
 
     .loader-text {
@@ -2009,8 +2011,9 @@
       text-transform: none;
     }
     .brand-text small { display:none; }
+    .brand-text strong { color: var(--gold-light); }
     @media (min-width:768px) {
-      .brand-text strong { font-size:21px; }
+      .brand-text strong { font-size:15px; }
     }
 
     .hero h1 {
@@ -2029,7 +2032,8 @@
     .menu-overlay {
       width: min(160px, calc(50vw - 20px));
       padding: 12px 14px;
-      max-height: calc(50vh - 50px);
+      max-height: none;
+      overflow: visible;
     }
     .menu-links { gap:4px; }
     .menu-links a {
@@ -2326,150 +2330,37 @@
       }
     }
 
-  
 
-    /* =========================================================
-       REQUESTED UPDATES: FAST LOAD, HERO-ONLY NAV, MENU, MOBILE
-       ========================================================= */
-
-    .preloader-logo {
-      width: 150px;
-      height: 150px;
-      object-fit: contain;
-      display: block;
+    /* FINAL RESPONSIVE / SECTION HEADING ALIGNMENT */
+    .home-view > .section:not(.hero) .section-title,
+    .home-view > .section:not(.hero) > .container > .eyebrow,
+    .home-view > .section:not(.hero) > .container > .section-intro {
+      text-align: center;
     }
-
-    .brand-text strong {
-      font-size: 28.5px;
-      color: var(--gold-light);
+    .home-view > .section:not(.hero) > .container > .eyebrow {
+      justify-content: center;
     }
-
-    @media (min-width: 768px) {
-      .brand-text strong {
-        font-size: 34.5px;
-      }
-    }
-
-    /* Navbar exists only over the hero and scrolls away naturally. */
-    header {
-      position: absolute;
-    }
-
-    header.scrolled {
-      padding: 28px 0;
-      background: transparent;
-      backdrop-filter: none;
-      border-bottom: 0;
-    }
-
-    /* One-screen menu: no internal scrolling. */
-    .menu-overlay {
-      max-height: none;
-      overflow: hidden;
-      width: min(620px, calc(100vw - 30px));
-      padding: 22px 26px;
-    }
-
-    .menu-links {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 24px;
-    }
-
-    .menu-links a {
-      font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: 8px 0;
-    }
-
-    /* Center only the main section heading + main tagline. */
-    .section:not(.hero) > .container > .section-title,
-    .section:not(.hero) > .container > .section-intro,
-    .section:not(.hero) > .container > .eyebrow + .section-title,
-    .section:not(.hero) > .container > .eyebrow + .section-title + .gold-line {
+    .home-view > .section:not(.hero) .gold-line {
       margin-left: auto;
       margin-right: auto;
     }
 
-    .section:not(.hero) > .container > .section-title,
-    .section:not(.hero) > .container > .section-intro {
-      text-align: center;
-    }
-
-    .section:not(.hero) > .container > .eyebrow {
-      justify-content: center;
-      text-align: center;
-    }
-
-    .section:not(.hero) > .container > .eyebrow::before {
-      display: none;
-    }
-
-    /* Faster initial paint: do not keep the preloader waiting for every image/video. */
-    .preloader {
-      transition: opacity .45s var(--ease), visibility .45s;
-    }
-
-    /* Footer logo + brand */
-    .footer-logo {
-      width: 210px;
-      height: 210px;
-    }
-
-    /* Mobile */
     @media (max-width: 767px) {
-      .preloader-logo {
-        width: 120px;
-        height: 120px;
-      }
-
-      .brand-text strong {
-        font-size: 28.5px;
-        line-height: 1;
-      }
-
-      .brand-symbol {
-        width: 70px;
-        height: 70px;
-      }
-
-      .menu-overlay {
-        top: 72px;
-        right: 15px;
-        width: calc(100vw - 30px);
-        padding: 16px 18px;
-      }
-
-      .menu-links {
-        gap: 0 16px;
-      }
-
-      .menu-links a {
-        font-size: 10px;
-        letter-spacing: .04em;
-        padding: 6px 0;
-      }
-
-      .section-title {
-        font-size: clamp(36px, 11vw, 60px);
-      }
-
-      .section-intro {
-        max-width: 100%;
-      }
-
-      .footer-logo {
-        width: 180px;
-        height: 180px;
-      }
-    }
-
-    /* Defer heavy consultancy video network requests until the section is near the viewport. */
-    #consultancySlider video {
-      content-visibility: auto;
+      .section { padding: 70px 0; }
+      .section-title { font-size: clamp(34px, 11vw, 54px); }
+      .section-intro { font-size: 13px; }
+      .container { width: min(calc(100% - 28px), var(--container)); }
+      .brand-symbol { width: 64px; height: 64px; }
+      .menu-trigger { font-size: 9px; letter-spacing: .12em; }
+      .menu-overlay { right: 14px; width: min(230px, calc(100vw - 28px)); }
+      .menu-links a { font-size: 15px; }
+      .consultancy-grid,
+      .legacy-grid,
+      .approach-grid,
+      .contact-grid { gap: 30px; }
+      .consultancy-slider-wrap { height: 330px; }
+      .raw-material-layout { grid-template-columns: 1fr !important; }
+      .heritage-featured-slider { width: 100%; }
     }
 
   </style>
@@ -2480,7 +2371,8 @@
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="loader-inner">
-      <img class="preloader-logo" src="logo.PNG" alt="Rathore Heritage Developers">
+      <div class="loader-mark"></div>
+      <div class="loader-text">Rathore Heritage</div>
     </div>
   </div>
 
@@ -2532,7 +2424,7 @@
 
     <!-- HERO SECTION WITH VIDEO -->
     <section class="hero" id="home">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <video class="hero-video" autoplay muted loop playsinline>
         <source src="hero.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
@@ -2554,7 +2446,7 @@
     <section class="section brown" id="legacy">
       <div class="container legacy-grid">
         <div class="legacy-image-wrap">
-          <img class="legacy-image" src="about.PNG" alt="About Rathore Heritage" loading="eager" fetchpriority="high">
+          <img class="legacy-image" src="about.PNG" alt="About Rathore Heritage">
           <div class="image-frame"></div>
         </div>
         <div class="legacy-copy">
@@ -2591,7 +2483,7 @@
           <div class="leader-card">
             <div class="leader-header">
               <div class="leader-avatar">
-                <img src="founder.jpeg" alt="Balveer Singh Rathore" loading="eager">
+                <img src="founder.jpeg" alt="Balveer Singh Rathore">
               </div>
               <div class="leader-titles">
                 <h3>Balveer Singh Rathore</h3>
@@ -2618,7 +2510,7 @@
           <div class="leader-card">
             <div class="leader-header">
               <div class="leader-avatar">
-                <img src="md.jpeg" alt="Yashvardhan Singh Rathore" loading="eager" style="object-position: top center;">
+                <img src="md.jpeg" alt="Yashvardhan Singh Rathore" style="object-position: top center;">
               </div>
               <div class="leader-titles">
                 <h3>Yashvardhan Singh Rathore</h3>
@@ -2642,8 +2534,7 @@
     </section>
 
 
-    <!-- HERITAGE CONSULTANCY SECTION (NEW) -->
-    
+
 
 
     <!-- OUR HERITAGE CRAFTSMANSHIP (10 Cards with View More button) -->
@@ -2683,8 +2574,7 @@
     </section>
 
 
-    <!-- FOUNDATION OF HERITAGE / RAW MATERIALS SECTION -->
-    
+
 
 
     <!-- SIGNATURE PROJECTS SECTION -->
@@ -2703,7 +2593,7 @@
         <div class="signature-layout">
           <!-- Top Full Width Card: Oladar Haveli with clear background image -->
           <div class="project-featured-card" onclick="openProject('oladar')">
-            <img class="project-featured-bg" src="oladar1.jpeg" alt="Oladar Haveli Background" loading="lazy">
+            <img class="project-featured-bg" src="oladar1.jpeg" alt="Oladar Haveli Background">
             <div class="project-featured-content">
               <div class="eyebrow">Udaipur · Heritage Haveli Construction</div>
               <h3 style="font-family:var(--serif); font-size:clamp(32px, 5vw, 48px); color:var(--gold-dark); margin-bottom:12px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Oladar Haveli</h3>
@@ -2722,7 +2612,7 @@
             <div class="project-card-box" onclick="openProject('roopmahal')">
               <div class="beige-card-wrap">
                 <div class="project-card-img shape-dome">
-                  <img src="roop1.jpeg" alt="Roop Mahal" loading="lazy">
+                  <img src="roop1.jpeg" alt="Roop Mahal">
                 </div>
                 <div class="project-card-info">
                   <div class="eyebrow">Udaipur · Luxury Heritage Villa</div>
@@ -2739,7 +2629,7 @@
             <div class="project-card-box" onclick="openProject('mohan')">
               <div class="beige-card-wrap">
                 <div class="project-card-img">
-                  <img src="mohan1.jpeg" alt="Mohan Villa" loading="lazy">
+                  <img src="mohan1.jpeg" alt="Mohan Villa">
                 </div>
                 <div class="project-card-info">
                   <div class="eyebrow">Udaipur · Heritage Style Villa / Farmhouse</div>
@@ -2756,7 +2646,7 @@
             <div class="project-card-box" onclick="openProject('salon')">
               <div class="beige-card-wrap">
                 <div class="project-card-img shape-dome">
-                  <img src="first1.jpeg" alt="First Impression Salon" loading="lazy">
+                  <img src="first1.jpeg" alt="First Impression Salon">
                 </div>
                 <div class="project-card-info">
                   <div class="eyebrow">Udaipur · Premium Commercial Interior</div>
@@ -2774,7 +2664,8 @@
     </section>
 
 
-<section class="section brown" id="consultancy">
+    <!-- HERITAGE CONSULTANCY SECTION (NEW) -->
+    <section class="section brown" id="consultancy">
       <div class="container consultancy-grid">
         <div>
           <div class="eyebrow">Expert Guidance</div>
@@ -2794,9 +2685,9 @@
         <div class="beige-card-wrap">
           <div class="consultancy-slider-wrap" id="consultancySlider">
             <div class="consultancy-video-slide active">
-              <video class="consultancy-video" muted loop playsinline preload="none">
-                <source data-src="cons1.mp4" type="video/mp4">
-                <source data-src="cons1.MOV" type="video/quicktime">
+              <video class="consultancy-video" muted loop playsinline preload="auto">
+                <source src="cons1.mp4" type="video/mp4">
+                <source src="cons1.MOV" type="video/quicktime">
               </video>
               <button class="consultancy-play-stop" type="button" aria-label="Play Video 1" aria-pressed="false">
                 <i class="fa-solid fa-play"></i>
@@ -2804,9 +2695,9 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
-                <source data-src="cons2.mp4" type="video/mp4">
-                <source data-src="cons2.MOV" type="video/quicktime">
+              <video class="consultancy-video" muted loop playsinline preload="auto">
+                <source src="cons2.mp4" type="video/mp4">
+                <source src="cons2.MOV" type="video/quicktime">
               </video>
               <button class="consultancy-play-stop" type="button" aria-label="Play Video 2" aria-pressed="false">
                 <i class="fa-solid fa-play"></i>
@@ -2814,9 +2705,9 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
-                <source data-src="cons3.mp4" type="video/mp4">
-                <source data-src="cons3.MOV" type="video/quicktime">
+              <video class="consultancy-video" muted loop playsinline preload="auto">
+                <source src="cons3.mp4" type="video/mp4">
+                <source src="cons3.MOV" type="video/quicktime">
               </video>
               <button class="consultancy-play-stop" type="button" aria-label="Play Video 3" aria-pressed="false">
                 <i class="fa-solid fa-play"></i>
@@ -2824,9 +2715,9 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
-                <source data-src="cons4.mp4" type="video/mp4">
-                <source data-src="cons4.MOV" type="video/quicktime">
+              <video class="consultancy-video" muted loop playsinline preload="auto">
+                <source src="cons4.mp4" type="video/mp4">
+                <source src="cons4.MOV" type="video/quicktime">
               </video>
               <button class="consultancy-play-stop" type="button" aria-label="Play Video 4" aria-pressed="false">
                 <i class="fa-solid fa-play"></i>
@@ -2834,9 +2725,9 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
-                <source data-src="cons5.mp4" type="video/mp4">
-                <source data-src="cons5.MOV" type="video/quicktime">
+              <video class="consultancy-video" muted loop playsinline preload="auto">
+                <source src="cons5.mp4" type="video/mp4">
+                <source src="cons5.MOV" type="video/quicktime">
               </video>
               <button class="consultancy-play-stop" type="button" aria-label="Play Video 5" aria-pressed="false">
                 <i class="fa-solid fa-play"></i>
@@ -2844,9 +2735,9 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
-                <source data-src="cons6.mp4" type="video/mp4">
-                <source data-src="cons6.MOV" type="video/quicktime">
+              <video class="consultancy-video" muted loop playsinline preload="auto">
+                <source src="cons6.mp4" type="video/mp4">
+                <source src="cons6.MOV" type="video/quicktime">
               </video>
               <button class="consultancy-play-stop" type="button" aria-label="Play Video 6" aria-pressed="false">
                 <i class="fa-solid fa-play"></i>
@@ -2854,9 +2745,9 @@
             </div>
 
             <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="none">
-                <source data-src="cons7.mp4" type="video/mp4">
-                <source data-src="cons7.MOV" type="video/quicktime">
+              <video class="consultancy-video" muted loop playsinline preload="auto">
+                <source src="cons7.mp4" type="video/mp4">
+                <source src="cons7.MOV" type="video/quicktime">
               </video>
               <button class="consultancy-play-stop" type="button" aria-label="Play Video 7" aria-pressed="false">
                 <i class="fa-solid fa-play"></i>
@@ -2877,14 +2768,16 @@
     </section>
 
 
-<section class="section raw-material-section" id="rawmaterials">
+    <!-- FOUNDATION OF HERITAGE / RAW MATERIALS SECTION -->
+    <section class="section raw-material-section" id="rawmaterials">
       <div class="container">
         <div class="eyebrow">The Beginning of Craft</div>
 
         <div class="raw-material-layout">
           <div class="raw-material-card">
             <div class="raw-material-image-wrap">
-              <img id="rawMaterialImage" src="raw1.jpeg" alt="Raw Material Element 1" loading="lazy">
+              <img id="rawMaterialImage" src="raw1.jpeg" alt="Raw Material Element 1" loading="eager" fetchpriority="high">
+              <video id="rawMaterialVideo" muted loop playsinline preload="auto" style="display:none;" aria-hidden="true"></video>
             </div>
 
             <div class="raw-material-caption">
@@ -2933,7 +2826,7 @@
           </div>
 
           <div class="heritage-featured-image">
-            <img id="heritageFeaturedImage" src="oladar1.jpeg" alt="Oladar Haveli Featured Execution" loading="lazy">
+            <img id="heritageFeaturedImage" src="oladar1.jpeg" alt="Oladar Haveli Featured Execution">
           </div>
 
           <div class="heritage-slider-dots" id="heritageSliderDots"></div>
@@ -3154,38 +3047,44 @@
     const consultancyPlayStopButtons = document.querySelectorAll("#consultancySlider .consultancy-play-stop");
     let currentSlide = 0;
 
-    /* Consultancy videos are intentionally not loaded during initial page load.
-       Their source metadata is fetched only when the section approaches the viewport. */
-    let consultancyMediaLoaded = false;
+    /* ── VIDEO POSTER / PREVIEW GENERATION ──────────────────────────
+       Captures the very first frame of every consultancy video and
+       bakes it into the slide as a background-image preview so the
+       slot never looks blank before the user presses Play.
+    ────────────────────────────────────────────────────────────────── */
+    (function generateVideoPreviews() {
+      const canvas = document.createElement("canvas");
+      const ctx    = canvas.getContext("2d");
 
-    function loadConsultancyMedia() {
-      if (consultancyMediaLoaded) return;
-      consultancyMediaLoaded = true;
+      consultancyVideos.forEach((vid, idx) => {
+        const slide = consultancySlides[idx];
 
-      consultancyVideos.forEach((vid) => {
-        if (!vid.dataset.loaded) {
-          vid.preload = "metadata";
-          vid.querySelectorAll("source").forEach(source => {
-            source.setAttribute("src", source.getAttribute("data-src"));
-          });
-          vid.load();
-          vid.dataset.loaded = "true";
+        function capturePoster() {
+          if (vid.readyState < 2) return;           // frame not ready yet
+          canvas.width  = vid.videoWidth  || 640;
+          canvas.height = vid.videoHeight || 360;
+          try {
+            ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL("image/jpeg", 0.82);
+            // Apply as a background behind the video element
+            slide.style.backgroundImage   = `url("${dataURL}")`;
+            slide.style.backgroundSize    = "cover";
+            slide.style.backgroundPosition= "center";
+          } catch(e) {
+            // cross-origin or security error — silently skip
+          }
+          vid.removeEventListener("loadeddata",   capturePoster);
+          vid.removeEventListener("canplaythrough", capturePoster);
+        }
+
+        if (vid.readyState >= 2) {
+          capturePoster();
+        } else {
+          vid.addEventListener("loadeddata",    capturePoster, { once: true });
+          vid.addEventListener("canplaythrough", capturePoster, { once: true });
         }
       });
-    }
-
-    const consultancySection = document.getElementById("consultancy");
-    if ("IntersectionObserver" in window && consultancySection) {
-      const consultancyObserver = new IntersectionObserver((entries, observer) => {
-        if (entries.some(entry => entry.isIntersecting)) {
-          loadConsultancyMedia();
-          observer.disconnect();
-        }
-      }, { rootMargin: "1000px 0px" });
-      consultancyObserver.observe(consultancySection);
-    } else {
-      setTimeout(loadConsultancyMedia, 1500);
-    }
+    })();
 
 
     function updatePlayStopButton(index, isPlaying) {
@@ -3358,7 +3257,7 @@
         <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;">
           <div>
             <div class="craft-card-img-wrap">
-              <img src="${card.image}" alt="${card.title}" loading="lazy">
+              <img src="${card.image}" alt="${card.title}" loading="eager">
             </div>
             <div class="craft-card-info">
               <h3>${card.title}</h3>
@@ -3370,10 +3269,7 @@
           </button>
         </div>
       `;
-      div.addEventListener("click", () => {
-        captureReturnPosition("craftsmanship");
-        renderCraftsmanshipDetail(card);
-      });
+      div.addEventListener("click", () => renderCraftsmanshipDetail(card));
       craftGrid.appendChild(div);
     });
 
@@ -3387,7 +3283,7 @@
       div.innerHTML = `
         <div class="beige-card-wrap">
           <div class="material-img-wrap">
-            <img src="M${i}.jpeg" alt="Material M${i}" loading="lazy">
+            <img src="M${i}.jpeg" alt="Material M${i}" loading="eager">
           </div>
           <h4>MATERIAL ELEMENT M${i}</h4>
         </div>
@@ -3396,22 +3292,24 @@
     }
 
 
-    // Foundation of Heritage — 10 raw material images with matching taglines.
+    // Foundation of Heritage — 6 images + 5 videos.
     const rawMaterialSlides = [
-      { image: "raw1.jpeg", tagline: "THE FIRST LAYER OF TIMELESS CRAFT" },
-      { image: "raw2.jpeg", tagline: "STONE THAT GIVES HERITAGE ITS STRENGTH" },
-      { image: "raw3.jpeg", tagline: "TIMBER SHAPED FOR A LIVING LEGACY" },
-      { image: "raw4.jpeg", tagline: "LIME AND EARTH, THE SOUL OF TRADITION" },
-      { image: "raw5.jpeg", tagline: "METAL DETAILING THAT CARRIES ROYAL CHARACTER" },
-      { image: "raw6.jpeg", tagline: "HANDCRAFTED SURFACES BORN FROM PATIENCE" },
-      { image: "raw7.jpeg", tagline: "FOUNDATION ELEMENTS BUILT TO ENDURE" },
-      { image: "raw8.jpeg", tagline: "TEXTURES THAT AGE WITH GRACE" },
-      { image: "raw9.jpeg", tagline: "CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
-      { image: "raw10.jpeg", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" }
+      { type: "image", src: "raw1.jpeg", tagline: "THE FIRST LAYER OF TIMELESS CRAFT" },
+      { type: "image", src: "raw2.jpeg", tagline: "STONE THAT GIVES HERITAGE ITS STRENGTH" },
+      { type: "image", src: "raw3.jpeg", tagline: "TIMBER SHAPED FOR A LIVING LEGACY" },
+      { type: "image", src: "raw4.jpeg", tagline: "LIME AND EARTH, THE SOUL OF TRADITION" },
+      { type: "image", src: "raw5.jpeg", tagline: "METAL DETAILING THAT CARRIES ROYAL CHARACTER" },
+      { type: "image", src: "raw6.jpeg", tagline: "HANDCRAFTED SURFACES BORN FROM PATIENCE" },
+      { type: "video", src: "raw7.mp4", tagline: "FOUNDATION ELEMENTS BUILT TO ENDURE" },
+      { type: "video", src: "raw8.mp4", tagline: "TEXTURES THAT AGE WITH GRACE" },
+      { type: "video", src: "raw9.mp4", tagline: "CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
+      { type: "video", src: "raw10.mp4", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" },
+      { type: "video", src: "raw11.mp4", tagline: "RAW CRAFT TRANSFORMED INTO LIVING HERITAGE" }
     ];
 
     let rawMaterialIndex = 0;
     const rawMaterialImage = document.getElementById("rawMaterialImage");
+    const rawMaterialVideo = document.getElementById("rawMaterialVideo");
     const rawMaterialTagline = document.getElementById("rawMaterialTagline");
     const rawMaterialCounter = document.getElementById("rawMaterialCounter");
     const rawMaterialPrev = document.getElementById("rawMaterialPrev");
@@ -3422,12 +3320,30 @@
       const slide = rawMaterialSlides[rawMaterialIndex];
 
       rawMaterialImage.style.opacity = "0";
+      rawMaterialVideo.style.opacity = "0";
+
       setTimeout(() => {
-        rawMaterialImage.src = slide.image;
-        rawMaterialImage.alt = slide.tagline;
+        if (slide.type === "video") {
+          rawMaterialImage.style.display = "none";
+          rawMaterialVideo.style.display = "block";
+          rawMaterialVideo.src = slide.src;
+          rawMaterialVideo.currentTime = 0;
+          rawMaterialVideo.play().catch(() => {});
+          rawMaterialVideo.style.opacity = "1";
+        } else {
+          rawMaterialVideo.pause();
+          rawMaterialVideo.removeAttribute("src");
+          rawMaterialVideo.load();
+          rawMaterialVideo.style.display = "none";
+          rawMaterialImage.style.display = "block";
+          rawMaterialImage.src = slide.src;
+          rawMaterialImage.alt = slide.tagline;
+          rawMaterialImage.style.opacity = "1";
+        }
+
         rawMaterialTagline.textContent = slide.tagline;
-        rawMaterialCounter.textContent = `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialSlides.length).padStart(2, "0")}`;
-        rawMaterialImage.style.opacity = "1";
+        rawMaterialCounter.textContent =
+          `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialSlides.length).padStart(2, "0")}`;
       }, 180);
     }
 
@@ -3577,22 +3493,77 @@
     const menuTrigger = document.getElementById("menuTrigger");
     const menuOverlay = document.getElementById("menuOverlay");
 
-    /* FAST FIRST PAINT: reveal the page after DOM is ready instead of
-       waiting for every heavy image/video on the entire website. */
-    function hidePreloaderFast() {
-      if (!preloader) return;
-      requestAnimationFrame(() => {
-        setTimeout(() => preloader.classList.add("hide"), 250);
+    /*
+      PRELOADER / PERFORMANCE:
+      Keep the branded preloader visible for 6 seconds while the browser
+      gets the page media ready. This sits safely inside the requested
+      5–7 second window.
+    */
+    const PRELOADER_MIN_TIME = 6000;
+
+    function preloadAllMedia() {
+      const urls = new Set();
+
+      document.querySelectorAll("img[src], video source[src]").forEach(el => {
+        const src = el.getAttribute("src");
+        if (src) urls.add(src);
+      });
+
+      function collectMedia(value) {
+        if (typeof value === "string") {
+          if (/\.(jpe?g|png|webp|gif|mp4|mov)$/i.test(value)) urls.add(value);
+          return;
+        }
+        if (Array.isArray(value)) {
+          value.forEach(collectMedia);
+          return;
+        }
+        if (value && typeof value === "object") {
+          Object.values(value).forEach(collectMedia);
+        }
+      }
+
+      collectMedia(typeof projects !== "undefined" ? projects : null);
+      collectMedia(typeof craftCardsData !== "undefined" ? craftCardsData : null);
+      collectMedia(typeof rawMaterialSlides !== "undefined" ? rawMaterialSlides : null);
+      collectMedia(typeof heritageSlides !== "undefined" ? heritageSlides : null);
+
+      urls.forEach(src => {
+        if (/\.mp4$|\.mov$/i.test(src)) {
+          const v = document.createElement("video");
+          v.preload = "auto";
+          v.muted = true;
+          v.playsInline = true;
+          v.src = src;
+          v.load();
+        } else {
+          const img = new Image();
+          img.decoding = "async";
+          img.src = src;
+        }
       });
     }
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", hidePreloaderFast, { once: true });
-    } else {
-      hidePreloaderFast();
-    }
 
-    /* Header is intentionally hero-only; no sticky/scrolled state. */
-    header.classList.remove("scrolled");
+    const preloaderStartedAt = performance.now();
+
+    window.addEventListener("load", () => {
+      preloadAllMedia();
+      const elapsed = performance.now() - preloaderStartedAt;
+      const remaining = Math.max(0, PRELOADER_MIN_TIME - elapsed);
+
+      setTimeout(() => {
+        preloader.classList.add("hide");
+        document.body.classList.add("page-ready");
+      }, remaining);
+    });
+
+    // Start fetching dynamically-defined media as early as possible.
+    setTimeout(preloadAllMedia, 50);
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
+    });
 
     menuTrigger.addEventListener("click", () => {
       menuTrigger.classList.toggle("active");
@@ -3606,16 +3577,7 @@
       });
     });
 
-    let returnScrollY = 0;
-    let returnSectionId = "";
-
-    function captureReturnPosition(sectionId) {
-      returnScrollY = window.scrollY;
-      returnSectionId = sectionId || "";
-    }
-
     function openProject(slug) {
-      captureReturnPosition("projects");
       window.location.hash = "project/" + slug;
     }
 
@@ -3623,15 +3585,7 @@
       window.location.hash = "";
       projectDetail.classList.remove("active");
       homeView.classList.remove("hidden");
-
-      const targetY = Number.isFinite(returnScrollY) ? returnScrollY : 0;
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: targetY, behavior: "instant" });
-        if (returnSectionId && targetY === 0) {
-          const el = document.getElementById(returnSectionId);
-          if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
-        }
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function renderProject(slug) {
@@ -3674,7 +3628,7 @@
               ${proj.images.map((img, idx) => `
                 <div class="beige-card-wrap">
                   <div class="gallery-card-item">
-                    <img src="${img}" alt="${proj.title} image${idx+1}" loading="lazy">
+                    <img src="${img}" alt="${proj.title} image${idx+1}" loading="eager">
                   </div>
                 </div>
               `).join("")}
@@ -3725,7 +3679,7 @@
               ${card.subImages.map((img, idx) => `
                 <div class="beige-card-wrap">
                   <div class="gallery-card-item">
-                    <img src="${img}" alt="Craft Detail ${idx+1}" loading="lazy">
+                    <img src="${img}" alt="Craft Detail ${idx+1}" loading="eager">
                   </div>
                   <div style="padding:14px 18px; text-align:center; font-family:var(--serif); font-size:17px; font-weight:600; letter-spacing:0.06em; color:var(--ink); text-transform:uppercase; border-top:1px solid rgba(197,161,91,0.25);">
                     Detail ${idx+1}
@@ -3743,10 +3697,9 @@
       if (e) e.preventDefault();
       projectDetail.classList.remove("active");
       homeView.classList.remove("hidden");
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: returnScrollY, behavior: "instant" });
-      });
-      window.location.hash = "";
+      const el = document.getElementById("craftsmanship");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function handleRoute() {
@@ -3756,9 +3709,6 @@
       } else {
         projectDetail.classList.remove("active");
         homeView.classList.remove("hidden");
-        requestAnimationFrame(() => {
-          window.scrollTo({ top: returnScrollY, behavior: "instant" });
-        });
       }
     }
 
