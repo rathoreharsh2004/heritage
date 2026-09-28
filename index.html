@@ -196,37 +196,6 @@
       color: var(--gold-dark);
     }
 
-    /* Centre main headings and main taglines for all sections except hero */
-    .section:not(.hero) .eyebrow,
-    .section:not(.hero) .section-title,
-    .section:not(.hero) .section-intro,
-    .section:not(.hero) .gold-line,
-    .section:not(.hero) .raw-material-copy h2,
-    .section:not(.hero) .raw-material-copy .raw-material-main-tagline,
-    .section:not(.hero) .projects-header,
-    .section:not(.hero) .craftsmanship-header,
-    .section:not(.hero) #leadership .eyebrow,
-    .section:not(.hero) #leadership .section-title,
-    .section:not(.hero) #leadership .gold-line,
-    .section:not(.hero) #leadership .section-intro {
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-    }
-
-    .section:not(.hero) .gold-line {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .section:not(.hero) .eyebrow {
-      justify-content: center;
-    }
-
-    .section:not(.hero) .eyebrow::before {
-      display: none;
-    }
-
     .section-title {
       font-family: var(--serif);
       font-size: clamp(38px, 6vw, 100px);
@@ -274,7 +243,7 @@
 
 
     /* =========================================================
-       PRELOADER (5 seconds logo only)
+       PRELOADER
     ========================================================= */
 
     .preloader {
@@ -296,34 +265,54 @@
       text-align: center;
     }
 
-    .loader-logo-img {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      margin: 0 auto;
-      animation: pulseLogo 2s ease-in-out infinite;
+    .loader-mark {
+      width: 90px;
+      height: 90px;
+      margin: auto;
+      border: 1px solid rgba(197,161,91,.4);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      animation: spin 3s linear infinite;
     }
 
-    @keyframes pulseLogo {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.05); opacity: 1; }
+    .loader-mark::before {
+      content: "R";
+      font-family: var(--serif);
+      font-size: 42px;
+      color: var(--gold);
+      animation: spinReverse 3s linear infinite;
+    }
+
+    .loader-text {
+      margin-top: 25px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .35em;
+      font-size: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      to { transform: rotate(-360deg); }
     }
 
 
     /* =========================================================
-       HEADER (NO STICKY NAVBAR EXCEPT HERO, ONLY HERO VISIBLE)
+       HEADER
     ========================================================= */
 
     header {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 1000;
       padding: 20px 0;
       transition: .5s var(--ease);
-      background: transparent;
-      border-bottom: none;
     }
 
     @media (min-width: 768px) {
@@ -333,10 +322,10 @@
     }
 
     header.scrolled {
-      padding: 20px 0;
-      background: transparent;
-      backdrop-filter: none;
-      border-bottom: none;
+      padding: 12px 0;
+      background: rgba(23,11,7,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(197,161,91,.16);
     }
 
     .nav {
@@ -352,8 +341,8 @@
     }
 
     .brand-symbol {
-      width: 80px;
-      height: 80px;
+      width: 56px;
+      height: 56px;
       overflow: hidden;
       display: grid;
       place-items: center;
@@ -361,8 +350,8 @@
 
     @media (min-width: 768px) {
       .brand-symbol {
-        width: 96px;
-        height: 96px;
+        width: 66px;
+        height: 66px;
       }
     }
 
@@ -375,22 +364,30 @@
     .brand-text strong {
       display: block;
       font-family: var(--serif);
-      font-size: calc(13.5px * 1.25);
-      letter-spacing: .01em;
-      font-weight: 400;
-      color: goldenrod;
-      text-transform: none;
-      white-space: nowrap;
+      font-size: 19px;
+      letter-spacing: .08em;
+      font-weight: 600;
     }
 
     @media (min-width: 768px) {
       .brand-text strong {
-        font-size: calc(13.5px * 1.25);
+        font-size: 23px;
       }
     }
 
     .brand-text small {
-      display: none;
+      display: block;
+      margin-top: -2px;
+      font-size: 7px;
+      letter-spacing: .25em;
+      color: var(--gold);
+    }
+
+    @media (min-width: 768px) {
+      .brand-text small {
+        font-size: 8px;
+        letter-spacing: .3em;
+      }
     }
 
     .menu-trigger {
@@ -430,21 +427,19 @@
 
 
     /* =========================================================
-       SIMPLIFIED DROPDOWN / COMPACT MENU PANEL (Single slide, all section names, same font)
+       SIMPLIFIED DROPDOWN / COMPACT MENU PANEL
     ========================================================= */
 
     .menu-overlay {
       position: fixed;
       top: 75px;
       right: 20px;
-      width: min(220px, calc(60vw - 40px));
+      width: min(320px, calc(100vw - 40px));
       z-index: 900;
-      background: rgba(23,11,7,.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: linear-gradient(135deg, rgba(23,11,7,.98), rgba(42,22,13,.98));
       border: 1px solid rgba(197,161,91,.35);
       box-shadow: 0 20px 40px rgba(0,0,0,.5);
-      padding: 15px;
+      padding: 25px;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
@@ -463,19 +458,18 @@
     .menu-links {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
     }
 
     .menu-links a {
       display: block;
-      font-family: var(--sans);
-      font-size: 14px;
+      font-family: var(--serif);
+      font-size: 20px;
       letter-spacing: .05em;
       color: var(--cream);
-      padding-bottom: 6px;
+      padding-bottom: 8px;
       border-bottom: 1px solid rgba(197,161,91,.15);
       transition: .3s var(--ease);
-      text-transform: uppercase;
     }
 
     .menu-links a:hover {
@@ -788,7 +782,7 @@
     .leader-titles h3 {
       font-family: var(--serif);
       font-size: 22px;
-      color: var(--gold-dark);
+      color: var(--gold-dark); /* Card Tagline / Title color changed to Gold */
       line-height: 1.1;
       margin-bottom: 5px;
     }
@@ -826,7 +820,7 @@
 
 
     /* =========================================================
-       HERITAGE CONSULTANCY SECTION (7 Videos)
+       HERITAGE CONSULTANCY SECTION (NEW)
     ========================================================= */
 
     .consultancy-grid {
@@ -969,11 +963,10 @@
 
     @media (min-width: 1024px) {
       .craftsmanship-header {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
         margin-bottom: 70px;
-        text-align: center;
       }
     }
 
@@ -1039,7 +1032,7 @@
       font-size: 19px;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--gold-dark);
+      color: var(--gold-dark); /* Craft card tagline/title color changed to Gold */
       line-height: 1.2;
     }
 
@@ -1047,7 +1040,7 @@
       font-size: 11px;
       line-height: 1.6;
       opacity: .8;
-      color: var(--ink);
+      color: var(--ink); /* Description retains standard normal color */
       margin-bottom: 15px;
     }
 
@@ -1109,7 +1102,7 @@
     .material-item h4 {
       font-family: var(--serif);
       font-size: 17px;
-      color: var(--gold-dark);
+      color: var(--gold-dark); /* Material card title color changed to Gold */
     }
 
 
@@ -1127,11 +1120,10 @@
 
     @media (min-width: 1024px) {
       .projects-header {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
         margin-bottom: 70px;
-        text-align: center;
       }
     }
 
@@ -1248,13 +1240,13 @@
     .project-card-info h3 {
       font-family: var(--serif);
       font-size: 26px;
-      color: var(--gold-dark);
+      color: var(--gold-dark); /* Signature project title color changed to Gold */
       margin-bottom: 8px;
     }
 
     .project-card-info p {
       font-size: 12px;
-      color: var(--ink);
+      color: var(--ink); /* Description normal color */
       opacity: .8;
       line-height: 1.6;
       margin-bottom: 20px;
@@ -1306,7 +1298,7 @@
     }
 
     .heritage-proj-item h4 {
-      color: var(--gold-dark);
+      color: var(--gold-dark); /* Heritage project detail card titles changed to Gold */
       font-family: var(--serif);
       font-size: 20px;
     }
@@ -1370,7 +1362,7 @@
       font-family: var(--serif);
       font-size: 22px;
       font-weight: 500;
-      color: var(--gold-dark);
+      color: var(--gold-dark); /* Approach principles title color changed to Gold */
     }
 
     @media (min-width: 768px) {
@@ -1423,7 +1415,7 @@
       font-size: 22px;
       line-height: 1.1;
       margin-bottom: 15px;
-      color: var(--gold-dark);
+      color: var(--gold-dark); /* What we offer card title color changed to Gold */
     }
 
     .offer-card p {
@@ -1810,6 +1802,48 @@
       object-fit: cover;
     }
 
+    /* Header logo is larger, but disappears from the compact scrolled bar. */
+    .brand-symbol {
+      width: 80px;
+      height: 80px;
+    }
+    @media (min-width: 768px) {
+      .brand-symbol {
+        width: 96px;
+        height: 96px;
+      }
+    }
+    header.scrolled .brand {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-8px);
+    }
+    header .brand {
+      transition: opacity .35s var(--ease), visibility .35s var(--ease), transform .35s var(--ease);
+    }
+
+    /* Compact menu: transparent, smaller and cursive section names. */
+    .menu-overlay {
+      background: rgba(23,11,7,.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(197,161,91,.28);
+      box-shadow: 0 18px 35px rgba(0,0,0,.18);
+      padding: 18px 22px;
+    }
+    .menu-links {
+      gap: 7px;
+    }
+    .menu-links a {
+      font-family: "Allura", cursive;
+      font-size: 22px;
+      letter-spacing: .02em;
+      text-transform: none;
+      padding: 4px 0 6px;
+      border-bottom: 1px solid rgba(197,161,91,.12);
+    }
+
     /* Signature project dome treatment, matching the craftsmanship domes. */
     .project-card-img.shape-dome {
       border-radius: 130px 130px 8px 8px;
@@ -1927,14 +1961,13 @@
       width: 34px;
     }
 
-    /* Footer logo increased by 50% */
+    /* Footer logo */
     .footer-logo {
-      width: 210px;
-      height: 210px;
+      width: 140px;
+      height: 140px;
       object-fit: contain;
       margin-bottom: 18px;
     }
-
     @media (max-width: 767px) {
       .heritage-featured-slider {
         grid-template-columns: 1fr;
@@ -1961,9 +1994,155 @@
         bottom: 12px;
       }
       .footer-logo {
-        width: 180px;
-        height: 180px;
+        width: 120px;
+        height: 120px;
       }
+    }
+
+    /* FINAL REQUESTED ADJUSTMENTS */
+    .brand-text strong {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .015em;
+      white-space: nowrap;
+      text-transform: none;
+    }
+    .brand-text small { display:none; }
+    @media (min-width:768px) {
+      .brand-text strong { font-size:21px; }
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(29px, 4.3vw, 70px);
+      line-height: .95;
+      font-weight: 600;
+      letter-spacing: -.025em;
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    /* Menu panel 50% smaller */
+    .menu-overlay {
+      width: min(160px, calc(50vw - 20px));
+      padding: 12px 14px;
+      max-height: calc(50vh - 50px);
+    }
+    .menu-links { gap:4px; }
+    .menu-links a {
+      font-size:17px;
+      line-height:1;
+      padding:3px 0 5px;
+    }
+
+    /* Featured Execution: 20% smaller image card + compact horizontal tagline bar */
+    .heritage-featured-slider {
+      width:80%;
+      margin:40px auto 0;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+      background:transparent;
+      border:0;
+      overflow:hidden;
+    }
+    .heritage-featured-image {
+      width:100%;
+      height:clamp(300px,43vw,560px);
+      order:1;
+      border:1px solid rgba(197,161,91,.35);
+      overflow:hidden;
+    }
+    .heritage-featured-image img {
+      width:100%;
+      height:100%;
+      min-height:0;
+      object-fit:cover;
+    }
+    .heritage-featured-copy {
+      width:100%;
+      min-height:100px;
+      padding:17px 28px 23px;
+      order:2;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      justify-content:flex-start;
+      gap:25px;
+      background:linear-gradient(135deg,rgba(42,22,13,.98),rgba(23,11,7,.96));
+      border:1px solid rgba(197,161,91,.28);
+      border-top:0;
+    }
+    .heritage-slide-number {
+      flex:0 0 auto;
+      font-family:var(--serif);
+      font-size:12px;
+      margin:0;
+    }
+    .heritage-featured-copy h3 {
+      font-family:var(--serif);
+      font-size:clamp(20px,2.1vw,32px);
+      font-weight:600;
+      line-height:1.05;
+      margin:0;
+      max-width:none;
+      color:var(--gold-light);
+    }
+    .heritage-featured-copy p { display:none; }
+    .heritage-slider-controls {
+      right:16px;
+      bottom:116px;
+    }
+    .heritage-slider-dots {
+      left:28px;
+      bottom:15px;
+    }
+    .heritage-slider-btn {
+      width:38px;
+      height:38px;
+    }
+    @media (max-width:767px) {
+      .heritage-featured-slider { width:92%; }
+      .heritage-featured-image { height:280px; }
+      .heritage-featured-copy {
+        min-height:88px;
+        padding:14px 16px 27px;
+        gap:12px;
+        align-items:flex-start;
+      }
+      .heritage-featured-copy h3 { font-size:22px; }
+      .heritage-slider-controls { right:12px; bottom:98px; }
+      .heritage-slider-dots { left:16px; bottom:11px; }
+    }
+
+    /* Latest requested refinements */
+    .brand-text strong {
+      font-family: var(--serif);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: .01em;
+      white-space: nowrap;
+      text-transform: none;
+    }
+    @media (min-width:768px) {
+      .brand-text strong { font-size: 13.5px; }
+    }
+
+    /* Use the same hero/tagline font treatment for the yellow headings. */
+    .section:not(.hero) .section-title,
+    .beige.section .section-title,
+    .section-title,
+    .craft-card-info h3,
+    .project-card-info h3,
+    .heritage-proj-item h4,
+    .leader-titles h3,
+    .offer-card h3,
+    .principle h4,
+    .material-item h4 {
+      font-family: var(--serif);
     }
 
     /* Featured Collection card: +15% horizontal and +20% vertical. */
@@ -1984,7 +2163,7 @@
 
 
     /* =========================================================
-       RAW MATERIALS / FOUNDATION OF HERITAGE SECTION (6 photos, 5 videos = 11 items)
+       RAW MATERIALS / FOUNDATION OF HERITAGE SECTION
     ========================================================= */
     .raw-material-section {
       background:
@@ -2030,22 +2209,15 @@
       }
     }
 
-    .raw-material-image-wrap img,
-    .raw-material-image-wrap video {
+    .raw-material-image-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .45s ease;
+      transition: opacity .45s ease, transform 1s var(--ease);
     }
 
-    .raw-material-image-wrap img.active,
-    .raw-material-image-wrap video.active {
-      opacity: 1;
-      pointer-events: auto;
+    .raw-material-card:hover .raw-material-image-wrap img {
+      transform: scale(1.025);
     }
 
     .raw-material-caption {
@@ -2154,15 +2326,182 @@
       }
     }
 
+  
+    /* USER REQUESTED FINAL POLISH */
+    .preloader-logo {
+      width: min(210px, 58vw);
+      height: auto;
+      max-height: 210px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,.28));
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: transparent !important;
+      border-bottom: 0 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    header.scrolled {
+      padding: 20px 0;
+      background: transparent !important;
+      border-bottom: 0 !important;
+    }
+    .brand-text strong,
+    .menu-trigger {
+      color: var(--gold-light) !important;
+    }
+    .menu-trigger {
+      white-space: nowrap;
+      gap: 0;
+      font-size: clamp(10px, 1.7vw, 13px);
+      letter-spacing: .13em;
+      padding: 8px 0;
+    }
+    .menu-trigger span {
+      display: block;
+    }
+
+    .menu-overlay {
+      width: min(340px, calc(100vw - 32px));
+      max-height: none;
+      overflow: visible;
+      padding: 20px 22px;
+      right: 16px;
+      top: 82px;
+    }
+    .menu-links {
+      gap: 3px;
+    }
+    .menu-links a {
+      font-family: var(--sans) !important;
+      color: var(--gold-light) !important;
+      font-size: 14px;
+      line-height: 1.15;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 5px 0 7px;
+    }
+    .menu-links a:hover {
+      color: var(--gold) !important;
+      padding-left: 6px;
+    }
+
+    /* Only the hero carries the navbar; it disappears with the hero while scrolling. */
+    .home-view .section-title {
+      text-align: center;
+    }
+    .home-view .section-intro {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .home-view .section-title + .gold-line {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .home-view .craftsmanship-header,
+    .home-view .projects-header {
+      align-items: center;
+      text-align: center;
+    }
+    .home-view .consultancy-grid > div:first-child {
+      text-align: center;
+    }
+    .home-view .raw-material-section > .container > .eyebrow {
+      justify-content: center;
+    }
+    .home-view .raw-material-copy {
+      text-align: center;
+    }
+    .home-view .raw-material-copy .eyebrow {
+      justify-content: center;
+    }
+    .home-view .raw-material-copy p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .raw-material-image-wrap img,
+    .raw-material-image-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity .45s ease, transform 1s var(--ease);
+    }
+    .raw-material-image-wrap video {
+      position: absolute;
+      inset: 0;
+      display: none;
+      opacity: 0;
+    }
+    .raw-material-card:hover .raw-material-image-wrap video {
+      transform: scale(1.025);
+    }
+
+    .footer-logo {
+      width: 210px;
+      height: 210px;
+    }
+    @media (max-width: 767px) {
+      .brand {
+        gap: 8px;
+        min-width: 0;
+      }
+      .brand-symbol {
+        width: 62px !important;
+        height: 62px !important;
+        flex: 0 0 62px;
+      }
+      .brand-text {
+        min-width: 0;
+      }
+      .brand-text strong {
+        font-size: 13px !important;
+        letter-spacing: .01em;
+        white-space: normal;
+        line-height: 1.1;
+      }
+      .menu-trigger {
+        font-size: 9px;
+        letter-spacing: .09em;
+        padding-left: 8px;
+      }
+      .menu-overlay {
+        top: 72px;
+        right: 12px;
+        width: calc(100vw - 24px);
+        padding: 13px 17px;
+      }
+      .menu-links a {
+        font-size: 12px;
+        padding: 3px 0 5px;
+        letter-spacing: .045em;
+      }
+      .footer-logo {
+        width: 180px;
+        height: 180px;
+      }
+    }
+    header.detail-hidden {
+      display: none !important;
+    }
+
   </style>
 </head>
 
 <body>
 
-  <!-- PRELOADER (5 seconds logo only) -->
+  <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="loader-inner">
-      <img src="logo.PNG" alt="Rathore Logo" class="loader-logo-img">
+      <img class="preloader-logo" src="logo.PNG" alt="Rathore Heritage Developers">
     </div>
   </div>
 
@@ -2178,20 +2517,14 @@
           <strong>Rathore Heritage Developers</strong>
         </div>
       </a>
-      <button class="menu-trigger" id="menuTrigger" aria-label="Toggle Menu">
+      <button class="menu-trigger" id="menuTrigger" aria-label="Explore RHD">
         <span>Explore RHD</span>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
       </button>
     </div>
   </header>
 
 
-  <!-- SIMPLIFIED COMPACT MENU DROPDOWN PANEL (All sections in one slide, matching font) -->
+  <!-- SIMPLIFIED COMPACT MENU DROPDOWN PANEL -->
   <div class="menu-overlay" id="menuOverlay">
     <nav class="menu-links">
       <a href="#home">Home</a>
@@ -2201,7 +2534,6 @@
       <a href="#craftsmanship">Craftsmanship</a>
       <a href="#materialboard">Material Board</a>
       <a href="#projects">Signature Projects</a>
-      <a href="#rawmaterials">Raw Materials</a>
       <a href="#heritageproj">Our Heritage Project</a>
       <a href="#approach">Our Approach</a>
       <a href="#offer">What We Offer</a>
@@ -2229,7 +2561,6 @@
               Explore Signature Projects <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
-        </div>
       </div>
     </section>
 
@@ -2266,7 +2597,7 @@
         <div class="eyebrow">Leadership & Vision</div>
         <h2 class="section-title">FOUNDER & MANAGING DIRECTOR.</h2>
         <div class="gold-line"></div>
-        <p class="section-intro" style="margin-bottom: 20px; margin-left: auto; margin-right: auto; text-align: center;">
+        <p class="section-intro" style="margin-bottom: 20px;">
           Guided by profound passion and expert stewardship, our leadership drives the preservation of authentic royal craftsmanship into modern architectural masterpieces.
         </p>
 
@@ -2325,9 +2656,7 @@
       </div>
     </section>
 
-
-    <!-- OUR HERITAGE CRAFTSMANSHIP (10 Cards with View More button) -->
-    <section class="section brown" id="craftsmanship">
+<section class="section brown" id="craftsmanship">
       <div class="container">
         <div class="craftsmanship-header">
           <div>
@@ -2345,14 +2674,12 @@
       </div>
     </section>
 
-
-    <!-- MATERIAL BOARD SECTION (M1 - M8) -->
-    <section class="section beige" id="materialboard">
+<section class="section beige" id="materialboard">
       <div class="container">
         <div class="eyebrow">Material Collection</div>
         <h2 class="section-title">Material Board</h2>
         <div class="gold-line"></div>
-        <p class="section-intro" style="margin-bottom: 40px; margin-left: auto; margin-right: auto; text-align: center;">
+        <p class="section-intro" style="margin-bottom: 40px;">
           Authentic material selection curated for texture, richness, and enduring structural fidelity.
         </p>
 
@@ -2362,9 +2689,7 @@
       </div>
     </section>
 
-
-    <!-- SIGNATURE PROJECTS SECTION -->
-    <section class="section brown" id="projects">
+<section class="section brown" id="projects">
       <div class="container">
         <div class="projects-header">
           <div>
@@ -2449,9 +2774,7 @@
       </div>
     </section>
 
-
-    <!-- HERITAGE CONSULTANCY SECTION (Shifted below signature works, now with 7 videos) -->
-    <section class="section brown" id="consultancy">
+<section class="section brown" id="consultancy">
       <div class="container consultancy-grid">
         <div>
           <div class="eyebrow">Expert Guidance</div>
@@ -2523,21 +2846,14 @@
             <div class="consultancy-video-slide">
               <video class="consultancy-video" muted loop playsinline preload="metadata">
                 <source src="cons6.mp4" type="video/mp4">
-                <source src="cons6.MOV" type="video/quicktime">
               </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 6" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 6" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
             </div>
-
             <div class="consultancy-video-slide">
               <video class="consultancy-video" muted loop playsinline preload="metadata">
                 <source src="cons7.mp4" type="video/mp4">
-                <source src="cons7.MOV" type="video/quicktime">
               </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 7" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 7" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
             </div>
 
             <div class="consultancy-slider-controls">
@@ -2553,16 +2869,15 @@
       </div>
     </section>
 
-
-    <!-- FOUNDATION OF HERITAGE / RAW MATERIALS SECTION (Shifted below signature works, 6 photos raw1-raw6.jpeg & 5 videos raw7-raw11.mp4 = 11 items) -->
-    <section class="section raw-material-section" id="rawmaterials">
+<section class="section raw-material-section" id="rawmaterials">
       <div class="container">
         <div class="eyebrow">The Beginning of Craft</div>
 
         <div class="raw-material-layout">
           <div class="raw-material-card">
-            <div class="raw-material-image-wrap" id="rawMaterialMediaContainer">
-              <!-- Dynamically populated raw1-raw6 images and raw7-raw11 videos -->
+            <div class="raw-material-image-wrap">
+              <img id="rawMaterialImage" src="raw1.jpeg" alt="Raw Material Element 1" loading="lazy">
+              <video id="rawMaterialVideo" muted loop playsinline preload="metadata"></video>
             </div>
 
             <div class="raw-material-caption">
@@ -2592,14 +2907,12 @@
       </div>
     </section>
 
-
-    <!-- OUR HERITAGE PROJECT SECTION -->
-    <section class="section beige" id="heritageproj">
+<section class="section beige" id="heritageproj">
       <div class="container">
         <div class="eyebrow">Featured Execution</div>
         <h2 class="section-title">Our Heritage Project - Oladar Haveli</h2>
         <div class="gold-line"></div>
-        <p class="section-intro" style="margin-left: auto; margin-right: auto; text-align: center;">
+        <p class="section-intro">
           The Oladar Haveli project has been designed and executed in a complete traditional heritage style, while ensuring modern structural strength, quality control, and durability from foundation to final finishing.
         </p>
 
@@ -2627,6 +2940,30 @@
         </div>
       </div>
     </section>
+
+
+    <!-- HERITAGE CONSULTANCY SECTION (NEW) -->
+    
+
+
+    <!-- OUR HERITAGE CRAFTSMANSHIP (10 Cards with View More button) -->
+    
+
+
+    <!-- MATERIAL BOARD SECTION (M1 - M8) -->
+    
+
+
+    <!-- FOUNDATION OF HERITAGE / RAW MATERIALS SECTION -->
+    
+
+
+    <!-- SIGNATURE PROJECTS SECTION -->
+    
+
+
+    <!-- OUR HERITAGE PROJECT SECTION -->
+    
 
 
     <!-- APPROACH -->
@@ -2789,7 +3126,6 @@
             <a href="#craftsmanship">Craftsmanship</a>
             <a href="#materialboard">Material Board</a>
             <a href="#projects">Signature Projects</a>
-            <a href="#rawmaterials">Raw Materials</a>
             <a href="#contact">Contact</a>
           </div>
           <div class="footer-col">
@@ -2809,7 +3145,7 @@
   </main>
 
 
-  <!-- PROJECT DETAIL VIEW (Dynamic Sub-page with exact section return state) -->
+  <!-- PROJECT DETAIL VIEW (Dynamic Sub-page) -->
   <main class="project-detail" id="projectDetail"></main>
 
 
@@ -2827,12 +3163,17 @@
   <!-- JAVASCRIPT LOGIC -->
   <script>
 
-    /* HERITAGE CONSULTANCY MANUAL SLIDER LOGIC (7 Videos) */
+    /* HERITAGE CONSULTANCY MANUAL SLIDER LOGIC (VIDEOS) */
     const consultancySlides = document.querySelectorAll("#consultancySlider .consultancy-video-slide");
     const consultancyVideos = document.querySelectorAll("#consultancySlider video");
     const consultancyPlayStopButtons = document.querySelectorAll("#consultancySlider .consultancy-play-stop");
     let currentSlide = 0;
 
+    /* ── VIDEO POSTER / PREVIEW GENERATION ──────────────────────────
+       Captures the very first frame of every consultancy video and
+       bakes it into the slide as a background-image preview so the
+       slot never looks blank before the user presses Play.
+    ────────────────────────────────────────────────────────────────── */
     (function generateVideoPreviews() {
       const canvas = document.createElement("canvas");
       const ctx    = canvas.getContext("2d");
@@ -2841,16 +3182,19 @@
         const slide = consultancySlides[idx];
 
         function capturePoster() {
-          if (vid.readyState < 2) return;
+          if (vid.readyState < 2) return;           // frame not ready yet
           canvas.width  = vid.videoWidth  || 640;
           canvas.height = vid.videoHeight || 360;
           try {
             ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
             const dataURL = canvas.toDataURL("image/jpeg", 0.82);
+            // Apply as a background behind the video element
             slide.style.backgroundImage   = `url("${dataURL}")`;
             slide.style.backgroundSize    = "cover";
             slide.style.backgroundPosition= "center";
-          } catch(e) {}
+          } catch(e) {
+            // cross-origin or security error — silently skip
+          }
           vid.removeEventListener("loadeddata",   capturePoster);
           vid.removeEventListener("canplaythrough", capturePoster);
         }
@@ -2902,6 +3246,7 @@
         }
       });
 
+      // Every slide opens paused. Video starts only after the user's Play click.
       stopConsultancyVideo(index, false);
     }
 
@@ -2946,10 +3291,11 @@
       showSlide(currentSlide);
     });
 
+    // Initialize first slide without starting any video.
     showSlide(0);
 
 
-    /* 10 CRAFTSMANSHIP CARDS CONFIGURATION & VIEW MORE BUTTON */
+    /* 10 CRAFTSMANSHIP CARDS CONFIGURATION & DOME/SQUARE PATTERN WITH VIEW MORE BUTTON */
     const craftCardsData = [
       {
         title: "Heritage Style Elevation",
@@ -3023,6 +3369,7 @@
       }
     ];
 
+    // Populate Craftsmanship Cards with View More button
     const craftGrid = document.getElementById("craftCardsGrid");
     craftCardsData.forEach((card, index) => {
       const shapeClass = (index % 2 === 0) ? "shape-square" : "shape-dome";
@@ -3049,7 +3396,7 @@
     });
 
 
-    // Material Board M1 - M8
+    // Populate Material Board M1 - M8 (Alternating Square & Dome)
     const materialGrid = document.getElementById("materialGrid");
     for (let i = 1; i <= 8; i++) {
       const shapeClass = (i % 2 !== 0) ? "shape-square" : "shape-dome";
@@ -3067,8 +3414,8 @@
     }
 
 
-    /* RAW MATERIALS SECTION (6 Photos: raw1-raw6.jpeg & 5 Videos: raw7-raw11.mp4 = 11 Items) */
-    const rawMaterialItems = [
+    // Foundation of Heritage — 10 raw material images with matching taglines.
+    const rawMaterialSlides = [
       { type: "image", src: "raw1.jpeg", tagline: "THE FIRST LAYER OF TIMELESS CRAFT" },
       { type: "image", src: "raw2.jpeg", tagline: "STONE THAT GIVES HERITAGE ITS STRENGTH" },
       { type: "image", src: "raw3.jpeg", tagline: "TIMBER SHAPED FOR A LIVING LEGACY" },
@@ -3079,58 +3426,42 @@
       { type: "video", src: "raw8.mp4", tagline: "TEXTURES THAT AGE WITH GRACE" },
       { type: "video", src: "raw9.mp4", tagline: "CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
       { type: "video", src: "raw10.mp4", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" },
-      { type: "video", src: "raw11.mp4", tagline: "THE LIVING ESSENCE OF RAW HERITAGE" }
+      { type: "video", src: "raw11.mp4", tagline: "WHERE RAW MATERIAL BECOMES LIVING HERITAGE" }
     ];
 
     let rawMaterialIndex = 0;
-    const rawMediaContainer = document.getElementById("rawMaterialMediaContainer");
+    const rawMaterialImage = document.getElementById("rawMaterialImage");
+    const rawMaterialVideo = document.getElementById("rawMaterialVideo");
     const rawMaterialTagline = document.getElementById("rawMaterialTagline");
     const rawMaterialCounter = document.getElementById("rawMaterialCounter");
     const rawMaterialPrev = document.getElementById("rawMaterialPrev");
     const rawMaterialNext = document.getElementById("rawMaterialNext");
 
-    // Build DOM elements for raw materials
-    rawMaterialItems.forEach((item, idx) => {
-      if (item.type === "image") {
-        const img = document.createElement("img");
-        img.src = item.src;
-        img.alt = item.tagline;
-        img.loading = "lazy";
-        if (idx === 0) img.classList.add("active");
-        rawMediaContainer.appendChild(img);
-      } else {
-        const vid = document.createElement("video");
-        vid.src = item.src;
-        vid.muted = true;
-        vid.loop = true;
-        vid.playsInline = true;
-        vid.preload = "metadata";
-        if (idx === 0) vid.classList.add("active");
-        rawMediaContainer.appendChild(vid);
-      }
-    });
-
-    const rawMediaElements = rawMediaContainer.querySelectorAll("img, video");
-
     function showRawMaterial(index) {
-      rawMaterialIndex = (index + rawMaterialItems.length) % rawMaterialItems.length;
-      const currentItem = rawMaterialItems[rawMaterialIndex];
+      rawMaterialIndex = (index + rawMaterialSlides.length) % rawMaterialSlides.length;
+      const slide = rawMaterialSlides[rawMaterialIndex];
+      rawMaterialImage.style.opacity = "0";
+      rawMaterialVideo.style.opacity = "0";
+      rawMaterialVideo.pause();
 
-      rawMediaElements.forEach((el, idx) => {
-        if (idx === rawMaterialIndex) {
-          el.classList.add("active");
-          if (el.tagName === "VIDEO") el.play().catch(()=>{});
+      setTimeout(() => {
+        if (slide.type === "video") {
+          rawMaterialImage.style.display = "none";
+          rawMaterialVideo.style.display = "block";
+          rawMaterialVideo.src = slide.src;
+          rawMaterialVideo.load();
+          rawMaterialVideo.play().catch(() => {});
+          requestAnimationFrame(() => { rawMaterialVideo.style.opacity = "1"; });
         } else {
-          el.classList.remove("active");
-          if (el.tagName === "VIDEO") {
-            el.pause();
-            try { el.currentTime = 0; } catch(e){}
-          }
+          rawMaterialVideo.style.display = "none";
+          rawMaterialImage.src = slide.src;
+          rawMaterialImage.alt = slide.tagline;
+          rawMaterialImage.style.display = "block";
+          requestAnimationFrame(() => { rawMaterialImage.style.opacity = "1"; });
         }
-      });
-
-      rawMaterialTagline.textContent = currentItem.tagline;
-      rawMaterialCounter.textContent = `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialItems.length).padStart(2, "0")}`;
+        rawMaterialTagline.textContent = slide.tagline;
+        rawMaterialCounter.textContent = `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialSlides.length).padStart(2, "0")}`;
+      }, 180);
     }
 
     if (rawMaterialPrev && rawMaterialNext) {
@@ -3138,8 +3469,8 @@
       rawMaterialNext.addEventListener("click", () => showRawMaterial(rawMaterialIndex + 1));
     }
 
-
-    /* Oladar Haveli Featured Slider */
+    
+    // Featured Execution — 10 Oladar Haveli images, one horizontal card.
     const heritageSlides = [
       { image: "oladar1.jpeg", tagline: "A Legacy Carved Into Every Detail.", subline: "Traditional artistry, royal proportion and enduring craftsmanship brought together in one living heritage." },
       { image: "oladar2.jpeg", tagline: "Where Stone Remembers Royal Stories.", subline: "Hand-finished surfaces and architectural rhythm preserve the language of Rajasthan." },
@@ -3271,17 +3602,20 @@
     };
 
 
-    /* ROUTING & VIEW CONTROLLERS WITH EXACT SECTION RETURN STATE */
+    /* ROUTING & VIEW CONTROLLERS */
     const homeView = document.getElementById("homeView");
     const projectDetail = document.getElementById("projectDetail");
     const header = document.getElementById("header");
     const preloader = document.getElementById("preloader");
     const menuTrigger = document.getElementById("menuTrigger");
     const menuOverlay = document.getElementById("menuOverlay");
+    let detailReturnState = null;
+    let detailWasOpen = false;
 
-    // 5-second preloader timer
+    const pageStartTime = performance.now();
     window.addEventListener("load", () => {
-      setTimeout(() => preloader.classList.add("hide"), 5000);
+      const remaining = Math.max(0, 3000 - (performance.now() - pageStartTime));
+      setTimeout(() => preloader.classList.add("hide"), remaining);
     });
 
     menuTrigger.addEventListener("click", () => {
@@ -3296,32 +3630,43 @@
       });
     });
 
-    // Keep track of active section before viewing detail
-    let activeSectionId = "projects";
-
-    function openProject(slug, sectionId = "projects") {
-      activeSectionId = sectionId;
+    function openProject(slug) {
+      const target = document.getElementById("projects");
+      detailReturnState = { sectionId: "projects", scrollY: window.scrollY };
       window.location.hash = "project/" + slug;
     }
 
-    function goBackToSection(e) {
-      if (e) e.preventDefault();
-      projectDetail.classList.remove("active");
-      homeView.classList.remove("hidden");
-      history.pushState("", document.title, window.location.pathname + window.location.search);
-      const el = document.getElementById(activeSectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-
     function goHome() {
+      detailReturnState = null;
+      detailWasOpen = false;
+      header.classList.remove("detail-hidden");
+      menuTrigger.classList.remove("active");
+      menuOverlay.classList.remove("open");
       window.location.hash = "";
       projectDetail.classList.remove("active");
       homeView.classList.remove("hidden");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function captureDetailReturn(sectionId) {
+      detailReturnState = { sectionId, scrollY: window.scrollY };
+      detailWasOpen = true;
+      header.classList.add("detail-hidden");
+      menuTrigger.classList.remove("active");
+      menuOverlay.classList.remove("open");
+    }
+
+    function restoreDetailReturn(e) {
+      if (e) e.preventDefault();
+      const state = detailReturnState;
+      detailReturnState = null;
+      detailWasOpen = false;
+      projectDetail.classList.remove("active");
+      homeView.classList.remove("hidden");
+      header.classList.remove("detail-hidden");
+      const y = state && Number.isFinite(state.scrollY) ? state.scrollY : 0;
+      requestAnimationFrame(() => window.scrollTo({ top: y, behavior: "instant" }));
+      if (window.location.hash) history.replaceState(null, "", window.location.pathname + window.location.search);
     }
 
     function renderProject(slug) {
@@ -3330,11 +3675,12 @@
 
       homeView.classList.add("hidden");
       projectDetail.classList.add("active");
+      header.classList.add("detail-hidden");
 
       projectDetail.innerHTML = `
         <section class="project-detail-hero">
           <img class="detail-hero-image" src="${proj.hero}" alt="${proj.title}">
-          <a href="#projects" class="back-projects" onclick="goBackToSection(event);">← BACK TO SIGNATURE PROJECTS</a>
+          <a href="#projects" class="back-projects" onclick="restoreDetailReturn(event);">← BACK TO SIGNATURE PROJECTS</a>
           <div class="detail-hero-content">
             <div class="eyebrow">Rathore Heritage Developers</div>
             <h1>${proj.title}</h1>
@@ -3377,14 +3723,14 @@
     }
 
     function renderCraftsmanshipDetail(card) {
-      activeSectionId = "craftsmanship";
+      captureDetailReturn("craftsmanship");
       homeView.classList.add("hidden");
       projectDetail.classList.add("active");
 
       projectDetail.innerHTML = `
         <section class="project-detail-hero">
           <img class="detail-hero-image" src="${card.image}" alt="${card.title}">
-          <a href="#craftsmanship" class="back-projects" onclick="goBackToSection(event);">← BACK TO CRAFTSMANSHIP</a>
+          <a href="#craftsmanship" class="back-projects" onclick="goBackToCraftsmanship(event);">← BACK TO CRAFTSMANSHIP</a>
           <div class="detail-hero-content">
             <div class="eyebrow">Rathore Heritage Craftsmanship</div>
             <h1 style="font-size:clamp(32px,6vw,72px);">${card.title}</h1>
@@ -3430,13 +3776,26 @@
       window.scrollTo({ top: 0, behavior: "instant" });
     }
 
+    function goBackToCraftsmanship(e) {
+      restoreDetailReturn(e);
+    }
+
     function handleRoute() {
       const hash = window.location.hash.substring(1);
       if (hash.startsWith("project/")) {
+        if (!detailReturnState) detailReturnState = { sectionId: "projects", scrollY: window.scrollY };
+        detailWasOpen = true;
         renderProject(hash.split("/")[1]);
       } else {
         projectDetail.classList.remove("active");
         homeView.classList.remove("hidden");
+        header.classList.remove("detail-hidden");
+        if (detailWasOpen && detailReturnState) {
+          const y = detailReturnState.scrollY;
+          detailReturnState = null;
+          detailWasOpen = false;
+          requestAnimationFrame(() => window.scrollTo({ top: y, behavior: "instant" }));
+        }
       }
     }
 
