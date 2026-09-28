@@ -2326,16 +2326,215 @@
       }
     }
 
+  
+
+    /* =========================================================
+       FINAL PERFORMANCE + RESPONSIVE OVERRIDES
+       ========================================================= */
+
+    .preloader-logo{
+      width:180px;
+      height:180px;
+      object-fit:contain;
+      display:block;
+      animation:preloaderPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes preloaderPulse{
+      0%,100%{transform:scale(.96);opacity:.82}
+      50%{transform:scale(1);opacity:1}
+    }
+
+    /* Navbar is visible only over the hero. */
+    header{
+      position:absolute;
+      top:0;
+      left:0;
+    }
+    header.scrolled{
+      padding:28px 0;
+      background:transparent;
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+      border-bottom:0;
+    }
+    header.scrolled .brand{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:none;
+    }
+
+    .brand-text strong{
+      font-size:28.5px;
+      color:var(--gold-light);
+    }
+    @media (min-width:768px){
+      .brand-text strong{font-size:34.5px;}
+    }
+
+    .menu-trigger span:first-child{
+      font-family:var(--sans);
+      font-size:11px;
+      letter-spacing:.16em;
+      font-weight:600;
+    }
+
+    .menu-overlay{
+      overflow:hidden;
+      max-height:none;
+      width:min(430px,calc(100vw - 32px));
+      padding:22px 24px;
+    }
+    .menu-links{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:4px 22px;
+    }
+    .menu-links a{
+      font-family:var(--sans) !important;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      padding:9px 0;
+      line-height:1.25;
+    }
+    @media(max-width:600px){
+      .menu-overlay{
+        top:68px;
+        right:10px;
+        width:calc(100vw - 20px);
+        padding:16px 18px;
+      }
+      .menu-links{
+        grid-template-columns:1fr 1fr;
+        gap:2px 14px;
+      }
+      .menu-links a{font-size:10px;letter-spacing:.06em;}
+    }
+
+    /* Center only the main section heading + tagline/intro. */
+    .section:not(.hero) > .container > .eyebrow,
+    .section:not(.hero) > .container > .section-title,
+    .section:not(.hero) > .container > .section-intro{
+      margin-left:auto;
+      margin-right:auto;
+      text-align:center;
+    }
+    .section:not(.hero) > .container > .gold-line{
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .craftsmanship-header > div:first-child,
+    .projects-header > div:first-child{
+      text-align:center;
+      margin-inline:auto;
+    }
+    .craftsmanship-header,
+    .projects-header{
+      align-items:center;
+    }
+    .craftsmanship-header .section-intro,
+    .projects-header .section-intro{
+      text-align:center;
+    }
+
+    /* Videos show a paused frame/preview; playback only starts from the play button. */
+    video:not(.hero-video){
+      background:#1a0d08;
+    }
+    .consultancy-video{
+      object-fit:cover;
+      cursor:default;
+    }
+    .consultancy-video-slide:not(.active) .consultancy-video{
+      visibility:hidden;
+    }
+
+    /* Raw media stage supports both stills and videos without loading inactive media. */
+    .raw-media-stage{
+      position:relative;
+      width:100%;
+      height:420px;
+      overflow:hidden;
+      background:#1a0d08;
+    }
+    .raw-media-stage img,
+    .raw-media-stage video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:opacity .35s ease;
+    }
+    .raw-media-stage video{display:none;}
+    .raw-material-play{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      border:1px solid var(--gold);
+      background:rgba(23,11,7,.78);
+      color:var(--gold-light);
+      display:none;
+      place-items:center;
+      z-index:4;
+      backdrop-filter:blur(6px);
+    }
+    .raw-material-play.is-visible{display:grid;}
+    .raw-material-play.is-playing{background:var(--gold);color:var(--brown-deep);}
+    @media(max-width:767px){
+      .raw-media-stage{height:330px;}
+    }
+
+    /* Mobile responsiveness */
+    @media(max-width:767px){
+      .container{width:min(calc(100% - 28px),var(--container));}
+      .section{padding:72px 0;}
+      .section-title{font-size:clamp(38px,12vw,62px);line-height:.95;}
+      .section-intro{font-size:14px;}
+      .legacy-grid,
+      .consultancy-grid,
+      .approach-grid,
+      .contact-grid{gap:32px;}
+      .legacy-image{height:360px;}
+      .leadership-grid,
+      .craft-cards-grid,
+      .material-grid,
+      .project-row-grid,
+      .heritage-project-showcase{grid-template-columns:1fr;}
+      .heritage-featured-slider{grid-template-columns:1fr;}
+      .heritage-featured-copy{order:1;}
+      .heritage-featured-image{order:2;height:330px;}
+      .heritage-featured-image img{min-height:330px;}
+      .project-featured-content{padding:28px 20px;}
+      .footer-logo{width:180px;height:180px;}
+      .brand-symbol{width:72px;height:72px;}
+      .brand-text strong{font-size:28.5px;letter-spacing:.04em;}
+      .menu-trigger{gap:7px;}
+      .menu-trigger span:first-child{font-size:9px;}
+      .hamburger{width:20px;height:20px;}
+    }
+
+    @media(min-width:768px){
+      .footer-logo{width:210px;height:210px;}
+    }
+
+    /* Reduce accidental offscreen media work. */
+    img[loading="lazy"], video[preload="none"]{
+      content-visibility:auto;
+    }
+
   </style>
 </head>
 
 <body>
 
   <!-- PRELOADER -->
-  <div class="preloader" id="preloader">
+  <div class="preloader" id="preloader" aria-label="Loading Rathore Heritage Developers">
     <div class="loader-inner">
-      <div class="loader-mark"></div>
-      <div class="loader-text">Rathore Heritage</div>
+      <img class="preloader-logo" src="logo.PNG" alt="Rathore Heritage Developers">
     </div>
   </div>
 
@@ -2352,7 +2551,7 @@
         </div>
       </a>
       <button class="menu-trigger" id="menuTrigger" aria-label="Toggle Menu">
-        <span>Menu</span>
+        <span>Explore RHD</span>
         <div class="hamburger">
           <span></span>
           <span></span>
@@ -2387,7 +2586,7 @@
 
     <!-- HERO SECTION WITH VIDEO -->
     <section class="hero" id="home">
-      <video class="hero-video" autoplay muted loop playsinline>
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" fetchpriority="high">
         <source src="hero.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
@@ -2409,7 +2608,7 @@
     <section class="section brown" id="legacy">
       <div class="container legacy-grid">
         <div class="legacy-image-wrap">
-          <img class="legacy-image" src="about.PNG" alt="About Rathore Heritage">
+          <img class="legacy-image" src="about.PNG" alt="About Rathore Heritage" loading="eager" fetchpriority="high">
           <div class="image-frame"></div>
         </div>
         <div class="legacy-copy">
@@ -2446,7 +2645,7 @@
           <div class="leader-card">
             <div class="leader-header">
               <div class="leader-avatar">
-                <img src="founder.jpeg" alt="Balveer Singh Rathore">
+                <img src="founder.jpeg" alt="Balveer Singh Rathore" loading="eager" fetchpriority="high">
               </div>
               <div class="leader-titles">
                 <h3>Balveer Singh Rathore</h3>
@@ -2498,90 +2697,6 @@
 
 
     <!-- HERITAGE CONSULTANCY SECTION (NEW) -->
-    <section class="section brown" id="consultancy">
-      <div class="container consultancy-grid">
-        <div>
-          <div class="eyebrow">Expert Guidance</div>
-          <h2 class="section-title">Heritage Consultancy.</h2>
-          <div class="gold-line"></div>
-          <p class="section-intro">
-            We provide comprehensive architectural consultancy, historical restoration planning, and design strategies tailored to traditional and royal building norms.
-          </p>
-          <p class="section-intro" style="margin-top: 15px;">
-            Our consultancy bridges ancestral craftsmanship with contemporary structural engineering, ensuring every detail reflects timeless authenticity and enduring stability.
-          </p>
-          <a href="#contact" class="luxury-btn">
-            Book A Consultation <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <div class="beige-card-wrap">
-          <div class="consultancy-slider-wrap" id="consultancySlider">
-            <div class="consultancy-video-slide active">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons1.mp4" type="video/mp4">
-                <source src="cons1.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 1" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons2.mp4" type="video/mp4">
-                <source src="cons2.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 2" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons3.mp4" type="video/mp4">
-                <source src="cons3.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 3" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons4.mp4" type="video/mp4">
-                <source src="cons4.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 4" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons5.mp4" type="video/mp4">
-                <source src="cons5.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 5" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-
-            <div class="consultancy-slider-controls">
-              <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Video">
-                <i class="fa-solid fa-arrow-left"></i>
-              </button>
-              <button class="consultancy-ctrl-btn" id="nextSlide" aria-label="Next Video">
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- OUR HERITAGE CRAFTSMANSHIP (10 Cards with View More button) -->
     <section class="section brown" id="craftsmanship">
       <div class="container">
         <div class="craftsmanship-header">
@@ -2619,45 +2734,6 @@
 
 
     <!-- FOUNDATION OF HERITAGE / RAW MATERIALS SECTION -->
-    <section class="section raw-material-section" id="rawmaterials">
-      <div class="container">
-        <div class="eyebrow">The Beginning of Craft</div>
-
-        <div class="raw-material-layout">
-          <div class="raw-material-card">
-            <div class="raw-material-image-wrap">
-              <img id="rawMaterialImage" src="raw1.jpeg" alt="Raw Material Element 1" loading="lazy">
-            </div>
-
-            <div class="raw-material-caption">
-              <div class="raw-material-counter" id="rawMaterialCounter">01 / 10</div>
-              <h3 id="rawMaterialTagline">THE FIRST LAYER OF TIMELESS CRAFT</h3>
-            </div>
-
-            <div class="raw-material-controls">
-              <button class="raw-material-btn" id="rawMaterialPrev" aria-label="Previous Raw Material">
-                <i class="fa-solid fa-arrow-left"></i>
-              </button>
-              <button class="raw-material-btn" id="rawMaterialNext" aria-label="Next Raw Material">
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="raw-material-copy">
-            <div class="eyebrow">Raw Structure · Living Craft</div>
-            <h2>The Foundation of Heritage</h2>
-            <div class="raw-material-main-tagline">Where Every Royal Form Begins With Its First Honest Element.</div>
-            <p>
-              Before a heritage space becomes a haveli, palace or timeless interior, it begins with the raw elements that shape its character. Stone, timber, lime, metal, plaster and handcrafted foundations form the first language of the structure — carrying the texture, strength and soul that later define the finished work.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- SIGNATURE PROJECTS SECTION -->
     <section class="section brown" id="projects">
       <div class="container">
         <div class="projects-header">
@@ -2673,7 +2749,7 @@
         <div class="signature-layout">
           <!-- Top Full Width Card: Oladar Haveli with clear background image -->
           <div class="project-featured-card" onclick="openProject('oladar')">
-            <img class="project-featured-bg" src="oladar1.jpeg" alt="Oladar Haveli Background">
+            <img class="project-featured-bg" src="oladar1.jpeg" alt="Oladar Haveli Background" loading="lazy" fetchpriority="low">
             <div class="project-featured-content">
               <div class="eyebrow">Udaipur · Heritage Haveli Construction</div>
               <h3 style="font-family:var(--serif); font-size:clamp(32px, 5vw, 48px); color:var(--gold-dark); margin-bottom:12px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Oladar Haveli</h3>
@@ -2774,6 +2850,134 @@
             <button class="heritage-slider-btn" id="heritageNext" aria-label="Next Oladar Haveli image">
               <i class="fa-solid fa-arrow-right"></i>
             </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section brown" id="consultancy">
+      <div class="container consultancy-grid">
+        <div>
+          <div class="eyebrow">Expert Guidance</div>
+          <h2 class="section-title">Heritage Consultancy.</h2>
+          <div class="gold-line"></div>
+          <p class="section-intro">
+            We provide comprehensive architectural consultancy, historical restoration planning, and design strategies tailored to traditional and royal building norms.
+          </p>
+          <p class="section-intro" style="margin-top: 15px;">
+            Our consultancy bridges ancestral craftsmanship with contemporary structural engineering, ensuring every detail reflects timeless authenticity and enduring stability.
+          </p>
+          <a href="#contact" class="luxury-btn">
+            Book A Consultation <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="beige-card-wrap">
+          <div class="consultancy-slider-wrap" id="consultancySlider">
+            <div class="consultancy-video-slide active">
+              <video class="consultancy-video" muted loop playsinline preload="none" data-video-src="cons1.mp4"></video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 1" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none" data-video-src="cons2.mp4"></video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 2" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none" data-video-src="cons3.mp4"></video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 3" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none" data-video-src="cons4.mp4"></video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 4" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none" data-video-src="cons5.mp4"></video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 5" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none" data-video-src="cons6.mp4">
+              </video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 6" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-video-slide">
+              <video class="consultancy-video" muted loop playsinline preload="none" data-video-src="cons7.mp4">
+              </video>
+              <button class="consultancy-play-stop" type="button" aria-label="Play Video 7" aria-pressed="false">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="consultancy-slider-controls">
+              <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Video">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <button class="consultancy-ctrl-btn" id="nextSlide" aria-label="Next Video">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- OUR HERITAGE CRAFTSMANSHIP (10 Cards with View More button) -->
+    
+
+    <section class="section raw-material-section" id="rawmaterials">
+      <div class="container">
+        <div class="eyebrow">The Beginning of Craft</div>
+
+        <div class="raw-material-layout">
+          <div class="raw-material-card">
+            <div class="raw-media-stage" id="rawMediaStage">
+              <img id="rawMaterialImage" src="raw1.jpeg" alt="Raw Material Element 1" loading="lazy" fetchpriority="low">
+              <video id="rawMaterialVideo" class="raw-material-video" muted loop playsinline preload="none" controlslist="nodownload noplaybackrate"></video>
+              <button id="rawMaterialPlay" class="raw-material-play" type="button" aria-label="Play raw material video">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="raw-material-caption">
+              <div class="raw-material-counter" id="rawMaterialCounter">01 / 11</div>
+              <h3 id="rawMaterialTagline">THE FIRST LAYER OF TIMELESS CRAFT</h3>
+            </div>
+
+            <div class="raw-material-controls">
+              <button class="raw-material-btn" id="rawMaterialPrev" aria-label="Previous Raw Material">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <button class="raw-material-btn" id="rawMaterialNext" aria-label="Next Raw Material">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="raw-material-copy">
+            <div class="eyebrow">Raw Structure · Living Craft</div>
+            <h2>The Foundation of Heritage</h2>
+            <div class="raw-material-main-tagline">Where Every Royal Form Begins With Its First Honest Element.</div>
+            <p>
+              Before a heritage space becomes a haveli, palace or timeless interior, it begins with the raw elements that shape its character. Stone, timber, lime, metal, plaster and handcrafted foundations form the first language of the structure — carrying the texture, strength and soul that later define the finished work.
+            </p>
           </div>
         </div>
       </div>
@@ -2977,135 +3181,87 @@
   <!-- JAVASCRIPT LOGIC -->
   <script>
 
-    /* HERITAGE CONSULTANCY MANUAL SLIDER LOGIC (VIDEOS) */
+    /* HERITAGE CONSULTANCY — lazy video loading, paused previews, click-to-play */
     const consultancySlides = document.querySelectorAll("#consultancySlider .consultancy-video-slide");
     const consultancyVideos = document.querySelectorAll("#consultancySlider video");
     const consultancyPlayStopButtons = document.querySelectorAll("#consultancySlider .consultancy-play-stop");
     let currentSlide = 0;
 
-    /* ── VIDEO POSTER / PREVIEW GENERATION ──────────────────────────
-       Captures the very first frame of every consultancy video and
-       bakes it into the slide as a background-image preview so the
-       slot never looks blank before the user presses Play.
-    ────────────────────────────────────────────────────────────────── */
-    (function generateVideoPreviews() {
-      const canvas = document.createElement("canvas");
-      const ctx    = canvas.getContext("2d");
-
-      consultancyVideos.forEach((vid, idx) => {
-        const slide = consultancySlides[idx];
-
-        function capturePoster() {
-          if (vid.readyState < 2) return;           // frame not ready yet
-          canvas.width  = vid.videoWidth  || 640;
-          canvas.height = vid.videoHeight || 360;
-          try {
-            ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
-            const dataURL = canvas.toDataURL("image/jpeg", 0.82);
-            // Apply as a background behind the video element
-            slide.style.backgroundImage   = `url("${dataURL}")`;
-            slide.style.backgroundSize    = "cover";
-            slide.style.backgroundPosition= "center";
-          } catch(e) {
-            // cross-origin or security error — silently skip
-          }
-          vid.removeEventListener("loadeddata",   capturePoster);
-          vid.removeEventListener("canplaythrough", capturePoster);
-        }
-
-        if (vid.readyState >= 2) {
-          capturePoster();
-        } else {
-          vid.addEventListener("loadeddata",    capturePoster, { once: true });
-          vid.addEventListener("canplaythrough", capturePoster, { once: true });
-        }
-      });
-    })();
-
+    function loadVideoSource(video){
+      if(!video || video.dataset.loaded === "true") return;
+      const src = video.dataset.videoSrc;
+      if(!src) return;
+      video.src = src;
+      video.preload = "metadata";
+      video.dataset.loaded = "true";
+      video.load();
+    }
 
     function updatePlayStopButton(index, isPlaying) {
       const button = consultancyPlayStopButtons[index];
       if (!button) return;
-
       button.classList.toggle("is-playing", isPlaying);
       button.setAttribute("aria-pressed", isPlaying ? "true" : "false");
       button.setAttribute("aria-label", isPlaying ? `Stop Video ${index + 1}` : `Play Video ${index + 1}`);
-      button.innerHTML = isPlaying
-        ? '<i class="fa-solid fa-stop"></i>'
-        : '<i class="fa-solid fa-play"></i>';
+      button.innerHTML = isPlaying ? '<i class="fa-solid fa-stop"></i>' : '<i class="fa-solid fa-play"></i>';
     }
 
     function stopConsultancyVideo(index, reset = true) {
       const vid = consultancyVideos[index];
       if (!vid) return;
-
       vid.pause();
-      if (reset) {
-        try {
-          vid.currentTime = 0;
-        } catch (e) {}
-      }
-      updatePlayStopButton(index, false);
+      if(reset){ try{vid.currentTime=0;}catch(e){} }
+      updatePlayStopButton(index,false);
     }
 
     function showSlide(index) {
-      consultancyVideos.forEach((vid, i) => {
-        const isActive = (i === index);
-
-        if (isActive) {
-          consultancySlides[i].classList.add("active");
-        } else {
-          consultancySlides[i].classList.remove("active");
-          stopConsultancyVideo(i, true);
+      currentSlide = (index + consultancySlides.length) % consultancySlides.length;
+      consultancyVideos.forEach((vid,i)=>{
+        const active=i===currentSlide;
+        consultancySlides[i].classList.toggle("active",active);
+        if(active){
+          loadVideoSource(vid);
+          stopConsultancyVideo(i,false);
+        }else{
+          stopConsultancyVideo(i,true);
         }
       });
-
-      // Every slide opens paused. Video starts only after the user's Play click.
-      stopConsultancyVideo(index, false);
     }
 
-    consultancyPlayStopButtons.forEach((button, index) => {
-      button.addEventListener("click", (event) => {
+    consultancyPlayStopButtons.forEach((button,index)=>{
+      button.addEventListener("click",(event)=>{
         event.stopPropagation();
-
-        const vid = consultancyVideos[index];
-        if (!vid) return;
-
-        if (index !== currentSlide) {
-          currentSlide = index;
-          showSlide(currentSlide);
-          return;
-        }
-
-        if (vid.paused) {
-          vid.play().then(() => {
-            updatePlayStopButton(index, true);
-          }).catch(() => {
-            updatePlayStopButton(index, false);
-          });
-        } else {
-          stopConsultancyVideo(index, true);
+        const vid=consultancyVideos[index];
+        if(!vid) return;
+        if(index!==currentSlide){ showSlide(index); return; }
+        loadVideoSource(vid);
+        if(vid.paused){
+          vid.play().then(()=>updatePlayStopButton(index,true)).catch(()=>updatePlayStopButton(index,false));
+        }else{
+          stopConsultancyVideo(index,true);
         }
       });
     });
 
-    consultancyVideos.forEach((vid, index) => {
-      vid.addEventListener("play", () => updatePlayStopButton(index, true));
-      vid.addEventListener("pause", () => updatePlayStopButton(index, false));
-      vid.addEventListener("ended", () => updatePlayStopButton(index, false));
+    consultancyVideos.forEach((vid,index)=>{
+      vid.addEventListener("play",()=>updatePlayStopButton(index,true));
+      vid.addEventListener("pause",()=>updatePlayStopButton(index,false));
+      vid.addEventListener("ended",()=>updatePlayStopButton(index,false));
     });
 
-    document.getElementById("nextSlide").addEventListener("click", () => {
-      currentSlide = (currentSlide + 1) % consultancySlides.length;
-      showSlide(currentSlide);
-    });
+    document.getElementById("nextSlide").addEventListener("click",()=>showSlide(currentSlide+1));
+    document.getElementById("prevSlide").addEventListener("click",()=>showSlide(currentSlide-1));
 
-    document.getElementById("prevSlide").addEventListener("click", () => {
-      currentSlide = (currentSlide - 1 + consultancySlides.length) % consultancySlides.length;
-      showSlide(currentSlide);
-    });
+    /* Start loading only when the consultancy section approaches the viewport. */
+    const consultancyObserver = new IntersectionObserver((entries)=>{
+      if(entries.some(e=>e.isIntersecting)){
+        loadVideoSource(consultancyVideos[currentSlide]);
+        consultancyObserver.disconnect();
+      }
+    },{rootMargin:"700px 0px"});
+    const consultancySection=document.getElementById("consultancy");
+    if(consultancySection) consultancyObserver.observe(consultancySection);
 
-    // Initialize first slide without starting any video.
     showSlide(0);
 
 
@@ -3228,45 +3384,91 @@
     }
 
 
-    // Foundation of Heritage — 10 raw material images with matching taglines.
+    // Foundation of Heritage — 6 photos + 5 videos.
+    // Video filenames follow raw7.mp4 ... raw11.mp4. They are loaded only when their slide is opened.
     const rawMaterialSlides = [
-      { image: "raw1.jpeg", tagline: "THE FIRST LAYER OF TIMELESS CRAFT" },
-      { image: "raw2.jpeg", tagline: "STONE THAT GIVES HERITAGE ITS STRENGTH" },
-      { image: "raw3.jpeg", tagline: "TIMBER SHAPED FOR A LIVING LEGACY" },
-      { image: "raw4.jpeg", tagline: "LIME AND EARTH, THE SOUL OF TRADITION" },
-      { image: "raw5.jpeg", tagline: "METAL DETAILING THAT CARRIES ROYAL CHARACTER" },
-      { image: "raw6.jpeg", tagline: "HANDCRAFTED SURFACES BORN FROM PATIENCE" },
-      { image: "raw7.jpeg", tagline: "FOUNDATION ELEMENTS BUILT TO ENDURE" },
-      { image: "raw8.jpeg", tagline: "TEXTURES THAT AGE WITH GRACE" },
-      { image: "raw9.jpeg", tagline: "CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
-      { image: "raw10.jpeg", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" }
+      { type:"image", src:"raw1.jpeg", tagline:"THE FIRST LAYER OF TIMELESS CRAFT" },
+      { type:"image", src:"raw2.jpeg", tagline:"STONE THAT GIVES HERITAGE ITS STRENGTH" },
+      { type:"image", src:"raw3.jpeg", tagline:"TIMBER SHAPED FOR A LIVING LEGACY" },
+      { type:"image", src:"raw4.jpeg", tagline:"LIME AND EARTH, THE SOUL OF TRADITION" },
+      { type:"image", src:"raw5.jpeg", tagline:"METAL DETAILING THAT CARRIES ROYAL CHARACTER" },
+      { type:"image", src:"raw6.jpeg", tagline:"HANDCRAFTED SURFACES BORN FROM PATIENCE" },
+      { type:"video", src:"raw7.mp4", tagline:"FOUNDATION ELEMENTS BUILT TO ENDURE" },
+      { type:"video", src:"raw8.mp4", tagline:"TEXTURES THAT AGE WITH GRACE" },
+      { type:"video", src:"raw9.mp4", tagline:"CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
+      { type:"video", src:"raw10.mp4", tagline:"FROM RAW ELEMENTS TO TIMELESS HERITAGE" },
+      { type:"video", src:"raw11.mp4", tagline:"FROM RAW ELEMENTS TO LIVING HERITAGE" }
     ];
 
-    let rawMaterialIndex = 0;
-    const rawMaterialImage = document.getElementById("rawMaterialImage");
-    const rawMaterialTagline = document.getElementById("rawMaterialTagline");
-    const rawMaterialCounter = document.getElementById("rawMaterialCounter");
-    const rawMaterialPrev = document.getElementById("rawMaterialPrev");
-    const rawMaterialNext = document.getElementById("rawMaterialNext");
+    let rawMaterialIndex=0;
+    const rawMaterialImage=document.getElementById("rawMaterialImage");
+    const rawMaterialVideo=document.getElementById("rawMaterialVideo");
+    const rawMaterialPlay=document.getElementById("rawMaterialPlay");
+    const rawMaterialTagline=document.getElementById("rawMaterialTagline");
+    const rawMaterialCounter=document.getElementById("rawMaterialCounter");
+    const rawMaterialPrev=document.getElementById("rawMaterialPrev");
+    const rawMaterialNext=document.getElementById("rawMaterialNext");
 
-    function showRawMaterial(index) {
-      rawMaterialIndex = (index + rawMaterialSlides.length) % rawMaterialSlides.length;
-      const slide = rawMaterialSlides[rawMaterialIndex];
-
-      rawMaterialImage.style.opacity = "0";
-      setTimeout(() => {
-        rawMaterialImage.src = slide.image;
-        rawMaterialImage.alt = slide.tagline;
-        rawMaterialTagline.textContent = slide.tagline;
-        rawMaterialCounter.textContent = `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialSlides.length).padStart(2, "0")}`;
-        rawMaterialImage.style.opacity = "1";
-      }, 180);
+    function stopRawVideo(){
+      if(!rawMaterialVideo) return;
+      rawMaterialVideo.pause();
+      try{rawMaterialVideo.currentTime=0;}catch(e){}
+      rawMaterialPlay.classList.remove("is-playing");
+      rawMaterialPlay.innerHTML='<i class="fa-solid fa-play"></i>';
     }
 
-    if (rawMaterialPrev && rawMaterialNext) {
-      rawMaterialPrev.addEventListener("click", () => showRawMaterial(rawMaterialIndex - 1));
-      rawMaterialNext.addEventListener("click", () => showRawMaterial(rawMaterialIndex + 1));
+    function showRawMaterial(index){
+      rawMaterialIndex=(index+rawMaterialSlides.length)%rawMaterialSlides.length;
+      const slide=rawMaterialSlides[rawMaterialIndex];
+
+      stopRawVideo();
+      rawMaterialVideo.removeAttribute("src");
+      rawMaterialVideo.load();
+      rawMaterialVideo.style.display="none";
+      rawMaterialImage.style.display="none";
+      rawMaterialPlay.classList.remove("is-visible");
+
+      rawMaterialTagline.textContent=slide.tagline;
+      rawMaterialCounter.textContent=`${String(rawMaterialIndex+1).padStart(2,"0")} / ${rawMaterialSlides.length}`;
+
+      if(slide.type==="image"){
+        rawMaterialImage.src=slide.src;
+        rawMaterialImage.alt=slide.tagline;
+        rawMaterialImage.style.display="block";
+      }else{
+        rawMaterialVideo.src=slide.src;
+        rawMaterialVideo.preload="metadata";
+        rawMaterialVideo.style.display="block";
+        rawMaterialVideo.load();
+        rawMaterialPlay.classList.add("is-visible");
+      }
     }
+
+    rawMaterialPlay.addEventListener("click",()=>{
+      if(rawMaterialSlides[rawMaterialIndex].type!=="video") return;
+      if(rawMaterialVideo.paused){
+        rawMaterialVideo.play().then(()=>{
+          rawMaterialPlay.classList.add("is-playing");
+          rawMaterialPlay.innerHTML='<i class="fa-solid fa-stop"></i>';
+        }).catch(()=>{});
+      }else{
+        stopRawVideo();
+      }
+    });
+    rawMaterialVideo.addEventListener("pause",()=>{rawMaterialPlay.classList.remove("is-playing");rawMaterialPlay.innerHTML='<i class="fa-solid fa-play"></i>';});
+    rawMaterialVideo.addEventListener("ended",()=>{rawMaterialPlay.classList.remove("is-playing");rawMaterialPlay.innerHTML='<i class="fa-solid fa-play"></i>';});
+
+    rawMaterialPrev.addEventListener("click",()=>showRawMaterial(rawMaterialIndex-1));
+    rawMaterialNext.addEventListener("click",()=>showRawMaterial(rawMaterialIndex+1));
+
+    const rawSection=document.getElementById("rawmaterials");
+    const rawObserver=new IntersectionObserver((entries)=>{
+      if(entries.some(e=>e.isIntersecting)){
+        showRawMaterial(rawMaterialIndex);
+        rawObserver.disconnect();
+      }
+    },{rootMargin:"700px 0px"});
+    if(rawSection) rawObserver.observe(rawSection);
 
 
     // Featured Execution — 10 Oladar Haveli images, one horizontal card.
@@ -3410,13 +3612,10 @@
     const menuOverlay = document.getElementById("menuOverlay");
 
     window.addEventListener("load", () => {
-      setTimeout(() => preloader.classList.add("hide"), 600);
+      setTimeout(() => preloader.classList.add("hide"), 450);
     });
 
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) header.classList.add("scrolled");
-      else header.classList.remove("scrolled");
-    });
+
 
     menuTrigger.addEventListener("click", () => {
       menuTrigger.classList.toggle("active");
@@ -3430,15 +3629,43 @@
       });
     });
 
+    let returnSectionId = "home";
+    let returnScrollY = 0;
+
+    function rememberReturnPosition(){
+      const sections = [...document.querySelectorAll("#homeView section[id]")];
+      let best = sections[0];
+      let bestDistance = Infinity;
+      const targetY = window.scrollY + 120;
+      sections.forEach(sec=>{
+        const distance=Math.abs(sec.offsetTop-targetY);
+        if(distance<bestDistance){best=sec;bestDistance=distance;}
+      });
+      if(best){
+        returnSectionId=best.id;
+        returnScrollY=Math.max(0,window.scrollY);
+      }
+    }
+
     function openProject(slug) {
+      rememberReturnPosition();
       window.location.hash = "project/" + slug;
+    }
+
+    function restoreHomePosition(){
+      const y=returnScrollY;
+      requestAnimationFrame(()=>{
+        window.scrollTo({top:y,behavior:"instant"});
+        setTimeout(()=>window.scrollTo({top:y,behavior:"instant"}),80);
+      });
     }
 
     function goHome() {
       window.location.hash = "";
       projectDetail.classList.remove("active");
       homeView.classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      header.style.display = "";
+      restoreHomePosition();
     }
 
     function renderProject(slug) {
@@ -3447,11 +3674,12 @@
 
       homeView.classList.add("hidden");
       projectDetail.classList.add("active");
+      header.style.display = "none";
 
       projectDetail.innerHTML = `
         <section class="project-detail-hero">
           <img class="detail-hero-image" src="${proj.hero}" alt="${proj.title}">
-          <a href="#projects" class="back-projects" onclick="goHome();">← BACK TO SIGNATURE PROJECTS</a>
+          <a href="javascript:void(0)" class="back-projects" onclick="goHome();">← BACK TO SIGNATURE PROJECTS</a>
           <div class="detail-hero-content">
             <div class="eyebrow">Rathore Heritage Developers</div>
             <h1>${proj.title}</h1>
@@ -3494,8 +3722,10 @@
     }
 
     function renderCraftsmanshipDetail(card) {
+      rememberReturnPosition();
       homeView.classList.add("hidden");
       projectDetail.classList.add("active");
+      header.style.display = "none";
 
       projectDetail.innerHTML = `
         <section class="project-detail-hero">
@@ -3550,9 +3780,8 @@
       if (e) e.preventDefault();
       projectDetail.classList.remove("active");
       homeView.classList.remove("hidden");
-      const el = document.getElementById("craftsmanship");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-      else window.scrollTo({ top: 0, behavior: "smooth" });
+      header.style.display = "";
+      restoreHomePosition();
     }
 
     function handleRoute() {
@@ -3562,6 +3791,8 @@
       } else {
         projectDetail.classList.remove("active");
         homeView.classList.remove("hidden");
+        header.style.display = "";
+        restoreHomePosition();
       }
     }
 
@@ -3580,6 +3811,22 @@
       this.reset();
     });
 
+  </script>
+<script>
+    /* Progressive image loading near the viewport without forcing the browser to fetch the whole page at once. */
+    (function(){
+      const lazyImgs=[...document.querySelectorAll('img[loading="lazy"][src]')];
+      const observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const img=entry.target;
+            img.loading="eager";
+            observer.unobserve(img);
+          }
+        });
+      },{rootMargin:"700px 0px"});
+      lazyImgs.forEach(img=>observer.observe(img));
+    })();
   </script>
 </body>
 </html>
