@@ -2489,6 +2489,131 @@
     }
 
   </style>
+
+
+  <!-- =========================================================
+       REQUESTED TYPOGRAPHY / HEADING / ABOUT IMAGE OVERRIDES
+       Text, sections and content intentionally unchanged.
+  ========================================================== -->
+  <style>
+    /* 1) Typography copied from the reference HTML */
+    :root {
+      --serif: "Cormorant Garamond", serif;
+      --sans: "DM Sans", sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+    }
+
+    h1, h2, h3, h4,
+    .section-title,
+    .eyebrow,
+    .hero-kicker,
+    .hero-description,
+    .section-intro,
+    .craft-row,
+    .offer-card h3,
+    .offer-card p,
+    .expertise-content h3,
+    .expertise-tags,
+    .project-meta,
+    .detail-meta,
+    .detail-tag {
+      font-family: var(--sans);
+    }
+
+    /* Luxury serif styling for the main non-hero headings */
+    .section-title,
+    .leader-titles h3,
+    .craft-card-info h3,
+    .material-item h4,
+    .project-card-info h3,
+    .heritage-proj-item h4,
+    .approach-quote,
+    .principle-number,
+    .principle h4,
+    .offer-number,
+    .offer-card h3,
+    .form h3,
+    .footer-brand h2,
+    .detail-story h2,
+    .signature {
+      font-family: var(--serif);
+    }
+
+    /* 2) Main section headings: approximately 50% smaller + centered */
+    .section-title {
+      font-size: clamp(19px, 3vw, 50px);
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-title + .gold-line,
+    .section-title ~ .gold-line {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-intro {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    /* Center the main section heading areas without changing section structure */
+    .craftsmanship-header,
+    .projects-header {
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 1024px) {
+      .craftsmanship-header,
+      .projects-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    /* 3) About / Legacy image area: ~35% wider on desktop */
+    @media (min-width: 1024px) {
+      .legacy-grid {
+        grid-template-columns: 1.15fr .85fr;
+      }
+    }
+
+    /* 4) Other major non-hero headings reduced to ~50% */
+    .approach-quote {
+      font-size: clamp(17px, 2.5vw, 33px);
+    }
+
+    .detail-story h2 {
+      font-size: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .detail-story h2 {
+        font-size: 28px;
+      }
+    }
+
+    .form h3 {
+      font-size: 17px;
+    }
+
+    .footer-brand h2 {
+      font-size: 17px;
+    }
+
+    /* Keep the hero heading exactly as it is. */
+    .hero h1 {
+      font-family: "Allura", cursive;
+    }
+  </style>
+
 </head>
 
 <body>
