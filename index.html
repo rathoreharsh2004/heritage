@@ -1793,16 +1793,28 @@
       font-size: 10px;
     }
 
+    .detail-back-bar {
+      position: relative;
+      z-index: 4;
+      background: var(--brown);
+      padding: 16px 0 18px;
+    }
+
+    .detail-back-bar-inner {
+      width: min(calc(100% - 40px), var(--container));
+      margin: 0 auto;
+    }
+
     .back-projects {
       position: relative;
       z-index: 3;
       top: auto;
       left: auto;
-      margin-top: 22px;
+      margin: 0;
       display: inline-flex;
       align-items: center;
       width: fit-content;
-      max-width: calc(100% - 40px);
+      max-width: 100%;
       padding: 11px 16px;
       background: var(--brown);
       border: 1px solid rgba(197,161,91,.65);
@@ -1825,20 +1837,9 @@
     }
 
     @media (min-width: 768px) {
-      .back-projects {
-        left: auto;
-        top: auto;
+      .detail-back-bar-inner {
+        width: min(calc(100% - 80px), var(--container));
       }
-    }
-
-    /* Detail-page back button sits below the heading/tagline so it does not cover the hero image. */
-    .detail-hero-content .back-projects.detail-back-inline {
-      position: relative;
-      top: auto;
-      left: auto;
-      display: inline-flex;
-      width: fit-content;
-      margin-top: 22px;
     }
 
     .detail-section {
@@ -3488,45 +3489,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     const consultancyPlayStopButtons = document.querySelectorAll("#consultancySlider .consultancy-play-stop");
     let currentSlide = 0;
 
-    /* ── VIDEO POSTER / PREVIEW GENERATION ──────────────────────────
-       Captures the very first frame of every consultancy video and
-       bakes it into the slide as a background-image preview so the
-       slot never looks blank before the user presses Play.
-    ────────────────────────────────────────────────────────────────── */
-    (function generateVideoPreviews() {
-      const canvas = document.createElement("canvas");
-      const ctx    = canvas.getContext("2d");
-
-      consultancyVideos.forEach((vid, idx) => {
-        const slide = consultancySlides[idx];
-
-        function capturePoster() {
-          if (vid.readyState < 2) return;           // frame not ready yet
-          canvas.width  = vid.videoWidth  || 640;
-          canvas.height = vid.videoHeight || 360;
-          try {
-            ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
-            const dataURL = canvas.toDataURL("image/jpeg", 0.82);
-            // Apply as a background behind the video element
-            slide.style.backgroundImage   = `url("${dataURL}")`;
-            slide.style.backgroundSize    = "cover";
-            slide.style.backgroundPosition= "center";
-          } catch(e) {
-            // cross-origin or security error — silently skip
-          }
-          vid.removeEventListener("loadeddata",   capturePoster);
-          vid.removeEventListener("canplaythrough", capturePoster);
-        }
-
-        if (vid.readyState >= 2) {
-          capturePoster();
-        } else {
-          vid.addEventListener("loadeddata",    capturePoster, { once: true });
-          vid.addEventListener("canplaythrough", capturePoster, { once: true });
-        }
-      });
-    })();
-
+    /* Videos stay unloaded until the user presses Play. This prevents the consultancy section from
+       competing with the rest of the page for bandwidth/decoding while scrolling. */
+    consultancyVideos.forEach((vid) => {
+      vid.preload = "none";
+    });
 
     function updatePlayStopButton(index, isPlaying) {
       const button = consultancyPlayStopButtons[index];
@@ -3562,6 +3529,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         } else {
           consultancySlides[i].classList.remove("active");
           stopConsultancyVideo(i, true);
+          vid.preload = "none";
         }
       });
 
@@ -3583,11 +3551,22 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         }
 
         if (vid.paused) {
-          vid.play().then(() => {
-            updatePlayStopButton(index, true);
-          }).catch(() => {
-            updatePlayStopButton(index, false);
-          });
+          const startPlayback = () => {
+            vid.play().then(() => {
+              updatePlayStopButton(index, true);
+            }).catch(() => {
+              updatePlayStopButton(index, false);
+            });
+          };
+
+          // Load only the video the visitor explicitly asks to play.
+          if (vid.readyState < 2) {
+            vid.preload = "auto";
+            vid.addEventListener("canplay", startPlayback, { once: true });
+            vid.load();
+          } else {
+            startPlayback();
+          }
         } else {
           stopConsultancyVideo(index, true);
         }
@@ -4003,9 +3982,13 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="eyebrow">Rathore Heritage Developers</div>
             <h1>${proj.title}</h1>
             <div class="detail-meta">${proj.location} &nbsp; · &nbsp; ${proj.type}</div>
-            <a href="#projects" class="back-projects detail-back-inline" onclick="restoreDetailReturn(event);">← BACK TO SIGNATURE PROJECTS</a>
           </div>
         </section>
+        <div class="detail-back-bar">
+          <div class="detail-back-bar-inner">
+            <a href="#projects" class="back-projects" onclick="restoreDetailReturn(event);">← BACK TO SIGNATURE PROJECTS</a>
+          </div>
+        </div>
 
         <section class="detail-section brown">
           <div class="container">
@@ -4053,9 +4036,13 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="eyebrow">Rathore Heritage Craftsmanship</div>
             <h1 style="font-size:clamp(32px,6vw,72px);">${card.title}</h1>
             <div class="detail-meta">${card.tagline}</div>
-            <a href="#craftsmanship" class="back-projects detail-back-inline" onclick="goBackToCraftsmanship(event);">← BACK TO CRAFTSMANSHIP</a>
           </div>
         </section>
+        <div class="detail-back-bar">
+          <div class="detail-back-bar-inner">
+            <a href="#craftsmanship" class="back-projects" onclick="goBackToCraftsmanship(event);">← BACK TO CRAFTSMANSHIP</a>
+          </div>
+        </div>
 
         <section class="detail-section brown">
           <div class="container">
