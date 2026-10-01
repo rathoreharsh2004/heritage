@@ -1612,7 +1612,7 @@
     }
 
     footer {
-      background: var(--brown-deep);
+      background: var(--brown);
       color: var(--cream);
       padding: 70px 0 30px;
     }
@@ -1798,12 +1798,29 @@
       z-index: 3;
       top: 100px;
       left: 20px;
-      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      max-width: calc(100% - 40px);
+      padding: 11px 16px;
+      background: var(--brown);
+      border: 1px solid rgba(197,161,91,.65);
       color: var(--gold-light);
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .15em;
       font-size: 12px;
-      text-shadow: #170b07 5px 5px 5px;
+      line-height: 1.2;
+      text-shadow: none;
+      box-shadow: 0 8px 22px rgba(0,0,0,.28);
+      transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+    }
+
+    .back-projects:hover {
+      background: var(--brown-soft);
+      color: var(--cream);
+      border-color: var(--gold);
+      transform: translateY(-2px);
     }
 
     @media (min-width: 768px) {
@@ -1894,13 +1911,13 @@
 
     /* Header logo is larger, but disappears from the compact scrolled bar. */
     .brand-symbol {
-      width: 105px;
-      height: 105px;
+      width: 131px;
+      height: 131px;
     }
     @media (min-width: 768px) {
       .brand-symbol {
-        width: 130px;
-        height: 130px;
+        width: 163px;
+        height: 163px;
       }
     }
     header.scrolled .brand {
@@ -2053,8 +2070,8 @@
 
     /* Footer logo */
     .footer-logo {
-      width: 140px;
-      height: 140px;
+      width: 175px;
+      height: 175px;
       object-fit: contain;
       margin-bottom: 18px;
     }
@@ -2084,8 +2101,8 @@
         bottom: 12px;
       }
       .footer-logo {
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 150px;
       }
     }
 
@@ -2419,9 +2436,9 @@
   
     /* USER REQUESTED FINAL POLISH */
     .preloader-logo {
-      width: min(210px, 58vw);
+      width: min(263px, 58vw);
       height: auto;
-      max-height: 210px;
+      max-height: 263px;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 10px 30px rgba(0,0,0,.28));
@@ -2536,8 +2553,8 @@
     }
 
     .footer-logo {
-      width: 210px;
-      height: 210px;
+      width: 263px;
+      height: 263px;
     }
     @media (max-width: 767px) {
       .brand {
@@ -2545,9 +2562,9 @@
         min-width: 0;
       }
       .brand-symbol {
-        width: 82px !important;
-        height: 82px !important;
-        flex: 0 0 82px;
+        width: 103px !important;
+        height: 103px !important;
+        flex: 0 0 103px;
       }
       .brand-text {
         min-width: 0;
@@ -2575,8 +2592,8 @@
         letter-spacing: .045em;
       }
       .footer-logo {
-        width: 180px;
-        height: 180px;
+        width: 225px;
+        height: 225px;
       }
     }
 
