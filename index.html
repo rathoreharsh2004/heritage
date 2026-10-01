@@ -1794,10 +1794,11 @@
     }
 
     .back-projects {
-      position: absolute;
+      position: relative;
       z-index: 3;
-      top: 100px;
-      left: 20px;
+      top: auto;
+      left: auto;
+      margin-top: 22px;
       display: inline-flex;
       align-items: center;
       width: fit-content;
@@ -1825,9 +1826,19 @@
 
     @media (min-width: 768px) {
       .back-projects {
-        left: max(40px, calc((100vw - var(--container)) / 2));
-        top: 125px;
+        left: auto;
+        top: auto;
       }
+    }
+
+    /* Detail-page back button sits below the heading/tagline so it does not cover the hero image. */
+    .detail-hero-content .back-projects.detail-back-inline {
+      position: relative;
+      top: auto;
+      left: auto;
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 22px;
     }
 
     .detail-section {
@@ -3988,11 +3999,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       projectDetail.innerHTML = `
         <section class="project-detail-hero">
           <img class="detail-hero-image" src="${proj.hero}" alt="${proj.title}">
-          <a href="#projects" class="back-projects" onclick="restoreDetailReturn(event);">← BACK TO SIGNATURE PROJECTS</a>
           <div class="detail-hero-content">
             <div class="eyebrow">Rathore Heritage Developers</div>
             <h1>${proj.title}</h1>
             <div class="detail-meta">${proj.location} &nbsp; · &nbsp; ${proj.type}</div>
+            <a href="#projects" class="back-projects detail-back-inline" onclick="restoreDetailReturn(event);">← BACK TO SIGNATURE PROJECTS</a>
           </div>
         </section>
 
@@ -4038,11 +4049,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       projectDetail.innerHTML = `
         <section class="project-detail-hero">
           <img class="detail-hero-image" src="${card.image}" alt="${card.title}">
-          <a href="#craftsmanship" class="back-projects" onclick="goBackToCraftsmanship(event);">← BACK TO CRAFTSMANSHIP</a>
           <div class="detail-hero-content">
             <div class="eyebrow">Rathore Heritage Craftsmanship</div>
             <h1 style="font-size:clamp(32px,6vw,72px);">${card.title}</h1>
             <div class="detail-meta">${card.tagline}</div>
+            <a href="#craftsmanship" class="back-projects detail-back-inline" onclick="goBackToCraftsmanship(event);">← BACK TO CRAFTSMANSHIP</a>
           </div>
         </section>
 
