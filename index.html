@@ -1170,35 +1170,37 @@
       transform: scale(1.05);
     }
 
-    /* Oladar featured project — same card language as the three cards below */
+    /* Oladar featured project — Two-column luxury layout with 1:1 square image */
     .oladar-featured-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 440px;
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 0 !important;
       background: var(--beige);
       color: var(--ink);
       overflow: hidden;
       border: 1px solid rgba(197,161,91,.5);
+      border-radius: 4px;
+      transition: transform .4s var(--ease), box-shadow .4s var(--ease);
     }
 
-    @media (min-width: 768px) {
-      .oladar-featured-card {
-        min-height: 500px;
-      }
+    .oladar-featured-card:hover {
+      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
     }
 
     .oladar-featured-card .project-featured-image {
       width: 100%;
-      height: 280px;
+      aspect-ratio: 1 / 1;
+      height: auto;
       position: relative;
       overflow: hidden;
-      flex: 0 0 280px;
+      background: var(--beige);
     }
 
     .oladar-featured-card .project-featured-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       transition: transform 1s var(--ease);
     }
 
@@ -1211,49 +1213,63 @@
       z-index: 1;
       max-width: none;
       width: 100%;
-      padding: 24px 28px 28px;
+      padding: 32px 28px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       background: var(--beige);
       color: var(--ink);
     }
 
     .oladar-featured-card .project-featured-content .eyebrow {
       color: var(--gold-dark);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 600;
       margin-bottom: 12px;
     }
 
     .oladar-featured-card .project-featured-content h3 {
       font-family: var(--serif);
-      font-size: clamp(26px, 3vw, 38px);
-      line-height: 1.05;
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1.1;
       font-weight: 600;
       color: var(--gold-dark);
-      margin-bottom: 8px;
+      margin-bottom: 14px;
     }
 
     .oladar-featured-card .project-featured-content p {
-      font-size: 12px;
-      line-height: 1.6;
+      font-size: 13px;
+      line-height: 1.7;
       color: var(--ink);
-      opacity: .8;
-      margin-bottom: 18px;
-      max-width: 850px;
+      opacity: .85;
+      margin-bottom: 24px;
+      max-width: 540px;
+    }
+
+    @media (min-width: 768px) {
+      .oladar-featured-card {
+        grid-template-columns: 50% 50%;
+        align-items: stretch;
+      }
+
+      .oladar-featured-card .project-featured-content {
+        padding: 48px 56px;
+      }
     }
 
     @media (max-width: 767px) {
       .oladar-featured-card {
-        min-height: 440px;
+        grid-template-columns: 1fr;
       }
 
       .oladar-featured-card .project-featured-image {
-        height: 280px;
-        flex-basis: 280px;
+        aspect-ratio: 1 / 1;
       }
 
       .oladar-featured-card .project-featured-content {
-        padding: 20px 18px 24px;
+        padding: 24px 20px 28px;
       }
 
       .oladar-featured-card .project-featured-content h3 {
