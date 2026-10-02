@@ -1411,6 +1411,131 @@
 
 
     /* =========================================================
+       WHY RHD SECTION
+    ========================================================= */
+    .why-rhd-section {
+      background: var(--beige);
+      padding: 95px 0 105px;
+      border-top: 1px solid rgba(197, 161, 91, 0.25);
+    }
+
+    .why-rhd-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--gold-dark);
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .why-rhd-eyebrow .eyebrow-line {
+      display: inline-block;
+      width: 44px;
+      height: 1px;
+      background: var(--gold-dark);
+      opacity: .65;
+    }
+
+    .why-rhd-title {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.4vw, 44px);
+      line-height: 1.15;
+      font-weight: 600;
+      color: var(--gold-dark);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin: 0 auto;
+      max-width: 900px;
+    }
+
+    .why-rhd-intro {
+      font-family: var(--sans);
+      font-size: clamp(12px, 1.1vw, 13.5px);
+      line-height: 1.85;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: .85;
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto 55px;
+    }
+
+    .why-rhd-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .why-rhd-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .why-rhd-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .why-rhd-card {
+      background: #fbf7f0;
+      border: 1px solid rgba(197, 161, 91, 0.4);
+      border-radius: 2px;
+      padding: 44px 30px 38px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 290px;
+      transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+    }
+
+    .why-rhd-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(42, 22, 13, 0.08);
+      border-color: var(--gold);
+    }
+
+    .why-card-number {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--gold-dark);
+      margin-bottom: 34px;
+      font-weight: 500;
+      letter-spacing: .05em;
+    }
+
+    .why-card-title {
+      font-family: var(--serif);
+      font-size: clamp(20px, 1.8vw, 24px);
+      line-height: 1.18;
+      font-weight: 600;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin-bottom: 22px;
+      min-height: 56px;
+    }
+
+    .why-card-text {
+      font-family: var(--sans);
+      font-size: 11.5px;
+      line-height: 1.75;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: .82;
+      margin: 0;
+    }
+
+
+    /* =========================================================
        APPROACH & OFFER SECTIONS
     ========================================================= */
 
@@ -3293,6 +3418,60 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <button class="heritage-slider-btn" id="heritageNext" aria-label="Next Oladar Haveli image">
               <i class="fa-solid fa-arrow-right"></i>
             </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY RHD SECTION (BELOW DARBAR GALLERY) -->
+    <section class="section beige why-rhd-section" id="whyrhd">
+      <div class="container">
+        <div class="why-rhd-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span>WHY RHD</span>
+          <span class="eyebrow-line"></span>
+        </div>
+        <h2 class="why-rhd-title">WHERE HERITAGE BECOMES A ROYAL EXPERIENCE.</h2>
+        <div class="gold-line" style="margin: 22px auto 26px;"></div>
+        <p class="why-rhd-intro">
+          RATHORE HERITAGE DEVELOPERS BRINGS TOGETHER THE ARCHITECTURAL LANGUAGE OF RAJASTHAN, HANDCRAFTED DETAIL, AUTHENTIC MATERIALS, AND DISCIPLINED EXECUTION TO CREATE SPACES THAT FEEL ROOTED IN HISTORY YET BUILT FOR GENERATIONS TO COME.
+        </p>
+
+        <div class="why-rhd-grid">
+          <!-- Card 01 -->
+          <div class="why-rhd-card">
+            <div class="why-card-number">01</div>
+            <h3 class="why-card-title">HERITAGE<br>SPECIALITY</h3>
+            <p class="why-card-text">
+              AN INTIMATE UNDERSTANDING OF RAJASTHANI HAVELIS, PALACES, JHAROKHAS, JAALIS, DOMES, CHHATRIS AND ROYAL INTERIORS.
+            </p>
+          </div>
+
+          <!-- Card 02 -->
+          <div class="why-rhd-card">
+            <div class="why-card-number">02</div>
+            <h3 class="why-card-title">ROYAL<br>CRAFTSMANSHIP</h3>
+            <p class="why-card-text">
+              TRADITIONAL ARTISANSHIP IS TREATED AS THE SOUL OF THE SPACE — FROM CARVED STONE AND THEKRI GLASS TO HAND-FINISHED DETAILS.
+            </p>
+          </div>
+
+          <!-- Card 03 -->
+          <div class="why-rhd-card">
+            <div class="why-card-number">03</div>
+            <h3 class="why-card-title">AUTHENTIC<br>MATERIALS</h3>
+            <p class="why-card-text">
+              STONE, MARBLE, TIMBER, LIME, METAL AND DECORATIVE MATERIALS ARE COMPOSED TO GIVE EVERY SPACE DEPTH, CHARACTER AND LONGEVITY.
+            </p>
+          </div>
+
+          <!-- Card 04 -->
+          <div class="why-rhd-card">
+            <div class="why-card-number">04</div>
+            <h3 class="why-card-title">BUILT FOR<br>LEGACY</h3>
+            <p class="why-card-text">
+              ROYAL PROPORTION MEETS MODERN EXECUTION — CREATING ARCHITECTURE THAT DOES NOT FOLLOW A TREND, BUT CREATES A LASTING MEMORY.
+            </p>
           </div>
         </div>
       </div>

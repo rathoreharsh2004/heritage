@@ -91,6 +91,33 @@ const DEFAULT_DATA = {
       heading: 'A Collection of Timeless Masterpieces',
       intro: 'A curated collection of heritage expressions — from the Oladar Haveli to detailed architectural moments — designed in a traditional language while supported by modern structural strength, quality control, and enduring execution.',
     },
+    whyRhd: {
+      eyebrow: 'WHY RHD',
+      heading: 'WHERE HERITAGE BECOMES A ROYAL EXPERIENCE.',
+      intro: 'RATHORE HERITAGE DEVELOPERS BRINGS TOGETHER THE ARCHITECTURAL LANGUAGE OF RAJASTHAN, HANDCRAFTED DETAIL, AUTHENTIC MATERIALS, AND DISCIPLINED EXECUTION TO CREATE SPACES THAT FEEL ROOTED IN HISTORY YET BUILT FOR GENERATIONS TO COME.',
+      cards: [
+        {
+          num: '01',
+          title: 'HERITAGE\nSPECIALITY',
+          text: 'AN INTIMATE UNDERSTANDING OF RAJASTHANI HAVELIS, PALACES, JHAROKHAS, JAALIS, DOMES, CHHATRIS AND ROYAL INTERIORS.',
+        },
+        {
+          num: '02',
+          title: 'ROYAL\nCRAFTSMANSHIP',
+          text: 'TRADITIONAL ARTISANSHIP IS TREATED AS THE SOUL OF THE SPACE — FROM CARVED STONE AND THEKRI GLASS TO HAND-FINISHED DETAILS.',
+        },
+        {
+          num: '03',
+          title: 'AUTHENTIC\nMATERIALS',
+          text: 'STONE, MARBLE, TIMBER, LIME, METAL AND DECORATIVE MATERIALS ARE COMPOSED TO GIVE EVERY SPACE DEPTH, CHARACTER AND LONGEVITY.',
+        },
+        {
+          num: '04',
+          title: 'BUILT FOR\nLEGACY',
+          text: 'ROYAL PROPORTION MEETS MODERN EXECUTION — CREATING ARCHITECTURE THAT DOES NOT FOLLOW A TREND, BUT CREATES A LASTING MEMORY.',
+        },
+      ],
+    },
     approach: {
       eyebrow: 'Virāsat',
       quote: 'From Architecture to Art.',

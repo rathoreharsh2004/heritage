@@ -245,6 +245,29 @@
           if (intro && dg.intro) intro.textContent = dg.intro;
         }
 
+        // Why RHD Section (Below Darbar Gallery)
+        if (sections.whyRhd) {
+          const w = sections.whyRhd;
+          const eyebrow = document.querySelector('.why-rhd-eyebrow span:nth-child(2)');
+          if (eyebrow && w.eyebrow) eyebrow.textContent = w.eyebrow;
+          const title = document.querySelector('.why-rhd-title');
+          if (title && w.heading) title.textContent = w.heading;
+          const intro = document.querySelector('.why-rhd-intro');
+          if (intro && w.intro) intro.textContent = w.intro;
+          if (w.cards && Array.isArray(w.cards) && w.cards.length > 0) {
+            const grid = document.querySelector('.why-rhd-grid');
+            if (grid) {
+              grid.innerHTML = w.cards.map((c, idx) => `
+                <div class="why-rhd-card">
+                  <div class="why-card-number">${c.num || String(idx + 1).padStart(2, '0')}</div>
+                  <h3 class="why-card-title">${(c.title || '').replace(/\n/g, '<br>')}</h3>
+                  <p class="why-card-text">${c.text || ''}</p>
+                </div>
+              `).join('');
+            }
+          }
+        }
+
         // Approach & Principles
         if (sections.approach) {
           const a = sections.approach;
