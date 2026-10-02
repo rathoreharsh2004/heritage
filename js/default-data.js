@@ -78,6 +78,14 @@ const DEFAULT_DATA = {
         { src: 'cons6.mp4', label: 'Consultancy Video 6' },
         { src: 'cons7.mp4', label: 'Consultancy Video 7' },
       ],
+      steps: [
+        { step: '01', title: 'CONSULTATION' },
+        { step: '02', title: 'CONCEPT & DESIGN' },
+        { step: '03', title: 'MATERIAL SELECTION' },
+        { step: '04', title: 'CRAFTSMANSHIP' },
+        { step: '05', title: 'SITE EXECUTION' },
+        { step: '06', title: 'COMPLETION' },
+      ],
     },
     rawMaterialsHeader: {
       eyebrow: 'The Beginning of Craft',

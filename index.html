@@ -953,6 +953,122 @@
       color: var(--brown-deep);
     }
 
+    /* Heritage Consultancy 6-Step Process Track */
+    .consultancy-process-track {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 55px;
+      width: 100%;
+    }
+
+    .consultancy-step-box {
+      flex: 1;
+      min-width: 0;
+      height: 108px;
+      padding: 20px 14px 18px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(197, 161, 91, 0.28);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .consultancy-step-box:hover {
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .consultancy-step-num {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--gold);
+      display: block;
+      text-align: left;
+    }
+
+    .consultancy-step-title {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+      line-height: 1.35;
+      display: block;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .consultancy-step-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 16px;
+      color: var(--gold);
+      opacity: 0.85;
+    }
+
+    .consultancy-step-arrow svg {
+      width: 16px;
+      height: 10px;
+      display: block;
+    }
+
+    @media (max-width: 1023px) {
+      .consultancy-process-track {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 45px;
+      }
+
+      .consultancy-step-arrow {
+        display: none;
+      }
+
+      .consultancy-step-box {
+        height: 100px;
+        padding: 18px 16px;
+      }
+
+      .consultancy-step-title {
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .consultancy-process-track {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 40px;
+      }
+
+      .consultancy-step-box {
+        height: 92px;
+        padding: 16px 14px;
+      }
+
+      .consultancy-step-num {
+        font-size: 20px;
+      }
+
+      .consultancy-step-title {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+      }
+    }
+
 
     /* =========================================================
        OUR HERITAGE CRAFTSMANSHIP (10 CARDS WITH VIEW MORE BUTTON)
@@ -3254,98 +3370,158 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     </section>
 
 <section class="section brown" id="consultancy">
-      <div class="container consultancy-grid">
-        <div>
-          <div class="eyebrow">Our Expertise</div>
-          <h2 class="section-title">Crafting Heritage with Precision & Tradition</h2>
-          <div class="gold-line"></div>
-          <p class="section-intro">
-            Our expertise brings together heritage architecture, restoration planning, traditional building knowledge, and contemporary project discipline — tailored for clients seeking authentic royal environments.
-          </p>
-          <p class="section-intro" style="margin-top: 15px;">
-            We also provide heritage consultancy for new construction, redesign, restoration, and renovation, helping clients make the right decisions on planning, materials, architectural details, and traditional techniques.
-          </p>
-          <p class="section-intro" style="margin-top: 15px;">
-            We bridge ancestral craftsmanship with contemporary structural engineering so that every proportion, material, detail, and finish carries authenticity while meeting modern expectations of strength and durability.
-          </p>
-          <a href="#contact" class="luxury-btn">
-            Sampark <i class="fa-solid fa-arrow-right"></i>
-          </a>
+      <div class="container">
+        <div class="consultancy-grid">
+          <div>
+            <div class="eyebrow">Our Expertise</div>
+            <h2 class="section-title">Crafting Heritage with Precision & Tradition</h2>
+            <div class="gold-line"></div>
+            <p class="section-intro">
+              Our expertise brings together heritage architecture, restoration planning, traditional building knowledge, and contemporary project discipline — tailored for clients seeking authentic royal environments.
+            </p>
+            <p class="section-intro" style="margin-top: 15px;">
+              We also provide heritage consultancy for new construction, redesign, restoration, and renovation, helping clients make the right decisions on planning, materials, architectural details, and traditional techniques.
+            </p>
+            <p class="section-intro" style="margin-top: 15px;">
+              We bridge ancestral craftsmanship with contemporary structural engineering so that every proportion, material, detail, and finish carries authenticity while meeting modern expectations of strength and durability.
+            </p>
+            <a href="#contact" class="luxury-btn">
+              Sampark <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="beige-card-wrap">
+            <div class="consultancy-slider-wrap" id="consultancySlider">
+              <div class="consultancy-video-slide active">
+                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                  <source src="cons1.mp4" type="video/mp4">
+                  <source src="cons1.MOV" type="video/quicktime">
+                </video>
+                <button class="consultancy-play-stop" type="button" aria-label="Play Video 1" aria-pressed="false">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+              </div>
+
+              <div class="consultancy-video-slide">
+                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                  <source src="cons2.mp4" type="video/mp4">
+                  <source src="cons2.MOV" type="video/quicktime">
+                </video>
+                <button class="consultancy-play-stop" type="button" aria-label="Play Video 2" aria-pressed="false">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+              </div>
+
+              <div class="consultancy-video-slide">
+                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                  <source src="cons3.mp4" type="video/mp4">
+                  <source src="cons3.MOV" type="video/quicktime">
+                </video>
+                <button class="consultancy-play-stop" type="button" aria-label="Play Video 3" aria-pressed="false">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+              </div>
+
+              <div class="consultancy-video-slide">
+                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                  <source src="cons4.mp4" type="video/mp4">
+                  <source src="cons4.MOV" type="video/quicktime">
+                </video>
+                <button class="consultancy-play-stop" type="button" aria-label="Play Video 4" aria-pressed="false">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+              </div>
+
+              <div class="consultancy-video-slide">
+                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                  <source src="cons5.mp4" type="video/mp4">
+                  <source src="cons5.MOV" type="video/quicktime">
+                </video>
+                <button class="consultancy-play-stop" type="button" aria-label="Play Video 5" aria-pressed="false">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+              </div>
+
+              <div class="consultancy-video-slide">
+                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                  <source src="cons6.mp4" type="video/mp4">
+                </video>
+                <button class="consultancy-play-stop" type="button" aria-label="Play Video 6" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <div class="consultancy-video-slide">
+                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                  <source src="cons7.mp4" type="video/mp4">
+                </video>
+                <button class="consultancy-play-stop" type="button" aria-label="Play Video 7" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
+              </div>
+
+              <div class="consultancy-slider-controls">
+                <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Video">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button class="consultancy-ctrl-btn" id="nextSlide" aria-label="Next Video">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="beige-card-wrap">
-          <div class="consultancy-slider-wrap" id="consultancySlider">
-            <div class="consultancy-video-slide active">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons1.mp4" type="video/mp4">
-                <source src="cons1.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 1" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
+        <!-- Heritage Consultancy Process Flow -->
+        <div class="consultancy-process-track" aria-label="Consultancy Process Flow">
+          <div class="consultancy-step-box">
+            <span class="consultancy-step-num">01</span>
+            <span class="consultancy-step-title">CONSULTATION</span>
+          </div>
+          <div class="consultancy-step-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons2.mp4" type="video/mp4">
-                <source src="cons2.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 2" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
+          <div class="consultancy-step-box">
+            <span class="consultancy-step-num">02</span>
+            <span class="consultancy-step-title">CONCEPT & DESIGN</span>
+          </div>
+          <div class="consultancy-step-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons3.mp4" type="video/mp4">
-                <source src="cons3.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 3" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
+          <div class="consultancy-step-box">
+            <span class="consultancy-step-num">03</span>
+            <span class="consultancy-step-title">MATERIAL SELECTION</span>
+          </div>
+          <div class="consultancy-step-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons4.mp4" type="video/mp4">
-                <source src="cons4.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 4" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
+          <div class="consultancy-step-box">
+            <span class="consultancy-step-num">04</span>
+            <span class="consultancy-step-title">CRAFTSMANSHIP</span>
+          </div>
+          <div class="consultancy-step-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons5.mp4" type="video/mp4">
-                <source src="cons5.MOV" type="video/quicktime">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 5" aria-pressed="false">
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
+          <div class="consultancy-step-box">
+            <span class="consultancy-step-num">05</span>
+            <span class="consultancy-step-title">SITE EXECUTION</span>
+          </div>
+          <div class="consultancy-step-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons6.mp4" type="video/mp4">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 6" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
-            </div>
-            <div class="consultancy-video-slide">
-              <video class="consultancy-video" muted loop playsinline preload="metadata">
-                <source src="cons7.mp4" type="video/mp4">
-              </video>
-              <button class="consultancy-play-stop" type="button" aria-label="Play Video 7" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
-            </div>
-
-            <div class="consultancy-slider-controls">
-              <button class="consultancy-ctrl-btn" id="prevSlide" aria-label="Previous Video">
-                <i class="fa-solid fa-arrow-left"></i>
-              </button>
-              <button class="consultancy-ctrl-btn" id="nextSlide" aria-label="Next Video">
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-            </div>
+          <div class="consultancy-step-box">
+            <span class="consultancy-step-num">06</span>
+            <span class="consultancy-step-title">COMPLETION</span>
           </div>
         </div>
       </div>
