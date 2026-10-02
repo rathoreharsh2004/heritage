@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rathore Heritage Developers — Admin Panel & CMS</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Admin Stylesheet -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- AUTHENTICATION SCREEN -->
+  <div id="authScreen" class="auth-wrapper" style="display:none;"></div>
+
+  <!-- MAIN ADMIN APPLICATION CONTAINER -->
+  <div id="appContainer" class="app-container" style="display:none;">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="logo.PNG" alt="Rathore Heritage Logo" class="sidebar-logo">
+        <div class="sidebar-brand">
+          Rathore Heritage
+          <small>CMS Portal</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group-label">Overview</div>
+        <a href="#dashboard" class="nav-item active">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <div class="nav-group-label">Website Content</div>
+        <a href="#settings" class="nav-item">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Brand & Settings</span>
+        </a>
+        <a href="#sections" class="nav-item">
+          <i class="fa-solid fa-pen-nib"></i>
+          <span>Sections & Copy</span>
+        </a>
+        <a href="#projects" class="nav-item">
+          <i class="fa-solid fa-archway"></i>
+          <span>Signature Projects</span>
+        </a>
+        <a href="#craftsmanship" class="nav-item">
+          <i class="fa-solid fa-gem"></i>
+          <span>Shilp Kala (Crafts)</span>
+        </a>
+        <a href="#leaders" class="nav-item">
+          <i class="fa-solid fa-user-tie"></i>
+          <span>Leadership Team</span>
+        </a>
+        <a href="#materials" class="nav-item">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Material Palette (M1-M8)</span>
+        </a>
+        <a href="#rawmaterials" class="nav-item">
+          <i class="fa-solid fa-cubes"></i>
+          <span>Raw Materials</span>
+        </a>
+        <a href="#darbar" class="nav-item">
+          <i class="fa-solid fa-images"></i>
+          <span>Darbar Gallery</span>
+        </a>
+        <a href="#services" class="nav-item">
+          <i class="fa-solid fa-hand-holding-hand"></i>
+          <span>What We Offer</span>
+        </a>
+
+        <div class="nav-group-label">Operations</div>
+        <a href="#enquiries" class="nav-item">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          <span>Client Enquiries</span>
+        </a>
+        <a href="#media" class="nav-item">
+          <i class="fa-solid fa-photo-film"></i>
+          <span>GridFS Media Library</span>
+        </a>
+        <a href="#audit" class="nav-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Audit Logs</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-content">
+      
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <h2 class="topbar-title" id="pageTitle">Dashboard</h2>
+        </div>
+
+        <div class="topbar-right">
+          <a href="/" target="_blank" class="view-site-btn">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>View Live Website</span>
+          </a>
+
+          <div class="user-profile-menu" onclick="if(confirm('Are you sure you want to log out?')) Auth.logout()">
+            <div class="user-avatar">A</div>
+            <span style="font-size:13px; color:var(--text-main);">Admin</span>
+            <i class="fa-solid fa-right-from-bracket" style="font-size:13px; color:var(--text-muted); margin-left:4px;" title="Logout"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- DYNAMIC PAGE BODY -->
+      <main class="page-body" id="pageBody"></main>
+
+    </div>
+  </div>
+
+  <!-- CRUD MODAL BACKDROP -->
+  <div class="modal-backdrop" id="crudModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="crudModalTitle">Edit Record</h3>
+        <button class="modal-close" onclick="document.getElementById('crudModal').classList.remove('active')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="crudForm" class="form-grid"></form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('crudModal').classList.remove('active')">Cancel</button>
+        <button type="button" class="btn btn-primary" id="crudSaveBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEDIA PICKER MODAL -->
+  <div class="modal-backdrop" id="mediaPickerModal">
+    <div class="modal" style="max-width:900px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Select or Upload Media (MongoDB GridFS)</h3>
+          <p style="font-size:12px; color:var(--text-muted);">Choose an existing media file or upload a new file directly into GridFS</p>
+        </div>
+        <button class="modal-close" onclick="closeMediaPicker()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:16px;">
+          <input type="text" class="form-control" placeholder="Search filenames..." oninput="loadMediaPickerItems(this.value, document.getElementById('pickerCategory').value)" style="max-width:300px;">
+          <select class="form-control" id="pickerCategory" onchange="loadMediaPickerItems(document.querySelector('#mediaPickerModal input').value, this.value)" style="max-width:160px;">
+            <option value="all">All Categories</option>
+            <option value="general">General</option>
+            <option value="hero">Hero</option>
+            <option value="craftsmanship">Craftsmanship</option>
+            <option value="projects">Projects</option>
+            <option value="materials">Materials</option>
+            <option value="gallery">Gallery</option>
+          </select>
+          <input type="file" id="modalUploadInput" style="display:none;" onchange="App.handleMediaUpload(this).then(() => loadMediaPickerItems())">
+          <button class="btn btn-primary btn-sm" onclick="document.getElementById('modalUploadInput').click()">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Upload New
+          </button>
+        </div>
+
+        <div id="mediaPickerGrid" class="media-grid"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeMediaPicker()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

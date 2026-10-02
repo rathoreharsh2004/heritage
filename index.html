@@ -4110,16 +4110,9 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
     // Footer Year
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Enquiry form submission
-    document.getElementById("enquiryForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const fd = new FormData(this);
-      const txt = `Hello Rathore Heritage Developers,\n\nI would like to discuss a heritage project.\n\nName: ${fd.get("name")}\nPhone: ${fd.get("phone")}\nEmail: ${fd.get("email")}\nType: ${fd.get("projectType")}\nVision: ${fd.get("message")}`;
-      window.open("https://wa.me/919414228829?text=" + encodeURIComponent(txt), "_blank");
-      this.reset();
-    });
-
   </script>
+
+  <!-- Rathore Heritage Dynamic CMS Synchronizer -->
+  <script src="client-cms.js"></script>
 </body>
 </html>

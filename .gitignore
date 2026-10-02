@@ -1,0 +1,19 @@
+# Environment Variables (Contains sensitive MongoDB passwords)
+.env
+.env.local
+.env.*.local
+
+# Dependency directories
+node_modules/
+
+# Local database data
+.mongo-data/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+Thumbs.db
+.DS_Store
