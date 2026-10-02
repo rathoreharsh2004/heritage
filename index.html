@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet"
   >
 
@@ -531,19 +531,21 @@
     }
     .hero h1 {
       font-family: var(--serif);
-      font-size: clamp(30px, 4.8vw, 72px);
-      line-height: .96;
+      font-size: clamp(26px, 3.8vw, 56px);
+      line-height: 1.15;
       font-weight: 600;
-      letter-spacing: -.025em;
-      max-width: 900px;
-      color: var(--gold-light);
-      text-transform: none;
+      letter-spacing: 0.02em;
+      max-width: 1100px;
+      color: var(--cream);
+      text-transform: uppercase;
     }
 
-    .hero h1 em {
-      color: inherit;
-      font-style: normal;
-      font-weight: inherit;
+    .hero h1 em,
+    .hero h1 .gold-italic {
+      color: var(--gold-light);
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: 0.01em;
     }
 
 
@@ -2134,12 +2136,14 @@
 
     .hero h1 {
       font-family: var(--serif);
-      font-size: clamp(29px, 4.3vw, 70px);
-      line-height: .95;
+      font-size: clamp(24px, 3.6vw, 54px);
+      line-height: 1.15;
       font-weight: 600;
-      letter-spacing: -.025em;
+      letter-spacing: 0.02em;
     }
-    .hero h1 em {
+    .hero h1 em,
+    .hero h1 .gold-italic {
+      color: var(--gold-light);
       font-style: italic;
       font-weight: 600;
     }
@@ -2805,11 +2809,24 @@
       font-size: 17px;
     }
 
-    /* Keep the hero heading exactly as it is. */
+    /* Royal Hero Heading Styling */
     .hero h1 {
       font-family: var(--serif);
+      font-size: clamp(26px, 3.8vw, 56px);
+      line-height: 1.15;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      max-width: 1100px;
+      color: var(--cream);
+      text-transform: uppercase;
+    }
+
+    .hero h1 em,
+    .hero h1 .gold-italic {
       color: var(--gold-light);
-      text-transform: none;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: 0.01em;
     }
   </style>
 
@@ -2865,17 +2882,21 @@
         <source src="hero.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
-<div class="hero-kicker">Heritage Restoration · Luxury Havelis · Palaces · Interiors · Heritage Consultancy</div>
- <h1>Where Timeless Indian Heritage  Meets Royal  Legacy </h1>
+        <div class="hero-kicker">Heritage Restoration · Luxury Havelis · Palaces · Interiors · Heritage Consultancy</div>
+        <h1>
+          WHERE TIMELESS <span class="gold-italic">INDIAN HERITAGE</span><br>
+          MEETS ROYAL <span class="gold-italic">LEGACY.</span>
+        </h1>
         <div class="hero-bottom">
-          <div>        <div class="hero-bottom">
           <div>
             <p class="hero-description">
-Welcome to a World of Timeless Heritage — where the soul of Rajasthan is shaped into enduring architecture.            </p>
+              Welcome to a World of Timeless Heritage — where the soul of Rajasthan is shaped into enduring architecture.
+            </p>
             <a href="#projects" class="luxury-btn">
               Enter Raj Nirmaan <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
+        </div>
       </div>
     </section>
 
@@ -4118,11 +4139,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
   <!-- Client-Safe Config & Database Service -->
-  <script src="firebase-config.js"></script>
-  <script src="js/default-data.js"></script>
-  <script src="js/database.js"></script>
+  <script src="firebase-config.js?v=3"></script>
+  <script src="js/default-data.js?v=3"></script>
+  <script src="js/database.js?v=3"></script>
 
   <!-- Rathore Heritage Dynamic CMS Synchronizer -->
-  <script src="client-cms.js"></script>
+  <script src="client-cms.js?v=3"></script>
 </body>
 </html>

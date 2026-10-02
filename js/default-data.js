@@ -22,7 +22,7 @@ const DEFAULT_DATA = {
   sections: {
     hero: {
       kicker: 'Heritage Restoration · Luxury Havelis · Palaces · Interiors · Heritage Consultancy',
-      heading: 'Where Timeless Indian Heritage Meets Royal Legacy',
+      heading: 'WHERE TIMELESS <span class="gold-italic">INDIAN HERITAGE</span><br>MEETS ROYAL <span class="gold-italic">LEGACY.</span>',
       description: 'Welcome to a World of Timeless Heritage — where the soul of Rajasthan is shaped into enduring architecture.',
       ctaText: 'Enter Raj Nirmaan',
       ctaLink: '#projects',

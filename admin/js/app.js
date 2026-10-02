@@ -469,7 +469,8 @@ const App = (() => {
       html += `<div class="form-group"><label class="form-label">Eyebrow</label><input type="text" class="form-control" data-key="eyebrow" value="${d.eyebrow || ''}"></div>`;
     }
     if (d.heading !== undefined) {
-      html += `<div class="form-group"><label class="form-label">Heading</label><input type="text" class="form-control" data-key="heading" value="${d.heading || ''}"></div>`;
+      const headingVal = (d.heading || '').replace(/"/g, '&quot;');
+      html += `<div class="form-group"><label class="form-label">Heading</label><input type="text" class="form-control" data-key="heading" value="${headingVal}"></div>`;
     }
     if (d.quote !== undefined) {
       html += `<div class="form-group"><label class="form-label">Quote</label><input type="text" class="form-control" data-key="quote" value="${d.quote || ''}"></div>`;

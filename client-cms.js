@@ -103,7 +103,18 @@
           const kicker = document.querySelector('.hero-kicker');
           if (kicker && h.kicker) kicker.textContent = h.kicker;
           const heading = document.querySelector('.hero h1');
-          if (heading && h.heading) heading.textContent = h.heading;
+          if (heading && h.heading) {
+            let normalized = h.heading
+              .replace(/INDIAN<\/span>\s*<br\s*\/?>\s*<span class="gold-italic">HERITAGE/i, 'INDIAN HERITAGE')
+              .replace(/INDIAN<\/em>\s*<br\s*\/?>\s*<em>HERITAGE/i, 'INDIAN HERITAGE');
+            if (normalized.includes('<span') || normalized.includes('<br>') || normalized.includes('<em>')) {
+              heading.innerHTML = normalized;
+            } else if (/where timeless indian heritage meets royal legacy/i.test(normalized.trim())) {
+              heading.innerHTML = `WHERE TIMELESS <span class="gold-italic">INDIAN HERITAGE</span><br>MEETS ROYAL <span class="gold-italic">LEGACY.</span>`;
+            } else {
+              heading.textContent = normalized;
+            }
+          }
           const desc = document.querySelector('.hero-description');
           if (desc && h.description) desc.textContent = h.description;
           const cta = document.querySelector('.hero-bottom a.luxury-btn');

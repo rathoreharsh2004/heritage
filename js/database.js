@@ -10,8 +10,8 @@ const Database = (() => {
   let auth = null;
   let storage = null;
 
-  // Local fallback storage key
-  const LOCAL_STORAGE_KEY = 'rhd_cms_data';
+  // Local fallback storage key (v3 ensures clean sync for 2-line royal heading)
+  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v3';
 
   // Initialize Local Fallback Cache from DEFAULT_DATA
   function getLocalData() {
