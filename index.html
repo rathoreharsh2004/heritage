@@ -261,17 +261,6 @@
       visibility: hidden;
     }
 
-    /* Deployment-safe fallback: the page cannot remain trapped behind the loader
-       if a non-critical client script fails on a hosted environment. */
-    @keyframes preloaderFailsafe {
-      0%, 72% { opacity: 1; visibility: visible; }
-      100% { opacity: 0; visibility: hidden; pointer-events: none; }
-    }
-
-    .preloader {
-      animation: preloaderFailsafe 4s ease forwards;
-    }
-
     .loader-inner {
       text-align: center;
     }
@@ -1142,16 +1131,9 @@
     }
 
     .signature-layout {
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 30px;
-    }
-
-    @media (min-width: 768px) {
-      .signature-layout {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        align-items: stretch;
-      }
     }
 
     .project-featured-card {
@@ -1187,27 +1169,28 @@
     }
 
     /* Oladar featured project — same card language as the three cards below */
-    /* Oladar Haveli — same card size as the other Raj Nirmaan cards,
-       with a strictly square image. */
     .oladar-featured-card {
       display: flex;
       flex-direction: column;
-      height: 100%;
-      min-height: 0;
+      min-height: 440px;
       background: var(--beige);
       color: var(--ink);
       overflow: hidden;
       border: 1px solid rgba(197,161,91,.5);
     }
 
+    @media (min-width: 768px) {
+      .oladar-featured-card {
+        min-height: 500px;
+      }
+    }
+
     .oladar-featured-card .project-featured-image {
       width: 100%;
-      aspect-ratio: 1 / 1;
-      height: auto;
+      height: 280px;
       position: relative;
       overflow: hidden;
-      flex: 0 0 auto;
-      margin-bottom: 15px;
+      flex: 0 0 280px;
     }
 
     .oladar-featured-card .project-featured-image img {
@@ -1226,7 +1209,7 @@
       z-index: 1;
       max-width: none;
       width: 100%;
-      padding: 0 22px 24px;
+      padding: 24px 28px 28px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -1236,12 +1219,12 @@
 
     .oladar-featured-card .project-featured-content .eyebrow {
       color: var(--gold-dark);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .oladar-featured-card .project-featured-content h3 {
       font-family: var(--serif);
-      font-size: 26px;
+      font-size: clamp(26px, 3vw, 38px);
       line-height: 1.05;
       font-weight: 600;
       color: var(--gold-dark);
@@ -1253,13 +1236,26 @@
       line-height: 1.6;
       color: var(--ink);
       opacity: .8;
-      margin-bottom: 16px;
-      max-width: none;
+      margin-bottom: 18px;
+      max-width: 850px;
     }
 
     @media (max-width: 767px) {
+      .oladar-featured-card {
+        min-height: 440px;
+      }
+
+      .oladar-featured-card .project-featured-image {
+        height: 280px;
+        flex-basis: 280px;
+      }
+
       .oladar-featured-card .project-featured-content {
-        padding: 0 18px 22px;
+        padding: 20px 18px 24px;
+      }
+
+      .oladar-featured-card .project-featured-content h3 {
+        font-size: 26px;
       }
     }
 
@@ -1514,161 +1510,6 @@
       font-size: 12px;
       line-height: 1.7;
       opacity: .8;
-    }
-
-
-    /* =========================================================
-       FROM VISION TO HERITAGE PROCESS
-    ========================================================= */
-
-    .vision-process {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(197,161,91,.28);
-    }
-
-    .vision-process-heading {
-      font-family: var(--serif);
-      color: var(--gold-light);
-      font-size: clamp(20px, 2.4vw, 30px);
-      letter-spacing: .08em;
-      margin-bottom: 18px;
-    }
-
-    .vision-process-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-      max-width: 700px;
-    }
-
-    .vision-step {
-      position: relative;
-      min-height: 64px;
-      padding: 14px 16px;
-      border: 1px solid rgba(197,161,91,.35);
-      background: rgba(247,240,227,.045);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 16px;
-      transition: .35s var(--ease);
-    }
-
-    .vision-step:hover {
-      background: var(--gold);
-      color: var(--brown-deep);
-      transform: translateX(5px);
-    }
-
-    .vision-step span {
-      color: var(--gold);
-      font-family: var(--serif);
-      font-size: 20px;
-      min-width: 34px;
-    }
-
-    .vision-step strong {
-      font-size: 10px;
-      line-height: 1.25;
-      letter-spacing: .09em;
-      font-weight: 600;
-    }
-
-    .vision-step:not(:last-child)::after {
-      content: "↓";
-      position: absolute;
-      left: 50%;
-      bottom: -18px;
-      transform: translateX(-50%);
-      color: var(--gold);
-      z-index: 3;
-      font-size: 16px;
-      line-height: 1;
-      background: var(--brown);
-      padding: 0 5px;
-    }
-
-    .vision-step:not(:last-child) {
-      margin-bottom: 18px;
-    }
-
-    /* =========================================================
-       WHY RHD
-    ========================================================= */
-
-    .why-rhd .section-intro {
-      max-width: 850px;
-    }
-
-    .why-rhd-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 50px;
-    }
-
-    .why-rhd-card {
-      background: rgba(42,22,13,.045);
-      border: 1px solid rgba(197,161,91,.35);
-      padding: 28px 22px;
-      min-height: 260px;
-      transition: .4s var(--ease);
-    }
-
-    .why-rhd-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 18px 35px rgba(23,11,7,.12);
-    }
-
-    .why-rhd-card > span {
-      font-family: var(--serif);
-      color: var(--gold-dark);
-      font-size: 24px;
-    }
-
-    .why-rhd-card h3 {
-      font-family: var(--serif);
-      color: var(--gold-dark);
-      font-size: 22px;
-      line-height: 1.05;
-      margin: 35px 0 14px;
-    }
-
-    .why-rhd-card p {
-      font-size: 12px;
-      line-height: 1.75;
-      color: var(--ink);
-      opacity: .8;
-    }
-
-    .why-rhd-royal-line {
-      max-width: 900px;
-      margin: 55px auto 0;
-      padding-top: 28px;
-      border-top: 1px solid rgba(197,161,91,.35);
-      text-align: center;
-      font-family: var(--serif);
-      font-size: clamp(22px, 3vw, 34px);
-      line-height: 1.15;
-      color: var(--gold-dark);
-    }
-
-    @media (max-width: 1023px) {
-      .why-rhd-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 767px) {
-      .why-rhd-grid {
-        grid-template-columns: 1fr;
-        margin-top: 35px;
-      }
-
-      .why-rhd-card {
-        min-height: 0;
-      }
     }
 
 
@@ -2964,105 +2805,12 @@
       font-size: 17px;
     }
 
-    /* HERO TAGLINE — matched to the supplied reference image */
-    /* HERO TAGLINE — matched to the supplied reference image */
+    /* Keep the hero heading exactly as it is. */
     .hero h1 {
       font-family: var(--serif);
-      font-size: clamp(34px, 4.9vw, 74px);
-      line-height: .93;
-      font-weight: 500;
-      letter-spacing: -.035em;
-      max-width: 1050px;
-      color: var(--cream);
-      text-transform: uppercase;
-    }
-
-    .hero h1 em {
       color: var(--gold-light);
-      font-style: italic;
-      font-weight: 500;
+      text-transform: none;
     }
-
-    @media (max-width: 767px) {
-      .hero h1 {
-        font-size: clamp(31px, 9vw, 48px);
-        line-height: .94;
-        letter-spacing: -.025em;
-      }
-    }
-    /* =========================================================
-       GLOBAL SPACING REFINEMENT — REMOVE UNNECESSARY GAPS
-       Keeps the same visual language while making sections tighter.
-    ========================================================= */
-    .section {
-      padding: 76px 0;
-    }
-
-    .section-title {
-      margin-bottom: 22px;
-    }
-
-    .gold-line {
-      margin: 22px 0;
-    }
-
-    .legacy-grid,
-    .consultancy-grid,
-    .approach-grid,
-    .contact-grid {
-      gap: 40px;
-    }
-
-    .leadership-grid,
-    .material-grid,
-    .heritage-project-showcase {
-      margin-top: 36px;
-    }
-
-    .projects-header,
-    .craftsmanship-header {
-      margin-bottom: 38px;
-    }
-
-    .offer-grid {
-      margin-top: 36px;
-    }
-
-    @media (min-width: 768px) {
-      .section {
-        padding: 104px 0;
-      }
-
-      .section-title {
-        margin-bottom: 24px;
-      }
-
-      .gold-line {
-        margin: 24px 0;
-      }
-    }
-
-    @media (max-width: 767px) {
-      .section {
-        padding: 64px 0;
-      }
-
-      .hero-content {
-        padding-bottom: 68px;
-      }
-
-      .leadership-grid {
-        gap: 22px;
-      }
-
-      .consultancy-grid,
-      .legacy-grid,
-      .approach-grid,
-      .contact-grid {
-        gap: 32px;
-      }
-    }
-
   </style>
 
 </head>
@@ -3101,7 +2849,6 @@
       <a href="#craftsmanship">Craftsmanship</a>
       <a href="#offer">Services</a>
       <a href="#projects">Projects</a>
-      <a href="#why-rhd">Why RHD</a>
       <a href="#heritageproj">Gallery</a>
       <a href="#contact">Consultation</a>
       <a href="#contact">Contact</a>
@@ -3119,8 +2866,9 @@
       </video>
       <div class="hero-content">
 <div class="hero-kicker">Heritage Restoration · Luxury Havelis · Palaces · Interiors · Heritage Consultancy</div>
-        <h1>WHERE TIMELESS <em>INDIAN HERITAGE</em><br>MEETS ROYAL <em>LEGACY.</em></h1>
+ <h1>Where Timeless Indian Heritage  Meets Royal  Legacy </h1>
         <div class="hero-bottom">
+          <div>        <div class="hero-bottom">
           <div>
             <p class="hero-description">
 Welcome to a World of Timeless Heritage — where the soul of Rajasthan is shaped into enduring architecture.            </p>
@@ -3128,7 +2876,6 @@ Welcome to a World of Timeless Heritage — where the soul of Rajasthan is shape
               Enter Raj Nirmaan <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
-        </div>
       </div>
     </section>
 
@@ -3189,7 +2936,7 @@ Welcome to a World of Timeless Heritage — where the soul of Rajasthan is shape
 His expertise spans luxury havelis, heritage residences, palaces, resorts, heritage hotels, and bespoke traditional interiors. With deep knowledge of Rajasthani architecture, he provides expert guidance across heritage design, proportions, materials, craftsmanship, and traditional elements such as domes, chhatris, jharokhas, jaalis, mehraabs, intricate stonework, and marble detailing.
 
 His vision is to preserve the royal soul of Rajasthan while creating timeless spaces that combine heritage, luxury, functionality, and enduring beauty—where every project carries a distinctive story of craftsmanship and culture.
-              </p>
+ <p>
 
    
             <div class="leader-footer">
@@ -3270,7 +3017,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         </div>
 
         <div class="signature-layout">
-          <!-- Oladar Haveli — same-size square project card -->
+          <!-- Top Full Width Card: Oladar Haveli — image inside card, text below -->
           <div class="project-featured-card oladar-featured-card" onclick="openProject('oladar')">
             <div class="project-featured-image">
               <img src="oladar1.jpeg" alt="Oladar Haveli">
@@ -3287,7 +3034,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             </div>
           </div>
 
-          <!-- Three additional same-size project cards -->
+          <!-- Bottom 3 Cards Grid -->
           <div class="project-row-grid">
             <!-- Roop Mahal -->
             <div class="project-card-box" onclick="openProject('roopmahal')">
@@ -3348,7 +3095,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       <div class="container consultancy-grid">
         <div>
           <div class="eyebrow">Our Expertise</div>
-          <h2 class="section-title">Crafting Heritage with Precision</h2>
+          <h2 class="section-title">Crafting Heritage with Precision & Tradition</h2>
           <div class="gold-line"></div>
           <p class="section-intro">
             Our expertise brings together heritage architecture, restoration planning, traditional building knowledge, and contemporary project discipline — tailored for clients seeking authentic royal environments.
@@ -3362,18 +3109,6 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           <a href="#contact" class="luxury-btn">
             Sampark <i class="fa-solid fa-arrow-right"></i>
           </a>
-
-          <div class="vision-process">
-            <div class="vision-process-heading">FROM VISION TO HERITAGE</div>
-            <div class="vision-process-grid">
-              <div class="vision-step"><span>01</span><strong>CONSULTATION</strong></div>
-              <div class="vision-step"><span>02</span><strong>CONCEPT &amp; DESIGN</strong></div>
-              <div class="vision-step"><span>03</span><strong>MATERIAL SELECTION</strong></div>
-              <div class="vision-step"><span>04</span><strong>CRAFTSMANSHIP</strong></div>
-              <div class="vision-step"><span>05</span><strong>SITE EXECUTION</strong></div>
-              <div class="vision-step"><span>06</span><strong>COMPLETION</strong></div>
-            </div>
-          </div>
         </div>
 
         <div class="beige-card-wrap">
@@ -3581,46 +3316,6 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="principle-number">04</div>
             <h4>Modern Construction Understanding</h4>
           </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- WHY RHD -->
-    <section class="section beige why-rhd" id="why-rhd">
-      <div class="container">
-        <div class="eyebrow">The RHD Difference</div>
-        <h2 class="section-title">Why RHD</h2>
-        <div class="gold-line"></div>
-        <p class="section-intro">
-          Heritage is our speciality: we study the architectural language of Rajasthan and translate its royal character into spaces shaped by proportion, material, craft, light, detail, and permanence.
-        </p>
-
-        <div class="why-rhd-grid">
-          <article class="why-rhd-card">
-            <span>01</span>
-            <h3>HERITAGE SPECIALITY</h3>
-            <p>Deep attention to Rajasthani architectural vocabulary, traditional forms and the character of living heritage.</p>
-          </article>
-          <article class="why-rhd-card">
-            <span>02</span>
-            <h3>ROYAL CRAFTSMANSHIP</h3>
-            <p>Handcrafted stonework, carved details, arches, domes, jharokhas and finishes composed with patience and precision.</p>
-          </article>
-          <article class="why-rhd-card">
-            <span>03</span>
-            <h3>AUTHENTIC MATERIALS</h3>
-            <p>Materials are selected for texture, richness, longevity and the unmistakable visual language of Rajasthan.</p>
-          </article>
-          <article class="why-rhd-card">
-            <span>04</span>
-            <h3>BUILT FOR GENERATIONS</h3>
-            <p>Traditional character is brought together with disciplined execution so every space is designed for permanence.</p>
-          </article>
-        </div>
-
-        <div class="why-rhd-royal-line">
-          <em>“Royal character lives in proportion, craftsmanship and detail — in spaces that feel timeless today and worthy of generations tomorrow.”</em>
         </div>
       </div>
     </section>
