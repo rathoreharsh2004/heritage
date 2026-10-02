@@ -1,10 +1,27 @@
 const API = (() => {
-  // Support local development, full-stack cloud hosting, and GitHub Pages
-  const API_HOST = window.API_BASE_URL || localStorage.getItem('rhd_api_url') || (
-    window.location.hostname.endsWith('github.io')
-      ? 'https://rathore-heritage.onrender.com'
-      : window.location.origin
-  );
+  // Resilient API host detection for localhost, file://, custom ports, and cloud
+  function resolveApiHost() {
+    if (window.API_BASE_URL) return window.API_BASE_URL;
+    const stored = localStorage.getItem('rhd_api_url');
+    if (stored) return stored;
+
+    // GitHub Pages hosting
+    if (window.location.hostname.endsWith('github.io')) {
+      return 'https://rathore-heritage.onrender.com';
+    }
+
+    // Direct local file opening or non-5000 dev server (e.g., Live Server 5500)
+    if (!window.location.origin ||
+        window.location.origin === 'null' ||
+        window.location.protocol === 'file:' ||
+        (window.location.port && window.location.port !== '5000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))) {
+      return 'http://localhost:5000';
+    }
+
+    return window.location.origin;
+  }
+
+  const API_HOST = resolveApiHost();
   const BASE_URL = API_HOST.replace(/\/$/, '') + '/api';
 
   function getToken() {
@@ -60,6 +77,9 @@ const API = (() => {
       return data;
     } catch (err) {
       console.error('[API Error]', endpoint, err.message);
+      if (err.name === 'TypeError' && err.message.toLowerCase().includes('fetch')) {
+        throw new Error(`Cannot reach backend server at ${BASE_URL}. Ensure Node.js server is running ("npm start") and access via http://localhost:5000/admin/`);
+      }
       throw err;
     }
   }
@@ -68,6 +88,13 @@ const API = (() => {
     getToken,
     setToken,
     clearToken,
+    getBaseUrl: () => BASE_URL,
+    getApiHost: () => API_HOST,
+    setApiHost: (url) => {
+      if (url) localStorage.setItem('rhd_api_url', url);
+      else localStorage.removeItem('rhd_api_url');
+      window.location.reload();
+    },
     get: (endpoint) => request(endpoint, { method: 'GET' }),
     post: (endpoint, body) => request(endpoint, {
       method: 'POST',

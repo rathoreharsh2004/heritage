@@ -134,7 +134,7 @@ const App = (() => {
     authScreen.style.display = 'flex';
     authScreen.innerHTML = `
       <div class="auth-box">
-        <img class="auth-logo" src="logo.PNG" alt="Rathore Heritage Logo">
+        <img class="auth-logo" src="logo.PNG" onerror="this.onerror=null; this.src='/logo.PNG';" alt="Rathore Heritage Logo">
         <h1>Rathore Heritage</h1>
         <p>CMS & Administrative Control Portal</p>
         <form id="loginForm">
@@ -150,8 +150,23 @@ const App = (() => {
             Secure Login <i class="fa-solid fa-shield-halved"></i>
           </button>
         </form>
+        <div style="margin-top:24px; padding-top:14px; border-top:1px solid var(--border-color); font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+          <span>API: <code style="color:var(--primary); font-family:monospace;">${API.getApiHost()}</code></span>
+          <button type="button" id="btnConfigApi" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:12px; text-decoration:underline;">Change API</button>
+        </div>
       </div>
     `;
+
+    const btnConfig = document.getElementById('btnConfigApi');
+    if (btnConfig) {
+      btnConfig.addEventListener('click', () => {
+        const current = API.getApiHost();
+        const next = prompt('Enter backend API URL (e.g. http://localhost:5000 or your hosted Render URL):', current);
+        if (next !== null && next.trim()) {
+          API.setApiHost(next.trim());
+        }
+      });
+    }
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();

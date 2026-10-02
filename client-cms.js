@@ -5,11 +5,26 @@
  */
 
 (function () {
-  const API_HOST = window.API_BASE_URL || localStorage.getItem('rhd_api_url') || (
-    window.location.hostname.endsWith('github.io')
-      ? 'https://rathore-heritage.onrender.com'
-      : window.location.origin
-  );
+  function resolveApiHost() {
+    if (window.API_BASE_URL) return window.API_BASE_URL;
+    const stored = localStorage.getItem('rhd_api_url');
+    if (stored) return stored;
+
+    if (window.location.hostname.endsWith('github.io')) {
+      return 'https://rathore-heritage.onrender.com';
+    }
+
+    if (!window.location.origin ||
+        window.location.origin === 'null' ||
+        window.location.protocol === 'file:' ||
+        (window.location.port && window.location.port !== '5000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))) {
+      return 'http://localhost:5000';
+    }
+
+    return window.location.origin;
+  }
+
+  const API_HOST = resolveApiHost();
   const API_URL = API_HOST.replace(/\/$/, '') + '/api/content';
 
   async function syncWithCMS() {
