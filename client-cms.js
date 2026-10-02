@@ -1,40 +1,39 @@
 /**
  * Rathore Heritage Developers — Public Website Dynamic CMS Synchronizer
- * Connects the public website to Express API & MongoDB.
- * Seamlessly updates UI when CMS data is loaded, with safe offline fallback.
+ * Zero-server BaaS synchronization powered by Firebase Firestore & local fallback.
+ * Automatically loads content from Cloud Firestore, ensuring fast static rendering on GitHub Pages.
  */
 
 (function () {
-  function resolveApiHost() {
-    if (window.API_BASE_URL) return window.API_BASE_URL;
-    const stored = localStorage.getItem('rhd_api_url');
-    if (stored) return stored;
-
-    if (window.location.hostname.endsWith('github.io')) {
-      return 'https://rathore-heritage.onrender.com';
-    }
-
-    if (!window.location.origin ||
-        window.location.origin === 'null' ||
-        window.location.protocol === 'file:' ||
-        (window.location.port && window.location.port !== '5000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))) {
-      return 'http://localhost:5000';
-    }
-
-    return window.location.origin;
-  }
-
-  const API_HOST = resolveApiHost();
-  const API_URL = API_HOST.replace(/\/$/, '') + '/api/content';
-
   async function syncWithCMS() {
     try {
-      const res = await fetch(API_URL);
-      if (!res.ok) return;
-      const json = await res.json();
-      if (!json.success || !json.data) return;
+      if (typeof Database === 'undefined') {
+        console.warn('[CMS Sync] Database service not loaded.');
+        return;
+      }
 
-      const { settings, sections, leaders, craftsmanship, materials, projects, rawMaterials, darbarSlides, services } = json.data;
+      // Fetch all dynamic collections in parallel from Database service
+      const [
+        settings,
+        sections,
+        leaders,
+        craftsmanship,
+        materials,
+        projects,
+        rawMaterials,
+        darbarSlides,
+        services
+      ] = await Promise.all([
+        Database.getSettings(),
+        Database.getSections(),
+        Database.getCollection('leaders'),
+        Database.getCollection('craftsmanship'),
+        Database.getCollection('materials'),
+        Database.getCollection('projects'),
+        Database.getCollection('rawMaterials'),
+        Database.getCollection('darbarSlides'),
+        Database.getCollection('services'),
+      ]);
 
       // ─────────────────────────────────────────────────────────────
       // 1. BRAND & SETTINGS
@@ -312,7 +311,6 @@
       // 4. REPEATED ENTITIES: CRAFTSMANSHIP CARDS (10 CARDS)
       // ─────────────────────────────────────────────────────────────
       if (craftsmanship && craftsmanship.length > 0 && typeof craftCardsData !== 'undefined') {
-        // Update global craftCardsData in place
         craftCardsData.length = 0;
         craftsmanship.forEach(c => craftCardsData.push(c));
 
@@ -377,12 +375,10 @@
       // 6. REPEATED ENTITIES: SIGNATURE PROJECTS
       // ─────────────────────────────────────────────────────────────
       if (projects && projects.length > 0 && typeof window.projects !== 'undefined') {
-        // Sync global window.projects dictionary for sub-page rendering
         projects.forEach(p => {
           window.projects[p.slug] = p;
         });
 
-        // Re-render project cards
         const featured = projects.find(p => p.isFeatured) || projects[0];
         const others = projects.filter(p => p !== featured);
 
@@ -483,12 +479,12 @@
       }
 
     } catch (err) {
-      console.warn('[CMS Sync Notice] Live backend API not reached, using native offline fallback:', err.message);
+      console.warn('[CMS Sync Notice]', err.message);
     }
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 10. ENQUIRY FORM SUBMISSION TO MONGODB API + WHATSAPP
+  // 10. ENQUIRY FORM SUBMISSION TO DATABASE SERVICE + WHATSAPP
   // ─────────────────────────────────────────────────────────────
   function setupEnquiryForm() {
     const form = document.getElementById('enquiryForm');
@@ -498,11 +494,11 @@
       e.preventDefault();
       const fd = new FormData(this);
       const payload = {
-        name: fd.get('name'),
-        phone: fd.get('phone'),
-        email: fd.get('email'),
-        projectType: fd.get('projectType'),
-        message: fd.get('message'),
+        name: fd.get('name') || '',
+        phone: fd.get('phone') || '',
+        email: fd.get('email') || '',
+        projectType: fd.get('projectType') || '',
+        message: fd.get('message') || '',
       };
 
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -513,18 +509,17 @@
         submitBtn.innerHTML = 'Sending Enquiry... <i class="fa-solid fa-spinner fa-spin"></i>';
       }
 
-      // 1. Post to MongoDB API
+      // 1. Save Enquiry directly via Database Service (Firestore)
       try {
-        await fetch(`${API_HOST.replace(/\/$/, '')}/api/enquiries`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
+        if (typeof Database !== 'undefined') {
+          await Database.createEnquiry(payload);
+        }
       } catch (err) {
-        console.warn('[Enquiry API Notice] Could not save to DB directly:', err.message);
+        console.warn('[Enquiry Notice] Failed to save enquiry:', err.message);
       }
 
-      // 2. Open WhatsApp for instant client engagement
+      // 2. Open WhatsApp for instant royal client engagement
+      const phoneDigits = (payload.phone || '').replace(/[^0-9]/g, '');
       const txt = `Hello Rathore Heritage Developers,\n\nI would like to discuss a heritage project.\n\nName: ${payload.name}\nPhone: ${payload.phone}\nEmail: ${payload.email}\nType: ${payload.projectType}\nVision: ${payload.message}`;
       window.open("https://wa.me/919414228829?text=" + encodeURIComponent(txt), "_blank");
 

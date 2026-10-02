@@ -17,3 +17,7 @@ yarn-error.log*
 # OS Files
 Thumbs.db
 .DS_Store
+
+# Agent tooling / skills
+.agents/
+skills-lock.json

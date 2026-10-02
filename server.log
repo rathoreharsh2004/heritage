@@ -1,8 +1,0 @@
-[MongoDB] Connected to external database: ac-wbly8ij-shard-00-01.peasuzs.mongodb.net/rathore_heritage
-[MongoDB] GridFS Bucket "mediaFiles" initialized.
-====================================================
-🏰 Rathore Heritage Developers CMS Server Running
-🌐 Public Website:  http://localhost:5000/
-🛡️  Admin Panel:     http://localhost:5000/admin/
-📡 API Base:        http://localhost:5000/api/
-====================================================

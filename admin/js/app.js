@@ -1,92 +1,87 @@
-// Toast notification utility
-function showToast(message, type = 'success') {
-  let container = document.getElementById('toastContainer');
-  if (!container) {
-    container = document.createElement('div');
-    container.id = 'toastContainer';
-    container.className = 'toast-container';
-    document.body.appendChild(container);
-  }
+/**
+ * Rathore Heritage Developers — Admin Portal Controller (Zero-Server Architecture)
+ * Fully compatible with GitHub Pages, powered by Firebase BaaS & Local Data Store.
+ */
 
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.innerHTML = `
-    <i class="fa-solid fa-${type === 'success' ? 'check-circle' : 'triangle-exclamation'}"></i>
-    <span>${message}</span>
-  `;
-  container.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(100%)';
-    setTimeout(() => toast.remove(), 300);
-  }, 4000);
-}
-
-// Media Picker Modal Utility
-let activeMediaCallback = null;
-
-function openMediaPicker(onSelect) {
-  activeMediaCallback = onSelect;
-  const modal = document.getElementById('mediaPickerModal');
-  modal.classList.add('active');
-  loadMediaPickerItems();
-}
-
-function closeMediaPicker() {
-  const modal = document.getElementById('mediaPickerModal');
-  modal.classList.remove('active');
-  activeMediaCallback = null;
-}
-
-async function loadMediaPickerItems(search = '', category = 'all') {
-  const grid = document.getElementById('mediaPickerGrid');
-  grid.innerHTML = '<div style="padding:20px; color:var(--text-muted);">Loading media library from MongoDB GridFS...</div>';
-
-  try {
-    const res = await API.get(`/media?limit=100&search=${encodeURIComponent(search)}&category=${category}`);
-    if (!res.media || res.media.length === 0) {
-      grid.innerHTML = '<div style="padding:20px; color:var(--text-muted);">No media files found. Upload a file above.</div>';
-      return;
-    }
-
-    grid.innerHTML = '';
-    res.media.forEach(m => {
-      const item = document.createElement('div');
-      item.className = 'media-item';
-      const isVideo = m.mimeType.startsWith('video');
-      item.innerHTML = `
-        ${isVideo 
-          ? `<video src="${m.url}" preload="metadata"></video>` 
-          : `<img src="${m.url}" alt="${m.altText || m.filename}">`
-        }
-        <div class="media-item-info">${m.filename}</div>
-      `;
-      item.addEventListener('click', () => {
-        if (activeMediaCallback) {
-          activeMediaCallback(m.filename, m.url);
-        }
-        closeMediaPicker();
-      });
-      grid.appendChild(item);
-    });
-  } catch (err) {
-    grid.innerHTML = `<div style="padding:20px; color:var(--danger);">Failed to load media: ${err.message}</div>`;
-  }
-}
-
-// Global Application Controller
 const App = (() => {
+  // Toast Notification System
+  function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    const icon = type === 'success' ? 'circle-check' : type === 'danger' ? 'triangle-exclamation' : 'circle-info';
+    toast.innerHTML = `<i class="fa-solid fa-${icon}"></i> <span>${message}</span>`;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.animation = 'fadeOut 0.3s forwards';
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // MEDIA PICKER MODAL
+  // ─────────────────────────────────────────────────────────────
+  let activeMediaCallback = null;
+
+  function openMediaPicker(onSelect) {
+    activeMediaCallback = onSelect;
+    const modal = document.getElementById('mediaPickerModal');
+    modal.classList.add('active');
+    loadMediaPickerItems();
+  }
+
+  function closeMediaPicker() {
+    const modal = document.getElementById('mediaPickerModal');
+    modal.classList.remove('active');
+    activeMediaCallback = null;
+  }
+
+  async function loadMediaPickerItems(search = '', category = 'all') {
+    const grid = document.getElementById('mediaPickerGrid');
+    grid.innerHTML = '<div style="padding:20px; color:var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Loading media files...</div>';
+
+    try {
+      const media = await Database.getMedia(search, category);
+      if (!media || media.length === 0) {
+        grid.innerHTML = '<div style="padding:20px; color:var(--text-muted);">No media files found. Upload a new file above.</div>';
+        return;
+      }
+
+      grid.innerHTML = '';
+      media.forEach(m => {
+        const item = document.createElement('div');
+        item.className = 'media-item';
+        const isVideo = (m.mimeType && m.mimeType.startsWith('video')) || (m.filename && m.filename.endsWith('.mp4'));
+        const displaySrc = m.url || m.filename;
+        item.innerHTML = `
+          ${isVideo 
+            ? `<video src="${displaySrc}" preload="metadata"></video>` 
+            : `<img src="${displaySrc}" alt="${m.altText || m.filename}">`
+          }
+          <div class="media-item-info">${m.filename}</div>
+        `;
+        item.addEventListener('click', () => {
+          if (activeMediaCallback) {
+            activeMediaCallback(m.filename, displaySrc);
+          }
+          closeMediaPicker();
+        });
+        grid.appendChild(item);
+      });
+    } catch (err) {
+      grid.innerHTML = `<div style="padding:20px; color:var(--danger);">Failed to load media: ${err.message}</div>`;
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // ROUTING & NAVIGATION
+  // ─────────────────────────────────────────────────────────────
   const routes = {};
 
-  function registerRoute(hash, handler) {
-    routes[hash] = handler;
+  function registerRoute(hash, renderFunc) {
+    routes[hash] = renderFunc;
   }
 
   async function handleRouting() {
-    const hash = window.location.hash.slice(1) || 'dashboard';
-
-    // Route guard
     if (!Auth.isAuthenticated()) {
       renderLogin();
       return;
@@ -95,8 +90,10 @@ const App = (() => {
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('appContainer').style.display = 'flex';
 
-    // Update active nav item
-    document.querySelectorAll('.nav-item').forEach(el => {
+    const hash = (window.location.hash || '#dashboard').replace('#', '');
+
+    // Update active nav link
+    document.querySelectorAll('.sidebar-nav .nav-item').forEach(el => {
       el.classList.toggle('active', el.getAttribute('href') === `#${hash}`);
     });
 
@@ -132,18 +129,22 @@ const App = (() => {
     document.getElementById('appContainer').style.display = 'none';
     const authScreen = document.getElementById('authScreen');
     authScreen.style.display = 'flex';
+
+    const isConnected = Database.isConfigured();
+    const projectId = (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.projectId) || 'None';
+
     authScreen.innerHTML = `
       <div class="auth-box">
-        <img class="auth-logo" src="logo.PNG" onerror="this.onerror=null; this.src='/logo.PNG';" alt="Rathore Heritage Logo">
+        <img class="auth-logo" src="logo.PNG" onerror="this.onerror=null; this.src='../logo.PNG';" alt="Rathore Heritage Logo">
         <h1>Rathore Heritage</h1>
         <p>CMS & Administrative Control Portal</p>
         <form id="loginForm">
           <div class="form-group" style="text-align:left;">
-            <label class="form-label">Username or Email</label>
-            <input type="text" class="form-control" name="emailOrUsername" required value="admin@rathoreheritage.com" placeholder="admin@rathoreheritage.com">
+            <label class="form-label">Admin Email</label>
+            <input type="email" class="form-control" name="email" required value="admin@rathoreheritage.com" placeholder="admin@rathoreheritage.com">
           </div>
           <div class="form-group" style="text-align:left;">
-            <label class="form-label">Password</label>
+            <label class="form-label">Admin Password</label>
             <input type="password" class="form-control" name="password" required value="Admin@123456" placeholder="Enter password">
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px; padding:12px;">
@@ -151,20 +152,21 @@ const App = (() => {
           </button>
         </form>
         <div style="margin-top:24px; padding-top:14px; border-top:1px solid var(--border-color); font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
-          <span>API: <code style="color:var(--primary); font-family:monospace;">${API.getApiHost()}</code></span>
-          <button type="button" id="btnConfigApi" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:12px; text-decoration:underline;">Change API</button>
+          <span>
+            ${isConnected 
+              ? `<span style="color:#22c55e;"><i class="fa-solid fa-cloud-bolt"></i> Firebase: ${projectId}</span>` 
+              : `<span style="color:var(--primary);"><i class="fa-solid fa-hard-drive"></i> Local / Demo Mode</span>`
+            }
+          </span>
+          <button type="button" id="btnConfigFirebase" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:12px; text-decoration:underline;">Firebase Setup</button>
         </div>
       </div>
     `;
 
-    const btnConfig = document.getElementById('btnConfigApi');
+    const btnConfig = document.getElementById('btnConfigFirebase');
     if (btnConfig) {
       btnConfig.addEventListener('click', () => {
-        const current = API.getApiHost();
-        const next = prompt('Enter backend API URL (e.g. http://localhost:5000 or your hosted Render URL):', current);
-        if (next !== null && next.trim()) {
-          API.setApiHost(next.trim());
-        }
+        openFirebaseConfigModal();
       });
     }
 
@@ -176,7 +178,7 @@ const App = (() => {
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
 
       try {
-        await Auth.login(fd.get('emailOrUsername'), fd.get('password'));
+        await Auth.login(fd.get('email'), fd.get('password'));
         showToast('Logged in successfully', 'success');
         window.location.hash = '#dashboard';
         handleRouting();
@@ -188,14 +190,42 @@ const App = (() => {
     });
   }
 
+  function openFirebaseConfigModal() {
+    const current = JSON.stringify(window.FIREBASE_CONFIG, null, 2);
+    const jsonStr = prompt('Paste your Firebase Project Configuration JSON below (or edit firebase-config.js directly):', current);
+    if (jsonStr !== null && jsonStr.trim()) {
+      try {
+        const parsed = JSON.parse(jsonStr.trim());
+        localStorage.setItem('rhd_firebase_config', JSON.stringify(parsed));
+        showToast('Firebase configuration saved! Reloading...', 'success');
+        setTimeout(() => window.location.reload(), 1000);
+      } catch (e) {
+        alert('Invalid JSON format. Please ensure valid JSON with apiKey and projectId.');
+      }
+    }
+  }
+
   // ─────────────────────────────────────────────────────────────
   // 2. DASHBOARD VIEW
   // ─────────────────────────────────────────────────────────────
   async function renderDashboard(container) {
-    const res = await API.get('/dashboard');
+    const res = await Database.getDashboardStats();
     const { stats, recentEnquiries, recentLogs, recentMedia } = res;
+    const isCloud = Database.isConfigured();
 
     container.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div style="font-size:13px; color:var(--text-muted);">
+          Architecture: <strong style="color:var(--primary-light);">Zero-Server GitHub Pages</strong> &bull; 
+          Storage: <strong>${isCloud ? 'Cloud Firestore & ImageKit CDN' : 'Local / Offline Store'}</strong>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-secondary btn-sm" onclick="App.seedCloudData()">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Seed / Reset Cloud Content
+          </button>
+        </div>
+      </div>
+
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-icon"><i class="fa-solid fa-archway"></i></div>
@@ -221,8 +251,8 @@ const App = (() => {
         <div class="stat-card">
           <div class="stat-icon"><i class="fa-solid fa-images"></i></div>
           <div class="stat-info">
-            <h3>${stats.media || 0}</h3>
-            <p>GridFS Media Items</p>
+            <h3>${stats.mediaFiles || 0}</h3>
+            <p>Cloud Media Files</p>
           </div>
         </div>
         <div class="stat-card">
@@ -248,63 +278,77 @@ const App = (() => {
                   <tr>
                     <th>Name</th>
                     <th>Project</th>
+                    <th>Date</th>
                     <th>Status</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  ${recentEnquiries.map(enq => `
+                  ${recentEnquiries.map(e => `
                     <tr>
-                      <td>
-                        <strong>${enq.name}</strong><br>
-                        <small style="color:var(--text-muted);">${enq.phone}</small>
-                      </td>
-                      <td>${enq.projectType || 'General'}</td>
-                      <td><span class="badge badge-${enq.status === 'New' ? 'warning' : 'success'}">${enq.status}</span></td>
-                      <td>
-                        <a href="https://wa.me/${enq.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello ' + enq.name + ', regarding your enquiry for ' + enq.projectType)}" target="_blank" class="btn btn-secondary btn-sm" title="Chat on WhatsApp">
-                          <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                      </td>
+                      <td><strong>${e.name}</strong><br><small style="color:var(--text-muted);">${e.phone}</small></td>
+                      <td><span class="badge badge-info">${e.projectType || 'General'}</span></td>
+                      <td><small style="color:var(--text-muted);">${new Date(e.createdAt).toLocaleDateString()}</small></td>
+                      <td><span class="badge badge-${e.status === 'new' ? 'warning' : 'success'}">${e.status}</span></td>
                     </tr>
                   `).join('')}
                 </tbody>
               </table>
             </div>
-          ` : '<p style="color:var(--text-muted);">No enquiries received yet.</p>'}
+          ` : '<p style="color:var(--text-muted); padding:20px 0;">No client enquiries submitted yet.</p>'}
         </div>
 
-        <!-- Recent Audit Logs -->
+        <!-- Recent Audit Events -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Recent Activity Audit</h3>
-            <a href="#audit" class="btn btn-secondary btn-sm">All Logs</a>
+            <h3 class="card-title">Recent Activity Logs</h3>
+            <a href="#audit" class="btn btn-secondary btn-sm">View All</a>
           </div>
           ${recentLogs && recentLogs.length > 0 ? `
-            <div style="display:flex; flex-direction:column; gap:12px;">
-              ${recentLogs.map(log => `
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; font-size:13px; border-bottom:1px solid rgba(197,161,91,0.1); padding-bottom:8px;">
-                  <div>
-                    <span class="badge badge-info" style="font-size:10px;">${log.action}</span>
-                    <strong style="margin-left:6px;">${log.entityType}</strong>
-                    <div style="color:var(--text-muted); font-size:12px; margin-top:2px;">${log.description}</div>
-                  </div>
-                  <small style="color:var(--text-muted); font-size:11px;">${new Date(log.createdAt || log.timestamp).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })}</small>
-                </div>
-              `).join('')}
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <th>Target</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${recentLogs.map(l => `
+                    <tr>
+                      <td><span class="badge badge-${l.action === 'Create' ? 'success' : l.action === 'Delete' ? 'danger' : 'info'}">${l.action}</span></td>
+                      <td><strong>${l.entity || ''}</strong><br><small style="color:var(--text-muted);">${l.details || ''}</small></td>
+                      <td><small style="color:var(--text-muted);">${new Date(l.timestamp).toLocaleTimeString()}</small></td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
             </div>
-          ` : '<p style="color:var(--text-muted);">No logs recorded yet.</p>'}
+          ` : '<p style="color:var(--text-muted); padding:20px 0;">No activity logged yet.</p>'}
         </div>
       </div>
     `;
+  }
+
+  async function seedCloudData() {
+    if (!confirm('This will seed the complete authentic Rathore Heritage dataset (all 12 sections, projects, crafts, materials, etc.) into Cloud Firestore. Proceed?')) {
+      return;
+    }
+    showToast('Seeding website content to Firestore...', 'info');
+    try {
+      await Database.seedInitialData(true);
+      showToast('Website content successfully seeded to Firestore!', 'success');
+      handleRouting();
+    } catch (err) {
+      showToast('Seed failed: ' + err.message, 'danger');
+    }
   }
 
   // ─────────────────────────────────────────────────────────────
   // 3. WEBSITE SETTINGS VIEW
   // ─────────────────────────────────────────────────────────────
   async function renderSettings(container) {
-    const res = await API.get('/settings');
-    const s = res.settings || {};
+    const s = (await Database.getSettings()) || {};
 
     container.innerHTML = `
       <div class="card">
@@ -327,7 +371,7 @@ const App = (() => {
               <div class="image-picker-field">
                 <img src="${s.logo || 'logo.PNG'}" class="image-preview-thumb" id="logoPreview">
                 <input type="text" class="form-control" name="logo" id="logoInput" value="${s.logo || ''}">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="openMediaPicker((fn, url) => { document.getElementById('logoInput').value = fn; document.getElementById('logoPreview').src = url; })">Browse</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="App.openMediaPicker((fn, url) => { document.getElementById('logoInput').value = fn; document.getElementById('logoPreview').src = url; })">Browse</button>
               </div>
             </div>
             <div class="form-group">
@@ -373,7 +417,7 @@ const App = (() => {
       const data = Object.fromEntries(formData.entries());
 
       try {
-        await API.put('/settings', data);
+        await Database.saveSettings(data);
         showToast('Settings saved successfully', 'success');
       } catch (err) {
         showToast(err.message, 'danger');
@@ -385,8 +429,12 @@ const App = (() => {
   // 4. SECTIONS CONTENT MANAGER (Hero, Legacy, Consultancy, etc.)
   // ─────────────────────────────────────────────────────────────
   async function renderSections(container) {
-    const res = await API.get('/sections');
-    const sections = res.sections || [];
+    const secObj = (await Database.getSections()) || {};
+    const sections = Object.entries(secObj).map(([sectionKey, data]) => ({
+      sectionKey,
+      title: data.title || sectionKey,
+      data,
+    }));
 
     container.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:24px;">
@@ -414,7 +462,6 @@ const App = (() => {
     const d = sec.data || {};
     let html = '';
 
-    // Handle common fields
     if (d.kicker !== undefined) {
       html += `<div class="form-group full-width"><label class="form-label">Hero Kicker</label><input type="text" class="form-control" data-key="kicker" value="${d.kicker || ''}"></div>`;
     }
@@ -443,7 +490,7 @@ const App = (() => {
           <div class="image-picker-field">
             <img src="${d.image}" class="image-preview-thumb" id="thumb_${sec.sectionKey}">
             <input type="text" class="form-control" data-key="image" id="input_${sec.sectionKey}" value="${d.image}">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="openMediaPicker((fn, url) => { document.getElementById('input_${sec.sectionKey}').value = fn; document.getElementById('thumb_${sec.sectionKey}').src = url; })">Browse</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="App.openMediaPicker((fn, url) => { document.getElementById('input_${sec.sectionKey}').value = fn; document.getElementById('thumb_${sec.sectionKey}').src = url; })">Browse</button>
           </div>
         </div>
       `;
@@ -458,7 +505,6 @@ const App = (() => {
       html += `<div class="form-group"><label class="form-label">CTA Button Link</label><input type="text" class="form-control" data-key="ctaLink" value="${d.ctaLink || ''}"></div>`;
     }
 
-    // Paragraphs array
     if (Array.isArray(d.paragraphs)) {
       html += `
         <div class="form-group full-width">
@@ -468,7 +514,7 @@ const App = (() => {
       `;
     }
 
-    return html || '<p style="color:var(--text-muted);">No simple fields for this section.</p>';
+    return html || '<p style="color:var(--text-muted);">No editable fields configured for this section.</p>';
   }
 
   async function saveSection(sectionKey) {
@@ -486,7 +532,7 @@ const App = (() => {
     });
 
     try {
-      await API.put(`/sections/${sectionKey}`, { data });
+      await Database.saveSection(sectionKey, data);
       showToast(`Section "${sectionKey}" saved successfully`, 'success');
     } catch (err) {
       showToast(err.message, 'danger');
@@ -494,12 +540,22 @@ const App = (() => {
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 5. GENERIC CRUD VIEW BUILDER
+  // 5. GENERIC CRUD CONTROLLER FOR WEBSITE ENTITIES
   // ─────────────────────────────────────────────────────────────
-  function createCrudView({ title, endpoint, columns, fields, defaultData = {} }) {
+  const entityMap = {
+    'projects': 'projects',
+    'craftsmanship': 'craftsmanship',
+    'leaders': 'leaders',
+    'materials': 'materials',
+    'rawmaterials': 'rawMaterials',
+    'darbar': 'darbarSlides',
+    'services': 'services',
+  };
+
+  function createCrudView({ title, endpoint, columns, fields, defaultData }) {
     return async function (container) {
-      const res = await API.get(`/${endpoint}`);
-      const items = res.items || [];
+      const colName = entityMap[endpoint] || endpoint;
+      const items = (await Database.getCollection(colName)) || [];
 
       container.innerHTML = `
         <div class="card">
@@ -519,19 +575,22 @@ const App = (() => {
               </thead>
               <tbody>
                 ${items.length === 0 ? `<tr><td colspan="${columns.length + 1}" style="text-align:center; color:var(--text-muted);">No records found.</td></tr>` : ''}
-                ${items.map(item => `
-                  <tr>
-                    ${columns.map(c => `<td>${c.render ? c.render(item) : (item[c.key] || '')}</td>`).join('')}
-                    <td style="text-align:right;">
-                      <button class="btn btn-secondary btn-sm" onclick="App.openEditModal('${endpoint}', '${item._id}')" title="Edit">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                      </button>
-                      <button class="btn btn-danger btn-sm" onclick="App.deleteCrudItem('${endpoint}', '${item._id}')" title="Delete">
-                        <i class="fa-solid fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                `).join('')}
+                ${items.map(item => {
+                  const itemId = item.id || item._id;
+                  return `
+                    <tr>
+                      ${columns.map(c => `<td>${c.render ? c.render(item) : (item[c.key] || '')}</td>`).join('')}
+                      <td style="text-align:right;">
+                        <button class="btn btn-secondary btn-sm" onclick="App.openEditModal('${endpoint}', '${itemId}')" title="Edit">
+                          <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="App.deleteCrudItem('${endpoint}', '${itemId}')" title="Delete">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
               </tbody>
             </table>
           </div>
@@ -544,7 +603,6 @@ const App = (() => {
     };
   }
 
-  // Modal helpers for CRUD
   function openCreateModal(title, endpoint, fields, defaultData) {
     const modalBackdrop = document.getElementById('crudModal');
     modalBackdrop.classList.add('active');
@@ -556,8 +614,9 @@ const App = (() => {
     const saveBtn = document.getElementById('crudSaveBtn');
     saveBtn.onclick = async () => {
       const data = extractFormData(form, fields);
+      const colName = entityMap[endpoint] || endpoint;
       try {
-        await API.post(`/${endpoint}`, data);
+        await Database.createDoc(colName, data);
         showToast('Created successfully', 'success');
         modalBackdrop.classList.remove('active');
         handleRouting();
@@ -568,15 +627,14 @@ const App = (() => {
   }
 
   async function openEditModal(endpoint, id) {
-    const res = await API.get(`/${endpoint}/${id}`);
-    const item = res.item;
+    const colName = entityMap[endpoint] || endpoint;
+    const item = await Database.getDoc(colName, id);
     if (!item) return;
 
     const modalBackdrop = document.getElementById('crudModal');
     modalBackdrop.classList.add('active');
     document.getElementById('crudModalTitle').textContent = `Edit Record`;
 
-    // Find registered fields for this endpoint
     const fieldDef = crudRegistry[endpoint];
     if (!fieldDef) return;
 
@@ -587,7 +645,7 @@ const App = (() => {
     saveBtn.onclick = async () => {
       const data = extractFormData(form, fieldDef);
       try {
-        await API.put(`/${endpoint}/${id}`, data);
+        await Database.updateDoc(colName, id, data);
         showToast('Updated successfully', 'success');
         modalBackdrop.classList.remove('active');
         handleRouting();
@@ -599,8 +657,9 @@ const App = (() => {
 
   async function deleteCrudItem(endpoint, id) {
     if (!confirm('Are you sure you want to delete this record? This action cannot be undone.')) return;
+    const colName = entityMap[endpoint] || endpoint;
     try {
-      await API.del(`/${endpoint}/${id}`);
+      await Database.deleteDoc(colName, id);
       showToast('Deleted successfully', 'success');
       handleRouting();
     } catch (err) {
@@ -615,11 +674,11 @@ const App = (() => {
     }
     if (field.type === 'array-lines') {
       const text = Array.isArray(value) ? value.join('\n\n') : value;
-      return `<div class="form-group full-width"><label class="form-label">${field.label} (Paragraphs separated by blank line)</label><textarea class="form-control" name="${field.name}" style="min-height:120px;">${text}</textarea></div>`;
+      return `<div class="form-group full-width"><label class="form-label">${field.label} (Paragraphs separated by blank line)</label><textarea class="form-control" style="min-height:120px;" name="${field.name}">${text}</textarea></div>`;
     }
     if (field.type === 'array-csv') {
       const text = Array.isArray(value) ? value.join(', ') : value;
-      return `<div class="form-group full-width"><label class="form-label">${field.label} (Comma-separated files)</label><textarea class="form-control" name="${field.name}">${text}</textarea></div>`;
+      return `<div class="form-group full-width"><label class="form-label">${field.label} (Comma-separated filenames)</label><textarea class="form-control" name="${field.name}">${text}</textarea></div>`;
     }
     if (field.type === 'image') {
       const uid = 'img_' + Math.random().toString(36).slice(2);
@@ -629,7 +688,7 @@ const App = (() => {
           <div class="image-picker-field">
             <img src="${value || 'logo.PNG'}" class="image-preview-thumb" id="${uid}_thumb">
             <input type="text" class="form-control" name="${field.name}" id="${uid}_input" value="${value}">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="openMediaPicker((fn, url) => { document.getElementById('${uid}_input').value = fn; document.getElementById('${uid}_thumb').src = url; })">Browse</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="App.openMediaPicker((fn, url) => { document.getElementById('${uid}_input').value = fn; document.getElementById('${uid}_thumb').src = url; })">Browse</button>
           </div>
         </div>
       `;
@@ -846,8 +905,7 @@ const App = (() => {
   // 7. CLIENT ENQUIRIES MANAGER
   // ─────────────────────────────────────────────────────────────
   async function renderEnquiries(container) {
-    const res = await API.get('/enquiries');
-    const enquiries = res.enquiries || [];
+    const enquiries = (await Database.getEnquiries('all')) || [];
 
     container.innerHTML = `
       <div class="card">
@@ -856,10 +914,10 @@ const App = (() => {
           <div style="display:flex; gap:10px;">
             <select class="form-control" style="width:140px; padding:6px;" id="enquiryStatusFilter">
               <option value="all">All Statuses</option>
-              <option value="New">New</option>
-              <option value="Contacted">Contacted</option>
-              <option value="In-Progress">In-Progress</option>
-              <option value="Closed">Closed</option>
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="in-progress">In-Progress</option>
+              <option value="closed">Closed</option>
             </select>
           </div>
         </div>
@@ -878,31 +936,35 @@ const App = (() => {
             </thead>
             <tbody>
               ${enquiries.length === 0 ? '<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">No enquiries found.</td></tr>' : ''}
-              ${enquiries.map(enq => `
-                <tr>
-                  <td><small style="color:var(--text-muted);">${new Date(enq.createdAt).toLocaleDateString()}</small></td>
-                  <td><strong>${enq.name}</strong></td>
-                  <td>
-                    <div><a href="tel:${enq.phone}" style="color:var(--primary); text-decoration:none;">${enq.phone}</a></div>
-                    <small style="color:var(--text-muted);">${enq.email || 'No email'}</small>
-                  </td>
-                  <td><span class="badge badge-info">${enq.projectType || 'General'}</span></td>
-                  <td><small style="display:block; max-width:240px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${enq.message}">${enq.message || '—'}</small></td>
-                  <td>
-                    <select class="form-control" style="padding:4px 8px; font-size:12px; width:110px;" onchange="App.updateEnquiryStatus('${enq._id}', this.value)">
-                      ${['New', 'Contacted', 'In-Progress', 'Closed'].map(st => `<option value="${st}" ${enq.status === st ? 'selected' : ''}>${st}</option>`).join('')}
-                    </select>
-                  </td>
-                  <td style="text-align:right;">
-                    <a href="https://wa.me/${enq.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello ' + enq.name + ', Rathore Heritage Developers received your enquiry for ' + enq.projectType + '.')}" target="_blank" class="btn btn-secondary btn-sm" title="Contact on WhatsApp">
-                      <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <button class="btn btn-danger btn-sm" onclick="App.deleteEnquiry('${enq._id}')" title="Delete">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              `).join('')}
+              ${enquiries.map(enq => {
+                const id = enq.id || enq._id;
+                const status = (enq.status || 'new').toLowerCase();
+                return `
+                  <tr>
+                    <td><small style="color:var(--text-muted);">${new Date(enq.createdAt).toLocaleDateString()}</small></td>
+                    <td><strong>${enq.name}</strong></td>
+                    <td>
+                      <div><a href="tel:${enq.phone}" style="color:var(--primary); text-decoration:none;">${enq.phone}</a></div>
+                      <small style="color:var(--text-muted);">${enq.email || 'No email'}</small>
+                    </td>
+                    <td><span class="badge badge-info">${enq.projectType || 'General'}</span></td>
+                    <td><small style="display:block; max-width:240px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${enq.message}">${enq.message || '—'}</small></td>
+                    <td>
+                      <select class="form-control" style="padding:4px 8px; font-size:12px; width:110px;" onchange="App.updateEnquiryStatus('${id}', this.value)">
+                        ${['new', 'contacted', 'in-progress', 'closed'].map(st => `<option value="${st}" ${status === st ? 'selected' : ''}>${st.toUpperCase()}</option>`).join('')}
+                      </select>
+                    </td>
+                    <td style="text-align:right;">
+                      <a href="https://wa.me/${(enq.phone || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello ' + enq.name + ', Rathore Heritage Developers received your enquiry for ' + enq.projectType + '.')}" target="_blank" class="btn btn-secondary btn-sm" title="Contact on WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                      </a>
+                      <button class="btn btn-danger btn-sm" onclick="App.deleteEnquiry('${id}')" title="Delete">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
             </tbody>
           </table>
         </div>
@@ -911,15 +973,42 @@ const App = (() => {
 
     document.getElementById('enquiryStatusFilter').addEventListener('change', async (e) => {
       const status = e.target.value;
-      const res = await API.get(`/enquiries?status=${status}`);
-      // re-render rows
-      renderEnquiries(container);
+      const filtered = await Database.getEnquiries(status);
+      const tbody = document.querySelector('.data-table tbody');
+      if (tbody) {
+        tbody.innerHTML = filtered.length === 0 
+          ? '<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">No enquiries found matching filter.</td></tr>'
+          : filtered.map(enq => {
+            const id = enq.id || enq._id;
+            const st = (enq.status || 'new').toLowerCase();
+            return `
+              <tr>
+                <td><small style="color:var(--text-muted);">${new Date(enq.createdAt).toLocaleDateString()}</small></td>
+                <td><strong>${enq.name}</strong></td>
+                <td>
+                  <div><a href="tel:${enq.phone}" style="color:var(--primary); text-decoration:none;">${enq.phone}</a></div>
+                  <small style="color:var(--text-muted);">${enq.email || 'No email'}</small>
+                </td>
+                <td><span class="badge badge-info">${enq.projectType || 'General'}</span></td>
+                <td><small style="display:block; max-width:240px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${enq.message || '—'}</small></td>
+                <td>
+                  <select class="form-control" style="padding:4px 8px; font-size:12px; width:110px;" onchange="App.updateEnquiryStatus('${id}', this.value)">
+                    ${['new', 'contacted', 'in-progress', 'closed'].map(s => `<option value="${s}" ${st === s ? 'selected' : ''}>${s.toUpperCase()}</option>`).join('')}
+                  </select>
+                </td>
+                <td style="text-align:right;">
+                  <button class="btn btn-danger btn-sm" onclick="App.deleteEnquiry('${id}')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+      }
     });
   }
 
   async function updateEnquiryStatus(id, status) {
     try {
-      await API.put(`/enquiries/${id}`, { status });
+      await Database.updateEnquiryStatus(id, status);
       showToast(`Status updated to ${status}`, 'success');
     } catch (err) {
       showToast(err.message, 'danger');
@@ -929,7 +1018,7 @@ const App = (() => {
   async function deleteEnquiry(id) {
     if (!confirm('Are you sure you want to delete this enquiry?')) return;
     try {
-      await API.del(`/enquiries/${id}`);
+      await Database.deleteEnquiry(id);
       showToast('Enquiry deleted', 'success');
       handleRouting();
     } catch (err) {
@@ -938,20 +1027,31 @@ const App = (() => {
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 8. MEDIA LIBRARY (MongoDB GridFS)
+  // 8. CLOUD MEDIA LIBRARY (ImageKit CDN)
   // ─────────────────────────────────────────────────────────────
   async function renderMediaLibrary(container) {
+    const isIkConfigured = typeof ImageKitService !== 'undefined' && ImageKitService.isConfigured();
+
     container.innerHTML = `
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">MongoDB GridFS Media Storage</h3>
-            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">Files are stored as chunks in MongoDB GridFS with usage verification</p>
+            <h3 class="card-title">ImageKit Cloud Media Library</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">
+              Global image delivery & transformations powered by ImageKit CDN &bull; 
+              ${isIkConfigured 
+                ? '<span style="color:#22c55e;"><i class="fa-solid fa-circle-check"></i> ImageKit Connected</span>' 
+                : '<span style="color:var(--warning);"><i class="fa-solid fa-circle-exclamation"></i> ImageKit Setup Pending</span>'
+              }
+            </p>
           </div>
           <div style="display:flex; gap:10px;">
+            <button class="btn btn-secondary btn-sm" onclick="App.openImageKitSettingsModal()">
+              <i class="fa-solid fa-gear"></i> ImageKit Setup
+            </button>
             <input type="file" id="mediaUploadInput" style="display:none;" onchange="App.handleMediaUpload(this)">
             <button class="btn btn-primary btn-sm" onclick="document.getElementById('mediaUploadInput').click()">
-              <i class="fa-solid fa-cloud-arrow-up"></i> Upload to GridFS
+              <i class="fa-solid fa-cloud-arrow-up"></i> Upload Media
             </button>
           </div>
         </div>
@@ -970,7 +1070,7 @@ const App = (() => {
         </div>
 
         <div id="mediaLibraryGrid" class="media-grid">
-          <div style="color:var(--text-muted);">Loading media from GridFS...</div>
+          <div style="color:var(--text-muted);">Loading media items...</div>
         </div>
       </div>
     `;
@@ -991,26 +1091,27 @@ const App = (() => {
     if (!grid) return;
 
     try {
-      const res = await API.get(`/media?limit=100&search=${encodeURIComponent(search)}&category=${category}`);
-      if (!res.media || res.media.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1; padding:20px 0;">No media items found in GridFS.</p>';
+      const media = (await Database.getMedia(search, category)) || [];
+      if (media.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1; padding:20px 0;">No media items found. Upload images to build your library.</p>';
         return;
       }
 
       grid.innerHTML = '';
-      res.media.forEach(m => {
+      media.forEach(m => {
         const item = document.createElement('div');
         item.className = 'media-item';
-        const isVideo = m.mimeType.startsWith('video');
+        const isVideo = (m.mimeType && m.mimeType.startsWith('video')) || (m.filename && m.filename.endsWith('.mp4'));
+        const displaySrc = m.url || m.filename;
 
         item.innerHTML = `
           ${isVideo 
-            ? `<video src="${m.url}" preload="metadata"></video>` 
-            : `<img src="${m.url}" alt="${m.altText || m.filename}">`
+            ? `<video src="${displaySrc}" preload="metadata"></video>` 
+            : `<img src="${displaySrc}" alt="${m.altText || m.filename}">`
           }
           <div class="media-item-info">
             <strong>${m.filename}</strong><br>
-            <small>${(m.size / 1024).toFixed(0)} KB</small>
+            <small>${m.size ? (m.size / 1024).toFixed(0) + ' KB' : 'Static Asset'}</small>
           </div>
         `;
 
@@ -1026,15 +1127,10 @@ const App = (() => {
     const file = input.files[0];
     if (!file) return;
 
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('category', 'general');
-    fd.append('altText', file.name.split('.')[0]);
-
-    showToast(`Uploading ${file.name} to MongoDB GridFS...`, 'info');
+    showToast(`Uploading ${file.name}...`, 'info');
     try {
-      await API.upload('/media/upload', fd);
-      showToast('Media uploaded to GridFS successfully!', 'success');
+      await Database.uploadMedia(file, 'general', file.name.split('.')[0]);
+      showToast('Media uploaded successfully!', 'success');
       loadMediaLibraryItems();
     } catch (err) {
       showToast(err.message, 'danger');
@@ -1044,24 +1140,20 @@ const App = (() => {
   }
 
   async function showMediaDetailModal(m) {
-    // Check live usage across all database sections (Requirement 16)
-    let usageInfo = { usageCount: 0, usedIn: [] };
-    try {
-      const uRes = await API.get(`/media/${m._id}/usage`);
-      usageInfo = uRes;
-    } catch {}
-
-    const isVideo = m.mimeType.startsWith('video');
+    const isVideo = (m.mimeType && m.mimeType.startsWith('video')) || (m.filename && m.filename.endsWith('.mp4'));
     const modalBackdrop = document.getElementById('crudModal');
     modalBackdrop.classList.add('active');
     document.getElementById('crudModalTitle').textContent = `Media Details: ${m.filename}`;
+
+    const displayUrl = m.url || m.filename;
+    const mediaId = m.id || m._id;
 
     const form = document.getElementById('crudForm');
     form.innerHTML = `
       <div style="text-align:center; margin-bottom:16px;">
         ${isVideo 
-          ? `<video src="${m.url}" controls style="max-height:220px; border-radius:var(--radius-sm); max-width:100%;"></video>` 
-          : `<img src="${m.url}" style="max-height:220px; border-radius:var(--radius-sm); border:1px solid var(--border-color); max-width:100%;">`
+          ? `<video src="${displayUrl}" controls style="max-height:220px; border-radius:var(--radius-sm); max-width:100%;"></video>` 
+          : `<img src="${displayUrl}" style="max-height:220px; border-radius:var(--radius-sm); border:1px solid var(--border-color); max-width:100%;">`
         }
       </div>
       <div class="form-grid">
@@ -1070,13 +1162,9 @@ const App = (() => {
           <input type="text" class="form-control" value="${m.filename}" readonly>
         </div>
         <div class="form-group">
-          <label class="form-label">GridFS ID</label>
-          <input type="text" class="form-control" value="${m.fileId}" readonly>
-        </div>
-        <div class="form-group">
-          <label class="form-label">GridFS Streaming URL</label>
+          <label class="form-label">Media URL</label>
           <div style="display:flex; gap:8px;">
-            <input type="text" class="form-control" id="mediaUrlVal" value="${m.url}" readonly>
+            <input type="text" class="form-control" id="mediaUrlVal" value="${displayUrl}" readonly>
             <button type="button" class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('mediaUrlVal').value); showToast('URL copied to clipboard!', 'success');">Copy</button>
           </div>
         </div>
@@ -1084,21 +1172,10 @@ const App = (() => {
           <label class="form-label">Alt Text</label>
           <input type="text" class="form-control" id="mediaAltText" value="${m.altText || ''}">
         </div>
-        <div class="form-group full-width">
-          <label class="form-label">Website Usage Information</label>
-          ${usageInfo.usageCount > 0 ? `
-            <div style="background:rgba(197,161,91,0.1); border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-sm);">
-              <strong style="color:var(--primary-light);">Currently active in ${usageInfo.usageCount} location(s):</strong>
-              <ul style="margin-left:20px; margin-top:6px; font-size:13px; color:var(--text-main);">
-                ${usageInfo.usedIn.map(u => `<li>${u}</li>`).join('')}
-              </ul>
-            </div>
-          ` : '<p style="color:var(--text-muted); font-size:13px;">Not directly referenced in any known database section.</p>'}
-        </div>
       </div>
       <div style="display:flex; justify-content:space-between; margin-top:16px;">
-        <button type="button" class="btn btn-danger btn-sm" onclick="App.deleteMediaFile('${m._id}', ${usageInfo.usageCount})">
-          <i class="fa-solid fa-trash"></i> Delete from GridFS
+        <button type="button" class="btn btn-danger btn-sm" onclick="App.deleteMediaFile('${mediaId}')">
+          <i class="fa-solid fa-trash"></i> Delete Media
         </button>
       </div>
     `;
@@ -1108,7 +1185,7 @@ const App = (() => {
     saveBtn.onclick = async () => {
       const altText = document.getElementById('mediaAltText').value;
       try {
-        await API.put(`/media/${m._id}`, { altText });
+        await Database.updateDoc('media', mediaId, { altText });
         showToast('Media metadata updated', 'success');
         modalBackdrop.classList.remove('active');
         loadMediaLibraryItems();
@@ -1118,18 +1195,11 @@ const App = (() => {
     };
   }
 
-  async function deleteMediaFile(id, usageCount) {
-    if (usageCount > 0) {
-      if (!confirm(`Warning: This media is actively used in ${usageCount} section(s). Deleting it will cause broken image links on the live site. Delete anyway?`)) {
-        return;
-      }
-    } else {
-      if (!confirm('Are you sure you want to delete this media item from GridFS?')) return;
-    }
-
+  async function deleteMediaFile(id) {
+    if (!confirm('Are you sure you want to delete this media item?')) return;
     try {
-      await API.del(`/media/${id}?force=true`);
-      showToast('Media deleted from GridFS and Library', 'success');
+      await Database.deleteMedia(id);
+      showToast('Media deleted successfully', 'success');
       document.getElementById('crudModal').classList.remove('active');
       loadMediaLibraryItems();
     } catch (err) {
@@ -1141,8 +1211,7 @@ const App = (() => {
   // 9. AUDIT LOGS VIEW
   // ─────────────────────────────────────────────────────────────
   async function renderAuditLogs(container) {
-    const res = await API.get('/audit-logs');
-    const logs = res.logs || [];
+    const logs = (await Database.getAuditLogs()) || [];
 
     container.innerHTML = `
       <div class="card">
@@ -1158,25 +1227,17 @@ const App = (() => {
                 <th>Action</th>
                 <th>Entity</th>
                 <th>Description</th>
-                <th>Details</th>
               </tr>
             </thead>
             <tbody>
-              ${logs.length === 0 ? '<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">No audit events recorded yet.</td></tr>' : ''}
+              ${logs.length === 0 ? '<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No audit events recorded yet.</td></tr>' : ''}
               ${logs.map(log => `
                 <tr>
-                  <td><small style="color:var(--text-muted);">${new Date(log.createdAt || log.timestamp).toLocaleString()}</small></td>
-                  <td><strong>${log.adminUsername || log.adminEmail}</strong></td>
-                  <td><span class="badge badge-${log.action === 'CREATE' ? 'success' : log.action === 'DELETE' ? 'danger' : 'info'}">${log.action}</span></td>
-                  <td><code>${log.entityType}</code></td>
-                  <td>${log.description}</td>
-                  <td>
-                    ${log.changes && log.changes.updated ? `
-                      <button class="btn btn-secondary btn-sm" onclick="alert(JSON.stringify(${JSON.stringify(log.changes)}, null, 2))" title="View Diffs">
-                        <i class="fa-solid fa-code-compare"></i> Diff
-                      </button>
-                    ` : '—'}
-                  </td>
+                  <td><small style="color:var(--text-muted);">${new Date(log.timestamp).toLocaleString()}</small></td>
+                  <td><strong>${log.adminEmail || 'admin'}</strong></td>
+                  <td><span class="badge badge-${log.action === 'Create' ? 'success' : log.action === 'Delete' ? 'danger' : 'info'}">${log.action}</span></td>
+                  <td><code>${log.entity || ''}</code></td>
+                  <td>${log.details || ''}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -1208,7 +1269,6 @@ const App = (() => {
 
     window.addEventListener('hashchange', handleRouting);
 
-    // Initial session verification
     const isValid = await Auth.checkSession();
     if (!isValid) {
       renderLogin();
@@ -1217,8 +1277,60 @@ const App = (() => {
     }
   }
 
+  function openImageKitSettingsModal() {
+    const modalBackdrop = document.getElementById('crudModal');
+    modalBackdrop.classList.add('active');
+    document.getElementById('crudModalTitle').textContent = 'ImageKit CDN Configuration';
+
+    const currentPub = (window.IMAGEKIT_CONFIG && window.IMAGEKIT_CONFIG.publicKey && !window.IMAGEKIT_CONFIG.publicKey.includes('REPLACE_WITH_YOUR')) ? window.IMAGEKIT_CONFIG.publicKey : '';
+    const currentEndpoint = (window.IMAGEKIT_CONFIG && window.IMAGEKIT_CONFIG.urlEndpoint) ? window.IMAGEKIT_CONFIG.urlEndpoint : 'https://ik.imagekit.io/';
+    const currentPriv = (typeof ImageKitService !== 'undefined' ? ImageKitService.getPrivateKey() : '') || '';
+
+    const form = document.getElementById('crudForm');
+    form.innerHTML = `
+      <div style="grid-column:1/-1; background:rgba(197,161,91,0.08); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:12px; margin-bottom:12px; font-size:13px; color:var(--text-muted);">
+        <strong style="color:var(--primary-light);"><i class="fa-solid fa-shield-halved"></i> Zero-Server ImageKit Architecture:</strong><br>
+        Your <code>publicKey</code> and <code>urlEndpoint</code> are public identifiers. Your <code>privateKey</code> is stored strictly in your browser's local storage (<code>localStorage</code>) to sign uploads locally without needing any backend server. It is NEVER pushed to GitHub.
+      </div>
+      <div class="form-group full-width">
+        <label class="form-label">ImageKit Public Key (e.g. public_xxxx...)</label>
+        <input type="text" class="form-control" id="ikPubKeyInput" value="${currentPub}" placeholder="public_...">
+      </div>
+      <div class="form-group full-width">
+        <label class="form-label">ImageKit URL Endpoint (e.g. https://ik.imagekit.io/your_id/)</label>
+        <input type="text" class="form-control" id="ikEndpointInput" value="${currentEndpoint}" placeholder="https://ik.imagekit.io/your_id/">
+      </div>
+      <div class="form-group full-width">
+        <label class="form-label">ImageKit Private Key (starts with private_...)</label>
+        <input type="password" class="form-control" id="ikPrivKeyInput" value="${currentPriv}" placeholder="private_...">
+        <small style="color:var(--text-muted);">Stored only on this device/browser for HMAC-SHA1 upload signing.</small>
+      </div>
+    `;
+
+    const saveBtn = document.getElementById('crudSaveBtn');
+    saveBtn.textContent = 'Save ImageKit Config';
+    saveBtn.onclick = () => {
+      const pub = document.getElementById('ikPubKeyInput').value.trim();
+      const endpoint = document.getElementById('ikEndpointInput').value.trim();
+      const priv = document.getElementById('ikPrivKeyInput').value.trim();
+
+      if (pub && endpoint) {
+        const cfg = { publicKey: pub, urlEndpoint: endpoint };
+        localStorage.setItem('rhd_imagekit_config', JSON.stringify(cfg));
+        window.IMAGEKIT_CONFIG = cfg;
+      }
+      if (priv && typeof ImageKitService !== 'undefined') {
+        ImageKitService.setPrivateKey(priv);
+      }
+      showToast('ImageKit settings saved successfully!', 'success');
+      modalBackdrop.classList.remove('active');
+      handleRouting();
+    };
+  }
+
   return {
     init,
+    openMediaPicker,
     saveSection,
     openEditModal,
     openCreateModal,
@@ -1228,6 +1340,8 @@ const App = (() => {
     handleMediaUpload,
     showMediaDetailModal,
     deleteMediaFile,
+    seedCloudData,
+    openImageKitSettingsModal,
   };
 })();
 
