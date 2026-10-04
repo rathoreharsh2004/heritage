@@ -60,7 +60,7 @@ const DEFAULT_DATA = {
       intro: 'Heritage defining heritage projects where royal proportion, traditional artistry, and contemporary execution meet with precision.',
     },
     consultancy: {
-      eyebrow: 'Our Expertise',
+      eyebrow: 'Heritage Consultancy',
       heading: 'Crafting Heritage with Precision & Tradition',
       paragraphs: [
         'Our expertise brings together heritage architecture, restoration planning, traditional building knowledge, and contemporary project discipline — tailored for clients seeking authentic royal environments.',

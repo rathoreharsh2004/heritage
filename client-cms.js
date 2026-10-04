@@ -208,15 +208,21 @@
         // Consultancy
         if (sections.consultancy) {
           const c = sections.consultancy;
+          if (c.eyebrow && /our expertise/i.test(c.eyebrow)) {
+            c.eyebrow = 'Heritage Consultancy';
+            if (typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('consultancy', { eyebrow: 'Heritage Consultancy' }).catch(() => {});
+            }
+          }
           const eye = document.querySelector('#consultancy .eyebrow');
-          if (eye && c.eyebrow) eye.textContent = c.eyebrow;
+          if (eye) eye.textContent = c.eyebrow || 'Heritage Consultancy';
           const heading = document.querySelector('#consultancy .section-title');
           if (heading && c.heading) heading.textContent = c.heading;
           if (c.paragraphs && c.paragraphs.length > 0) {
             const container = document.querySelector('#consultancy .consultancy-grid > div:first-child');
             if (container) {
               container.innerHTML = `
-                <div class="eyebrow">${c.eyebrow || 'Our Expertise'}</div>
+                <div class="eyebrow">${c.eyebrow || 'Heritage Consultancy'}</div>
                 <h2 class="section-title">${c.heading || 'Crafting Heritage with Precision & Tradition'}</h2>
                 <div class="gold-line"></div>
                 ${c.paragraphs.map((p, idx) => `<p class="section-intro" ${idx > 0 ? 'style="margin-top: 15px;"' : ''}>${p}</p>`).join('')}
