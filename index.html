@@ -1065,6 +1065,77 @@
       }
     }
 
+    /* =========================================================
+       CONSULTANCY CONTACT MODAL
+    ========================================================= */
+    .consultancy-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 11, 7, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .consultancy-modal-backdrop.active,
+    .consultancy-modal-backdrop:target {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .consultancy-modal-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid rgba(197, 161, 91, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+      border-radius: 4px;
+      transform: translateY(20px);
+      transition: transform 0.35s var(--ease);
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) var(--brown);
+    }
+
+    .consultancy-modal-backdrop.active .consultancy-modal-wrapper,
+    .consultancy-modal-backdrop:target .consultancy-modal-wrapper {
+      transform: translateY(0);
+    }
+
+    .consultancy-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: transparent;
+      border: none;
+      color: var(--gold);
+      font-size: 30px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.25s ease, transform 0.25s ease;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .consultancy-modal-close:hover {
+      color: var(--cream);
+      transform: scale(1.15);
+    }
 
     /* =========================================================
        OUR HERITAGE CRAFTSMANSHIP (10 CARDS WITH VIEW MORE BUTTON)
@@ -1163,14 +1234,40 @@
 
 
     /* =========================================================
-       MATERIAL BOARD SECTION (M1 - M8 SINGLE CAROUSEL)
+       MATERIAL BOARD SECTION (THE ROYAL MATERIAL PALETTE)
     ========================================================= */
 
+    #materialboard .container {
+      width: min(calc(100% - 40px), 1480px);
+      max-width: 1480px;
+    }
+
+    @media (min-width: 768px) {
+      #materialboard .container {
+        width: min(calc(100% - 80px), 1480px);
+        max-width: 1480px;
+      }
+    }
+
     .material-carousel-container {
-      width: 100%;
-      max-width: 520px;
-      margin: 40px auto 0;
+      width: 75vw;
+      max-width: 1400px;
+      margin: 45px auto 0;
       position: relative;
+    }
+
+    @media (max-width: 1024px) {
+      .material-carousel-container {
+        width: 88vw;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .material-carousel-container {
+        width: 100%;
+        margin-top: 25px;
+      }
     }
 
     .material-carousel-stage {
@@ -1199,59 +1296,91 @@
       z-index: 2;
     }
 
-    .material-item {
+    .material-element-card {
+      width: 75vw;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
       cursor: pointer;
-      width: 100%;
-      transition: transform .4s var(--ease);
+      transition: transform 0.4s var(--ease);
     }
 
-    .material-item:hover {
-      transform: translateY(-4px);
+    @media (max-width: 1024px) {
+      .material-element-card {
+        width: 88vw;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .material-element-card {
+        width: 100%;
+      }
+    }
+
+    .material-element-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .material-element-card .beige-card-wrap {
+      width: 100%;
+      padding: clamp(14px, 2vw, 24px);
+      box-sizing: border-box;
     }
 
     .material-img-wrap {
       width: 100%;
-      height: 380px;
+      height: clamp(380px, 48vw, 620px);
+      max-height: 72vh;
       position: relative;
       overflow: hidden;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
       border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: rgba(36, 22, 14, 0.04);
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .material-img-wrap {
-        height: 300px;
+        height: clamp(280px, 55vw, 420px);
+        margin-bottom: 14px;
       }
     }
 
-    /* All images rectangular: no dome shape */
-    .material-item .material-img-wrap,
-    .material-item.shape-square .material-img-wrap,
-    .material-item.shape-dome .material-img-wrap,
-    .material-item.shape-rectangle .material-img-wrap {
-      border-radius: 4px;
+    @media (max-width: 480px) {
+      .material-img-wrap {
+        height: clamp(240px, 62vw, 320px);
+      }
     }
 
-    /* Full appearance: complete uncropped original image with object-fit: contain */
+    .material-element-card img,
     .material-img-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      object-position: center;
       display: block;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.8s var(--ease);
     }
 
+    .material-element-card:hover img {
+      transform: scale(1.02);
+    }
+
+    .material-element-card h4,
     .material-item h4 {
       font-family: var(--serif);
-      font-size: 18px;
+      font-size: clamp(22px, 2.4vw, 32px);
       font-weight: 500;
-      letter-spacing: .05em;
+      letter-spacing: 0.14em;
       color: var(--gold-dark);
       text-align: center;
-      margin-top: 4px;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
     }
 
     /* Carousel Controls: ← Previous   Next → */
@@ -1261,8 +1390,8 @@
       justify-content: center;
       gap: 16px;
       width: 100%;
-      max-width: 520px;
-      margin-top: 22px;
+      max-width: 1400px;
+      margin: 28px auto 0;
     }
 
     .material-nav-btn {
@@ -1270,7 +1399,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 12px 28px;
+      padding: 13px 32px;
       font-family: var(--sans);
       font-size: 13px;
       font-weight: 600;
@@ -1283,7 +1412,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       user-select: none;
-      min-width: 140px;
+      min-width: 150px;
     }
 
     .material-nav-btn:hover {
@@ -1300,11 +1429,12 @@
     @media (max-width: 480px) {
       .material-carousel-controls {
         gap: 10px;
+        margin-top: 20px;
       }
       .material-nav-btn {
-        padding: 10px 18px;
+        padding: 11px 20px;
         font-size: 12px;
-        min-width: 120px;
+        min-width: 130px;
         gap: 6px;
       }
     }
@@ -1879,10 +2009,12 @@
 
     .contact-item {
       display: flex;
+      align-items: center;
       gap: 16px;
       padding: 18px 0;
       border-bottom: 1px solid rgba(36,22,14,.15);
-      word-break: break-all;
+      color: inherit;
+      text-decoration: none;
     }
 
     @media (min-width: 768px) {
@@ -1899,6 +2031,36 @@
       place-items: center;
       color: var(--gold-dark);
       flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .contact-address-text {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .contact-address-text .addr-mobile {
+      display: none;
+    }
+
+    .contact-address-text .addr-desktop {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .contact-address-text .addr-desktop {
+        display: none;
+      }
+      .contact-address-text .addr-mobile {
+        display: block;
+      }
+      .contact-address-text {
+        font-size: 13px;
+        line-height: 1.55;
+      }
     }
 
     .form {
@@ -3497,8 +3659,8 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <p class="section-intro" style="margin-top: 15px;">
               We bridge ancestral craftsmanship with contemporary structural engineering so that every proportion, material, detail, and finish carries authenticity while meeting modern expectations of strength and durability.
             </p>
-            <a href="#contact" class="luxury-btn">
-              Sampark <i class="fa-solid fa-arrow-right"></i>
+            <a href="#consultancyModal" class="luxury-btn consultancy-open-btn" id="consultancyFormBtn">
+              Book Consultancy <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
 
@@ -3638,6 +3800,46 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         </div>
       </div>
     </section>
+
+    <!-- CONSULTANCY CONTACT MODAL -->
+    <div class="consultancy-modal-backdrop" id="consultancyModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="consultancyModalHeading">
+      <div class="consultancy-modal-wrapper">
+        <button type="button" class="consultancy-modal-close" id="closeConsultancyModal" aria-label="Close form">&times;</button>
+        <form class="form" id="consultancyForm">
+          <h3 id="consultancyModalHeading">BOOK CONSULTANCY</h3>
+          <div class="field">
+            <label>Your Name</label>
+            <input type="text" name="name" required placeholder="Enter your name">
+          </div>
+          <div class="field">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" required placeholder="Enter your phone">
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email">
+          </div>
+          <div class="field">
+            <label>Project Type</label>
+            <select name="projectType">
+              <option value="">Select project type</option>
+              <option>Heritage Haveli</option>
+              <option>Luxury Heritage Villa</option>
+              <option>Palace-Style Farmhouse</option>
+              <option>Heritage Hotel / Resort</option>
+              <option>Heritage Commercial Interior</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Your Vision</label>
+            <textarea name="message" placeholder="Tell us about your project..."></textarea>
+          </div>
+          <button type="submit" class="luxury-btn" style="color:var(--ink); border-color:var(--gold-dark);">
+            Send Enquiry <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
 
 <section class="section raw-material-section" id="rawmaterials">
       <div class="container">
@@ -3890,6 +4092,13 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div>
                 <small style="text-transform:uppercase; font-size:9px; letter-spacing:.15em; opacity:.6;"></small>
                 <strong>rathoreheritagedevelopers@gmail.com</strong>
+              </div>
+            </a>
+            <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener" aria-label="Location">
+              <div class="contact-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="contact-address-text">
+                <span class="addr-desktop">Ground Floor &amp; First Floor, Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
+                <span class="addr-mobile">Ground Floor &amp; First Floor,<br>Building No. 14/21, Oladar Haveli,<br>Lake Palace Road, Kalaji Goraji,<br>Udaipur, Rajasthan - 313001, India</span>
               </div>
             </a>
           </div>
@@ -4199,13 +4408,22 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
 
     // =========================================================
-    // THE ROYAL MATERIAL PALETTE (M1 - M8 SINGLE CAROUSEL)
+    // THE ROYAL MATERIAL PALETTE (6 AUTHENTIC MATERIALS)
     // =========================================================
     (function() {
       let materialCurrentIndex = 0;
       let materialAutoSlide = true;
       let materialTimer = null;
       const MATERIAL_INTERVAL_MS = 5000;
+
+      const DEFAULT_MATERIALS = [
+        { id: "material-1", code: "M1", title: "Stone", image: "M6.jpeg", order: 1 },
+        { id: "material-2", code: "M2", title: "Marble", image: "M7.jpeg", order: 2 },
+        { id: "material-3", code: "M3", title: "Finish", image: "M2.jpeg", order: 3 },
+        { id: "material-4", code: "M4", title: "Glass", image: "M4.jpeg", order: 4 },
+        { id: "material-5", code: "M5", title: "Wood", image: "M1.jpeg", order: 5 },
+        { id: "material-6", code: "M6", title: "Metal", image: "M5.jpeg", order: 6 },
+      ];
 
       function stopTimer() {
         if (materialTimer) {
@@ -4241,7 +4459,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         const stage = document.getElementById("materialGrid");
         if (!stage) return;
         const slides = stage.querySelectorAll(".material-slide");
-        const total = slides.length || 8;
+        const total = slides.length || 6;
         materialCurrentIndex = (index % total + total) % total;
         updateSlideUI();
         if (materialAutoSlide) {
@@ -4298,10 +4516,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         const stage = document.getElementById("materialGrid");
         if (!stage) return;
 
-        const data = (items && items.length > 0) ? items : Array.from({ length: 8 }, (_, i) => ({
-          image: `M${i + 1}.jpeg`,
-          title: `MATERIAL ELEMENT M${i + 1}`
-        }));
+        let data = (items && items.length > 0) ? items : DEFAULT_MATERIALS;
+        if (data.length !== 6 || data.some(d => /MATERIAL ELEMENT M/i.test(d.title))) {
+          data = DEFAULT_MATERIALS;
+        }
 
         stage.innerHTML = "";
         data.forEach((item, idx) => {
@@ -4309,7 +4527,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           slide.className = `material-slide${idx === materialCurrentIndex ? " active" : ""}`;
           slide.setAttribute("data-index", idx);
           slide.innerHTML = `
-            <div class="material-item shape-rectangle">
+            <div class="material-element-card material-item shape-rectangle">
               <div class="beige-card-wrap">
                 <div class="material-img-wrap">
                   <img src="${item.image}" alt="${item.title}" loading="eager">
@@ -4330,7 +4548,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       };
     })();
 
-    // Initialize Material Elements Carousel with M1 - M8
+    // Initialize Material Elements Carousel with 6 authentic materials
     window.initMaterialCarousel();
 
 
@@ -4732,6 +4950,59 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
     // Footer Year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Consultancy Contact Modal Handlers & Project Type Synchronization
+    const consultancyModal = document.getElementById("consultancyModal");
+    function syncProjectTypeOptions() {
+      const sourceSelect = document.querySelector('#enquiryForm select[name="projectType"]');
+      const targetSelect = document.querySelector('#consultancyForm select[name="projectType"]');
+      if (sourceSelect && targetSelect && sourceSelect.innerHTML.trim()) {
+        targetSelect.innerHTML = sourceSelect.innerHTML;
+      }
+    }
+    window.syncProjectTypeOptions = syncProjectTypeOptions;
+
+    function openConsultancyModal() {
+      if (!consultancyModal) return;
+      syncProjectTypeOptions();
+      consultancyModal.classList.add("active");
+      consultancyModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    window.openConsultancyModal = openConsultancyModal;
+
+    function closeConsultancyModal() {
+      if (!consultancyModal) return;
+      consultancyModal.classList.remove("active");
+      consultancyModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (window.location.hash === "#consultancyModal") {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    }
+    window.closeConsultancyModal = closeConsultancyModal;
+
+    document.addEventListener("click", function(e) {
+      if (e.target.closest("#consultancy .luxury-btn, .consultancy-open-btn, a[href='#consultancyModal']")) {
+        e.preventDefault();
+        openConsultancyModal();
+      } else if (e.target.closest("#closeConsultancyModal, .consultancy-modal-close")) {
+        e.preventDefault();
+        closeConsultancyModal();
+      } else if (e.target === consultancyModal) {
+        closeConsultancyModal();
+      }
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && consultancyModal && consultancyModal.classList.contains("active")) {
+        closeConsultancyModal();
+      }
+    });
+
+    if (window.location.hash === "#consultancyModal") {
+      openConsultancyModal();
+    }
   </script>
 
   <!-- Firebase App, Firestore & Analytics Client SDKs (CDN) -->

@@ -395,6 +395,10 @@ const App = (() => {
               <input type="url" class="form-control" name="instagramUrl" value="${s.instagramUrl || ''}">
             </div>
             <div class="form-group full-width">
+              <label class="form-label">Office Address</label>
+              <textarea class="form-control" name="address" rows="2">${s.address || 'Ground Floor & First Floor, Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India'}</textarea>
+            </div>
+            <div class="form-group full-width">
               <label class="form-label">Footer Brand Narrative</label>
               <textarea class="form-control" name="footerDescription">${s.footerDescription || ''}</textarea>
             </div>
@@ -909,17 +913,17 @@ const App = (() => {
     defaultData: { company: 'Rathore Heritage Developers', order: 1, isActive: true },
   }));
 
-  // Materials (The Royal Material Palette M1 - M8)
+  // Materials (The Royal Material Palette: Stone, Marble, Finish, Glass, Wood, Metal)
   const materialFields = [
     { name: 'code', label: 'Element Code (e.g. M1)', type: 'text' },
-    { name: 'title', label: 'Title (e.g. MATERIAL ELEMENT M1)', type: 'text' },
+    { name: 'title', label: 'Title (e.g. Stone, Marble, Finish, Glass, Wood, Metal)', type: 'text' },
     { name: 'image', label: 'Material Photo', type: 'image' },
-    { name: 'order', label: 'Order (1 to 8)', type: 'number' },
+    { name: 'order', label: 'Order (1 to 6)', type: 'number' },
     { name: 'isActive', label: 'Active', type: 'checkbox' },
   ];
   crudRegistry['materials'] = materialFields;
   registerRoute('materials', createCrudView({
-    title: 'Royal Material Palette (M1 - M8)',
+    title: 'The Royal Material Palette (6 Materials)',
     endpoint: 'materials',
     columns: [
       { label: 'Image', render: (i) => `<img src="${i.image}" class="table-thumb">` },

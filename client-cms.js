@@ -69,7 +69,7 @@
 
         // Update contact details in Sampark section
         const contactDetails = document.querySelector('.contact-details');
-        if (contactDetails && (settings.primaryPhone || settings.secondaryPhone || settings.email)) {
+        if (contactDetails && (settings.primaryPhone || settings.secondaryPhone || settings.email || settings.address)) {
           contactDetails.innerHTML = `
             ${settings.primaryPhone ? `
               <a class="contact-item" href="tel:${settings.primaryPhone.replace(/\s+/g, '')}">
@@ -89,6 +89,13 @@
                 <div><strong>${settings.email}</strong></div>
               </a>
             ` : ''}
+            <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener" aria-label="Location">
+              <div class="contact-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="contact-address-text">
+                <span class="addr-desktop">Ground Floor &amp; First Floor, Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
+                <span class="addr-mobile">Ground Floor &amp; First Floor,<br>Building No. 14/21, Oladar Haveli,<br>Lake Palace Road, Kalaji Goraji,<br>Udaipur, Rajasthan - 313001, India</span>
+              </div>
+            </a>
           `;
         }
       }
@@ -235,6 +242,13 @@
               Database.saveSection('consultancy', { paragraphs: c.paragraphs }).catch(() => {});
             }
           }
+          if (!c.ctaText || c.ctaText === 'Sampark') {
+            c.ctaText = 'Book Consultancy';
+            c.ctaLink = '#consultancyModal';
+            if (typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('consultancy', { ctaText: 'Book Consultancy', ctaLink: '#consultancyModal' }).catch(() => {});
+            }
+          }
           const eye = document.querySelector('#consultancy .eyebrow');
           if (eye) eye.textContent = c.eyebrow || 'Heritage Consultancy';
           const heading = document.querySelector('#consultancy .section-title');
@@ -247,8 +261,8 @@
                 <h2 class="section-title">${c.heading || 'Authentic guidance in heritage architecture, traditional craftsmanship, and timeless design.'}</h2>
                 <div class="gold-line"></div>
                 ${c.paragraphs.map((p, idx) => `<p class="section-intro" ${idx > 0 ? 'style="margin-top: 15px;"' : ''}>${p}</p>`).join('')}
-                <a href="${c.ctaLink || '#contact'}" class="luxury-btn">
-                  ${c.ctaText || 'Sampark'} <i class="fa-solid fa-arrow-right"></i>
+                <a href="${c.ctaLink || '#consultancyModal'}" class="luxury-btn consultancy-open-btn">
+                  ${c.ctaText || 'Book Consultancy'} <i class="fa-solid fa-arrow-right"></i>
                 </a>
               `;
             }
@@ -448,9 +462,19 @@
       }
 
       // ─────────────────────────────────────────────────────────────
-      // 5. REPEATED ENTITIES: MATERIAL PALETTE (M1 - M8)
+      // 5. REPEATED ENTITIES: THE ROYAL MATERIAL PALETTE (6 MATERIALS)
       // ─────────────────────────────────────────────────────────────
       if (materials && materials.length > 0) {
+        if (materials.length !== 6 || materials.some(m => /MATERIAL ELEMENT M/i.test(m.title))) {
+          materials = [
+            { id: 'material-1', code: 'M1', title: 'Stone', image: 'M6.jpeg', order: 1 },
+            { id: 'material-2', code: 'M2', title: 'Marble', image: 'M7.jpeg', order: 2 },
+            { id: 'material-3', code: 'M3', title: 'Finish', image: 'M2.jpeg', order: 3 },
+            { id: 'material-4', code: 'M4', title: 'Glass', image: 'M4.jpeg', order: 4 },
+            { id: 'material-5', code: 'M5', title: 'Wood', image: 'M1.jpeg', order: 5 },
+            { id: 'material-6', code: 'M6', title: 'Metal', image: 'M5.jpeg', order: 6 },
+          ];
+        }
         if (typeof window.initMaterialCarousel === 'function') {
           window.initMaterialCarousel(materials);
         }
@@ -569,65 +593,149 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 10. ENQUIRY FORM SUBMISSION TO DATABASE SERVICE + WHATSAPP
+  // 10. ENQUIRY & CONSULTANCY FORM SUBMISSION TO DATABASE SERVICE + WHATSAPP
   // ─────────────────────────────────────────────────────────────
-  function setupEnquiryForm() {
-    const form = document.getElementById('enquiryForm');
-    if (!form) return;
+  function setupForms() {
+    const enquiryForm = document.getElementById('enquiryForm');
+    const consultancyForm = document.getElementById('consultancyForm');
 
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const fd = new FormData(this);
-      const payload = {
-        name: fd.get('name') || '',
-        phone: fd.get('phone') || '',
-        email: fd.get('email') || '',
-        projectType: fd.get('projectType') || '',
-        message: fd.get('message') || '',
-      };
+    // 1. Sync Project Type options from #enquiryForm to #consultancyForm
+    function syncProjectTypeOptions() {
+      const source = document.querySelector('#enquiryForm select[name="projectType"]');
+      const target = document.querySelector('#consultancyForm select[name="projectType"]');
+      if (source && target && source.innerHTML.trim()) {
+        target.innerHTML = source.innerHTML;
+      }
+    }
+    syncProjectTypeOptions();
 
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn ? submitBtn.innerHTML : 'Send Enquiry';
+    const sourceSelect = document.querySelector('#enquiryForm select[name="projectType"]');
+    if (sourceSelect && window.MutationObserver) {
+      const obs = new MutationObserver(syncProjectTypeOptions);
+      obs.observe(sourceSelect, { childList: true, subtree: true, characterData: true });
+    }
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Sending Enquiry... <i class="fa-solid fa-spinner fa-spin"></i>';
+    // 2. Modal controls for Consultancy Form
+    const modal = document.getElementById('consultancyModal');
+    function openModal() {
+      if (typeof window.openConsultancyModal === 'function') {
+        window.openConsultancyModal();
+      } else if (modal) {
+        syncProjectTypeOptions();
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    function closeModal() {
+      if (typeof window.closeConsultancyModal === 'function') {
+        window.closeConsultancyModal();
+      } else if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      const openBtn = e.target.closest('#consultancy .luxury-btn, .consultancy-open-btn, a[href="#consultancyModal"]');
+      if (openBtn) {
+        e.preventDefault();
+        openModal();
+        return;
       }
 
-      // 1. Save Enquiry directly via Database Service (Firestore)
-      try {
-        if (typeof Database !== 'undefined') {
-          await Database.createEnquiry(payload);
-        }
-      } catch (err) {
-        console.warn('[Enquiry Notice] Failed to save enquiry:', err.message);
+      const closeBtn = e.target.closest('#closeConsultancyModal, .consultancy-modal-close');
+      if (closeBtn) {
+        e.preventDefault();
+        closeModal();
+        return;
       }
 
-      // 2. Open WhatsApp for instant royal client engagement
-      const phoneDigits = (payload.phone || '').replace(/[^0-9]/g, '');
-      const txt = `Hello Rathore Heritage Developers,\n\nI would like to discuss a heritage project.\n\nName: ${payload.name}\nPhone: ${payload.phone}\nEmail: ${payload.email}\nType: ${payload.projectType}\nVision: ${payload.message}`;
-      window.open("https://wa.me/919414228829?text=" + encodeURIComponent(txt), "_blank");
-
-      // 3. Reset form and show success
-      form.reset();
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Enquiry Sent! <i class="fa-solid fa-check"></i>';
-        setTimeout(() => {
-          submitBtn.innerHTML = originalText;
-        }, 4000);
+      if (e.target === modal) {
+        closeModal();
       }
     });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // 3. Attach submit handler for each form
+    function bindSubmit(form, isConsultancy) {
+      if (!form) return;
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const fd = new FormData(this);
+        const payload = {
+          name: fd.get('name') || '',
+          phone: fd.get('phone') || '',
+          email: fd.get('email') || '',
+          projectType: fd.get('projectType') || '',
+          message: fd.get('message') || '',
+          source: isConsultancy ? 'Consultancy Form' : 'Enquiry Form',
+        };
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.innerHTML : 'Send Enquiry';
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = 'Sending Enquiry... <i class="fa-solid fa-spinner fa-spin"></i>';
+        }
+
+        // 1. Save Enquiry directly via Database Service (Firestore)
+        try {
+          if (typeof Database !== 'undefined') {
+            await Database.createEnquiry(payload);
+          }
+        } catch (err) {
+          console.warn('[Enquiry Notice] Failed to save enquiry:', err.message);
+        }
+
+        // 2. Open WhatsApp for instant royal client engagement
+        const greeting = isConsultancy
+          ? 'Hello Rathore Heritage Developers,\n\nI would like to book a consultancy for a heritage project.'
+          : 'Hello Rathore Heritage Developers,\n\nI would like to discuss a heritage project.';
+        const txt = `${greeting}\n\nName: ${payload.name}\nPhone: ${payload.phone}\nEmail: ${payload.email}\nType: ${payload.projectType}\nVision: ${payload.message}`;
+        window.open("https://wa.me/919414228829?text=" + encodeURIComponent(txt), "_blank");
+
+        // 3. Reset form and show success
+        form.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Enquiry Sent! <i class="fa-solid fa-check"></i>';
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+          }, 4000);
+        }
+
+        if (isConsultancy) {
+          setTimeout(() => {
+            closeModal();
+          }, 1500);
+        }
+      });
+    }
+
+    bindSubmit(enquiryForm, false);
+    bindSubmit(consultancyForm, true);
+  }
+
+  function setupEnquiryForm() {
+    setupForms();
   }
 
   // Execute on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       syncWithCMS();
-      setupEnquiryForm();
+      setupForms();
     });
   } else {
     syncWithCMS();
-    setupEnquiryForm();
+    setupForms();
   }
 })();

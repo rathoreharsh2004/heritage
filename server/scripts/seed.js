@@ -109,6 +109,7 @@ async function seed() {
     secondaryPhone: '+91 78500 15839',
     whatsappNumber: '919414228829',
     email: 'rathoreheritagedevelopers@gmail.com',
+    address: 'Ground Floor & First Floor, Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
     instagramUrl: 'https://instagram.com/rh_heritagebuilds',
     footerDescription: 'Preserving the soul of Rajasthan. Creating living heritage. Authentic craftsmanship interpreted for spaces of today and tomorrow.',
     copyrightCredit: 'Designed by Marwar Infotech',
@@ -193,8 +194,8 @@ async function seed() {
           'We also provide heritage consultancy for new construction, redesign, restoration, and renovation, helping clients make the right decisions on planning, materials, architectural details, and traditional techniques.',
           'We bridge ancestral craftsmanship with contemporary structural engineering so that every proportion, material, detail, and finish carries authenticity while meeting modern expectations of strength and durability.',
         ],
-        ctaText: 'Sampark',
-        ctaLink: '#contact',
+        ctaText: 'Book Consultancy',
+        ctaLink: '#consultancyModal',
         videos: [
           { src: 'cons1.mp4', label: 'Consultancy Video 1' },
           { src: 'cons2.mp4', label: 'Consultancy Video 2' },
@@ -379,19 +380,18 @@ async function seed() {
   await Craftsmanship.insertMany(craftsmanshipData);
   console.log('[Seed] Seeded Craftsmanship (10 Shilp Kala cards)');
 
-  // 6. MATERIAL PALETTE (M1 to M8)
+  // 6. MATERIAL PALETTE (6 Authentic Materials: Stone, Marble, Finish, Glass, Wood, Metal)
   await MaterialElement.deleteMany({});
-  const materialsData = [];
-  for (let i = 1; i <= 8; i++) {
-    materialsData.push({
-      code: `M${i}`,
-      title: `MATERIAL ELEMENT M${i}`,
-      image: `M${i}.jpeg`,
-      order: i,
-    });
-  }
+  const materialsData = [
+    { code: 'M1', title: 'Stone', image: 'M6.jpeg', order: 1 },
+    { code: 'M2', title: 'Marble', image: 'M7.jpeg', order: 2 },
+    { code: 'M3', title: 'Finish', image: 'M2.jpeg', order: 3 },
+    { code: 'M4', title: 'Glass', image: 'M4.jpeg', order: 4 },
+    { code: 'M5', title: 'Wood', image: 'M1.jpeg', order: 5 },
+    { code: 'M6', title: 'Metal', image: 'M5.jpeg', order: 6 },
+  ];
   await MaterialElement.insertMany(materialsData);
-  console.log('[Seed] Seeded Material Elements (M1 - M8)');
+  console.log('[Seed] Seeded Material Elements (6 Materials)');
 
   // 7. SIGNATURE PROJECTS
   await Project.deleteMany({});

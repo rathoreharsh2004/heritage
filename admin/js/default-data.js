@@ -13,6 +13,7 @@ const DEFAULT_DATA = {
     secondaryPhone: '+91 78500 15839',
     whatsappNumber: '919414228829',
     email: 'rathoreheritagedevelopers@gmail.com',
+    address: 'Ground Floor & First Floor, Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
     instagramUrl: 'https://instagram.com/rh_heritagebuilds',
     footerDescription: 'Preserving the soul of Rajasthan. Creating living heritage. Authentic craftsmanship interpreted for spaces of today and tomorrow.',
     copyrightCredit: 'Designed by Marwar Infotech',
@@ -66,8 +67,8 @@ const DEFAULT_DATA = {
         'We also provide heritage consultancy for new construction, redesign, restoration, and renovation, helping clients make the right decisions on planning, materials, architectural details, and traditional techniques.',
         'We bridge ancestral craftsmanship with contemporary structural engineering so that every proportion, material, detail, and finish carries authenticity while meeting modern expectations of strength and durability.',
       ],
-      ctaText: 'Sampark',
-      ctaLink: '#contact',
+      ctaText: 'Book Consultancy',
+      ctaLink: '#consultancyModal',
       videos: [
         { src: 'cons1.mp4', label: 'Consultancy Video 1' },
         { src: 'cons2.mp4', label: 'Consultancy Video 2' },
@@ -269,13 +270,14 @@ const DEFAULT_DATA = {
     },
   ],
 
-  materials: Array.from({ length: 8 }, (_, i) => ({
-    id: `material-${i + 1}`,
-    code: `M${i + 1}`,
-    title: `MATERIAL ELEMENT M${i + 1}`,
-    image: `M${i + 1}.jpeg`,
-    order: i + 1,
-  })),
+  materials: [
+    { id: 'material-1', code: 'M1', title: 'Stone', image: 'M6.jpeg', order: 1 },
+    { id: 'material-2', code: 'M2', title: 'Marble', image: 'M7.jpeg', order: 2 },
+    { id: 'material-3', code: 'M3', title: 'Finish', image: 'M2.jpeg', order: 3 },
+    { id: 'material-4', code: 'M4', title: 'Glass', image: 'M4.jpeg', order: 4 },
+    { id: 'material-5', code: 'M5', title: 'Wood', image: 'M1.jpeg', order: 5 },
+    { id: 'material-6', code: 'M6', title: 'Metal', image: 'M5.jpeg', order: 6 },
+  ],
 
   projects: [
     {
