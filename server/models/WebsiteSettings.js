@@ -29,6 +29,10 @@ const WebsiteSettingsSchema = new mongoose.Schema({
     type: String,
     default: 'rathoreheritagedevelopers@gmail.com',
   },
+  address: {
+    type: String,
+    default: 'Ground Floor & First Floor, Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
+  },
   instagramUrl: {
     type: String,
     default: 'https://instagram.com/rh_heritagebuilds',
