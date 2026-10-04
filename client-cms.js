@@ -109,8 +109,8 @@
               .replace(/INDIAN<\/em>\s*<br\s*\/?>\s*<em>HERITAGE/i, 'INDIAN HERITAGE');
             if (normalized.includes('<span') || normalized.includes('<br>') || normalized.includes('<em>')) {
               heading.innerHTML = normalized;
-            } else if (/where timeless indian heritage meets royal legacy/i.test(normalized.trim())) {
-              heading.innerHTML = `WHERE TIMELESS <span class="gold-italic">INDIAN HERITAGE</span><br>MEETS ROYAL <span class="gold-italic">LEGACY.</span>`;
+            } else if (/where timeless indian heritage meets royal (legacy|living)/i.test(normalized.trim())) {
+              heading.innerHTML = `WHERE TIMELESS <span class="gold-italic">INDIAN HERITAGE</span><br>MEETS ROYAL <span class="gold-italic">LIVING.</span>`;
             } else {
               heading.textContent = normalized;
             }
