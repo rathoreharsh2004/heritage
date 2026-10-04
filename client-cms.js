@@ -106,13 +106,20 @@
           if (heading && h.heading) {
             let normalized = h.heading
               .replace(/INDIAN<\/span>\s*<br\s*\/?>\s*<span class="gold-italic">HERITAGE/i, 'INDIAN HERITAGE')
-              .replace(/INDIAN<\/em>\s*<br\s*\/?>\s*<em>HERITAGE/i, 'INDIAN HERITAGE');
-            if (normalized.includes('<span') || normalized.includes('<br>') || normalized.includes('<em>')) {
-              heading.innerHTML = normalized;
-            } else if (/where timeless indian heritage meets royal (legacy|living)/i.test(normalized.trim())) {
+              .replace(/INDIAN<\/em>\s*<br\s*\/?>\s*<em>HERITAGE/i, 'INDIAN HERITAGE')
+              .replace(/LEGACY/gi, 'LIVING');
+
+            if (/where timeless.*living/i.test(normalized.replace(/<[^>]+>/g, ' '))) {
               heading.innerHTML = `WHERE TIMELESS <span class="gold-italic">INDIAN HERITAGE</span><br>MEETS ROYAL <span class="gold-italic">LIVING.</span>`;
+            } else if (normalized.includes('<span') || normalized.includes('<br>') || normalized.includes('<em>')) {
+              heading.innerHTML = normalized;
             } else {
               heading.textContent = normalized;
+            }
+
+            // Sync updated heading back to store if it contained the old word LEGACY
+            if (h.heading && /LEGACY/i.test(h.heading) && typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('hero', { heading: heading.innerHTML }).catch(() => {});
             }
           }
           const desc = document.querySelector('.hero-description');
