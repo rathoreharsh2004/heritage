@@ -2323,6 +2323,21 @@
       object-fit: cover;
     }
 
+    /* Cards 91 through 95: Complete uncropped display with object-fit: contain */
+    .gallery-card-item img[src*="card91"],
+    .gallery-card-item img[src*="card92"],
+    .gallery-card-item img[src*="card93"],
+    .gallery-card-item img[src*="card94"],
+    .gallery-card-item img[src*="card95"],
+    .gallery-card-item img[src*="card9-1"],
+    .gallery-card-item img[src*="card9-2"],
+    .gallery-card-item img[src*="card9-3"],
+    .gallery-card-item img[src*="card9-4"],
+    .gallery-card-item img[src*="card9-5"] {
+      object-fit: contain;
+      object-position: center;
+    }
+
     /* Header logo is larger, but disappears from the compact scrolled bar. */
     .brand-symbol {
       width: 131px;
