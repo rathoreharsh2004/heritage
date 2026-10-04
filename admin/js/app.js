@@ -913,10 +913,10 @@ const App = (() => {
     defaultData: { company: 'Rathore Heritage Developers', order: 1, isActive: true },
   }));
 
-  // Materials (The Royal Material Palette: Stone, Marble, Finish, Glass, Wood)
+  // Materials (The Royal Material Palette: Stone, Marble, Finish, Glass, Wood, Metal)
   const materialFields = [
     { name: 'code', label: 'Element Code (e.g. M1)', type: 'text' },
-    { name: 'title', label: 'Title (e.g. Stone, Marble, Finish, Glass, Wood)', type: 'text' },
+    { name: 'title', label: 'Title (e.g. Stone, Marble, Finish, Glass, Wood, Metal)', type: 'text' },
     { name: 'image', label: 'Material Photo', type: 'image' },
     { name: 'order', label: 'Display Order', type: 'number' },
     { name: 'isActive', label: 'Active', type: 'checkbox' },

@@ -472,6 +472,7 @@
             { id: 'material-3', code: 'M3', title: 'Finish', image: 'material-finish.jpg', order: 3 },
             { id: 'material-4', code: 'M4', title: 'Glass', image: 'material-glass.jpg', order: 4 },
             { id: 'material-5', code: 'M5', title: 'Wood', image: 'material-wood.jpg', order: 5 },
+            { id: 'material-6', code: 'M6', title: 'Metal', image: 'material-metal.jpg', order: 6 },
           ];
         }
         if (typeof window.initMaterialCarousel === 'function') {

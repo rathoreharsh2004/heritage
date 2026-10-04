@@ -388,9 +388,10 @@ async function seed() {
     { code: 'M3', title: 'Finish', image: 'material-finish.jpg', order: 3 },
     { code: 'M4', title: 'Glass', image: 'material-glass.jpg', order: 4 },
     { code: 'M5', title: 'Wood', image: 'material-wood.jpg', order: 5 },
+    { code: 'M6', title: 'Metal', image: 'material-metal.jpg', order: 6 },
   ];
   await MaterialElement.insertMany(materialsData);
-  console.log('[Seed] Seeded Material Elements (Stone, Marble, Finish, Glass, Wood)');
+  console.log('[Seed] Seeded Material Elements (Stone, Marble, Finish, Glass, Wood, Metal)');
 
   // 7. SIGNATURE PROJECTS
   await Project.deleteMany({});
