@@ -221,10 +221,18 @@
             if (typeof Database !== 'undefined' && Database.saveSection) {
               Database.saveSection('consultancy', { eyebrow: 'Heritage Consultancy' }).catch(() => {});
             }
+          }
           if (c.heading && /Crafting Heritage with Precision & Tradition/i.test(c.heading)) {
             c.heading = 'Authentic guidance in heritage architecture, traditional craftsmanship, and timeless design.';
             if (typeof Database !== 'undefined' && Database.saveSection) {
               Database.saveSection('consultancy', { heading: c.heading }).catch(() => {});
+            }
+          }
+          const leadPara = 'Heritage construction requires expert consultancy to preserve architectural authenticity and cultural character. Our consultancy ensures the right materials, craftsmanship, design, and execution for lasting heritage value.';
+          if (c.paragraphs && Array.isArray(c.paragraphs) && !c.paragraphs.some(p => p.includes('Heritage construction requires expert consultancy'))) {
+            c.paragraphs.unshift(leadPara);
+            if (typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('consultancy', { paragraphs: c.paragraphs }).catch(() => {});
             }
           }
           const eye = document.querySelector('#consultancy .eyebrow');
