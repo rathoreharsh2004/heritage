@@ -213,17 +213,22 @@
             if (typeof Database !== 'undefined' && Database.saveSection) {
               Database.saveSection('consultancy', { eyebrow: 'Heritage Consultancy' }).catch(() => {});
             }
+          if (c.heading && /Crafting Heritage with Precision & Tradition/i.test(c.heading)) {
+            c.heading = 'Authentic guidance in heritage architecture, traditional craftsmanship, and timeless design.';
+            if (typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('consultancy', { heading: c.heading }).catch(() => {});
+            }
           }
           const eye = document.querySelector('#consultancy .eyebrow');
           if (eye) eye.textContent = c.eyebrow || 'Heritage Consultancy';
           const heading = document.querySelector('#consultancy .section-title');
-          if (heading && c.heading) heading.textContent = c.heading;
+          if (heading) heading.textContent = c.heading || 'Authentic guidance in heritage architecture, traditional craftsmanship, and timeless design.';
           if (c.paragraphs && c.paragraphs.length > 0) {
             const container = document.querySelector('#consultancy .consultancy-grid > div:first-child');
             if (container) {
               container.innerHTML = `
                 <div class="eyebrow">${c.eyebrow || 'Heritage Consultancy'}</div>
-                <h2 class="section-title">${c.heading || 'Crafting Heritage with Precision & Tradition'}</h2>
+                <h2 class="section-title">${c.heading || 'Authentic guidance in heritage architecture, traditional craftsmanship, and timeless design.'}</h2>
                 <div class="gold-line"></div>
                 ${c.paragraphs.map((p, idx) => `<p class="section-intro" ${idx > 0 ? 'style="margin-top: 15px;"' : ''}>${p}</p>`).join('')}
                 <a href="${c.ctaLink || '#contact'}" class="luxury-btn">

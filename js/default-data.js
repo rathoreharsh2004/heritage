@@ -61,7 +61,7 @@ const DEFAULT_DATA = {
     },
     consultancy: {
       eyebrow: 'Heritage Consultancy',
-      heading: 'Crafting Heritage with Precision & Tradition',
+      heading: 'Authentic guidance in heritage architecture, traditional craftsmanship, and timeless design.',
       paragraphs: [
         'Our expertise brings together heritage architecture, restoration planning, traditional building knowledge, and contemporary project discipline — tailored for clients seeking authentic royal environments.',
         'We also provide heritage consultancy for new construction, redesign, restoration, and renovation, helping clients make the right decisions on planning, materials, architectural details, and traditional techniques.',

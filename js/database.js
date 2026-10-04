@@ -10,8 +10,8 @@ const Database = (() => {
   let auth = null;
   let storage = null;
 
-  // Local fallback storage key (v5 ensures clean sync for heritage consultancy eyebrow)
-  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v5';
+  // Local fallback storage key (v6 ensures clean sync for authentic guidance heading)
+  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v6';
 
   // Initialize Local Fallback Cache from DEFAULT_DATA
   function getLocalData() {
