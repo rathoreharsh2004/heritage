@@ -300,6 +300,12 @@
         // Why RHD Section (Below Darbar Gallery)
         if (sections.whyRhd) {
           const w = sections.whyRhd;
+          if (w.intro && w.intro.includes('ARCHITECTURAL LANGUAGE OF RAJASTHAN')) {
+            w.intro = w.intro.replace('ARCHITECTURAL LANGUAGE OF RAJASTHAN', 'LANGUAGE OF HERITAGE');
+            if (typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('whyRhd', { intro: w.intro }).catch(() => {});
+            }
+          }
           const eyebrow = document.querySelector('.why-rhd-eyebrow span:nth-child(2)');
           if (eyebrow && w.eyebrow) eyebrow.textContent = w.eyebrow;
           const title = document.querySelector('.why-rhd-title');
