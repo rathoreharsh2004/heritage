@@ -1168,7 +1168,7 @@
 
     .material-carousel-container {
       width: 100%;
-      max-width: 440px;
+      max-width: 520px;
       margin: 40px auto 0;
       position: relative;
     }
@@ -1215,6 +1215,10 @@
       position: relative;
       overflow: hidden;
       margin-bottom: 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     @media (max-width: 600px) {
@@ -1223,18 +1227,19 @@
       }
     }
 
-    .material-item.shape-square .material-img-wrap {
+    /* All images rectangular: no dome shape */
+    .material-item .material-img-wrap,
+    .material-item.shape-square .material-img-wrap,
+    .material-item.shape-dome .material-img-wrap,
+    .material-item.shape-rectangle .material-img-wrap {
       border-radius: 4px;
     }
 
-    .material-item.shape-dome .material-img-wrap {
-      border-radius: 210px 210px 8px 8px;
-    }
-
+    /* Full appearance: complete uncropped original image with object-fit: contain */
     .material-img-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
       display: block;
     }
@@ -1249,14 +1254,14 @@
       margin-top: 4px;
     }
 
-    /* Carousel Controls: ← Previous   AUTO SLIDE: ON   Next → */
+    /* Carousel Controls: ← Previous   Next → */
     .material-carousel-controls {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      justify-content: center;
+      gap: 16px;
       width: 100%;
-      max-width: 440px;
+      max-width: 520px;
       margin-top: 22px;
     }
 
@@ -1264,8 +1269,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 11px 18px;
+      gap: 10px;
+      padding: 12px 28px;
       font-family: var(--sans);
       font-size: 13px;
       font-weight: 600;
@@ -1278,7 +1283,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       user-select: none;
-      flex: 1;
+      min-width: 140px;
     }
 
     .material-nav-btn:hover {
@@ -1292,80 +1297,15 @@
       transform: translateY(0);
     }
 
-    .material-toggle-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 11px 18px;
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      user-select: none;
-      flex: 1.35;
-      white-space: nowrap;
-    }
-
-    .material-toggle-btn.is-active {
-      background: var(--brown-deep);
-      color: var(--gold);
-      border: 1px solid var(--gold);
-      box-shadow: 0 2px 8px rgba(23, 11, 7, 0.15);
-    }
-
-    .material-toggle-btn.is-active:hover {
-      background: var(--brown);
-      border-color: var(--gold-light);
-    }
-
-    .material-toggle-btn:not(.is-active) {
-      background: rgba(23, 11, 7, 0.06);
-      color: var(--muted);
-      border: 1px solid rgba(197, 161, 91, 0.35);
-    }
-
-    .material-toggle-btn:not(.is-active):hover {
-      background: rgba(23, 11, 7, 0.12);
-      color: var(--brown-deep);
-      border-color: var(--gold);
-    }
-
-    .material-toggle-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .material-toggle-btn.is-active .material-toggle-dot {
-      background: #34d399;
-      box-shadow: 0 0 6px rgba(52, 211, 153, 0.7);
-    }
-
-    .material-toggle-btn:not(.is-active) .material-toggle-dot {
-      background: #9ca3af;
-      box-shadow: none;
-    }
-
     @media (max-width: 480px) {
       .material-carousel-controls {
-        gap: 8px;
+        gap: 10px;
       }
       .material-nav-btn {
-        padding: 9px 8px;
-        font-size: 11px;
-        gap: 5px;
-      }
-      .material-toggle-btn {
-        padding: 9px 8px;
-        font-size: 11px;
-        gap: 5px;
+        padding: 10px 18px;
+        font-size: 12px;
+        min-width: 120px;
+        gap: 6px;
       }
     }
 
@@ -3438,14 +3378,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <!-- Injected dynamically for M1 - M8 with alternating square and dome shapes -->
           </div>
 
-          <!-- Controls: ← Previous    AUTO SLIDE: ON    Next → -->
+          <!-- Controls: ← Previous    Next → -->
           <div class="material-carousel-controls">
             <button type="button" class="material-nav-btn material-prev-btn" id="materialPrevBtn" aria-label="Previous Material">
               <i class="fa-solid fa-arrow-left"></i> Previous
-            </button>
-            <button type="button" class="material-toggle-btn is-active" id="materialAutoSlideToggle" aria-label="Toggle Auto Slide" aria-pressed="true">
-              <span class="material-toggle-dot"></span>
-              <span class="material-toggle-label">AUTO SLIDE: ON</span>
             </button>
             <button type="button" class="material-nav-btn material-next-btn" id="materialNextBtn" aria-label="Next Material">
               Next <i class="fa-solid fa-arrow-right"></i>
@@ -4301,20 +4237,6 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         });
       }
 
-      function updateToggleBtnUI() {
-        const toggleBtn = document.getElementById("materialAutoSlideToggle");
-        if (!toggleBtn) return;
-        if (materialAutoSlide) {
-          toggleBtn.classList.add("is-active");
-          toggleBtn.setAttribute("aria-pressed", "true");
-          toggleBtn.innerHTML = '<span class="material-toggle-dot"></span><span class="material-toggle-label">AUTO SLIDE: ON</span>';
-        } else {
-          toggleBtn.classList.remove("is-active");
-          toggleBtn.setAttribute("aria-pressed", "false");
-          toggleBtn.innerHTML = '<span class="material-toggle-dot"></span><span class="material-toggle-label">AUTO SLIDE: OFF</span>';
-        }
-      }
-
       function goToSlide(index) {
         const stage = document.getElementById("materialGrid");
         if (!stage) return;
@@ -4334,7 +4256,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       function setupControls() {
         const prevBtn = document.getElementById("materialPrevBtn");
         const nextBtn = document.getElementById("materialNextBtn");
-        const toggleBtn = document.getElementById("materialAutoSlideToggle");
+        const stage = document.getElementById("materialGrid");
 
         if (prevBtn && !prevBtn._bound) {
           prevBtn._bound = true;
@@ -4350,16 +4272,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           });
         }
 
-        if (toggleBtn && !toggleBtn._bound) {
-          toggleBtn._bound = true;
-          toggleBtn.addEventListener("click", () => {
-            materialAutoSlide = !materialAutoSlide;
-            updateToggleBtnUI();
-            if (materialAutoSlide) {
-              startTimer();
-            } else {
-              stopTimer();
-            }
+        if (stage && !stage._hoverBound) {
+          stage._hoverBound = true;
+          stage.addEventListener("mouseenter", stopTimer);
+          stage.addEventListener("mouseleave", () => {
+            if (materialAutoSlide) startTimer();
           });
         }
 
@@ -4388,12 +4305,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
         stage.innerHTML = "";
         data.forEach((item, idx) => {
-          const shapeClass = (idx % 2 === 0) ? "shape-square" : "shape-dome";
           const slide = document.createElement("div");
           slide.className = `material-slide${idx === materialCurrentIndex ? " active" : ""}`;
           slide.setAttribute("data-index", idx);
           slide.innerHTML = `
-            <div class="material-item ${shapeClass}">
+            <div class="material-item shape-rectangle">
               <div class="beige-card-wrap">
                 <div class="material-img-wrap">
                   <img src="${item.image}" alt="${item.title}" loading="eager">
@@ -4406,7 +4322,6 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         });
 
         setupControls();
-        updateToggleBtnUI();
         updateSlideUI();
 
         if (materialAutoSlide) {
