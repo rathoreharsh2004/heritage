@@ -1163,43 +1163,64 @@
 
 
     /* =========================================================
-       MATERIAL BOARD SECTION (M1 - M8)
+       MATERIAL BOARD SECTION (M1 - M8 SINGLE CAROUSEL)
     ========================================================= */
 
-    .material-grid {
+    .material-carousel-container {
+      width: 100%;
+      max-width: 440px;
+      margin: 40px auto 0;
+      position: relative;
+    }
+
+    .material-carousel-stage {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 25px;
-      margin-top: 50px;
+      grid-template-rows: 1fr;
+      position: relative;
+      width: 100%;
     }
 
-    @media (min-width: 600px) {
-      .material-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .material-slide {
+      grid-area: 1 / 1 / 2 / 2;
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(0.985);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
     }
 
-    @media (min-width: 1024px) {
-      .material-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+    .material-slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: scale(1);
+      z-index: 2;
     }
 
     .material-item {
       cursor: pointer;
+      width: 100%;
       transition: transform .4s var(--ease);
     }
 
     .material-item:hover {
-      transform: translateY(-6px);
+      transform: translateY(-4px);
     }
 
     .material-img-wrap {
       width: 100%;
-      height: 280px;
+      height: 380px;
       position: relative;
       overflow: hidden;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .material-img-wrap {
+        height: 300px;
+      }
     }
 
     .material-item.shape-square .material-img-wrap {
@@ -1207,19 +1228,145 @@
     }
 
     .material-item.shape-dome .material-img-wrap {
-      border-radius: 140px 140px 8px 8px;
+      border-radius: 210px 210px 8px 8px;
     }
 
     .material-img-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
+      display: block;
     }
 
     .material-item h4 {
       font-family: var(--serif);
-      font-size: 17px;
-      color: var(--gold-dark); /* Material card title color changed to Gold */
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: .05em;
+      color: var(--gold-dark);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* Carousel Controls: ← Previous   AUTO SLIDE: ON   Next → */
+    .material-carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      max-width: 440px;
+      margin-top: 22px;
+    }
+
+    .material-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      background: var(--beige-light);
+      border: 1px solid rgba(197, 161, 91, 0.45);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      flex: 1;
+    }
+
+    .material-nav-btn:hover {
+      background: var(--gold);
+      color: var(--brown-deep);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .material-nav-btn:active {
+      transform: translateY(0);
+    }
+
+    .material-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      flex: 1.35;
+      white-space: nowrap;
+    }
+
+    .material-toggle-btn.is-active {
+      background: var(--brown-deep);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      box-shadow: 0 2px 8px rgba(23, 11, 7, 0.15);
+    }
+
+    .material-toggle-btn.is-active:hover {
+      background: var(--brown);
+      border-color: var(--gold-light);
+    }
+
+    .material-toggle-btn:not(.is-active) {
+      background: rgba(23, 11, 7, 0.06);
+      color: var(--muted);
+      border: 1px solid rgba(197, 161, 91, 0.35);
+    }
+
+    .material-toggle-btn:not(.is-active):hover {
+      background: rgba(23, 11, 7, 0.12);
+      color: var(--brown-deep);
+      border-color: var(--gold);
+    }
+
+    .material-toggle-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .material-toggle-btn.is-active .material-toggle-dot {
+      background: #34d399;
+      box-shadow: 0 0 6px rgba(52, 211, 153, 0.7);
+    }
+
+    .material-toggle-btn:not(.is-active) .material-toggle-dot {
+      background: #9ca3af;
+      box-shadow: none;
+    }
+
+    @media (max-width: 480px) {
+      .material-carousel-controls {
+        gap: 8px;
+      }
+      .material-nav-btn {
+        padding: 9px 8px;
+        font-size: 11px;
+        gap: 5px;
+      }
+      .material-toggle-btn {
+        padding: 9px 8px;
+        font-size: 11px;
+        gap: 5px;
+      }
     }
 
 
@@ -3271,8 +3418,24 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           Authentic materials selected for texture, richness, longevity, and the enduring character of Rajasthan.
         </p>
 
-        <div class="material-grid" id="materialGrid">
-          <!-- Injected dynamically for M1 - M8 with alternating square and dome shapes -->
+        <div class="material-carousel-container" id="materialCarouselContainer">
+          <div class="material-carousel-stage" id="materialGrid">
+            <!-- Injected dynamically for M1 - M8 with alternating square and dome shapes -->
+          </div>
+
+          <!-- Controls: ← Previous    AUTO SLIDE: ON    Next → -->
+          <div class="material-carousel-controls">
+            <button type="button" class="material-nav-btn material-prev-btn" id="materialPrevBtn" aria-label="Previous Material">
+              <i class="fa-solid fa-arrow-left"></i> Previous
+            </button>
+            <button type="button" class="material-toggle-btn is-active" id="materialAutoSlideToggle" aria-label="Toggle Auto Slide" aria-pressed="true">
+              <span class="material-toggle-dot"></span>
+              <span class="material-toggle-label">AUTO SLIDE: ON</span>
+            </button>
+            <button type="button" class="material-nav-btn material-next-btn" id="materialNextBtn" aria-label="Next Material">
+              Next <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -4081,22 +4244,161 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     });
 
 
-    // Populate The Royal Material Palette M1 - M8 (Alternating Square & Dome)
-    const materialGrid = document.getElementById("materialGrid");
-    for (let i = 1; i <= 8; i++) {
-      const shapeClass = (i % 2 !== 0) ? "shape-square" : "shape-dome";
-      const div = document.createElement("div");
-      div.className = `material-item ${shapeClass}`;
-      div.innerHTML = `
-        <div class="beige-card-wrap">
-          <div class="material-img-wrap">
-            <img src="M${i}.jpeg" alt="Material M${i}" loading="lazy">
-          </div>
-          <h4>MATERIAL ELEMENT M${i}</h4>
-        </div>
-      `;
-      materialGrid.appendChild(div);
-    }
+    // =========================================================
+    // THE ROYAL MATERIAL PALETTE (M1 - M8 SINGLE CAROUSEL)
+    // =========================================================
+    (function() {
+      let materialCurrentIndex = 0;
+      let materialAutoSlide = true;
+      let materialTimer = null;
+      const MATERIAL_INTERVAL_MS = 5000;
+
+      function stopTimer() {
+        if (materialTimer) {
+          clearInterval(materialTimer);
+          materialTimer = null;
+        }
+      }
+
+      function startTimer() {
+        stopTimer();
+        if (!materialAutoSlide) return;
+        materialTimer = setInterval(() => {
+          advanceSlide(1);
+        }, MATERIAL_INTERVAL_MS);
+      }
+
+      function updateSlideUI() {
+        const stage = document.getElementById("materialGrid");
+        if (!stage) return;
+        const slides = stage.querySelectorAll(".material-slide");
+        if (slides.length === 0) return;
+
+        slides.forEach((slide, idx) => {
+          if (idx === materialCurrentIndex) {
+            slide.classList.add("active");
+          } else {
+            slide.classList.remove("active");
+          }
+        });
+      }
+
+      function updateToggleBtnUI() {
+        const toggleBtn = document.getElementById("materialAutoSlideToggle");
+        if (!toggleBtn) return;
+        if (materialAutoSlide) {
+          toggleBtn.classList.add("is-active");
+          toggleBtn.setAttribute("aria-pressed", "true");
+          toggleBtn.innerHTML = '<span class="material-toggle-dot"></span><span class="material-toggle-label">AUTO SLIDE: ON</span>';
+        } else {
+          toggleBtn.classList.remove("is-active");
+          toggleBtn.setAttribute("aria-pressed", "false");
+          toggleBtn.innerHTML = '<span class="material-toggle-dot"></span><span class="material-toggle-label">AUTO SLIDE: OFF</span>';
+        }
+      }
+
+      function goToSlide(index) {
+        const stage = document.getElementById("materialGrid");
+        if (!stage) return;
+        const slides = stage.querySelectorAll(".material-slide");
+        const total = slides.length || 8;
+        materialCurrentIndex = (index % total + total) % total;
+        updateSlideUI();
+        if (materialAutoSlide) {
+          startTimer();
+        }
+      }
+
+      function advanceSlide(step) {
+        goToSlide(materialCurrentIndex + step);
+      }
+
+      function setupControls() {
+        const prevBtn = document.getElementById("materialPrevBtn");
+        const nextBtn = document.getElementById("materialNextBtn");
+        const toggleBtn = document.getElementById("materialAutoSlideToggle");
+
+        if (prevBtn && !prevBtn._bound) {
+          prevBtn._bound = true;
+          prevBtn.addEventListener("click", () => {
+            advanceSlide(-1);
+          });
+        }
+
+        if (nextBtn && !nextBtn._bound) {
+          nextBtn._bound = true;
+          nextBtn.addEventListener("click", () => {
+            advanceSlide(1);
+          });
+        }
+
+        if (toggleBtn && !toggleBtn._bound) {
+          toggleBtn._bound = true;
+          toggleBtn.addEventListener("click", () => {
+            materialAutoSlide = !materialAutoSlide;
+            updateToggleBtnUI();
+            if (materialAutoSlide) {
+              startTimer();
+            } else {
+              stopTimer();
+            }
+          });
+        }
+
+        if (!window._materialVisBound) {
+          window._materialVisBound = true;
+          document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+              stopTimer();
+            } else if (materialAutoSlide) {
+              startTimer();
+            }
+          });
+          window.addEventListener("beforeunload", stopTimer);
+        }
+      }
+
+      window.initMaterialCarousel = function(items) {
+        stopTimer();
+        const stage = document.getElementById("materialGrid");
+        if (!stage) return;
+
+        const data = (items && items.length > 0) ? items : Array.from({ length: 8 }, (_, i) => ({
+          image: `M${i + 1}.jpeg`,
+          title: `MATERIAL ELEMENT M${i + 1}`
+        }));
+
+        stage.innerHTML = "";
+        data.forEach((item, idx) => {
+          const shapeClass = (idx % 2 === 0) ? "shape-square" : "shape-dome";
+          const slide = document.createElement("div");
+          slide.className = `material-slide${idx === materialCurrentIndex ? " active" : ""}`;
+          slide.setAttribute("data-index", idx);
+          slide.innerHTML = `
+            <div class="material-item ${shapeClass}">
+              <div class="beige-card-wrap">
+                <div class="material-img-wrap">
+                  <img src="${item.image}" alt="${item.title}" loading="eager">
+                </div>
+                <h4>${item.title}</h4>
+              </div>
+            </div>
+          `;
+          stage.appendChild(slide);
+        });
+
+        setupControls();
+        updateToggleBtnUI();
+        updateSlideUI();
+
+        if (materialAutoSlide) {
+          startTimer();
+        }
+      };
+    })();
+
+    // Initialize Material Elements Carousel with M1 - M8
+    window.initMaterialCarousel();
 
 
     // Foundation of Heritage — 10 raw material images with matching taglines.

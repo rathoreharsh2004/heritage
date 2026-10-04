@@ -437,23 +437,8 @@
       // 5. REPEATED ENTITIES: MATERIAL PALETTE (M1 - M8)
       // ─────────────────────────────────────────────────────────────
       if (materials && materials.length > 0) {
-        const matGrid = document.getElementById('materialGrid');
-        if (matGrid) {
-          matGrid.innerHTML = '';
-          materials.forEach((mat, idx) => {
-            const shapeClass = (idx % 2 === 0) ? "shape-square" : "shape-dome";
-            const div = document.createElement("div");
-            div.className = `material-item ${shapeClass}`;
-            div.innerHTML = `
-              <div class="beige-card-wrap">
-                <div class="material-img-wrap">
-                  <img src="${mat.image}" alt="${mat.title}" loading="lazy">
-                </div>
-                <h4>${mat.title}</h4>
-              </div>
-            `;
-            matGrid.appendChild(div);
-          });
+        if (typeof window.initMaterialCarousel === 'function') {
+          window.initMaterialCarousel(materials);
         }
       }
 
