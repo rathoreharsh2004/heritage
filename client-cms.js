@@ -147,6 +147,14 @@
           if (heading && l.heading) heading.textContent = l.heading;
           const img = document.querySelector('#legacy .legacy-image');
           if (img && l.image) img.src = l.image;
+          if (l.paragraphs && l.paragraphs.some(p => /carries forward the architectural spirit/i.test(p))) {
+            l.paragraphs = [
+              'Rathore Heritage Developers brings Rajasthan’s architectural legacy to life through authentic heritage construction, traditional craftsmanship, and refined design. We create havelis, villas, resorts, and palace-style interiors featuring Rajasthani elements like Dodi entrances, Thekri glass, carved furniture, Jhomer chandeliers, Mor Pankh ceilings, Pipla Patti, Tordi craftsmanship, Ghokda domes, and Khajur Patti detailing. By blending ancestral artistry with modern engineering, we create spaces that embody royal character, strength, and timeless beauty.'
+            ];
+            if (typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('legacy', { paragraphs: l.paragraphs }).catch(() => {});
+            }
+          }
           if (l.paragraphs && l.paragraphs.length > 0) {
             const copyDiv = document.querySelector('#legacy .legacy-copy');
             if (copyDiv) {

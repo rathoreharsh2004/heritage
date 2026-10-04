@@ -33,9 +33,7 @@ const DEFAULT_DATA = {
       heading: 'A Legacy Rooted in Royal Craftsmanship.',
       image: 'about.jpg',
       paragraphs: [
-        'Rathore Heritage Developers carries forward the architectural spirit of Rajasthan through authentic heritage construction, traditional craftsmanship, and refined design. We create havelis, villas, resorts, palace-style interiors, and bespoke spaces shaped by royal proportion and cultural authenticity.',
-        'Every space is composed through signature Rajasthani details — Heritage Dodi entrances, Thekri glass, carved furniture, decorative pillars, Jhomer chandeliers, and Mor Pankh ceilings. Pipla Patti and Tordi craftsmanship add depth, character, and the unmistakable language of royal interiors.',
-        'Ghokda-style domes, marble borders, and Khajur Patti detailing complete the architectural vocabulary. By joining ancestral artistry with disciplined civil engineering, we preserve the character of heritage while creating spaces built for strength, permanence, and timeless beauty.',
+        'Rathore Heritage Developers brings Rajasthan’s architectural legacy to life through authentic heritage construction, traditional craftsmanship, and refined design. We create havelis, villas, resorts, and palace-style interiors featuring Rajasthani elements like Dodi entrances, Thekri glass, carved furniture, Jhomer chandeliers, Mor Pankh ceilings, Pipla Patti, Tordi craftsmanship, Ghokda domes, and Khajur Patti detailing. By blending ancestral artistry with modern engineering, we create spaces that embody royal character, strength, and timeless beauty.',
       ],
       signature: 'Royal spaces. Timeless legacy.',
     },
