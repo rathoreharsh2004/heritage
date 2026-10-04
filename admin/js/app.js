@@ -430,9 +430,23 @@ const App = (() => {
   // ─────────────────────────────────────────────────────────────
   async function renderSections(container) {
     const secObj = (await Database.getSections()) || {};
+    const friendlyTitles = {
+      hero: 'Hero Section (Main Banner)',
+      legacy: 'Raj Virasat (About / Legacy)',
+      leadershipHeader: 'Leadership & Vision Header',
+      craftsmanshipHeader: 'Shilp Kala (Craftsmanship Header)',
+      materialsHeader: 'Material Palette Header',
+      projectsHeader: 'Signature Projects Header',
+      consultancy: 'Heritage Consultancy & 6 Process Steps',
+      rawMaterialsHeader: 'Raw Materials Header',
+      darbarGalleryHeader: 'Darbar Gallery Header',
+      whyRhd: 'Why Choose RHD (Below Darbar Gallery)',
+      approach: 'Approach & Principles',
+      servicesHeader: 'What We Offer (Services Header)'
+    };
     const sections = Object.entries(secObj).map(([sectionKey, data]) => ({
       sectionKey,
-      title: data.title || sectionKey,
+      title: friendlyTitles[sectionKey] || data.title || sectionKey,
       data,
     }));
 
@@ -515,6 +529,55 @@ const App = (() => {
       `;
     }
 
+    if (Array.isArray(d.steps) && d.steps.length > 0) {
+      html += `
+        <div class="form-group full-width">
+          <label class="form-label">Consultancy Process Steps (Numbered Track)</label>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin-top:6px;">
+            ${d.steps.map((s, idx) => `
+              <div style="background:var(--bg-main); border:1px solid var(--border-color); padding:10px 12px; border-radius:6px;">
+                <label style="font-size:11px; font-weight:600; color:var(--primary); display:block; margin-bottom:4px;">Step ${s.step || String(idx + 1).padStart(2, '0')}</label>
+                <input type="text" class="form-control step-title-input" data-step-idx="${idx}" data-step-num="${s.step || String(idx + 1).padStart(2, '0')}" value="${(s.title || '').replace(/"/g, '&quot;')}" style="font-size:12px;">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    if (Array.isArray(d.cards) && d.cards.length > 0) {
+      html += `
+        <div class="form-group full-width">
+          <label class="form-label">Feature Cards</label>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-top:6px;">
+            ${d.cards.map((c, idx) => `
+              <div style="background:var(--bg-main); border:1px solid var(--border-color); padding:12px; border-radius:6px;">
+                <div style="font-weight:600; font-size:12px; color:var(--primary); margin-bottom:6px;">Card ${c.num || String(idx + 1).padStart(2, '0')}</div>
+                <input type="text" class="form-control card-title-input" data-card-idx="${idx}" data-card-num="${c.num || String(idx + 1).padStart(2, '0')}" placeholder="Card Title" value="${(c.title || '').replace(/"/g, '&quot;')}" style="margin-bottom:8px; font-size:12px; font-weight:600;">
+                <textarea class="form-control card-text-input" data-card-idx="${idx}" placeholder="Card Description" style="min-height:70px; font-size:12px;">${c.text || ''}</textarea>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    if (Array.isArray(d.principles) && d.principles.length > 0) {
+      html += `
+        <div class="form-group full-width">
+          <label class="form-label">Guiding Principles</label>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:12px; margin-top:6px;">
+            ${d.principles.map((p, idx) => `
+              <div style="background:var(--bg-main); border:1px solid var(--border-color); padding:10px 12px; border-radius:6px;">
+                <label style="font-size:11px; font-weight:600; color:var(--primary); display:block; margin-bottom:4px;">Principle ${p.number || String(idx + 1).padStart(2, '0')}</label>
+                <input type="text" class="form-control principle-title-input" data-principle-idx="${idx}" data-principle-num="${p.number || String(idx + 1).padStart(2, '0')}" value="${(p.title || '').replace(/"/g, '&quot;')}" style="font-size:12px;">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     return html || '<p style="color:var(--text-muted);">No editable fields configured for this section.</p>';
   }
 
@@ -531,6 +594,38 @@ const App = (() => {
         data[key] = input.value;
       }
     });
+
+    // Check for process steps
+    const stepInputs = card.querySelectorAll('.step-title-input');
+    if (stepInputs.length > 0) {
+      data.steps = Array.from(stepInputs).map(inp => ({
+        step: inp.getAttribute('data-step-num') || '',
+        title: inp.value.trim()
+      }));
+    }
+
+    // Check for feature cards (e.g. whyRhd)
+    const cardTitleInputs = card.querySelectorAll('.card-title-input');
+    if (cardTitleInputs.length > 0) {
+      data.cards = Array.from(cardTitleInputs).map(inp => {
+        const idx = inp.getAttribute('data-card-idx');
+        const textInp = card.querySelector(`.card-text-input[data-card-idx="${idx}"]`);
+        return {
+          num: inp.getAttribute('data-card-num') || '',
+          title: inp.value.trim(),
+          text: textInp ? textInp.value.trim() : ''
+        };
+      });
+    }
+
+    // Check for principles
+    const principleInputs = card.querySelectorAll('.principle-title-input');
+    if (principleInputs.length > 0) {
+      data.principles = Array.from(principleInputs).map(inp => ({
+        number: inp.getAttribute('data-principle-num') || '',
+        title: inp.value.trim()
+      }));
+    }
 
     try {
       await Database.saveSection(sectionKey, data);

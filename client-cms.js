@@ -219,6 +219,24 @@
               `;
             }
           }
+          if (c.steps && Array.isArray(c.steps) && c.steps.length > 0) {
+            const track = document.querySelector('.consultancy-process-track');
+            if (track) {
+              track.innerHTML = c.steps.map((s, idx) => `
+                <div class="consultancy-step-box">
+                  <span class="consultancy-step-num">${s.step || String(idx + 1).padStart(2, '0')}</span>
+                  <span class="consultancy-step-title">${s.title || ''}</span>
+                </div>
+                ${idx < c.steps.length - 1 ? `
+                  <div class="consultancy-step-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                ` : ''}
+              `).join('');
+            }
+          }
         }
 
         // Raw Materials Header
