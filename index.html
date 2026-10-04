@@ -1331,8 +1331,6 @@
 
     .material-img-wrap {
       width: 100%;
-      height: clamp(380px, 48vw, 620px);
-      max-height: 72vh;
       position: relative;
       overflow: hidden;
       margin-bottom: 18px;
@@ -1343,26 +1341,14 @@
       background: rgba(36, 22, 14, 0.04);
     }
 
-    @media (max-width: 768px) {
-      .material-img-wrap {
-        height: clamp(280px, 55vw, 420px);
-        margin-bottom: 14px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .material-img-wrap {
-        height: clamp(240px, 62vw, 320px);
-      }
-    }
-
     .material-element-card img,
     .material-img-wrap img {
       width: 100%;
-      height: 100%;
+      height: auto;
       display: block;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
+      border-radius: 4px;
       transition: transform 0.8s var(--ease);
     }
 
@@ -4417,12 +4403,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       const MATERIAL_INTERVAL_MS = 5000;
 
       const DEFAULT_MATERIALS = [
-        { id: "material-1", code: "M1", title: "Stone", image: "M6.jpeg", order: 1 },
-        { id: "material-2", code: "M2", title: "Marble", image: "M7.jpeg", order: 2 },
-        { id: "material-3", code: "M3", title: "Finish", image: "M2.jpeg", order: 3 },
-        { id: "material-4", code: "M4", title: "Glass", image: "M4.jpeg", order: 4 },
-        { id: "material-5", code: "M5", title: "Wood", image: "M1.jpeg", order: 5 },
-        { id: "material-6", code: "M6", title: "Metal", image: "M5.jpeg", order: 6 },
+        { id: "material-1", code: "M1", title: "Stone", image: "material-stone.jpg", order: 1 },
+        { id: "material-2", code: "M2", title: "Marble", image: "material-marble.jpg", order: 2 },
+        { id: "material-3", code: "M3", title: "Finish", image: "material-finish.jpg", order: 3 },
+        { id: "material-4", code: "M4", title: "Glass", image: "material-glass.jpg", order: 4 },
+        { id: "material-5", code: "M5", title: "Wood", image: "material-wood.jpg", order: 5 },
       ];
 
       function stopTimer() {
@@ -4459,7 +4444,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         const stage = document.getElementById("materialGrid");
         if (!stage) return;
         const slides = stage.querySelectorAll(".material-slide");
-        const total = slides.length || 6;
+        const total = slides.length || DEFAULT_MATERIALS.length;
         materialCurrentIndex = (index % total + total) % total;
         updateSlideUI();
         if (materialAutoSlide) {
@@ -4517,7 +4502,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         if (!stage) return;
 
         let data = (items && items.length > 0) ? items : DEFAULT_MATERIALS;
-        if (data.length !== 6 || data.some(d => /MATERIAL ELEMENT M/i.test(d.title))) {
+        if (data.some(d => /MATERIAL ELEMENT M/i.test(d.title)) || data.length === 8) {
           data = DEFAULT_MATERIALS;
         }
 

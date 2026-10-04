@@ -462,17 +462,16 @@
       }
 
       // ─────────────────────────────────────────────────────────────
-      // 5. REPEATED ENTITIES: THE ROYAL MATERIAL PALETTE (6 MATERIALS)
+      // 5. REPEATED ENTITIES: THE ROYAL MATERIAL PALETTE
       // ─────────────────────────────────────────────────────────────
       if (materials && materials.length > 0) {
-        if (materials.length !== 6 || materials.some(m => /MATERIAL ELEMENT M/i.test(m.title))) {
+        if (materials.some(m => /MATERIAL ELEMENT M/i.test(m.title)) || materials.length === 8) {
           materials = [
-            { id: 'material-1', code: 'M1', title: 'Stone', image: 'M6.jpeg', order: 1 },
-            { id: 'material-2', code: 'M2', title: 'Marble', image: 'M7.jpeg', order: 2 },
-            { id: 'material-3', code: 'M3', title: 'Finish', image: 'M2.jpeg', order: 3 },
-            { id: 'material-4', code: 'M4', title: 'Glass', image: 'M4.jpeg', order: 4 },
-            { id: 'material-5', code: 'M5', title: 'Wood', image: 'M1.jpeg', order: 5 },
-            { id: 'material-6', code: 'M6', title: 'Metal', image: 'M5.jpeg', order: 6 },
+            { id: 'material-1', code: 'M1', title: 'Stone', image: 'material-stone.jpg', order: 1 },
+            { id: 'material-2', code: 'M2', title: 'Marble', image: 'material-marble.jpg', order: 2 },
+            { id: 'material-3', code: 'M3', title: 'Finish', image: 'material-finish.jpg', order: 3 },
+            { id: 'material-4', code: 'M4', title: 'Glass', image: 'material-glass.jpg', order: 4 },
+            { id: 'material-5', code: 'M5', title: 'Wood', image: 'material-wood.jpg', order: 5 },
           ];
         }
         if (typeof window.initMaterialCarousel === 'function') {

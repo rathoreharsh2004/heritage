@@ -380,18 +380,17 @@ async function seed() {
   await Craftsmanship.insertMany(craftsmanshipData);
   console.log('[Seed] Seeded Craftsmanship (10 Shilp Kala cards)');
 
-  // 6. MATERIAL PALETTE (6 Authentic Materials: Stone, Marble, Finish, Glass, Wood, Metal)
+  // 6. MATERIAL PALETTE (5 Authentic Presentation Boards: Stone, Marble, Finish, Glass, Wood)
   await MaterialElement.deleteMany({});
   const materialsData = [
-    { code: 'M1', title: 'Stone', image: 'M6.jpeg', order: 1 },
-    { code: 'M2', title: 'Marble', image: 'M7.jpeg', order: 2 },
-    { code: 'M3', title: 'Finish', image: 'M2.jpeg', order: 3 },
-    { code: 'M4', title: 'Glass', image: 'M4.jpeg', order: 4 },
-    { code: 'M5', title: 'Wood', image: 'M1.jpeg', order: 5 },
-    { code: 'M6', title: 'Metal', image: 'M5.jpeg', order: 6 },
+    { code: 'M1', title: 'Stone', image: 'material-stone.jpg', order: 1 },
+    { code: 'M2', title: 'Marble', image: 'material-marble.jpg', order: 2 },
+    { code: 'M3', title: 'Finish', image: 'material-finish.jpg', order: 3 },
+    { code: 'M4', title: 'Glass', image: 'material-glass.jpg', order: 4 },
+    { code: 'M5', title: 'Wood', image: 'material-wood.jpg', order: 5 },
   ];
   await MaterialElement.insertMany(materialsData);
-  console.log('[Seed] Seeded Material Elements (6 Materials)');
+  console.log('[Seed] Seeded Material Elements (Stone, Marble, Finish, Glass, Wood)');
 
   // 7. SIGNATURE PROJECTS
   await Project.deleteMany({});
