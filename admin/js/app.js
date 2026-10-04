@@ -885,7 +885,7 @@ const App = (() => {
     defaultData: { order: 1, isActive: true },
   }));
 
-  // Leaders (Balveer Singh Rathore & Yashvardhan Singh Rathore)
+  // Leaders (Balveer Rathore & Yashvardhan Singh Rathore)
   const leaderFields = [
     { name: 'name', label: 'Leader Full Name', type: 'text' },
     { name: 'designation', label: 'Designation / Role', type: 'text' },

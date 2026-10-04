@@ -361,6 +361,14 @@
       // 3. REPEATED ENTITIES: LEADERSHIP TEAM
       // ─────────────────────────────────────────────────────────────
       if (leaders && leaders.length > 0) {
+        leaders.forEach(leader => {
+          if (leader.name && /Balveer Singh Rathore/i.test(leader.name)) {
+            leader.name = 'Balveer Rathore';
+            if (typeof Database !== 'undefined' && Database.updateDocument) {
+              Database.updateDocument('leaders', leader.id, { name: 'Balveer Rathore' }).catch(() => {});
+            }
+          }
+        });
         const leadGrid = document.querySelector('.leadership-grid');
         if (leadGrid) {
           leadGrid.innerHTML = leaders.map(leader => `

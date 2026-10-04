@@ -150,7 +150,7 @@ const DEFAULT_DATA = {
   leaders: [
     {
       id: 'leader-1',
-      name: 'Balveer Singh Rathore',
+      name: 'Balveer Rathore',
       designation: 'Founder & Chief Managing Director',
       avatar: 'founder.jpeg',
       company: 'Rathore Heritage Developers',
