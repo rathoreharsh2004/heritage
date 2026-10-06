@@ -22,7 +22,8 @@
         projects,
         rawMaterials,
         darbarSlides,
-        services
+        services,
+        reviews
       ] = await Promise.all([
         Database.getSettings(),
         Database.getSections(),
@@ -33,6 +34,7 @@
         Database.getCollection('rawMaterials'),
         Database.getCollection('darbarSlides'),
         Database.getCollection('services'),
+        Database.getCollection('reviews'),
       ]);
 
       // ─────────────────────────────────────────────────────────────
@@ -371,6 +373,17 @@
           if (heading && sh.heading) heading.textContent = sh.heading;
         }
 
+        // Reviews Header
+        if (sections.reviewsHeader) {
+          const rh = sections.reviewsHeader;
+          const eye = document.querySelector('#reviews .eyebrow');
+          if (eye && rh.eyebrow) eye.textContent = rh.eyebrow;
+          const heading = document.querySelector('#reviews .section-title');
+          if (heading && rh.heading) heading.textContent = rh.heading;
+          const intro = document.querySelector('#reviews .section-intro');
+          if (intro && rh.intro) intro.textContent = rh.intro;
+        }
+
         // Contact Header
         if (sections.contactHeader) {
           const ch = sections.contactHeader;
@@ -549,7 +562,12 @@
       // ─────────────────────────────────────────────────────────────
       if (darbarSlides && darbarSlides.length > 0 && typeof heritageSlides !== 'undefined') {
         heritageSlides.length = 0;
-        darbarSlides.forEach(ds => heritageSlides.push(ds));
+        darbarSlides.forEach((ds, idx) => {
+          if (ds.image && ds.image.toLowerCase().includes('oladar') && idx < 10) {
+            ds.image = `Darbar ${idx + 1}.jpg`;
+          }
+          heritageSlides.push(ds);
+        });
 
         const dotsContainer = document.getElementById("heritageSliderDots");
         if (dotsContainer) {
@@ -584,6 +602,44 @@
               <p>${srv.description}</p>
             </article>
           `).join('');
+        }
+      }
+
+      // ─────────────────────────────────────────────────────────────
+      // 9B. REPEATED ENTITIES: ROYAL PATRON REVIEWS
+      // ─────────────────────────────────────────────────────────────
+      if (reviews && reviews.length > 0) {
+        const track = document.getElementById('reviewsSliderTrack');
+        if (track) {
+          track.innerHTML = reviews.map(rev => {
+            const rating = rev.rating || 5;
+            const stars = Array(rating).fill('<i class="fa-solid fa-star"></i>').join('');
+            const initials = rev.avatar || (rev.name ? rev.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase() : 'RP');
+            return `
+              <div class="review-card">
+                <div class="review-card-top">
+                  <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                  <div class="review-stars">
+                    ${stars}
+                  </div>
+                </div>
+                <p class="review-text">"${rev.text || ''}"</p>
+                <div class="review-author-wrap">
+                  <div class="review-avatar-seal">${initials}</div>
+                  <div class="review-author-info">
+                    <h4>${rev.name || ''}</h4>
+                    <div class="review-author-role">${rev.role || ''}</div>
+                    <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> ${rev.project || 'Verified Heritage Project'}</div>
+                    <div class="review-location"><i class="fa-solid fa-location-dot"></i> ${rev.city || 'Rajasthan'}</div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          if (typeof window.refreshReviewsCarousel === 'function') {
+            window.refreshReviewsCarousel();
+          }
         }
       }
 

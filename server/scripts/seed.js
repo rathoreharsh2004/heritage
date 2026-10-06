@@ -464,23 +464,33 @@ async function seed() {
   await Project.insertMany(projectsData);
   console.log('[Seed] Seeded Signature Projects (4 projects with sub-pages)');
 
-  // 8. RAW MATERIALS (Foundation of Heritage 11 slides)
+  // 8. RAW MATERIALS (Foundation of Heritage 21 slides)
   await RawMaterial.deleteMany({});
   const rawMaterialsData = [
-    { type: 'image', src: 'raw10.jpeg', tagline: 'THE FIRST LAYER OF TIMELESS CRAFT', order: 1 },
-    { type: 'image', src: 'raw6.jpeg', tagline: 'STONE THAT GIVES HERITAGE ITS STRENGTH', order: 2 },
-    { type: 'image', src: 'raw3.jpeg', tagline: 'TIMBER SHAPED FOR A LIVING LEGACY', order: 3 },
-    { type: 'image', src: 'raw4.jpeg', tagline: 'LIME AND EARTH, THE SOUL OF TRADITION', order: 4 },
-    { type: 'image', src: 'raw5.jpeg', tagline: 'METAL DETAILING THAT CARRIES ROYAL CHARACTER', order: 5 },
-    { type: 'image', src: 'raw10.jpeg', tagline: 'HANDCRAFTED SURFACES BORN FROM PATIENCE', order: 6 },
-    { type: 'video', src: 'raw7.mp4', tagline: 'FOUNDATION ELEMENTS BUILT TO ENDURE', order: 7 },
-    { type: 'video', src: 'raw8.mp4', tagline: 'TEXTURES THAT AGE WITH GRACE', order: 8 },
-    { type: 'video', src: 'raw9.mp4', tagline: 'CRAFT MATERIALS THAT BECOME ARCHITECTURE', order: 9 },
-    { type: 'video', src: 'raw10.mp4', tagline: 'FROM RAW ELEMENTS TO TIMELESS HERITAGE', order: 10 },
-    { type: 'video', src: 'raw11.mp4', tagline: 'WHERE RAW MATERIAL BECOMES LIVING HERITAGE', order: 11 },
+    { type: 'image', src: 'raw1.jpg', tagline: 'THE FIRST LAYER OF TIMELESS CRAFT', order: 1 },
+    { type: 'video', src: 'raw1.mp4', tagline: 'LIVING ARTISANSHIP IN MOTION', order: 2 },
+    { type: 'image', src: 'raw2.jpg', tagline: 'STONE THAT GIVES HERITAGE ITS STRENGTH', order: 3 },
+    { type: 'video', src: 'raw2.mp4', tagline: 'THE RHYTHM OF CHISEL AND STONE', order: 4 },
+    { type: 'image', src: 'raw3.jpg', tagline: 'TIMBER SHAPED FOR A LIVING LEGACY', order: 5 },
+    { type: 'video', src: 'raw3.mp4', tagline: 'HAND-CARVED DETAILS COMING TO LIFE', order: 6 },
+    { type: 'image', src: 'raw4.jpg', tagline: 'LIME AND EARTH, THE SOUL OF TRADITION', order: 7 },
+    { type: 'video', src: 'raw4.mp4', tagline: 'MASTER CRAFTSMEN AT SACRED WORK', order: 8 },
+    { type: 'image', src: 'raw5.jpg', tagline: 'METAL DETAILING THAT CARRIES ROYAL CHARACTER', order: 9 },
+    { type: 'video', src: 'raw5.mp4', tagline: 'FORGING TIMELESS ORNAMENTATION', order: 10 },
+    { type: 'image', src: 'raw6.jpg', tagline: 'HANDCRAFTED SURFACES BORN FROM PATIENCE', order: 11 },
+    { type: 'video', src: 'raw6.mp4', tagline: 'TEXTURES CRAFTED BY MASTER HANDS', order: 12 },
+    { type: 'image', src: 'raw7.jpg', tagline: 'FOUNDATION ELEMENTS BUILT TO ENDURE', order: 13 },
+    { type: 'video', src: 'raw7.mp4', tagline: 'STRUCTURAL HARMONY IN MOTION', order: 14 },
+    { type: 'image', src: 'raw8.jpg', tagline: 'TEXTURES THAT AGE WITH GRACE', order: 15 },
+    { type: 'video', src: 'raw8.mp4', tagline: 'CENTURIES-OLD TECHNIQUES IN PRACTICE', order: 16 },
+    { type: 'image', src: 'raw9.jpg', tagline: 'CRAFT MATERIALS THAT BECOME ARCHITECTURE', order: 17 },
+    { type: 'video', src: 'raw9.mp4', tagline: 'TRADITIONAL PROPORTION AND HONEST FORM', order: 18 },
+    { type: 'image', src: 'raw10.jpg', tagline: 'FROM RAW ELEMENTS TO TIMELESS HERITAGE', order: 19 },
+    { type: 'video', src: 'raw10.mp4', tagline: 'THE LIVING SOUL OF ARCHITECTURE', order: 20 },
+    { type: 'image', src: 'raw11.jpeg', tagline: 'WHERE RAW MATERIAL BECOMES LIVING HERITAGE', order: 21 },
   ];
   await RawMaterial.insertMany(rawMaterialsData);
-  console.log('[Seed] Seeded Raw Materials (11 slides)');
+  console.log('[Seed] Seeded Raw Materials (21 slides)');
 
   // 9. DARBAR GALLERY (10 Oladar Haveli slides)
   await DarbarSlide.deleteMany({});

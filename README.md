@@ -94,7 +94,7 @@ The CMS navigation and database schemas directly reflect the structure of this w
 | **Shilp Kala (Craftsmanship)** | `craftsmanships` | 10 palace-style craft cards (Elevations, Doors, Jharokhas, Stone, Pipla Patti, Thekri Glass, Marble, Domes, Chandeliers, Interiors) with sub-galleries |
 | **Leadership Team** | `leaders` | Balveer Singh Rathore (Founder & CMD) and Yashvardhan Singh Rathore (MD & Civil Engineer) |
 | **The Royal Material Palette** | `materialelements` | M1 to M8 traditional building elements with alternating square & dome shapes |
-| **Foundation of Heritage** | `rawmaterials` | 11 raw material image/video slides with headlines and counters |
+| **Foundation of Heritage** | `rawmaterials` | 21 alternating raw material image/video slides with headlines and counters |
 | **Darbar Gallery** | `darbarslides` | 10 Oladar Haveli curated showcase slides with headlines and narratives |
 | **What We Offer** | `serviceoffers` | 5 core development offerings (Havelis, Villas, Farmhouses, Hotels & Resorts, Commercial Interiors) |
 | **Client Enquiries** | `enquiries` | Real-time inbound customer project submissions from the website contact form |

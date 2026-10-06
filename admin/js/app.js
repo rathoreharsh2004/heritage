@@ -961,7 +961,7 @@ const App = (() => {
 
   // Darbar Gallery (10 Slides)
   const darbarFields = [
-    { name: 'image', label: 'Slide Image (e.g. oladar1.jpeg)', type: 'image' },
+    { name: 'image', label: 'Slide Image (e.g. Darbar 1.jpg)', type: 'image' },
     { name: 'tagline', label: 'Headline Tagline', type: 'text' },
     { name: 'subline', label: 'Subline Narrative', type: 'textarea' },
     { name: 'order', label: 'Display Order', type: 'number' },

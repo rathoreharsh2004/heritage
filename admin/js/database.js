@@ -10,8 +10,8 @@ const Database = (() => {
   let auth = null;
   let storage = null;
 
-  // Local fallback storage key (v8 ensures clean sync for Balveer Rathore name)
-  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v8';
+  // Local fallback storage key (v11 ensures clean sync for Darbar section)
+  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v11';
 
   // Initialize Local Fallback Cache from DEFAULT_DATA
   function getLocalData() {
@@ -30,6 +30,7 @@ const Database = (() => {
       rawMaterials: [],
       darbarSlides: [],
       services: [],
+      reviews: [],
       enquiries: [],
       media: [],
       auditLogs: [],

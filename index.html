@@ -2823,27 +2823,27 @@
     }
 
     .raw-material-image-wrap {
-      position: relative;
-      height: 430px;
+      width: 100%;
+      aspect-ratio: 16 / 9;
       overflow: hidden;
+      position: relative;
       background: var(--brown-soft);
     }
 
-    @media (min-width: 768px) {
-      .raw-material-image-wrap {
-        height: 560px;
-      }
-    }
-
+    .raw-material-image-wrap video,
     .raw-material-image-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      display: block;
       object-fit: cover;
-      transition: opacity .45s ease, transform 1s var(--ease);
-    }
-
-    .raw-material-card:hover .raw-material-image-wrap img {
-      transform: scale(1.025);
+      object-position: center;
+      aspect-ratio: 16 / 9;
+      transition: opacity .45s ease;
+      border: 0;
+      outline: none;
     }
 
     .raw-material-caption {
@@ -2937,9 +2937,6 @@
     }
 
     @media (max-width: 767px) {
-      .raw-material-image-wrap {
-        height: 360px;
-      }
 
       .raw-material-controls {
         right: 24px;
@@ -3054,21 +3051,14 @@
       margin-right: auto;
     }
 
-    .raw-material-image-wrap img,
-    .raw-material-image-wrap video {
+    .raw-material-image-wrap video,
+    .raw-material-image-wrap img {
       width: 100%;
       height: 100%;
+      display: block;
       object-fit: cover;
-      transition: opacity .45s ease, transform 1s var(--ease);
-    }
-    .raw-material-image-wrap video {
-      position: absolute;
-      inset: 0;
-      display: none;
-      opacity: 0;
-    }
-    .raw-material-card:hover .raw-material-image-wrap video {
-      transform: scale(1.025);
+      object-position: center;
+      aspect-ratio: 16 / 9;
     }
 
     .footer-logo {
@@ -3336,6 +3326,355 @@
       font-weight: 600;
       letter-spacing: 0.01em;
     }
+
+    /* =========================================================
+       ROYAL PATRON REVIEWS & TESTIMONIALS SECTION
+    ========================================================= */
+    .reviews-section {
+      background: radial-gradient(circle at 50% 15%, #2a160d 0%, #170b07 80%);
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 110px;
+      border-top: 1px solid rgba(197, 161, 91, 0.22);
+      border-bottom: 1px solid rgba(197, 161, 91, 0.22);
+    }
+
+    .reviews-section::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 750px;
+      height: 750px;
+      background: radial-gradient(circle, rgba(197, 161, 91, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .reviews-header {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .reviews-trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 24px;
+      background: rgba(42, 22, 13, 0.65);
+      border: 1px solid rgba(197, 161, 91, 0.38);
+      border-radius: 40px;
+      margin: 26px auto 44px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stars-cluster {
+      color: var(--gold-light);
+      display: flex;
+      gap: 3px;
+      font-size: 13px;
+    }
+
+    .trust-rating {
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--gold-light);
+      letter-spacing: .05em;
+    }
+
+    .trust-dot {
+      color: rgba(197, 161, 91, 0.5);
+    }
+
+    .trust-stat {
+      font-size: 11px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--beige);
+    }
+
+    .trust-stat i {
+      color: var(--gold);
+      margin-right: 4px;
+    }
+
+    /* Carousel Wrapper */
+    .reviews-carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding: 15px 0 25px;
+      margin: 0 auto;
+    }
+
+    .reviews-slider-track {
+      display: flex;
+      gap: 26px;
+      transition: transform 0.6s var(--ease);
+      will-change: transform;
+    }
+
+    .review-card {
+      flex: 0 0 calc(33.333% - 17.5px);
+      background: linear-gradient(160deg, rgba(42, 22, 13, 0.94) 0%, rgba(23, 11, 7, 0.98) 100%);
+      border: 1px solid rgba(197, 161, 91, 0.32);
+      border-radius: 4px;
+      padding: 36px 30px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+      transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+      min-height: 380px;
+    }
+
+    .review-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 24px 50px rgba(197, 161, 91, 0.14), 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .review-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(197, 161, 91, 0.65), transparent);
+    }
+
+    .review-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .review-quote-icon {
+      font-size: 26px;
+      color: rgba(197, 161, 91, 0.45);
+      line-height: 1;
+      transition: color 0.3s ease;
+    }
+
+    .review-card:hover .review-quote-icon {
+      color: var(--gold);
+    }
+
+    .review-stars {
+      color: var(--gold);
+      display: flex;
+      gap: 3px;
+      font-size: 13px;
+    }
+
+    .review-text {
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.68;
+      color: #fbf5ea;
+      font-style: italic;
+      margin-bottom: 26px;
+      flex-grow: 1;
+    }
+
+    .review-author-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-top: 1px solid rgba(197, 161, 91, 0.2);
+      padding-top: 20px;
+    }
+
+    .review-avatar-seal {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #432619 0%, #170b07 100%);
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 10px rgba(197, 161, 91, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: .08em;
+      flex-shrink: 0;
+    }
+
+    .review-author-info {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .review-author-info h4 {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: .03em;
+      margin-bottom: 2px;
+      text-transform: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .review-author-role {
+      font-size: 12px;
+      color: var(--beige);
+      opacity: .92;
+      letter-spacing: .03em;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .review-project-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      letter-spacing: .05em;
+      color: var(--gold);
+      background: rgba(197, 161, 91, 0.1);
+      border: 1px solid rgba(197, 161, 91, 0.25);
+      border-radius: 12px;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+
+    .review-location {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Controls Bar */
+    .reviews-controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .reviews-nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(42, 22, 13, 0.85);
+      border: 1px solid rgba(197, 161, 91, 0.4);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .reviews-nav-btn:hover {
+      background: var(--gold);
+      color: var(--brown-deep);
+      border-color: var(--gold-light);
+      transform: scale(1.08);
+    }
+
+    .reviews-pagination-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .review-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(197, 161, 91, 0.3);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+
+    .review-dot.active {
+      width: 24px;
+      border-radius: 10px;
+      background: var(--gold-light);
+      box-shadow: 0 0 8px rgba(197, 161, 91, 0.5);
+    }
+
+    .reviews-cta-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .review-modal-btn {
+      background: transparent;
+      color: var(--gold-light) !important;
+      border: 1px solid rgba(197, 161, 91, 0.5) !important;
+    }
+
+    .review-modal-btn:hover {
+      background: rgba(197, 161, 91, 0.12) !important;
+      border-color: var(--gold) !important;
+    }
+
+    /* Review Star Selector in Modal */
+    .star-rating-select {
+      display: flex;
+      gap: 8px;
+      font-size: 22px;
+      color: var(--gold);
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .star-rating-select i {
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .star-rating-select i:hover {
+      transform: scale(1.25);
+    }
+
+    /* Responsive Track */
+    @media (max-width: 1024px) {
+      .review-card {
+        flex: 0 0 calc(50% - 13px);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .review-card {
+        flex: 0 0 100%;
+        min-height: auto;
+      }
+      .reviews-trust-badge {
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 18px;
+      }
+      .trust-dot {
+        display: none;
+      }
+    }
   </style>
 
 </head>
@@ -3375,6 +3714,7 @@
       <a href="#offer">Services</a>
       <a href="#projects">Projects</a>
       <a href="#heritageproj">Gallery</a>
+      <a href="#reviews">Reviews</a>
       <a href="#contact">Consultation</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -3834,12 +4174,12 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         <div class="raw-material-layout">
           <div class="raw-material-card">
             <div class="raw-material-image-wrap">
-              <img id="rawMaterialImage" src="raw10.jpeg" alt="Raw Material Element 1" loading="lazy">
+              <img id="rawMaterialImage" src="raw1.jpg" alt="Raw Material Element 1" loading="lazy">
               <video id="rawMaterialVideo" muted loop playsinline preload="metadata"></video>
             </div>
 
             <div class="raw-material-caption">
-              <div class="raw-material-counter" id="rawMaterialCounter">01 / 11</div>
+              <div class="raw-material-counter" id="rawMaterialCounter">01 / 21</div>
               <h3 id="rawMaterialTagline">THE FIRST LAYER OF TIMELESS CRAFT</h3>
             </div>
 
@@ -3882,7 +4222,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           </div>
 
           <div class="heritage-featured-image">
-            <img id="heritageFeaturedImage" src="oladar1.jpeg" alt="Oladar Haveli Darbar Gallery">
+            <img id="heritageFeaturedImage" src="Darbar 1.jpg" alt="Darbar Gallery">
           </div>
 
           <div class="heritage-slider-dots" id="heritageSliderDots"></div>
@@ -4049,6 +4389,252 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       </div>
     </section>
 
+    <!-- PATRON REVIEWS / TESTIMONIALS SECTION -->
+    <section class="section reviews-section" id="reviews">
+      <div class="container">
+        <div class="reviews-header text-center">
+          <div class="eyebrow">Royal Patrons · Living Reflections</div>
+          <h2 class="section-title">Words of Honor from Our Patrons</h2>
+          <div class="gold-line"></div>
+          <p class="section-intro">
+            Distinguished reflections from haveli custodians, palace estate owners, and heritage hospitality leaders whose architectural visions were shaped into timeless reality.
+          </p>
+
+          <!-- Trust & Rating Badge -->
+          <div class="reviews-trust-badge">
+            <div class="stars-cluster" aria-label="5 Star Rating">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <span class="trust-rating"><strong>4.98</strong> / 5.0 Rating</span>
+            <span class="trust-dot">·</span>
+            <span class="trust-stat">25+ Decades of Royal Heritage Trust</span>
+            <span class="trust-dot">·</span>
+            <span class="trust-stat"><i class="fa-solid fa-certificate"></i> Verified Heritage Projects</span>
+          </div>
+        </div>
+
+        <!-- Reviews Carousel & Track -->
+        <div class="reviews-carousel-wrapper" id="reviewsCarousel">
+          <div class="reviews-slider-track" id="reviewsSliderTrack">
+            <!-- Review 1 -->
+            <div class="review-card">
+              <div class="review-card-top">
+                <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "Rathore Heritage Developers restored our 180-year-old ancestral haveli with unmatched reverence. Balveer Singh ji and his master karigars preserved every antique jharokha while Yashvardhan's structural engineering ensured it will endure for generations. Rare authenticity and absolute devotion to living heritage."
+              </p>
+              <div class="review-author-wrap">
+                <div class="review-avatar-seal">DS</div>
+                <div class="review-author-info">
+                  <h4>Raja Digvijay Singh</h4>
+                  <div class="review-author-role">Heritage Haveli Custodian</div>
+                  <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> 180-Yr Haveli Restoration</div>
+                  <div class="review-location"><i class="fa-solid fa-location-dot"></i> Udaipur, Rajasthan</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+              <div class="review-card-top">
+                <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "From hand-chiseled Jaisalmer golden sandstone to the intricate Pipla Patti ceilings, their dedication to royal proportion is extraordinary. Building with RHD felt like commissioning master artisans in the royal courts of Mewar. Truly a masterpiece of enduring proportion."
+              </p>
+              <div class="review-author-wrap">
+                <div class="review-avatar-seal">VD</div>
+                <div class="review-author-info">
+                  <h4>Maharaj Vikramaditya Deora</h4>
+                  <div class="review-author-role">Palace Estate Owner</div>
+                  <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Palace-Style Farmhouse</div>
+                  <div class="review-location"><i class="fa-solid fa-location-dot"></i> Jodhpur, Rajasthan</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card">
+              <div class="review-card-top">
+                <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "Our guests continually remark that walking into our central courtyard feels like stepping into Rajasthan's royal era. Rathore Heritage Developers brought the vision to life using traditional lime plaster (chuna), antique stone arches, and Mor Pankh glass ceilings. Impeccable execution."
+              </p>
+              <div class="review-author-wrap">
+                <div class="review-avatar-seal">GD</div>
+                <div class="review-author-info">
+                  <h4>Thakurain Gayatri Devi</h4>
+                  <div class="review-author-role">Boutique Heritage Resort Director</div>
+                  <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Heritage Resort & Courtyards</div>
+                  <div class="review-location"><i class="fa-solid fa-location-dot"></i> Kumbhalgarh, Rajasthan</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="review-card">
+              <div class="review-card-top">
+                <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "Finding modern builders who understand the sacred geometry of Rajasthani architecture is rare. Yashvardhan and his father masterfully integrated modern acoustic comfort and civil engineering with authentic hand-carved stone domes, Heritage Dodis, and traditional courtyards."
+              </p>
+              <div class="review-author-wrap">
+                <div class="review-avatar-seal">RR</div>
+                <div class="review-author-info">
+                  <h4>Kunwar Raghavendra Rathore</h4>
+                  <div class="review-author-role">Luxury Heritage Villa Patron</div>
+                  <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Bespoke Heritage Villa</div>
+                  <div class="review-location"><i class="fa-solid fa-location-dot"></i> Jaipur, Rajasthan</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review 5 -->
+            <div class="review-card">
+              <div class="review-card-top">
+                <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "The Thekri glass mirror-work in our central salon is breathtaking. The artisans spent months hand-cutting convex mirrors into floral medallions. Rathore Heritage Developers do not merely build structures; they preserve the cultural soul of Rajasthan at the highest echelon."
+              </p>
+              <div class="review-author-wrap">
+                <div class="review-avatar-seal">HC</div>
+                <div class="review-author-info">
+                  <h4>Dr. Harshwardhan Chauhan</h4>
+                  <div class="review-author-role">Heritage Collector & Connoisseur</div>
+                  <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Darbar Commercial Suites</div>
+                  <div class="review-location"><i class="fa-solid fa-location-dot"></i> Mount Abu, Rajasthan</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review 6 -->
+            <div class="review-card">
+              <div class="review-card-top">
+                <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "Their deep knowledge of authentic stone bonding, traditional lime mortars, and classical Mewari arches restored our heritage compound from years of wear. Delivered with uncompromising craftsmanship, total transparency, and royal dignity."
+              </p>
+              <div class="review-author-wrap">
+                <div class="review-avatar-seal">MS</div>
+                <div class="review-author-info">
+                  <h4>Bannaji Mahendra Singh</h4>
+                  <div class="review-author-role">Heritage Estate Trustee</div>
+                  <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Chhatri & Stone Jaali Architecture</div>
+                  <div class="review-location"><i class="fa-solid fa-location-dot"></i> Ranakpur, Rajasthan</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider Controls -->
+          <div class="reviews-controls-bar">
+            <button class="reviews-nav-btn" id="reviewsPrev" aria-label="Previous Reviews">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="reviews-pagination-dots" id="reviewsDots"></div>
+            <button class="reviews-nav-btn" id="reviewsNext" aria-label="Next Reviews">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Review CTA Bar -->
+        <div class="reviews-cta-wrap">
+          <a href="#contact" class="luxury-btn">
+            Commission Your Heritage Legacy <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <button type="button" class="luxury-btn review-modal-btn" id="openReviewModalBtn">
+            Share Patron Reflection <i class="fa-solid fa-feather-pointed"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATRON REVIEW SUBMISSION MODAL -->
+    <div class="consultancy-modal-backdrop" id="reviewModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="reviewModalHeading">
+      <div class="consultancy-modal-wrapper">
+        <button type="button" class="consultancy-modal-close" id="closeReviewModal" aria-label="Close reflection form">&times;</button>
+        <form class="form" id="patronReviewForm">
+          <h3 id="reviewModalHeading">SHARE PATRON REFLECTION</h3>
+          <p style="font-size:13px; color:var(--beige); margin-bottom:18px; line-height:1.45;">
+            Honor us with your experience. Your reflection will be shared with fellow connoisseurs of royal Rajasthan architecture.
+          </p>
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" name="name" required placeholder="e.g., Rawat Ranveer Singh">
+          </div>
+          <div class="field">
+            <label>Royal Title / Estate Role</label>
+            <input type="text" name="role" required placeholder="e.g., Haveli Owner, Heritage Resort Director">
+          </div>
+          <div class="field">
+            <label>Heritage Project Type</label>
+            <select name="project" required>
+              <option value="">Select project type</option>
+              <option value="Heritage Haveli Restoration">Heritage Haveli Restoration</option>
+              <option value="Luxury Heritage Villa">Luxury Heritage Villa</option>
+              <option value="Palace-Style Farmhouse">Palace-Style Farmhouse</option>
+              <option value="Heritage Hotel / Resort">Heritage Hotel / Resort</option>
+              <option value="Heritage Commercial Interior">Heritage Commercial Interior</option>
+              <option value="Bespoke Palace Craftsmanship">Bespoke Palace Craftsmanship</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>City & State</label>
+            <input type="text" name="city" required placeholder="e.g., Udaipur, Rajasthan">
+          </div>
+          <div class="field">
+            <label>Patron Rating</label>
+            <input type="hidden" name="rating" id="reviewRatingInput" value="5">
+            <div class="star-rating-select" id="starRatingSelect" aria-label="Select Rating">
+              <i class="fa-solid fa-star" data-val="1"></i>
+              <i class="fa-solid fa-star" data-val="2"></i>
+              <i class="fa-solid fa-star" data-val="3"></i>
+              <i class="fa-solid fa-star" data-val="4"></i>
+              <i class="fa-solid fa-star" data-val="5"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>Your Patron Reflection</label>
+            <textarea name="message" required placeholder="Share your experience working with Rathore Heritage Developers..." style="min-height:90px;"></textarea>
+          </div>
+          <button type="submit" class="luxury-btn" style="width:100%; justify-content:center; color:var(--ink); border-color:var(--gold-dark); margin-top:6px;">
+            Submit Patron Reflection <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <div id="reviewSuccessMsg" style="display:none; color:var(--gold-light); font-size:14px; text-align:center; margin-top:14px; font-style:italic;">
+            <i class="fa-solid fa-check-circle"></i> Dhanyawad Sa! Your patron reflection has been added with honor.
+          </div>
+        </form>
+      </div>
+    </div>
+
 
     <!-- CONTACT -->
     <section class="section beige" id="contact">
@@ -4145,6 +4731,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <a href="#craftsmanship">Craftsmanship</a>
             <a href="#materialboard">The Royal Material Palette</a>
             <a href="#projects">Signature Projects</a>
+            <a href="#reviews">Patron Reviews</a>
             <a href="#contact">Contact</a>
           </div>
           <div class="footer-col">
@@ -4538,19 +5125,29 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     window.initMaterialCarousel();
 
 
-    // Foundation of Heritage — 10 raw material images with matching taglines.
-    const rawMaterialSlides = [
-      { type: "image", src: "raw10.jpeg", tagline: "THE FIRST LAYER OF TIMELESS CRAFT" },
-      { type: "image", src: "raw6.jpeg", tagline: "STONE THAT GIVES HERITAGE ITS STRENGTH" },
-      { type: "image", src: "raw3.jpeg", tagline: "TIMBER SHAPED FOR A LIVING LEGACY" },
-      { type: "image", src: "raw4.jpeg", tagline: "LIME AND EARTH, THE SOUL OF TRADITION" },
-      { type: "image", src: "raw5.jpeg", tagline: "METAL DETAILING THAT CARRIES ROYAL CHARACTER" },
-      { type: "image", src: "raw10.jpeg", tagline: "HANDCRAFTED SURFACES BORN FROM PATIENCE" },
-      { type: "video", src: "raw7.mp4", tagline: "FOUNDATION ELEMENTS BUILT TO ENDURE" },
-      { type: "video", src: "raw8.mp4", tagline: "TEXTURES THAT AGE WITH GRACE" },
-      { type: "video", src: "raw9.mp4", tagline: "CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
-      { type: "video", src: "raw10.mp4", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" },
-      { type: "video", src: "raw11.mp4", tagline: "WHERE RAW MATERIAL BECOMES LIVING HERITAGE" }
+    // Foundation of Heritage — 21 raw material media slides with alternating images and videos.
+    let rawMaterialSlides = [
+      { type: "image", src: "raw1.jpg", tagline: "THE FIRST LAYER OF TIMELESS CRAFT" },
+      { type: "video", src: "raw1.mp4", tagline: "LIVING ARTISANSHIP IN MOTION" },
+      { type: "image", src: "raw2.jpg", tagline: "STONE THAT GIVES HERITAGE ITS STRENGTH" },
+      { type: "video", src: "raw2.mp4", tagline: "THE RHYTHM OF CHISEL AND STONE" },
+      { type: "image", src: "raw3.jpg", tagline: "TIMBER SHAPED FOR A LIVING LEGACY" },
+      { type: "video", src: "raw3.mp4", tagline: "HAND-CARVED DETAILS COMING TO LIFE" },
+      { type: "image", src: "raw4.jpg", tagline: "LIME AND EARTH, THE SOUL OF TRADITION" },
+      { type: "video", src: "raw4.mp4", tagline: "MASTER CRAFTSMEN AT SACRED WORK" },
+      { type: "image", src: "raw5.jpg", tagline: "METAL DETAILING THAT CARRIES ROYAL CHARACTER" },
+      { type: "video", src: "raw5.mp4", tagline: "FORGING TIMELESS ORNAMENTATION" },
+      { type: "image", src: "raw6.jpg", tagline: "HANDCRAFTED SURFACES BORN FROM PATIENCE" },
+      { type: "video", src: "raw6.mp4", tagline: "TEXTURES CRAFTED BY MASTER HANDS" },
+      { type: "image", src: "raw7.jpg", tagline: "FOUNDATION ELEMENTS BUILT TO ENDURE" },
+      { type: "video", src: "raw7.mp4", tagline: "STRUCTURAL HARMONY IN MOTION" },
+      { type: "image", src: "raw8.jpg", tagline: "TEXTURES THAT AGE WITH GRACE" },
+      { type: "video", src: "raw8.mp4", tagline: "CENTURIES-OLD TECHNIQUES IN PRACTICE" },
+      { type: "image", src: "raw9.jpg", tagline: "CRAFT MATERIALS THAT BECOME ARCHITECTURE" },
+      { type: "video", src: "raw9.mp4", tagline: "TRADITIONAL PROPORTION AND HONEST FORM" },
+      { type: "image", src: "raw10.jpg", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" },
+      { type: "video", src: "raw10.mp4", tagline: "THE LIVING SOUL OF ARCHITECTURE" },
+      { type: "image", src: "raw11.jpeg", tagline: "WHERE RAW MATERIAL BECOMES LIVING HERITAGE" }
     ];
 
     let rawMaterialIndex = 0;
@@ -4562,50 +5159,67 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     const rawMaterialNext = document.getElementById("rawMaterialNext");
 
     function showRawMaterial(index) {
+      if (!rawMaterialSlides || rawMaterialSlides.length === 0) return;
       rawMaterialIndex = (index + rawMaterialSlides.length) % rawMaterialSlides.length;
       const slide = rawMaterialSlides[rawMaterialIndex];
-      rawMaterialImage.style.opacity = "0";
-      rawMaterialVideo.style.opacity = "0";
-      rawMaterialVideo.pause();
+      if (rawMaterialImage) rawMaterialImage.style.opacity = "0";
+      if (rawMaterialVideo) {
+        rawMaterialVideo.style.opacity = "0";
+        rawMaterialVideo.pause();
+      }
 
       setTimeout(() => {
         if (slide.type === "video") {
-          rawMaterialImage.style.display = "none";
-          rawMaterialVideo.style.display = "block";
-          rawMaterialVideo.src = slide.src;
-          rawMaterialVideo.load();
-          rawMaterialVideo.play().catch(() => {});
-          requestAnimationFrame(() => { rawMaterialVideo.style.opacity = "1"; });
+          if (rawMaterialImage) rawMaterialImage.style.display = "none";
+          if (rawMaterialVideo) {
+            rawMaterialVideo.style.display = "block";
+            rawMaterialVideo.src = slide.src;
+            rawMaterialVideo.load();
+            rawMaterialVideo.play().catch(() => {});
+            requestAnimationFrame(() => { rawMaterialVideo.style.opacity = "1"; });
+          }
         } else {
-          rawMaterialVideo.style.display = "none";
-          rawMaterialImage.src = slide.src;
-          rawMaterialImage.alt = slide.tagline;
-          rawMaterialImage.style.display = "block";
-          requestAnimationFrame(() => { rawMaterialImage.style.opacity = "1"; });
+          if (rawMaterialVideo) rawMaterialVideo.style.display = "none";
+          if (rawMaterialImage) {
+            rawMaterialImage.src = slide.src;
+            rawMaterialImage.alt = slide.tagline || `Raw Material Slide ${rawMaterialIndex + 1}`;
+            rawMaterialImage.style.display = "block";
+            requestAnimationFrame(() => { rawMaterialImage.style.opacity = "1"; });
+          }
         }
-        rawMaterialTagline.textContent = slide.tagline;
-        rawMaterialCounter.textContent = `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialSlides.length).padStart(2, "0")}`;
+        if (rawMaterialTagline) rawMaterialTagline.textContent = slide.tagline || "";
+        if (rawMaterialCounter) rawMaterialCounter.textContent = `${String(rawMaterialIndex + 1).padStart(2, "0")} / ${String(rawMaterialSlides.length).padStart(2, "0")}`;
       }, 180);
     }
+
+    window.initRawMaterials = function(customItems) {
+      if (Array.isArray(customItems) && customItems.length > 0) {
+        rawMaterialSlides = customItems;
+      }
+      showRawMaterial(0);
+    };
 
     if (rawMaterialPrev && rawMaterialNext) {
       rawMaterialPrev.addEventListener("click", () => showRawMaterial(rawMaterialIndex - 1));
       rawMaterialNext.addEventListener("click", () => showRawMaterial(rawMaterialIndex + 1));
     }
 
+    // Initialize raw materials display
+    showRawMaterial(0);
+
     
     // Darbar Gallery — 10 Oladar Haveli images, one horizontal card.
     const heritageSlides = [
-      { image: "oladar1.jpeg", tagline: "A Legacy Carved Into Every Detail", subline: "Traditional artistry, royal proportion, and enduring craftsmanship brought together as living heritage." },
-      { image: "oladar2.jpeg", tagline: "Where Stone Remembers Royal Stories.", subline: "Hand-finished surfaces and architectural rhythm preserve the language of Rajasthan." },
-      { image: "oladar3.jpeg", tagline: "Craftsmanship That Speaks Without Words.", subline: "Every carved element is treated as a signature of heritage, patience and precision." },
-      { image: "oladar4.jpeg", tagline: "A Haveli Shaped By Living Tradition.", subline: "Authentic details create an atmosphere that feels rooted, intimate and unmistakably royal." },
-      { image: "oladar5.jpeg", tagline: "Royal Proportion. Timeless Presence.", subline: "Balanced forms and layered detailing turn traditional architecture into an enduring experience." },
-      { image: "oladar6.jpeg", tagline: "Details Made To Outlive Trends.", subline: "From ornament to finish, each layer is designed for beauty that grows richer with time." },
-      { image: "oladar7.jpeg", tagline: "Heritage, Reimagined For Generations.", subline: "Classical Rajasthan craftsmanship is brought together with modern execution and structural discipline." },
-      { image: "oladar8.jpeg", tagline: "The Soul Of Rajasthan In Every Frame.", subline: "Light, texture and handmade character come together to create a deeply rooted visual identity." },
-      { image: "oladar9.jpeg", tagline: "Built With Patience. Finished With Pride.", subline: "A complete heritage expression where artisanship and engineering meet with quiet confidence." },
-      { image: "oladar10.jpeg", tagline: "A Timeless Address For A Lasting Legacy.", subline: "Oladar Haveli brings architecture, craft and royal living together as one enduring story." }
+      { image: "Darbar 1.jpg", tagline: "A Legacy Carved Into Every Detail", subline: "Traditional artistry, royal proportion, and enduring craftsmanship brought together as living heritage." },
+      { image: "Darbar 2.jpg", tagline: "Where Stone Remembers Royal Stories.", subline: "Hand-finished surfaces and architectural rhythm preserve the language of Rajasthan." },
+      { image: "Darbar 3.jpg", tagline: "Craftsmanship That Speaks Without Words.", subline: "Every carved element is treated as a signature of heritage, patience and precision." },
+      { image: "Darbar 4.jpg", tagline: "A Haveli Shaped By Living Tradition.", subline: "Authentic details create an atmosphere that feels rooted, intimate and unmistakably royal." },
+      { image: "Darbar 5.jpg", tagline: "Royal Proportion. Timeless Presence.", subline: "Balanced forms and layered detailing turn traditional architecture into an enduring experience." },
+      { image: "Darbar 6.jpg", tagline: "Details Made To Outlive Trends.", subline: "From ornament to finish, each layer is designed for beauty that grows richer with time." },
+      { image: "Darbar 7.jpg", tagline: "Heritage, Reimagined For Generations.", subline: "Classical Rajasthan craftsmanship is brought together with modern execution and structural discipline." },
+      { image: "Darbar 8.jpg", tagline: "The Soul Of Rajasthan In Every Frame.", subline: "Light, texture and handmade character come together to create a deeply rooted visual identity." },
+      { image: "Darbar 9.jpg", tagline: "Built With Patience. Finished With Pride.", subline: "A complete heritage expression where artisanship and engineering meet with quiet confidence." },
+      { image: "Darbar 10.jpg", tagline: "A Timeless Address For A Lasting Legacy.", subline: "Oladar Haveli brings architecture, craft and royal living together as one enduring story." }
     ];
 
     const heritageFeaturedImage = document.getElementById("heritageFeaturedImage");
@@ -4633,7 +5247,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       heritageFeaturedImage.style.opacity = "0";
       setTimeout(() => {
         heritageFeaturedImage.src = slide.image;
-        heritageFeaturedImage.alt = `Oladar Haveli Darbar Gallery ${heritageCurrent + 1}`;
+        heritageFeaturedImage.alt = `Darbar Gallery ${heritageCurrent + 1}`;
         heritageSlideNumber.textContent = `${String(heritageCurrent + 1).padStart(2, "0")} / 10`;
         heritageSlideTagline.textContent = slide.tagline;
         heritageSlideSubline.textContent = slide.subline;
@@ -4989,6 +5603,257 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     if (window.location.hash === "#consultancyModal") {
       openConsultancyModal();
     }
+
+    // =========================================================
+    // ROYAL PATRON REVIEWS & TESTIMONIALS SLIDER
+    // =========================================================
+    (function initReviewsCarousel() {
+      const track = document.getElementById("reviewsSliderTrack");
+      const prevBtn = document.getElementById("reviewsPrev");
+      const nextBtn = document.getElementById("reviewsNext");
+      const dotsContainer = document.getElementById("reviewsDots");
+      if (!track || !prevBtn || !nextBtn) return;
+
+      let currentIndex = 0;
+      let autoplayTimer = null;
+
+      function getVisibleCount() {
+        if (window.innerWidth <= 680) return 1;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
+      }
+
+      function getMaxIndex() {
+        const cards = track.querySelectorAll(".review-card");
+        return Math.max(0, cards.length - getVisibleCount());
+      }
+
+      function updateSlider() {
+        const cards = track.querySelectorAll(".review-card");
+        if (cards.length === 0) return;
+
+        const maxIdx = getMaxIndex();
+        if (currentIndex > maxIdx) currentIndex = maxIdx;
+        if (currentIndex < 0) currentIndex = 0;
+
+        const cardWidth = cards[0].getBoundingClientRect().width;
+        const gap = 26;
+        const offset = currentIndex * (cardWidth + gap);
+        track.style.transform = `translateX(-${offset}px)`;
+
+        // Update dots
+        if (dotsContainer) {
+          const dots = dotsContainer.querySelectorAll(".review-dot");
+          dots.forEach((dot, idx) => {
+            dot.classList.toggle("active", idx === currentIndex);
+          });
+        }
+
+        prevBtn.style.opacity = currentIndex === 0 ? "0.45" : "1";
+        nextBtn.style.opacity = currentIndex >= maxIdx ? "0.45" : "1";
+      }
+
+      function buildDots() {
+        if (!dotsContainer) return;
+        dotsContainer.innerHTML = "";
+        const maxIdx = getMaxIndex();
+        const totalDots = maxIdx + 1;
+        for (let i = 0; i < totalDots; i++) {
+          const dot = document.createElement("button");
+          dot.className = "review-dot" + (i === currentIndex ? " active" : "");
+          dot.setAttribute("aria-label", `Go to review slide ${i + 1}`);
+          dot.addEventListener("click", () => {
+            currentIndex = i;
+            updateSlider();
+            restartAutoplay();
+          });
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      function nextSlide() {
+        const maxIdx = getMaxIndex();
+        currentIndex = (currentIndex >= maxIdx) ? 0 : currentIndex + 1;
+        updateSlider();
+      }
+
+      function prevSlide() {
+        const maxIdx = getMaxIndex();
+        currentIndex = (currentIndex <= 0) ? maxIdx : currentIndex - 1;
+        updateSlider();
+      }
+
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        restartAutoplay();
+      });
+
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        restartAutoplay();
+      });
+
+      function restartAutoplay() {
+        clearInterval(autoplayTimer);
+        autoplayTimer = setInterval(nextSlide, 6500);
+      }
+
+      // Pause on hover
+      const carouselWrap = document.getElementById("reviewsCarousel");
+      if (carouselWrap) {
+        carouselWrap.addEventListener("mouseenter", () => clearInterval(autoplayTimer));
+        carouselWrap.addEventListener("mouseleave", restartAutoplay);
+      }
+
+      // Touch swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      track.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      track.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) {
+          nextSlide();
+          restartAutoplay();
+        } else if (touchEndX - touchStartX > 50) {
+          prevSlide();
+          restartAutoplay();
+        }
+      }, { passive: true });
+
+      window.addEventListener("resize", () => {
+        buildDots();
+        updateSlider();
+      });
+
+      buildDots();
+      updateSlider();
+      restartAutoplay();
+
+      // Expose refresh function for CMS sync
+      window.refreshReviewsCarousel = function() {
+        currentIndex = 0;
+        buildDots();
+        updateSlider();
+      };
+    })();
+
+    // =========================================================
+    // PATRON REVIEW SUBMISSION MODAL & LIVE INTERACTION
+    // =========================================================
+    (function initReviewModal() {
+      const reviewModal = document.getElementById("reviewModal");
+      const openBtn = document.getElementById("openReviewModalBtn");
+      const closeBtn = document.getElementById("closeReviewModal");
+      const form = document.getElementById("patronReviewForm");
+      const starRatingSelect = document.getElementById("starRatingSelect");
+      const ratingInput = document.getElementById("reviewRatingInput");
+      const successMsg = document.getElementById("reviewSuccessMsg");
+
+      if (!reviewModal || !openBtn) return;
+
+      function openModal() {
+        reviewModal.classList.add("active");
+        reviewModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        reviewModal.classList.remove("active");
+        reviewModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      openBtn.addEventListener("click", openModal);
+      if (closeBtn) closeBtn.addEventListener("click", closeModal);
+      reviewModal.addEventListener("click", (e) => {
+        if (e.target === reviewModal) closeModal();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && reviewModal.classList.contains("active")) {
+          closeModal();
+        }
+      });
+
+      // Interactive Star Rating Selector
+      if (starRatingSelect && ratingInput) {
+        const stars = starRatingSelect.querySelectorAll("i");
+        stars.forEach(star => {
+          star.addEventListener("click", () => {
+            const val = parseInt(star.getAttribute("data-val"), 10) || 5;
+            ratingInput.value = val;
+            stars.forEach((s, idx) => {
+              s.className = (idx < val) ? "fa-solid fa-star" : "fa-regular fa-star";
+            });
+          });
+        });
+      }
+
+      // Form Submission
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const formData = new FormData(form);
+          const name = (formData.get("name") || "").trim();
+          const role = (formData.get("role") || "").trim();
+          const project = (formData.get("project") || "").trim();
+          const city = (formData.get("city") || "").trim();
+          const rating = parseInt(formData.get("rating") || "5", 10);
+          const message = (formData.get("message") || "").trim();
+
+          if (!name || !message) return;
+
+          // Get Initials for seal
+          const nameParts = name.split(" ").filter(Boolean);
+          const initials = nameParts.length >= 2 
+            ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
+            : name.slice(0, 2).toUpperCase();
+
+          // Create new review card
+          const track = document.getElementById("reviewsSliderTrack");
+          if (track) {
+            const newCard = document.createElement("div");
+            newCard.className = "review-card";
+            newCard.innerHTML = `
+              <div class="review-card-top">
+                <i class="fa-solid fa-quote-left review-quote-icon"></i>
+                <div class="review-stars">
+                  ${Array(rating).fill('<i class="fa-solid fa-star"></i>').join('')}
+                </div>
+              </div>
+              <p class="review-text">"${message}"</p>
+              <div class="review-author-wrap">
+                <div class="review-avatar-seal">${initials}</div>
+                <div class="review-author-info">
+                  <h4>${name}</h4>
+                  <div class="review-author-role">${role}</div>
+                  <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> ${project}</div>
+                  <div class="review-location"><i class="fa-solid fa-location-dot"></i> ${city}</div>
+                </div>
+              </div>
+            `;
+            track.insertBefore(newCard, track.firstChild);
+            if (window.refreshReviewsCarousel) window.refreshReviewsCarousel();
+          }
+
+          if (successMsg) {
+            successMsg.style.display = "block";
+          }
+
+          setTimeout(() => {
+            form.reset();
+            if (successMsg) successMsg.style.display = "none";
+            closeModal();
+            const revSection = document.getElementById("reviews");
+            if (revSection) {
+              revSection.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 1400);
+        });
+      }
+    })();
   </script>
 
   <!-- Firebase App, Firestore & Analytics Client SDKs (CDN) -->
@@ -4997,11 +5862,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
   <!-- Client-Safe Config & Database Service -->
-  <script src="firebase-config.js?v=8"></script>
-  <script src="js/default-data.js?v=8"></script>
-  <script src="js/database.js?v=8"></script>
+  <script src="firebase-config.js?v=11"></script>
+  <script src="js/default-data.js?v=11"></script>
+  <script src="js/database.js?v=11"></script>
 
   <!-- Rathore Heritage Dynamic CMS Synchronizer -->
-  <script src="client-cms.js?v=8"></script>
+  <script src="client-cms.js?v=11"></script>
 </body>
 </html>
