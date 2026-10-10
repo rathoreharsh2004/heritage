@@ -69,6 +69,13 @@
           if (creditSpan) creditSpan.textContent = settings.copyrightCredit;
         }
 
+        if (settings.address && /Ground Floor & First Floor,\s*/i.test(settings.address)) {
+          settings.address = settings.address.replace(/Ground Floor & First Floor,\s*/gi, '');
+          if (typeof Database !== 'undefined' && Database.saveSettings) {
+            Database.saveSettings({ address: settings.address }).catch(() => {});
+          }
+        }
+
         // Update contact details in Sampark section
         const contactDetails = document.querySelector('.contact-details');
         if (contactDetails && (settings.primaryPhone || settings.secondaryPhone || settings.email || settings.address)) {
@@ -94,8 +101,8 @@
             <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener" aria-label="Location">
               <div class="contact-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
               <div class="contact-address-text">
-                <span class="addr-desktop">Ground Floor &amp; First Floor, Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
-                <span class="addr-mobile">Ground Floor &amp; First Floor,<br>Building No. 14/21, Oladar Haveli,<br>Lake Palace Road, Kalaji Goraji,<br>Udaipur, Rajasthan - 313001, India</span>
+                <span class="addr-desktop">Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
+                <span class="addr-mobile">Building No. 14/21, Oladar Haveli,<br>Lake Palace Road, Kalaji Goraji,<br>Udaipur, Rajasthan - 313001, India</span>
               </div>
             </a>
           `;
@@ -329,6 +336,16 @@
           const intro = document.querySelector('.why-rhd-intro');
           if (intro && w.intro) intro.textContent = w.intro;
           if (w.cards && Array.isArray(w.cards) && w.cards.length > 0) {
+            let cardsUpdated = false;
+            w.cards.forEach(c => {
+              if (c.text && /RAJASTHANI HAVELIS/i.test(c.text)) {
+                c.text = c.text.replace(/RAJASTHANI HAVELIS/gi, 'HERITAGE HAVELIS');
+                cardsUpdated = true;
+              }
+            });
+            if (cardsUpdated && typeof Database !== 'undefined' && Database.saveSection) {
+              Database.saveSection('whyRhd', { cards: w.cards }).catch(() => {});
+            }
             const grid = document.querySelector('.why-rhd-grid');
             if (grid) {
               grid.innerHTML = w.cards.map((c, idx) => `
@@ -403,11 +420,51 @@
       // ─────────────────────────────────────────────────────────────
       if (leaders && leaders.length > 0) {
         leaders.forEach(leader => {
+          let updated = false;
+          const updatePayload = {};
+
           if (leader.name && /Balveer Singh Rathore/i.test(leader.name)) {
             leader.name = 'Balveer Rathore';
-            if (typeof Database !== 'undefined' && Database.updateDocument) {
-              Database.updateDocument('leaders', leader.id, { name: 'Balveer Rathore' }).catch(() => {});
+            updatePayload.name = 'Balveer Rathore';
+            updated = true;
+          }
+
+          if (leader.id === 'leader-1' || /Balveer/i.test(leader.name || '')) {
+            if (leader.designation !== 'Founder & Chief Visionary') {
+              leader.designation = 'Founder & Chief Visionary';
+              updatePayload.designation = 'Founder & Chief Visionary';
+              updated = true;
             }
+            if (leader.bio && Array.isArray(leader.bio)) {
+              const updatedBio = leader.bio.map(p =>
+                p.replace(/Founder (?:&|and) Chief Managing Director/gi, 'Founder & Chief Visionary')
+              );
+              if (JSON.stringify(updatedBio) !== JSON.stringify(leader.bio)) {
+                leader.bio = updatedBio;
+                updatePayload.bio = updatedBio;
+                updated = true;
+              }
+            }
+          }
+
+          if (leader.id === 'leader-2' || /Yashvardhan/i.test(leader.name || '')) {
+            if (leader.bio && Array.isArray(leader.bio)) {
+              const updatedBio = leader.bio.map(p =>
+                p.replace(
+                  /Skilled in construction detailing, material testing, estimation, BOQs, and project execution, with a strong focus on quality-driven construction\./g,
+                  'Skilled in construction detailing, material testing, and project execution with a focus on quality control and with a strong focus on quality-driven construction.'
+                )
+              );
+              if (JSON.stringify(updatedBio) !== JSON.stringify(leader.bio)) {
+                leader.bio = updatedBio;
+                updatePayload.bio = updatedBio;
+                updated = true;
+              }
+            }
+          }
+
+          if (updated && typeof Database !== 'undefined' && Database.updateDocument) {
+            Database.updateDocument('leaders', leader.id, updatePayload).catch(() => {});
           }
         });
         const leadGrid = document.querySelector('.leadership-grid');
@@ -416,7 +473,7 @@
             <div class="leader-card">
               <div class="leader-header">
                 <div class="leader-avatar">
-                  <img src="${leader.avatar}" alt="${leader.name}">
+                  <img src="${leader.avatar}" alt="${leader.name}" ${/md\.jpeg/i.test(leader.avatar) ? 'style="object-position: top center;"' : ''}>
                 </div>
                 <div class="leader-titles">
                   <h3>${leader.name}</h3>

@@ -10,12 +10,15 @@ const Database = (() => {
   let auth = null;
   let storage = null;
 
-  // Local fallback storage key (v11 ensures clean sync for Darbar section)
-  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v11';
+  // Local fallback storage key (v14 ensures clean sync for Sampark address)
+  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v14';
 
   // Initialize Local Fallback Cache from DEFAULT_DATA
   function getLocalData() {
     try {
+      localStorage.removeItem('rhd_cms_data_v11');
+      localStorage.removeItem('rhd_cms_data_v12');
+      localStorage.removeItem('rhd_cms_data_v13');
       const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (stored) return JSON.parse(stored);
     } catch (e) {}

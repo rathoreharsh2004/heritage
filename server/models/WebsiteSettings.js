@@ -31,7 +31,7 @@ const WebsiteSettingsSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    default: 'Ground Floor & First Floor, Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
+    default: 'Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
   },
   instagramUrl: {
     type: String,

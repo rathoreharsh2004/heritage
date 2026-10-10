@@ -109,7 +109,7 @@ async function seed() {
     secondaryPhone: '+91 78500 15839',
     whatsappNumber: '919414228829',
     email: 'rathoreheritagedevelopers@gmail.com',
-    address: 'Ground Floor & First Floor, Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
+    address: 'Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
     instagramUrl: 'https://instagram.com/rh_heritagebuilds',
     footerDescription: 'Preserving the soul of Rajasthan. Creating living heritage. Authentic craftsmanship interpreted for spaces of today and tomorrow.',
     copyrightCredit: 'Designed by Marwar Infotech',
@@ -269,12 +269,12 @@ async function seed() {
   await Leader.insertMany([
     {
       name: 'Balveer Singh Rathore',
-      designation: 'Founder & Chief Managing Director',
+      designation: 'Founder & Chief Visionary',
       avatar: 'founder.jpeg',
       company: 'Rathore Heritage Developers',
       order: 1,
       bio: [
-        'Under the vision and leadership of our Founder and Chief Managing Director, our work brings together the timeless soul of Indian heritage with contemporary craftsmanship and modern standards. With over 15 years of experience as a Heritage Developer, he has delivered numerous heritage projects with a focus on authenticity, cultural elegance, and architectural excellence.',
+        'Under the vision and leadership of our Founder and Chief Visionary, our work brings together the timeless soul of Indian heritage with contemporary craftsmanship and modern standards. With over 15 years of experience as a Heritage Developer, he has delivered numerous heritage projects with a focus on authenticity, cultural elegance, and architectural excellence.',
         'His expertise spans luxury havelis, heritage residences, palaces, resorts, heritage hotels, and bespoke traditional interiors. With deep knowledge of Rajasthani architecture, he provides expert guidance across heritage design, proportions, materials, craftsmanship, and traditional elements such as domes, chhatris, jharokhas, jaalis, mehraabs, intricate stonework, and marble detailing.',
         'His vision is to preserve the royal soul of Rajasthan while creating timeless spaces that combine heritage, luxury, functionality, and enduring beauty—where every project carries a distinctive story of craftsmanship and culture.',
       ],
@@ -286,7 +286,7 @@ async function seed() {
       company: 'Rathore Heritage Developers',
       order: 2,
       bio: [
-        'Yashvardhan Singh Rathore is a Civil Engineer with hands-on experience in heritage and high-rise projects, including luxury villas. He has worked as a Site Engineer and Project Manager, managing quality control, site coordination, and technical execution. Skilled in construction detailing, material testing, estimation, BOQs, and project execution, with a strong focus on quality-driven construction.',
+        'Yashvardhan Singh Rathore is a Civil Engineer with hands-on experience in heritage and high-rise projects, including luxury villas. He has worked as a Site Engineer and Project Manager, managing quality control, site coordination, and technical execution. Skilled in construction detailing, material testing, and project execution with a focus on quality control and with a strong focus on quality-driven construction.',
         'He also possesses practical knowledge of heritage craftsmanship, including jharokhas, domes, jaalis, lime mortar techniques, and traditional construction practices. He combines technical civil engineering expertise with modern project management and a deep understanding of traditional Rajasthani heritage architecture.',
       ],
     },

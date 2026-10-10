@@ -396,7 +396,7 @@ const App = (() => {
             </div>
             <div class="form-group full-width">
               <label class="form-label">Office Address</label>
-              <textarea class="form-control" name="address" rows="2">${s.address || 'Ground Floor & First Floor, Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India'}</textarea>
+              <textarea class="form-control" name="address" rows="2">${s.address || 'Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India'}</textarea>
             </div>
             <div class="form-group full-width">
               <label class="form-label">Footer Brand Narrative</label>

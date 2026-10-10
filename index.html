@@ -3788,13 +3788,13 @@
               </div>
               <div class="leader-titles">
                 <h3>Balveer Rathore</h3>
-                <span>Founder & Chief Managing Director</span>
+                <span>Founder & Chief Visionary</span>
               </div>
             </div>
             <div class="leader-body">
               
               <p>
-                Under the vision and leadership of our Founder and Chief Managing Director, our work brings together the timeless soul of Indian heritage with contemporary craftsmanship and modern standards. With over 15 years of experience as a Heritage Developer, he has delivered numerous heritage projects with a focus on authenticity, cultural elegance, and architectural excellence.
+                Under the vision and leadership of our Founder and Chief Visionary, our work brings together the timeless soul of Indian heritage with contemporary craftsmanship and modern standards. With over 15 years of experience as a Heritage Developer, he has delivered numerous heritage projects with a focus on authenticity, cultural elegance, and architectural excellence.
 
 His expertise spans luxury havelis, heritage residences, palaces, resorts, heritage hotels, and bespoke traditional interiors. With deep knowledge of Rajasthani architecture, he provides expert guidance across heritage design, proportions, materials, craftsmanship, and traditional elements such as domes, chhatris, jharokhas, jaalis, mehraabs, intricate stonework, and marble detailing.
 
@@ -3820,7 +3820,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             </div>
             <div class="leader-body">
               <p>
-                Yashvardhan Singh Rathore is a Civil Engineer with hands-on experience in heritage and high-rise projects, including luxury villas. He has worked as a Site Engineer and Project Manager, managing quality control, site coordination, and technical execution. Skilled in construction detailing, material testing, estimation, BOQs, and project execution, with a strong focus on quality-driven construction.
+                Yashvardhan Singh Rathore is a Civil Engineer with hands-on experience in heritage and high-rise projects, including luxury villas. He has worked as a Site Engineer and Project Manager, managing quality control, site coordination, and technical execution. Skilled in construction detailing, material testing, and project execution with a focus on quality control and with a strong focus on quality-driven construction.
               </p>
               <p style="margin-top: 12px;">
                 He also possesses practical knowledge of heritage craftsmanship, including jharokhas, domes, jaalis, lime mortar techniques, and traditional construction practices. He combines technical civil engineering expertise with modern project management and a deep understanding of traditional Rajasthani heritage architecture.
@@ -4259,7 +4259,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="why-card-number">01</div>
             <h3 class="why-card-title">HERITAGE<br>SPECIALITY</h3>
             <p class="why-card-text">
-              AN INTIMATE UNDERSTANDING OF RAJASTHANI HAVELIS, PALACES, JHAROKHAS, JAALIS, DOMES, CHHATRIS AND ROYAL INTERIORS.
+              AN INTIMATE UNDERSTANDING OF HERITAGE HAVELIS, PALACES, JHAROKHAS, JAALIS, DOMES, CHHATRIS AND ROYAL INTERIORS.
             </p>
           </div>
 
@@ -4669,8 +4669,8 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener" aria-label="Location">
               <div class="contact-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
               <div class="contact-address-text">
-                <span class="addr-desktop">Ground Floor &amp; First Floor, Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
-                <span class="addr-mobile">Ground Floor &amp; First Floor,<br>Building No. 14/21, Oladar Haveli,<br>Lake Palace Road, Kalaji Goraji,<br>Udaipur, Rajasthan - 313001, India</span>
+                <span class="addr-desktop">Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
+                <span class="addr-mobile">Building No. 14/21, Oladar Haveli,<br>Lake Palace Road, Kalaji Goraji,<br>Udaipur, Rajasthan - 313001, India</span>
               </div>
             </a>
           </div>
@@ -5158,6 +5158,19 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     const rawMaterialPrev = document.getElementById("rawMaterialPrev");
     const rawMaterialNext = document.getElementById("rawMaterialNext");
 
+    if (rawMaterialVideo) {
+      rawMaterialVideo.muted = true;
+      rawMaterialVideo.defaultMuted = true;
+      rawMaterialVideo.volume = 0;
+      rawMaterialVideo.setAttribute("muted", "");
+      rawMaterialVideo.addEventListener("volumechange", () => {
+        if (!rawMaterialVideo.muted || rawMaterialVideo.volume > 0) {
+          rawMaterialVideo.muted = true;
+          rawMaterialVideo.volume = 0;
+        }
+      });
+    }
+
     function showRawMaterial(index) {
       if (!rawMaterialSlides || rawMaterialSlides.length === 0) return;
       rawMaterialIndex = (index + rawMaterialSlides.length) % rawMaterialSlides.length;
@@ -5173,6 +5186,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           if (rawMaterialImage) rawMaterialImage.style.display = "none";
           if (rawMaterialVideo) {
             rawMaterialVideo.style.display = "block";
+            rawMaterialVideo.muted = true;
+            rawMaterialVideo.defaultMuted = true;
+            rawMaterialVideo.volume = 0;
+            rawMaterialVideo.setAttribute("muted", "");
             rawMaterialVideo.src = slide.src;
             rawMaterialVideo.load();
             rawMaterialVideo.play().catch(() => {});
@@ -5862,11 +5879,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
   <!-- Client-Safe Config & Database Service -->
-  <script src="firebase-config.js?v=11"></script>
-  <script src="js/default-data.js?v=11"></script>
-  <script src="js/database.js?v=11"></script>
+  <script src="firebase-config.js?v=14"></script>
+  <script src="js/default-data.js?v=14"></script>
+  <script src="js/database.js?v=14"></script>
 
   <!-- Rathore Heritage Dynamic CMS Synchronizer -->
-  <script src="client-cms.js?v=11"></script>
+  <script src="client-cms.js?v=14"></script>
 </body>
 </html>
