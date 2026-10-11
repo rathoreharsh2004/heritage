@@ -65,9 +65,13 @@
           if (waBtn) waBtn.href = `https://wa.me/${settings.whatsappNumber.replace(/[^0-9]/g, '')}`;
         }
         if (settings.copyrightCredit) {
-          const creditSpan = document.querySelector('.footer-bottom span:last-child');
-          if (creditSpan) creditSpan.textContent = settings.copyrightCredit;
+          settings.copyrightCredit = '';
+          if (typeof Database !== 'undefined' && Database.saveSettings) {
+            Database.saveSettings({ copyrightCredit: '' }).catch(() => {});
+          }
         }
+        const extraCredit = document.querySelector('.footer-bottom span:nth-child(2)');
+        if (extraCredit) extraCredit.remove();
 
         if (settings.address && /Ground Floor & First Floor,\s*/i.test(settings.address)) {
           settings.address = settings.address.replace(/Ground Floor & First Floor,\s*/gi, '');
