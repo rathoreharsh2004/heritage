@@ -61,7 +61,8 @@ const App = (() => {
         `;
         item.addEventListener('click', () => {
           if (activeMediaCallback) {
-            activeMediaCallback(m.filename, displaySrc);
+            const finalVal = m.url || m.filename;
+            activeMediaCallback(finalVal, displaySrc);
           }
           closeMediaPicker();
         });
@@ -70,6 +71,27 @@ const App = (() => {
     } catch (err) {
       grid.innerHTML = `<div style="padding:20px; color:var(--danger);">Failed to load media: ${err.message}</div>`;
     }
+  }
+
+  async function handleModalMediaUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    showToast(`Uploading ${file.name} to ImageKit...`, 'info');
+    try {
+      await Database.uploadMedia(file, 'general', file.name.split('.')[0]);
+      showToast('Media uploaded to ImageKit successfully!', 'success');
+      await loadMediaPickerItems();
+    } catch (err) {
+      showToast(err.message, 'danger');
+    } finally {
+      input.value = '';
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    window.closeMediaPicker = closeMediaPicker;
+    window.loadMediaPickerItems = loadMediaPickerItems;
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -650,6 +672,7 @@ const App = (() => {
     'rawmaterials': 'rawMaterials',
     'darbar': 'darbarSlides',
     'services': 'services',
+    'reviews': 'reviews',
   };
 
   function createCrudView({ title, endpoint, columns, fields, defaultData }) {
@@ -1001,6 +1024,33 @@ const App = (() => {
     ],
     fields: serviceFields,
     defaultData: { number: '01', order: 1, isActive: true },
+  }));
+
+  // Client Reviews (Royal Patron Testimonials)
+  const reviewFields = [
+    { name: 'name', label: 'Client / Patron Name', type: 'text' },
+    { name: 'role', label: 'Role / Designation', type: 'text' },
+    { name: 'project', label: 'Project Name', type: 'text' },
+    { name: 'city', label: 'City, State', type: 'text' },
+    { name: 'rating', label: 'Star Rating (1 to 5)', type: 'number' },
+    { name: 'avatar', label: 'Avatar Initials (e.g. VD, GD)', type: 'text' },
+    { name: 'date', label: 'Review Date (e.g. January 2026)', type: 'text' },
+    { name: 'text', label: 'Review Testimonial Text', type: 'textarea' },
+    { name: 'order', label: 'Display Order', type: 'number' },
+  ];
+  crudRegistry['reviews'] = reviewFields;
+  registerRoute('reviews', createCrudView({
+    title: 'Client Reviews & Testimonials',
+    endpoint: 'reviews',
+    columns: [
+      { label: 'Name', render: (i) => `<strong>${i.name}</strong><br><small style="color:var(--text-muted);">${i.role || ''}</small>` },
+      { label: 'Project', render: (i) => `${i.project || ''}<br><small style="color:var(--text-muted);">${i.city || ''}</small>` },
+      { label: 'Rating', render: (i) => '★'.repeat(i.rating || 5) },
+      { label: 'Date', key: 'date' },
+      { label: 'Order', key: 'order' },
+    ],
+    fields: reviewFields,
+    defaultData: { rating: 5, order: 1 },
   }));
 
   // ─────────────────────────────────────────────────────────────
@@ -1433,6 +1483,9 @@ const App = (() => {
   return {
     init,
     openMediaPicker,
+    closeMediaPicker,
+    loadMediaPickerItems,
+    handleModalMediaUpload,
     saveSection,
     openEditModal,
     openCreateModal,

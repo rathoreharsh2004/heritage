@@ -73,7 +73,13 @@ const Database = (() => {
         firebase.initializeApp(cfg);
       }
       db = firebase.firestore();
-      auth = firebase.auth();
+      if (typeof firebase.auth === 'function') {
+        try {
+          auth = firebase.auth();
+        } catch (authErr) {
+          console.warn('[Database] Firebase Auth init warning:', authErr);
+        }
+      }
       // Storage removed — ImageKit handles all media storage and CDN delivery
       if (typeof firebase.analytics === 'function' && cfg.measurementId) {
         try { firebase.analytics(); } catch (e) {}
@@ -632,6 +638,14 @@ const Database = (() => {
         batch.set(srvRef, srv);
       }
 
+      // 10. Reviews
+      if (DEFAULT_DATA.reviews && Array.isArray(DEFAULT_DATA.reviews)) {
+        for (const rev of DEFAULT_DATA.reviews) {
+          const revRef = db.collection('reviews').doc(rev.id);
+          batch.set(revRef, rev);
+        }
+      }
+
       await batch.commit();
       await addAuditLog('Seed', 'Database', 'Initialized Firestore with complete authentic Rathore Heritage content');
       console.log('✅ [Database Seed] Successfully populated Cloud Firestore!');
@@ -640,6 +654,87 @@ const Database = (() => {
       console.error('[Database Seed Error]', err);
       throw err;
     }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // 9. REALTIME LISTENERS (LIVE CONTENT SYNCHRONIZATION)
+  // ─────────────────────────────────────────────────────────────
+  function onSettingsChange(callback, onError) {
+    if (isFirebaseReady && db) {
+      try {
+        return db.collection('settings').doc('general').onSnapshot(doc => {
+          if (doc.exists) {
+            callback(doc.data());
+          } else {
+            callback(getLocalData().settings || {});
+          }
+        }, err => {
+          console.warn('[Database Realtime] Settings listener notice:', err.message);
+          if (onError) onError(err);
+        });
+      } catch (err) {
+        console.warn('[Database Realtime] Failed to attach settings listener:', err.message);
+      }
+    }
+    return () => {};
+  }
+
+  function onSectionsChange(callback, onError) {
+    if (isFirebaseReady && db) {
+      try {
+        return db.collection('sections').onSnapshot(snap => {
+          const sections = {};
+          snap.forEach(doc => {
+            sections[doc.id] = doc.data();
+          });
+          callback(sections);
+        }, err => {
+          console.warn('[Database Realtime] Sections listener notice:', err.message);
+          if (onError) onError(err);
+        });
+      } catch (err) {
+        console.warn('[Database Realtime] Failed to attach sections listener:', err.message);
+      }
+    }
+    return () => {};
+  }
+
+  function onCollectionChange(colName, callback, onError) {
+    if (isFirebaseReady && db) {
+      try {
+        return db.collection(colName).onSnapshot(snap => {
+          const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          list.sort((a, b) => (a.order || 0) - (b.order || 0));
+          callback(list);
+        }, err => {
+          console.warn(`[Database Realtime] Collection [${colName}] listener notice:`, err.message);
+          if (onError) onError(err);
+        });
+      } catch (err) {
+        console.warn(`[Database Realtime] Failed to attach collection [${colName}] listener:`, err.message);
+      }
+    }
+    return () => {};
+  }
+
+  function onDocChange(colName, id, callback, onError) {
+    if (isFirebaseReady && db) {
+      try {
+        return db.collection(colName).doc(id).onSnapshot(doc => {
+          if (doc.exists) {
+            callback({ id: doc.id, ...doc.data() });
+          } else {
+            callback(null);
+          }
+        }, err => {
+          console.warn(`[Database Realtime] Doc [${colName}/${id}] listener notice:`, err.message);
+          if (onError) onError(err);
+        });
+      } catch (err) {
+        console.warn(`[Database Realtime] Failed to attach doc [${colName}/${id}] listener:`, err.message);
+      }
+    }
+    return () => {};
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -658,6 +753,8 @@ const Database = (() => {
     createDoc,
     updateDoc,
     deleteDoc,
+    updateDocument: updateDoc,
+    saveDocument: (col, id, data) => updateDoc(col, id, data),
     getEnquiries,
     createEnquiry,
     updateEnquiryStatus,
@@ -669,6 +766,10 @@ const Database = (() => {
     addAuditLog,
     getDashboardStats,
     seedInitialData,
+    onSettingsChange,
+    onSectionsChange,
+    onCollectionChange,
+    onDocChange,
   };
 })();
 

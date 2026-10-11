@@ -1,18 +1,85 @@
-rules_version='2'
+rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // 1. GLOBAL SETTINGS & PAGE SECTIONS (Public Read, Admin Write)
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /sections/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // 2. WEBSITE ENTITIES & GALLERIES (Public Read, Admin Write)
+    match /projects/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /craftsmanship/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /leaders/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /materials/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /rawMaterials/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /darbarSlides/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /services/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /reviews/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /media/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // 3. CLIENT ENQUIRIES (Public Create, Admin Read/Update/Delete)
+    match /enquiries/{docId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthenticated();
+    }
+
+    // 4. AUDIT LOGS (Admin Only)
+    match /auditLogs/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Default catch-all: Public read, Admin write
     match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2026, 11, 1);
+      allow read: if true;
+      allow write: if isAuthenticated();
     }
   }
 }

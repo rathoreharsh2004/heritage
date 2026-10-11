@@ -78,6 +78,10 @@
           <i class="fa-solid fa-hand-holding-hand"></i>
           <span>What We Offer</span>
         </a>
+        <a href="#reviews" class="nav-item">
+          <i class="fa-solid fa-comment-dots"></i>
+          <span>Client Reviews</span>
+        </a>
 
         <div class="nav-group-label">Operations</div>
         <a href="#enquiries" class="nav-item">
@@ -152,12 +156,12 @@
           <h3 class="modal-title">Select or Upload Media (ImageKit CDN)</h3>
           <p style="font-size:12px; color:var(--text-muted);">Choose an existing media file or upload a new file directly to ImageKit CDN</p>
         </div>
-        <button class="modal-close" onclick="closeMediaPicker()">&times;</button>
+        <button class="modal-close" onclick="App.closeMediaPicker()">&times;</button>
       </div>
       <div class="modal-body">
         <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:16px;">
-          <input type="text" class="form-control" placeholder="Search filenames..." oninput="loadMediaPickerItems(this.value, document.getElementById('pickerCategory').value)" style="max-width:300px;">
-          <select class="form-control" id="pickerCategory" onchange="loadMediaPickerItems(document.querySelector('#mediaPickerModal input').value, this.value)" style="max-width:160px;">
+          <input type="text" class="form-control" placeholder="Search filenames..." oninput="App.loadMediaPickerItems(this.value, document.getElementById('pickerCategory').value)" style="max-width:300px;">
+          <select class="form-control" id="pickerCategory" onchange="App.loadMediaPickerItems(document.querySelector('#mediaPickerModal input').value, this.value)" style="max-width:160px;">
             <option value="all">All Categories</option>
             <option value="general">General</option>
             <option value="hero">Hero</option>
@@ -166,7 +170,7 @@
             <option value="materials">Materials</option>
             <option value="gallery">Gallery</option>
           </select>
-          <input type="file" id="modalUploadInput" style="display:none;" onchange="App.handleMediaUpload(this).then(() => loadMediaPickerItems())">
+          <input type="file" id="modalUploadInput" style="display:none;" onchange="App.handleModalMediaUpload(this)">
           <button class="btn btn-primary btn-sm" onclick="document.getElementById('modalUploadInput').click()">
             <i class="fa-solid fa-cloud-arrow-up"></i> Upload New
           </button>
@@ -175,7 +179,7 @@
         <div id="mediaPickerGrid" class="media-grid"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" onclick="closeMediaPicker()">Close</button>
+        <button type="button" class="btn btn-secondary" onclick="App.closeMediaPicker()">Close</button>
       </div>
     </div>
   </div>
@@ -186,12 +190,12 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
   <!-- IMAGEKIT & APPLICATION SCRIPTS -->
-  <script src="imagekit-config.js"></script>
-  <script src="js/imagekit-service.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="js/default-data.js"></script>
-  <script src="js/database.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/app.js"></script>
+  <script src="imagekit-config.js?v=20"></script>
+  <script src="js/imagekit-service.js?v=20"></script>
+  <script src="firebase-config.js?v=20"></script>
+  <script src="js/default-data.js?v=20"></script>
+  <script src="js/database.js?v=20"></script>
+  <script src="js/auth.js?v=20"></script>
+  <script src="js/app.js?v=20"></script>
 </body>
 </html>
