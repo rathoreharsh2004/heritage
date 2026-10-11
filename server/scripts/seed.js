@@ -309,7 +309,7 @@ async function seed() {
       tagline: 'Bespoke traditional doors, Dodi entrances and royal gateways crafted with timeless character.',
       description: 'Grand entrances and ceremonial Dodi gateways define the regal threshold of heritage architecture. Handcrafted from seasoned solid woods and adorned with heavy brass fittings, hand-carved panels, and authentic arches, our bespoke entrances welcome guests with dignified majesty and enduring character.',
       image: 'card24.jpg',
-      subImages: ['card21.jpg', 'card22.jpeg', 'card23.jpg', 'card24.jpg'],
+      subImages: ['card21.jpg', 'card22.jpeg', 'card23.jpg', 'card24.jpg', 'card25.jpeg', 'card26.jpeg', 'card27.jpeg'],
       order: 2,
     },
     {
@@ -325,7 +325,7 @@ async function seed() {
       tagline: 'Handcrafted cement detailing, sandstone work, pillars, arches and Mehraabs rooted in traditional craftsmanship.',
       description: 'Reviving centuries-old artisan traditions, our cement relief and sandstone masonry bring structural artistry to life. From carved fluted pillars and scalloped mehraabs to handcrafted cornice mouldings, every curve is shaped by master artisans preserving age-old techniques with engineered permanence.',
       image: 'card4.jpg',
-      subImages: ['card41.jpg', 'card42.jpg', 'card43.jpeg', 'card44.jpeg', 'card45.jpeg'],
+      subImages: ['card41.jpg', 'card42.jpg', 'card43.jpeg', 'card44.jpeg', 'card45.jpeg', 'card46.jpeg', 'card47.jpeg'],
       order: 4,
     },
     {
@@ -341,7 +341,7 @@ async function seed() {
       tagline: 'Intricate Thekri glass craftsmanship creating rich colour, reflection and royal detailing.',
       description: 'Thekri glass inlay is the crowning jewel of palace craftsmanship, where thousands of hand-cut convex mirror pieces and colored Belgium glass are meticulously set into lime plaster. The resulting mosaics shimmer under chandelier light and candlelight, turning royal halls into radiant sanctuaries of light and wonder.',
       image: 'card6.jpeg',
-      subImages: ['card61.jpeg', 'card62.jpeg', 'card63.jpeg', 'card64.jpeg', 'card65.jpeg'],
+      subImages: ['card61.jpeg', 'card62.jpeg', 'card63.jpeg', 'card64.jpeg', 'card65.jpeg', 'card66.jpeg', 'card67.jpeg'],
       order: 6,
     },
     {
@@ -357,7 +357,7 @@ async function seed() {
       tagline: 'Signature Domes, Chhatris, Gokhadas and other sculptural architectural elements defining the heritage silhouette.',
       description: 'Sculptural chhatris, fluted domes, and cantilevered gokhadas define the unmistakable silhouette of Rajasthan’s architectural royalty. We engineer and carve these monumental silhouettes with geometric precision and artisanal devotion, commanding attention while honoring historical proportions.',
       image: 'card8.jpeg',
-      subImages: ['card81.jpeg', 'card82.jpeg', 'card83.jpeg', 'card84.jpeg', 'card85.jpeg'],
+      subImages: ['card81.jpeg', 'card82.jpeg', 'card83.jpeg', 'card84.jpeg', 'card85.jpeg', 'card86.jpeg', 'card87.jpeg'],
       order: 8,
     },
     {
@@ -373,7 +373,7 @@ async function seed() {
       tagline: 'Handcrafted paintings, carved furniture and bespoke interior details that complete the timeless heritage character.',
       description: 'Complete heritage living requires furniture and interior styling conceived as architecture at human scale. From teakwood and rosewood hand-carved thrones, diwans, and brass-studded ottomans to traditional miniature paintings and rich tapestries, we design complete interior environments steeped in royal authenticity and timeless luxury.',
       image: 'card104.jpeg',
-      subImages: ['card101.jpeg', 'card102.jpeg', 'card103.jpeg', 'card104.jpeg', 'card105.jpeg', 'card106.jpeg', 'card107.jpeg', 'card108.jpeg', 'card109.jpeg', 'card110.jpeg'],
+      subImages: ['card101.jpeg', 'card102.jpeg', 'card103.jpeg', 'card104.jpeg', 'card105.jpeg', 'card106.jpeg', 'card107.jpeg'],
       order: 10,
     },
   ];

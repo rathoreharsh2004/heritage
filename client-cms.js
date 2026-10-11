@@ -495,6 +495,52 @@
       // 4. REPEATED ENTITIES: CRAFTSMANSHIP CARDS (10 CARDS)
       // ─────────────────────────────────────────────────────────────
       if (craftsmanship && craftsmanship.length > 0 && typeof craftCardsData !== 'undefined') {
+        // Synchronize 7-image collections for cards 2, 4, 6, 8, 10
+        const card2Subs = ["card21.jpg", "card22.jpeg", "card23.jpg", "card24.jpg", "card25.jpeg", "card26.jpeg", "card27.jpeg"];
+        const card4Subs = ["card41.jpg", "card42.jpg", "card43.jpeg", "card44.jpeg", "card45.jpeg", "card46.jpeg", "card47.jpeg"];
+        const card6Subs = ["card61.jpeg", "card62.jpeg", "card63.jpeg", "card64.jpeg", "card65.jpeg", "card66.jpeg", "card67.jpeg"];
+        const card8Subs = ["card81.jpeg", "card82.jpeg", "card83.jpeg", "card84.jpeg", "card85.jpeg", "card86.jpeg", "card87.jpeg"];
+        const card10Subs = ["card101.jpeg", "card102.jpeg", "card103.jpeg", "card104.jpeg", "card105.jpeg", "card106.jpeg", "card107.jpeg"];
+
+        craftsmanship.forEach(c => {
+          if (c.id === 'craft-2' || (c.title && /Doors/i.test(c.title))) {
+            if (!c.subImages || c.subImages.length !== 7 || !c.subImages.includes("card25.jpeg")) {
+              c.subImages = card2Subs;
+              if (typeof Database !== 'undefined' && Database.saveDocument) {
+                Database.saveDocument('craftsmanship', c.id || 'craft-2', { subImages: card2Subs }).catch(() => {});
+              }
+            }
+          } else if (c.id === 'craft-4' || (c.title && /Cement & Stone/i.test(c.title))) {
+            if (!c.subImages || c.subImages.length !== 7 || !c.subImages.includes("card46.jpeg")) {
+              c.subImages = card4Subs;
+              if (typeof Database !== 'undefined' && Database.saveDocument) {
+                Database.saveDocument('craftsmanship', c.id || 'craft-4', { subImages: card4Subs }).catch(() => {});
+              }
+            }
+          } else if (c.id === 'craft-6' || (c.title && /Thekri/i.test(c.title))) {
+            if (!c.subImages || c.subImages.length !== 7 || !c.subImages.includes("card66.jpeg")) {
+              c.subImages = card6Subs;
+              if (typeof Database !== 'undefined' && Database.saveDocument) {
+                Database.saveDocument('craftsmanship', c.id || 'craft-6', { subImages: card6Subs }).catch(() => {});
+              }
+            }
+          } else if (c.id === 'craft-8' || (c.title && /Domes, Chhatris/i.test(c.title))) {
+            if (!c.subImages || c.subImages.length !== 7 || !c.subImages.includes("card86.jpeg")) {
+              c.subImages = card8Subs;
+              if (typeof Database !== 'undefined' && Database.saveDocument) {
+                Database.saveDocument('craftsmanship', c.id || 'craft-8', { subImages: card8Subs }).catch(() => {});
+              }
+            }
+          } else if (c.id === 'craft-10' || (c.title && /Handcrafted Art/i.test(c.title))) {
+            if (!c.subImages || c.subImages.length !== 7 || c.subImages.includes("card108.jpeg")) {
+              c.subImages = card10Subs;
+              if (typeof Database !== 'undefined' && Database.saveDocument) {
+                Database.saveDocument('craftsmanship', c.id || 'craft-10', { subImages: card10Subs }).catch(() => {});
+              }
+            }
+          }
+        });
+
         craftCardsData.length = 0;
         craftsmanship.forEach(c => craftCardsData.push(c));
 
