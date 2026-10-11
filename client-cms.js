@@ -72,6 +72,8 @@
         }
         const extraCredit = document.querySelector('.footer-bottom span:nth-child(2)');
         if (extraCredit) extraCredit.remove();
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         if (settings.address && /Ground Floor & First Floor,\s*/i.test(settings.address)) {
           settings.address = settings.address.replace(/Ground Floor & First Floor,\s*/gi, '');
@@ -605,6 +607,9 @@
       // ─────────────────────────────────────────────────────────────
       if (projects && projects.length > 0 && typeof window.projects !== 'undefined') {
         projects.forEach(p => {
+          if (Array.isArray(p.images)) {
+            p.images = p.images.filter(img => typeof img === 'string' && !img.includes('oladar6'));
+          }
           window.projects[p.slug] = p;
         });
 

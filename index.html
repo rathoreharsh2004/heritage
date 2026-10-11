@@ -5437,7 +5437,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           "THE PROJECT COMBINES TRADITIONAL RAJASTHANI HERITAGE ARCHITECTURE WITH MODERN CIVIL ENGINEERING STANDARDS TO ENSURE BOTH AESTHETIC BEAUTY AND STRUCTURAL SAFETY.",
           "EVERY ARCHITECTURAL AND INTERIOR ELEMENT HAS BEEN CONSIDERED AS PART OF A COMPLETE ROYAL HERITAGE EXPERIENCE."
         ],
-        images: Array.from({length: 25}, (_, i) => `oladar${i+1}.jpeg`)
+        images: Array.from({length: 25}, (_, i) => `oladar${i+1}.jpeg`).filter(img => img !== "oladar6.jpeg")
       },
       roopmahal: {
         title: "ROOP MAHAL",
@@ -6003,11 +6003,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
   <!-- Client-Safe Config & Database Service -->
-  <script src="firebase-config.js?v=16"></script>
-  <script src="js/default-data.js?v=16"></script>
-  <script src="js/database.js?v=16"></script>
+  <script src="firebase-config.js?v=18"></script>
+  <script src="js/default-data.js?v=18"></script>
+  <script src="js/database.js?v=18"></script>
 
   <!-- Rathore Heritage Dynamic CMS Synchronizer -->
-  <script src="client-cms.js?v=16"></script>
+  <script src="client-cms.js?v=18"></script>
 </body>
 </html>

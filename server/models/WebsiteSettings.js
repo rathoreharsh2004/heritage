@@ -43,7 +43,7 @@ const WebsiteSettingsSchema = new mongoose.Schema({
   },
   copyrightCredit: {
     type: String,
-    default: 'Designed by Marwar Infotech',
+    default: '',
   },
   preloaderTitle: {
     type: String,

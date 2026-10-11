@@ -16,7 +16,7 @@ const DEFAULT_DATA = {
     address: 'Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
     instagramUrl: 'https://instagram.com/rh_heritagebuilds',
     footerDescription: 'Preserving the soul of Rajasthan. Creating living heritage. Authentic craftsmanship interpreted for spaces of today and tomorrow.',
-    copyrightCredit: 'Designed by Marwar Infotech',
+    copyrightCredit: '',
     preloaderTitle: 'Rathore Heritage Developers — Raj Virasat',
   },
 
@@ -299,7 +299,7 @@ const DEFAULT_DATA = {
         'THE PROJECT COMBINES TRADITIONAL RAJASTHANI HERITAGE ARCHITECTURE WITH MODERN CIVIL ENGINEERING STANDARDS TO ENSURE BOTH AESTHETIC BEAUTY AND STRUCTURAL SAFETY.',
         'EVERY ARCHITECTURAL AND INTERIOR ELEMENT HAS BEEN CONSIDERED AS PART OF A COMPLETE ROYAL HERITAGE EXPERIENCE.',
       ],
-      images: Array.from({ length: 25 }, (_, i) => `oladar${i + 1}.jpeg`),
+      images: Array.from({ length: 25 }, (_, i) => `oladar${i + 1}.jpeg`).filter(img => img !== 'oladar6.jpeg'),
       order: 1,
     },
     {

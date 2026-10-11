@@ -112,7 +112,7 @@ async function seed() {
     address: 'Building No. 14/21, Oladar Haveli, Lake Palace Road, Kalaji Goraji, Udaipur, Rajasthan - 313001, India',
     instagramUrl: 'https://instagram.com/rh_heritagebuilds',
     footerDescription: 'Preserving the soul of Rajasthan. Creating living heritage. Authentic craftsmanship interpreted for spaces of today and tomorrow.',
-    copyrightCredit: 'Designed by Marwar Infotech',
+    copyrightCredit: '',
     preloaderTitle: 'Rathore Heritage Developers — Raj Virasat',
   });
   console.log('[Seed] Seeded WebsiteSettings');
@@ -409,7 +409,7 @@ async function seed() {
         'THE PROJECT COMBINES TRADITIONAL RAJASTHANI HERITAGE ARCHITECTURE WITH MODERN CIVIL ENGINEERING STANDARDS TO ENSURE BOTH AESTHETIC BEAUTY AND STRUCTURAL SAFETY.',
         'EVERY ARCHITECTURAL AND INTERIOR ELEMENT HAS BEEN CONSIDERED AS PART OF A COMPLETE ROYAL HERITAGE EXPERIENCE.',
       ],
-      images: Array.from({ length: 25 }, (_, i) => `oladar${i + 1}.jpeg`),
+      images: Array.from({ length: 25 }, (_, i) => `oladar${i + 1}.jpeg`).filter(img => img !== 'oladar6.jpeg'),
       order: 1,
     },
     {
@@ -495,16 +495,16 @@ async function seed() {
   // 9. DARBAR GALLERY (10 Oladar Haveli slides)
   await DarbarSlide.deleteMany({});
   const darbarSlidesData = [
-    { image: 'oladar1.jpeg', tagline: 'A Legacy Carved Into Every Detail', subline: 'Traditional artistry, royal proportion, and enduring craftsmanship brought together as living heritage.', order: 1 },
-    { image: 'oladar2.jpeg', tagline: 'Where Stone Remembers Royal Stories.', subline: 'Hand-finished surfaces and architectural rhythm preserve the language of Rajasthan.', order: 2 },
-    { image: 'oladar3.jpeg', tagline: 'Craftsmanship That Speaks Without Words.', subline: 'Every carved element is treated as a signature of heritage, patience and precision.', order: 3 },
-    { image: 'oladar4.jpeg', tagline: 'A Haveli Shaped By Living Tradition.', subline: 'Authentic details create an atmosphere that feels rooted, intimate and unmistakably royal.', order: 4 },
-    { image: 'oladar5.jpeg', tagline: 'Royal Proportion. Timeless Presence.', subline: 'Balanced forms and layered detailing turn traditional architecture into an enduring experience.', order: 5 },
-    { image: 'oladar6.jpeg', tagline: 'Details Made To Outlive Trends.', subline: 'From ornament to finish, each layer is designed for beauty that grows richer with time.', order: 6 },
-    { image: 'oladar7.jpeg', tagline: 'Heritage, Reimagined For Generations.', subline: 'Classical Rajasthan craftsmanship is brought together with modern execution and structural discipline.', order: 7 },
-    { image: 'oladar8.jpeg', tagline: 'The Soul Of Rajasthan In Every Frame.', subline: 'Light, texture and handmade character come together to create a deeply rooted visual identity.', order: 8 },
-    { image: 'oladar9.jpeg', tagline: 'Built With Patience. Finished With Pride.', subline: 'A complete heritage expression where artisanship and engineering meet with quiet confidence.', order: 9 },
-    { image: 'oladar10.jpeg', tagline: 'A Timeless Address For A Lasting Legacy.', subline: 'Oladar Haveli brings architecture, craft and royal living together as one enduring story.', order: 10 },
+    { image: 'Darbar 1.jpg', tagline: 'A Legacy Carved Into Every Detail', subline: 'Traditional artistry, royal proportion, and enduring craftsmanship brought together as living heritage.', order: 1 },
+    { image: 'Darbar 2.jpg', tagline: 'Where Stone Remembers Royal Stories.', subline: 'Hand-finished surfaces and architectural rhythm preserve the language of Rajasthan.', order: 2 },
+    { image: 'Darbar 3.jpg', tagline: 'Craftsmanship That Speaks Without Words.', subline: 'Every carved element is treated as a signature of heritage, patience and precision.', order: 3 },
+    { image: 'Darbar 4.jpg', tagline: 'A Haveli Shaped By Living Tradition.', subline: 'Authentic details create an atmosphere that feels rooted, intimate and unmistakably royal.', order: 4 },
+    { image: 'Darbar 5.jpg', tagline: 'Royal Proportion. Timeless Presence.', subline: 'Balanced forms and layered detailing turn traditional architecture into an enduring experience.', order: 5 },
+    { image: 'Darbar 6.jpg', tagline: 'Details Made To Outlive Trends.', subline: 'From ornament to finish, each layer is designed for beauty that grows richer with time.', order: 6 },
+    { image: 'Darbar 7.jpg', tagline: 'Heritage, Reimagined For Generations.', subline: 'Classical Rajasthan craftsmanship is brought together with modern execution and structural discipline.', order: 7 },
+    { image: 'Darbar 8.jpg', tagline: 'The Soul Of Rajasthan In Every Frame.', subline: 'Light, texture and handmade character come together to create a deeply rooted visual identity.', order: 8 },
+    { image: 'Darbar 9.jpg', tagline: 'Built With Patience. Finished With Pride.', subline: 'A complete heritage expression where artisanship and engineering meet with quiet confidence.', order: 9 },
+    { image: 'Darbar 10.jpg', tagline: 'A Timeless Address For A Lasting Legacy.', subline: 'Oladar Haveli brings architecture, craft and royal living together as one enduring story.', order: 10 },
   ];
   await DarbarSlide.insertMany(darbarSlidesData);
   console.log('[Seed] Seeded Darbar Gallery (10 slides)');

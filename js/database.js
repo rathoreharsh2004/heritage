@@ -10,8 +10,8 @@ const Database = (() => {
   let auth = null;
   let storage = null;
 
-  // Local fallback storage key (v16 ensures clean sync for craftsmanship sub-images)
-  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v16';
+  // Local fallback storage key (v18 removes oladar6 image and card)
+  const LOCAL_STORAGE_KEY = 'rhd_cms_data_v18';
 
   // Initialize Local Fallback Cache from DEFAULT_DATA
   function getLocalData() {
@@ -21,6 +21,8 @@ const Database = (() => {
       localStorage.removeItem('rhd_cms_data_v13');
       localStorage.removeItem('rhd_cms_data_v14');
       localStorage.removeItem('rhd_cms_data_v15');
+      localStorage.removeItem('rhd_cms_data_v16');
+      localStorage.removeItem('rhd_cms_data_v17');
       const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (stored) return JSON.parse(stored);
     } catch (e) {}
