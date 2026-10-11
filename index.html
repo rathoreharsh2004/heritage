@@ -5268,7 +5268,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       { type: "video", src: "raw9.mp4", tagline: "TRADITIONAL PROPORTION AND HONEST FORM" },
       { type: "image", src: "raw10.jpg", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" },
       { type: "video", src: "raw10.mp4", tagline: "THE LIVING SOUL OF ARCHITECTURE" },
-      { type: "image", src: "raw11.jpeg", tagline: "WHERE RAW MATERIAL BECOMES LIVING HERITAGE" }
+      { type: "image", src: "Raw 11.jpg", tagline: "WHERE RAW MATERIAL BECOMES LIVING HERITAGE" }
     ];
 
     let rawMaterialIndex = 0;
@@ -5319,6 +5319,12 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         } else {
           if (rawMaterialVideo) rawMaterialVideo.style.display = "none";
           if (rawMaterialImage) {
+            rawMaterialImage.onerror = function() {
+              if (this.src.includes('Raw%2011.jpg') || this.src.includes('Raw 11.jpg')) {
+                this.onerror = null;
+                this.src = 'raw11.jpg';
+              }
+            };
             rawMaterialImage.src = slide.src;
             rawMaterialImage.alt = slide.tagline || `Raw Material Slide ${rawMaterialIndex + 1}`;
             rawMaterialImage.style.display = "block";
@@ -6003,11 +6009,11 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
   <!-- Client-Safe Config & Database Service -->
-  <script src="firebase-config.js?v=18"></script>
-  <script src="js/default-data.js?v=18"></script>
-  <script src="js/database.js?v=18"></script>
+  <script src="firebase-config.js?v=19"></script>
+  <script src="js/default-data.js?v=19"></script>
+  <script src="js/database.js?v=19"></script>
 
   <!-- Rathore Heritage Dynamic CMS Synchronizer -->
-  <script src="client-cms.js?v=18"></script>
+  <script src="client-cms.js?v=19"></script>
 </body>
 </html>

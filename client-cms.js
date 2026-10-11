@@ -663,7 +663,12 @@
       // ─────────────────────────────────────────────────────────────
       if (rawMaterials && rawMaterials.length > 0 && typeof rawMaterialSlides !== 'undefined') {
         rawMaterialSlides.length = 0;
-        rawMaterials.forEach(rm => rawMaterialSlides.push(rm));
+        rawMaterials.forEach(rm => {
+          if (rm && rm.src && /raw\s*11\.(jpg|jpeg)/i.test(rm.src)) {
+            rm.src = 'Raw 11.jpg';
+          }
+          rawMaterialSlides.push(rm);
+        });
         if (typeof showRawMaterial === 'function') {
           showRawMaterial(0);
         }

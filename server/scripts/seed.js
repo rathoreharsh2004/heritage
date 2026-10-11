@@ -487,7 +487,7 @@ async function seed() {
     { type: 'video', src: 'raw9.mp4', tagline: 'TRADITIONAL PROPORTION AND HONEST FORM', order: 18 },
     { type: 'image', src: 'raw10.jpg', tagline: 'FROM RAW ELEMENTS TO TIMELESS HERITAGE', order: 19 },
     { type: 'video', src: 'raw10.mp4', tagline: 'THE LIVING SOUL OF ARCHITECTURE', order: 20 },
-    { type: 'image', src: 'raw11.jpeg', tagline: 'WHERE RAW MATERIAL BECOMES LIVING HERITAGE', order: 21 },
+    { type: 'image', src: 'Raw 11.jpg', tagline: 'WHERE RAW MATERIAL BECOMES LIVING HERITAGE', order: 21 },
   ];
   await RawMaterial.insertMany(rawMaterialsData);
   console.log('[Seed] Seeded Raw Materials (21 slides)');
