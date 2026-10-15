@@ -81,22 +81,26 @@ async function seed() {
 
   // 1. ADMIN USER
   const adminUsername = process.env.INITIAL_ADMIN_USERNAME || 'admin';
-  const adminEmail = process.env.INITIAL_ADMIN_EMAIL || 'admin@rathoreheritage.com';
-  const adminPassword = process.env.INITIAL_ADMIN_PASSWORD || 'Admin@123456';
+  const adminEmail = process.env.INITIAL_ADMIN_EMAIL;
+  const adminPassword = process.env.INITIAL_ADMIN_PASSWORD;
 
-  let admin = await Admin.findOne({ email: adminEmail });
-  if (!admin) {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(adminPassword, salt);
-    admin = await Admin.create({
-      username: adminUsername,
-      email: adminEmail,
-      password: hashedPassword,
-      role: 'admin',
-    });
-    console.log(`[Seed] Created initial Admin: ${adminEmail} (password: ${adminPassword})`);
+  if (adminEmail && adminPassword) {
+    let admin = await Admin.findOne({ email: adminEmail });
+    if (!admin) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(adminPassword, salt);
+      admin = await Admin.create({
+        username: adminUsername,
+        email: adminEmail,
+        password: hashedPassword,
+        role: 'admin',
+      });
+      console.log(`[Seed] Created initial Admin: ${adminEmail}`);
+    } else {
+      console.log(`[Seed] Admin already exists: ${adminEmail}`);
+    }
   } else {
-    console.log(`[Seed] Admin already exists: ${adminEmail}`);
+    console.log('[Seed] Admin environment variables not set, skipping initial admin creation.');
   }
 
   // 2. WEBSITE SETTINGS

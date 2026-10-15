@@ -8,78 +8,105 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // 1. GLOBAL SETTINGS & PAGE SECTIONS (Public Read, Admin Write)
+    // Trusted Administrator Authorization:
+    // Requires verified Firebase custom claims OR inclusion in the securely maintained admin allowlist.
+    // Ordinary authenticated users (non-admins) and unauthenticated callers are strictly DENIED all CMS write access.
+    function isAdmin() {
+      return isAuthenticated() && (
+        // 1. Verified Firebase Custom Claims
+        request.auth.token.admin == true ||
+        request.auth.token.role == 'admin' ||
+        // 2. Principal Administrator UID allowlist
+        request.auth.uid in [
+          'N5qIoWgku6cbbzDMUcVUCj1jAUA2' // Rathore Heritage Administrator UID
+        ] ||
+        // 3. Trusted Administrator Email allowlist
+        (request.auth.token.email != null &&
+         request.auth.token.email in [
+           'admin@rathoreheritage.com',
+           'rathoreheritagedevelopers@gmail.com'
+         ])
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 1. PUBLIC WEBSITE CONTENT (Public Read, Admin-Only Write)
+    // ─────────────────────────────────────────────────────────────
     match /settings/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /sections/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
-    // 2. WEBSITE ENTITIES & GALLERIES (Public Read, Admin Write)
     match /projects/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /craftsmanship/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /leaders/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /materials/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /rawMaterials/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /darbarSlides/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /services/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /reviews/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
     match /media/{docId} {
       allow read: if true;
-      allow write: if isAuthenticated();
+      allow write: if isAdmin();
     }
 
-    // 3. CLIENT ENQUIRIES (Public Create, Admin Read/Update/Delete)
+    // ─────────────────────────────────────────────────────────────
+    // 2. CLIENT ENQUIRIES (Public Create, Admin-Only Read/Update/Delete)
+    // ─────────────────────────────────────────────────────────────
     match /enquiries/{docId} {
       allow create: if true;
-      allow read, update, delete: if isAuthenticated();
+      allow read, update, delete: if isAdmin();
     }
 
-    // 4. AUDIT LOGS (Admin Only)
+    // ─────────────────────────────────────────────────────────────
+    // 3. SYSTEM AUDIT LOGS (Admin-Only Read/Write)
+    // ─────────────────────────────────────────────────────────────
     match /auditLogs/{docId} {
-      allow read, write: if isAuthenticated();
+      allow read, write: if isAdmin();
     }
 
-    // Default catch-all: Public read, Admin write
+    // ─────────────────────────────────────────────────────────────
+    // 4. DEFAULT DENY CATCH-ALL
+    // ─────────────────────────────────────────────────────────────
     match /{document=**} {
-      allow read: if true;
-      allow write: if isAuthenticated();
+      allow read, write: if false;
     }
   }
 }

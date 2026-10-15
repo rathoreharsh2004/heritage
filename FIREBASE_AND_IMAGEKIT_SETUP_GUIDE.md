@@ -83,8 +83,8 @@ const firebaseConfig = {
 1. Go to [Firebase Console](https://console.firebase.google.com/project/heritage-20bb8) > **Build** > **Authentication**.
 2. Under **Sign-in method**, enable **Email/Password**.
 3. Under **Users**, click **Add user**:
-   - **Email**: `admin@rathoreheritage.com`
-   - **Password**: `Admin@123456` (or your chosen password)
+   - **Email**: Your administrator email (e.g. `admin@yourdomain.com`)
+   - **Password**: Your chosen secure password (minimum 8 characters)
 
 ### Step 2: Enable Cloud Firestore
 1. In Firebase Console, go to **Build** > **Firestore Database** > **Create database**.

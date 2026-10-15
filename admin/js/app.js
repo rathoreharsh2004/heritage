@@ -160,14 +160,14 @@ const App = (() => {
         <img class="auth-logo" src="logo.PNG" onerror="this.onerror=null; this.src='../logo.PNG';" alt="Rathore Heritage Logo">
         <h1>Rathore Heritage</h1>
         <p>CMS & Administrative Control Portal</p>
-        <form id="loginForm">
+        <form id="loginForm" autocomplete="off">
           <div class="form-group" style="text-align:left;">
             <label class="form-label">Admin Email</label>
-            <input type="email" class="form-control" name="email" required value="admin@rathoreheritage.com" placeholder="admin@rathoreheritage.com">
+            <input type="email" class="form-control" name="email" id="loginEmail" required autocomplete="username" value="" placeholder="Enter your email address">
           </div>
           <div class="form-group" style="text-align:left;">
             <label class="form-label">Admin Password</label>
-            <input type="password" class="form-control" name="password" required value="Admin@123456" placeholder="Enter password">
+            <input type="password" class="form-control" name="password" id="loginPassword" required autocomplete="current-password" value="" placeholder="Enter your password">
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px; padding:12px;">
             Secure Login <i class="fa-solid fa-shield-halved"></i>
@@ -185,6 +185,15 @@ const App = (() => {
       </div>
     `;
 
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('loginEmail');
+    const passwordInput = document.getElementById('loginPassword');
+
+    // Guarantee fields are completely empty on every load or reload
+    if (loginForm) loginForm.reset();
+    if (emailInput) emailInput.value = '';
+    if (passwordInput) passwordInput.value = '';
+
     const btnConfig = document.getElementById('btnConfigFirebase');
     if (btnConfig) {
       btnConfig.addEventListener('click', () => {
@@ -192,22 +201,31 @@ const App = (() => {
       });
     }
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
+      const email = (fd.get('email') || '').trim();
+      const password = (fd.get('password') || '').trim();
       const btn = e.target.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
 
       try {
-        await Auth.login(fd.get('email'), fd.get('password'));
+        await Auth.login(email, password);
         showToast('Logged in successfully', 'success');
+        // Clear sensitive inputs from DOM before route transition
+        if (passwordInput) passwordInput.value = '';
         window.location.hash = '#dashboard';
         handleRouting();
       } catch (err) {
         showToast(err.message, 'danger');
         btn.disabled = false;
         btn.innerHTML = 'Secure Login <i class="fa-solid fa-shield-halved"></i>';
+        // Clear password field immediately upon any failure
+        if (passwordInput) {
+          passwordInput.value = '';
+          passwordInput.focus();
+        }
       }
     });
   }

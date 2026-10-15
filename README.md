@@ -45,11 +45,11 @@ Default `.env` configuration:
 ```env
 PORT=5000
 MONGODB_URI=mongodb://127.0.0.1:27017/rathore_heritage
-JWT_SECRET=rathore_heritage_secret_jwt_key_2026_secure
+JWT_SECRET=your_secure_jwt_secret_key
 JWT_EXPIRES_IN=7d
 INITIAL_ADMIN_USERNAME=admin
-INITIAL_ADMIN_EMAIL=admin@rathoreheritage.com
-INITIAL_ADMIN_PASSWORD=Admin@123456
+INITIAL_ADMIN_EMAIL=your-admin-email@yourdomain.com
+INITIAL_ADMIN_PASSWORD=your_secure_password
 CLIENT_URL=http://localhost:5000
 ```
 > **Zero-Setup Guarantee**: If an external MongoDB instance is not detected on port 27017, the server automatically boots an embedded local database so the site and admin panel function immediately out of the box.
@@ -75,10 +75,8 @@ npm run dev
 ## 🛡️ Admin Portal Credentials
 
 - **Admin URL**: `http://localhost:5000/admin/`
-- **Initial Username/Email**: `admin@rathoreheritage.com` (or `admin`)
-- **Initial Password**: `Admin@123456`
-
-*(Admin password can be updated directly from the Admin Panel top-bar profile modal).*
+- **Initial Credentials**: Configured via `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in your `.env` file or Firebase Authentication console.
+- **Security Notice**: No default credentials are included in the source code. Enter your administrator credentials upon login.
 
 ---
 

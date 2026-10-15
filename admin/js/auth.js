@@ -29,21 +29,33 @@ const Auth = (() => {
 
   function setUser(user) {
     if (user) {
-      localStorage.setItem('rhd_admin_user', JSON.stringify(user));
+      // Security: Store strictly public profile metadata, never passwords
+      const safeProfile = {
+        uid: user.uid,
+        email: user.email,
+        username: user.username || (user.email ? user.email.split('@')[0] : 'admin'),
+        role: user.role || 'admin',
+        lastLogin: user.lastLogin || new Date().toISOString(),
+      };
+      localStorage.setItem('rhd_admin_user', JSON.stringify(safeProfile));
     } else {
       localStorage.removeItem('rhd_admin_user');
     }
   }
 
   function isAuthenticated() {
-    if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
-      return true;
+    if (typeof firebase !== 'undefined' && firebase.auth && Database.isConfigured()) {
+      return !!firebase.auth().currentUser;
     }
-    return !!localStorage.getItem('rhd_admin_user');
+    return false;
   }
 
   async function login(email, password) {
-    // If Firebase Auth is ready and configured
+    if (!email || !password) {
+      throw new Error('Please enter both email and password.');
+    }
+
+    // Authenticate via Firebase Authentication
     if (typeof firebase !== 'undefined' && firebase.auth && Database.isConfigured()) {
       try {
         const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -65,26 +77,14 @@ const Auth = (() => {
           msg = 'Invalid email or password. Please verify your admin credentials in Firebase Console.';
         } else if (err.code === 'auth/too-many-requests') {
           msg = 'Access temporarily disabled due to many failed attempts. Try again later or reset password.';
+        } else if (err.code === 'auth/invalid-email') {
+          msg = 'The email address format is invalid.';
         }
         throw new Error(msg);
       }
     }
 
-    // Local / Setup Mode (when Firebase config is not yet linked or in demo mode)
-    if (email === 'admin@rathoreheritage.com' && password === 'Admin@123456') {
-      const profile = {
-        uid: 'admin-local',
-        email,
-        username: 'admin',
-        role: 'admin',
-        isLocalFallback: true,
-      };
-      setUser(profile);
-      currentUser = profile;
-      return profile;
-    }
-
-    throw new Error('Invalid credentials. If using Firebase, ensure you have created this admin account in Firebase Authentication.');
+    throw new Error('Firebase Authentication is not configured or ready. Please verify your Firebase connection.');
   }
 
   async function logout() {
