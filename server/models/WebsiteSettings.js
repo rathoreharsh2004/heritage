@@ -15,15 +15,15 @@ const WebsiteSettingsSchema = new mongoose.Schema({
   },
   primaryPhone: {
     type: String,
-    default: '+91 94142 28829',
+    default: '+91 78500 15839',
   },
   secondaryPhone: {
     type: String,
-    default: '+91 78500 15839',
+    default: '',
   },
   whatsappNumber: {
     type: String,
-    default: '919414228829',
+    default: '917850015839',
   },
   email: {
     type: String,

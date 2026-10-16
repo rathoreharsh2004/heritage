@@ -35,11 +35,15 @@
     if (settings.primaryPhone) {
       const callBtn = document.querySelector('.floating-actions a[aria-label="Call"]');
       if (callBtn) callBtn.href = `tel:${settings.primaryPhone.replace(/\s+/g, '')}`;
+      const footerCallBtn = document.querySelector('.footer-col a[href^="tel:"]');
+      if (footerCallBtn) footerCallBtn.href = `tel:${settings.primaryPhone.replace(/\s+/g, '')}`;
     }
 
     if (settings.whatsappNumber) {
       const waBtn = document.querySelector('.floating-actions a[aria-label="WhatsApp"]');
       if (waBtn) waBtn.href = `https://wa.me/${settings.whatsappNumber.replace(/[^0-9]/g, '')}`;
+      const footerWaBtn = document.querySelector('.footer-col a[href*="wa.me"]');
+      if (footerWaBtn) footerWaBtn.href = `https://wa.me/${settings.whatsappNumber.replace(/[^0-9]/g, '')}`;
     }
 
     const extraCredit = document.querySelector('.footer-bottom span:nth-child(2)');
@@ -64,7 +68,7 @@
             <div><strong>${settings.primaryPhone}</strong></div>
           </a>
         ` : ''}
-        ${settings.secondaryPhone ? `
+        ${settings.secondaryPhone && settings.secondaryPhone.trim() && settings.secondaryPhone.replace(/\s+/g, '') !== (settings.primaryPhone || '').replace(/\s+/g, '') ? `
           <a class="contact-item" href="tel:${settings.secondaryPhone.replace(/\s+/g, '')}">
             <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
             <div><strong>${settings.secondaryPhone}</strong></div>
@@ -802,7 +806,8 @@
           ? 'Hello Rathore Heritage Developers,\n\nI would like to book a consultancy for a heritage project.'
           : 'Hello Rathore Heritage Developers,\n\nI would like to discuss a heritage project.';
         const txt = `${greeting}\n\nName: ${payload.name}\nPhone: ${payload.phone}\nEmail: ${payload.email}\nType: ${payload.projectType}\nVision: ${payload.message}`;
-        window.open("https://wa.me/919414228829?text=" + encodeURIComponent(txt), "_blank");
+        const waNum = (window.CMS_DATA?.settings?.whatsappNumber || '917850015839').replace(/[^0-9]/g, '');
+        window.open(`https://wa.me/${waNum}?text=` + encodeURIComponent(txt), "_blank");
 
         // 3. Reset form and show success
         form.reset();
