@@ -15,8 +15,10 @@
     if (!settings) return;
 
     if (settings.logo) {
+      const isDefaultLogo = typeof settings.logo === 'string' && (/logo\.png/i.test(settings.logo) && !settings.logo.includes('ik.imagekit.io'));
+      const logoSrc = isDefaultLogo ? 'logo-header.webp' : settings.logo;
       document.querySelectorAll('.brand-symbol img, .preloader-logo, .footer-logo').forEach(img => {
-        img.src = settings.logo;
+        img.src = logoSrc;
       });
     }
 
@@ -80,7 +82,7 @@
             <div><strong>${settings.email}</strong></div>
           </a>
         ` : ''}
-        <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener" aria-label="Location">
+        <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener">
           <div class="contact-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
           <div class="contact-address-text">
             <span class="addr-desktop">Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
@@ -124,7 +126,7 @@
         if (h.ctaText) cta.innerHTML = `${h.ctaText} <i class="fa-solid fa-arrow-right"></i>`;
         if (h.ctaLink) cta.href = h.ctaLink;
       }
-      if (h.videoSrc) {
+      if (h.videoSrc && !/hero(_optimized|_mobile)?\.mp4/i.test(h.videoSrc)) {
         const vid = document.querySelector('.hero-video source');
         if (vid && vid.src !== h.videoSrc) {
           vid.src = h.videoSrc;
@@ -355,7 +357,7 @@
         <div class="leader-card">
           <div class="leader-header">
             <div class="leader-avatar">
-              <img src="${leader.avatar}" alt="${leader.name}" ${/md\.jpeg/i.test(leader.avatar) ? 'style="object-position: top center;"' : ''}>
+              <img src="${leader.avatar}" alt="${leader.name}" loading="lazy" decoding="async" ${/md\.jpeg/i.test(leader.avatar) ? 'style="object-position: top center;"' : ''}>
             </div>
             <div class="leader-titles">
               <h3>${leader.name}</h3>
@@ -391,11 +393,12 @@
         const shapeClass = (index % 2 === 0) ? "shape-square" : "shape-dome";
         const div = document.createElement("div");
         div.className = `craft-card-item ${shapeClass}`;
+        const imgSrc = (typeof card.image === 'string' && /^card\d+\.(jpeg|jpg)$/i.test(card.image)) ? card.image.replace(/\.(jpeg|jpg)$/i, '.webp') : card.image;
         div.innerHTML = `
           <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;">
             <div>
               <div class="craft-card-img-wrap">
-                <img src="${card.image}" alt="${card.title}" loading="lazy">
+                <img src="${imgSrc}" alt="${card.title}" loading="lazy" decoding="async">
               </div>
               <div class="craft-card-info">
                 <h3>${card.title}</h3>
@@ -451,7 +454,7 @@
         <!-- Top Full Width Featured Project Card -->
         <div class="project-featured-card oladar-featured-card" onclick="openProject('${featured.slug}')">
           <div class="project-featured-image">
-            <img src="${featured.hero}" alt="${featured.title}">
+            <img src="${featured.hero}" alt="${featured.title}" loading="lazy" decoding="async">
           </div>
           <div class="project-featured-content">
             <div class="eyebrow">${featured.location} · ${featured.type}</div>
@@ -469,7 +472,7 @@
             <div class="project-card-box" onclick="openProject('${proj.slug}')">
               <div class="beige-card-wrap">
                 <div class="project-card-img ${idx % 2 === 0 ? 'shape-dome' : ''}">
-                  <img src="${proj.hero}" alt="${proj.title}">
+                  <img src="${proj.hero}" alt="${proj.title}" loading="lazy" decoding="async">
                 </div>
                 <div class="project-card-info">
                   <div class="eyebrow">${proj.location} · ${proj.type}</div>
@@ -580,7 +583,7 @@
             <div class="review-author-wrap">
               <div class="review-avatar-seal">${initials}</div>
               <div class="review-author-info">
-                <h4>${rev.name || ''}</h4>
+                <h3>${rev.name || ''}</h3>
                 <div class="review-author-role">${rev.role || ''}</div>
                 <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> ${rev.project || 'Verified Heritage Project'}</div>
                 <div class="review-location"><i class="fa-solid fa-location-dot"></i> ${rev.city || 'Rajasthan'}</div>
@@ -831,14 +834,23 @@
     bindSubmit(consultancyForm, true);
   }
 
-  // Execute on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      syncWithCMS();
-      setupForms();
-    });
-  } else {
-    syncWithCMS();
+  function scheduleCMSInit() {
     setupForms();
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => {
+        syncWithCMS();
+      }, { timeout: 1500 });
+    } else {
+      setTimeout(() => {
+        syncWithCMS();
+      }, 250);
+    }
+  }
+
+  // Execute on DOM ready / idle
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleCMSInit);
+  } else {
+    scheduleCMSInit();
   }
 })();

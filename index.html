@@ -11,20 +11,39 @@
     content="Rathore Heritage Developers — Raj Dwar to a world of timeless heritage, royal craftsmanship, authentic Rajasthan architecture, bespoke interiors and enduring spaces."
   >
 
-  <!-- Google Fonts -->
+  <!-- Preload Critical LCP Hero Poster -->
+  <link rel="preload" as="image" href="hero-poster.webp" fetchpriority="high">
+
+  <!-- Google Fonts Preconnect & Async Non-blocking Load -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
+    rel="preload"
+    as="style"
     href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
-    rel="stylesheet"
+    onload="this.onload=null;this.rel='stylesheet'"
   >
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+    >
+  </noscript>
 
-  <!-- Font Awesome Icons -->
+  <!-- Font Awesome Icons Non-blocking Load -->
   <link
-    rel="stylesheet"
+    rel="preload"
+    as="style"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
   >
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+  </noscript>
 
   <style>
 
@@ -188,7 +207,7 @@
     }
 
     .beige .eyebrow {
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA on beige */
     }
 
     /* ALL HEADINGS AND TAGLINES IN CAPITAL LETTERS PER INSTRUCTIONS */
@@ -261,7 +280,7 @@
       background: var(--brown-deep);
       display: grid;
       place-items: center;
-      transition: opacity 1s var(--ease), visibility 1s;
+      transition: opacity 0.25s ease, visibility 0.25s;
     }
 
     .preloader.hide {
@@ -791,7 +810,7 @@
     .leader-titles h3 {
       font-family: var(--serif);
       font-size: 22px;
-      color: var(--gold-dark); /* Card Tagline / Title color changed to Gold */
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       line-height: 1.1;
       margin-bottom: 5px;
     }
@@ -806,7 +825,7 @@
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: .15em;
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA compliant on beige */
       font-weight: 600;
       display: block;
     }
@@ -814,8 +833,7 @@
     .leader-body p {
       font-size: 13px;
       line-height: 1.8;
-      opacity: .85;
-      color: var(--ink);
+      color: #3b2214; /* WCAG AAA compliant on beige */
     }
 
     .leader-footer {
@@ -824,7 +842,8 @@
       font-size: 9px;
       text-transform: uppercase;
       letter-spacing: .18em;
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA compliant on beige */
+      font-weight: 600;
     }
 
 
@@ -1234,15 +1253,14 @@
       font-size: 19px;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--gold-dark); /* Craft card tagline/title color changed to Gold */
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       line-height: 1.2;
     }
 
     .craft-card-info p {
       font-size: 11px;
       line-height: 1.6;
-      opacity: .8;
-      color: var(--ink); /* Description retains standard normal color */
+      color: #3b2214; /* WCAG AAA compliant on beige */
       margin-bottom: 15px;
     }
 
@@ -1370,13 +1388,15 @@
       transform: scale(1.02);
     }
 
+    .material-element-card h3,
     .material-element-card h4,
+    .material-item h3,
     .material-item h4 {
       font-family: var(--serif);
       font-size: clamp(22px, 2.4vw, 32px);
       font-weight: 500;
       letter-spacing: 0.14em;
-      color: var(--gold-dark);
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       text-align: center;
       margin-top: 14px;
       margin-bottom: 6px;
@@ -1405,7 +1425,7 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--gold-dark);
+      color: #3b2214; /* High-contrast royal dark on beige */
       background: var(--beige-light);
       border: 1px solid rgba(197, 161, 91, 0.45);
       border-radius: 3px;
@@ -1551,7 +1571,7 @@
     }
 
     .oladar-featured-card .project-featured-content .eyebrow {
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA on beige */
       font-size: 11px;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -1564,15 +1584,14 @@
       font-size: clamp(28px, 3.2vw, 42px);
       line-height: 1.1;
       font-weight: 600;
-      color: var(--gold-dark);
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       margin-bottom: 14px;
     }
 
     .oladar-featured-card .project-featured-content p {
       font-size: 13px;
       line-height: 1.7;
-      color: var(--ink);
-      opacity: .85;
+      color: #3b2214; /* WCAG AAA on beige */
       margin-bottom: 24px;
       max-width: 540px;
     }
@@ -1672,17 +1691,21 @@
       transform: scale(1.06);
     }
 
+    .project-card-info .eyebrow {
+      color: #54331d !important;
+      font-weight: 600;
+    }
+
     .project-card-info h3 {
       font-family: var(--serif);
       font-size: 26px;
-      color: var(--gold-dark); /* Signature project title color changed to Gold */
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       margin-bottom: 8px;
     }
 
     .project-card-info p {
       font-size: 12px;
-      color: var(--ink); /* Description normal color */
-      opacity: .8;
+      color: #3b2214; /* WCAG AAA on beige */
       line-height: 1.6;
       margin-bottom: 20px;
     }
@@ -1753,7 +1776,7 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA on beige */
       font-size: 11px;
       letter-spacing: .25em;
       text-transform: uppercase;
@@ -1765,8 +1788,8 @@
       display: inline-block;
       width: 44px;
       height: 1px;
-      background: var(--gold-dark);
-      opacity: .65;
+      background: #54331d;
+      opacity: .75;
     }
 
     .why-rhd-title {
@@ -1774,7 +1797,7 @@
       font-size: clamp(26px, 3.4vw, 44px);
       line-height: 1.15;
       font-weight: 600;
-      color: var(--gold-dark);
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       text-align: center;
       text-transform: uppercase;
       letter-spacing: .02em;
@@ -1788,8 +1811,7 @@
       line-height: 1.85;
       letter-spacing: .05em;
       text-transform: uppercase;
-      color: var(--ink);
-      opacity: .85;
+      color: #3b2214; /* WCAG AAA on beige */
       text-align: center;
       max-width: 880px;
       margin: 0 auto 55px;
@@ -1834,7 +1856,7 @@
     .why-card-number {
       font-family: var(--serif);
       font-size: 22px;
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA on beige */
       margin-bottom: 34px;
       font-weight: 500;
       letter-spacing: .05em;
@@ -1845,7 +1867,7 @@
       font-size: clamp(20px, 1.8vw, 24px);
       line-height: 1.18;
       font-weight: 600;
-      color: var(--gold-dark);
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       text-transform: uppercase;
       letter-spacing: .02em;
       margin-bottom: 22px;
@@ -1858,8 +1880,7 @@
       line-height: 1.75;
       letter-spacing: .04em;
       text-transform: uppercase;
-      color: var(--ink);
-      opacity: .82;
+      color: #3b2214; /* WCAG AAA on beige */
       margin: 0;
     }
 
@@ -1913,19 +1934,21 @@
     }
 
     .principle-number {
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA on beige */
       font-family: var(--serif);
       font-size: 20px;
     }
 
+    .principle h3,
     .principle h4 {
       font-family: var(--serif);
       font-size: 22px;
       font-weight: 500;
-      color: var(--gold-dark); /* Approach principles title color changed to Gold */
+      color: #4c2c19; /* High-contrast royal bronze on beige */
     }
 
     @media (min-width: 768px) {
+      .principle h3,
       .principle h4 {
         font-size: 26px;
       }
@@ -1963,11 +1986,21 @@
       transform: translateY(-8px);
     }
 
+    .offer-card:hover .offer-number,
+    .offer-card:hover h3 {
+      color: var(--gold);
+    }
+
+    .offer-card:hover p {
+      color: var(--cream);
+    }
+
     .offer-number {
       font-family: var(--serif);
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA on beige */
       font-size: 22px;
       margin-bottom: 40px;
+      font-weight: 600;
     }
 
     .offer-card h3 {
@@ -1975,13 +2008,13 @@
       font-size: 22px;
       line-height: 1.1;
       margin-bottom: 15px;
-      color: var(--gold-dark); /* What we offer card title color changed to Gold */
+      color: #4c2c19; /* High-contrast royal bronze on beige */
     }
 
     .offer-card p {
       font-size: 12px;
       line-height: 1.7;
-      opacity: .8;
+      color: #3b2214; /* WCAG AAA on beige */
     }
 
 
@@ -2202,7 +2235,9 @@
       font-size: 13px;
     }
 
-    .footer-col h4 {
+    .footer-col h3,
+    .footer-col h4,
+    .footer-col-title {
       color: var(--gold);
       text-transform: uppercase;
       font-size: 9px;
@@ -2916,7 +2951,8 @@
       font-family: var(--serif);
       font-size: 12px;
       letter-spacing: .18em;
-      color: var(--gold-dark);
+      color: #54331d; /* WCAG AAA on beige */
+      font-weight: 600;
       margin-bottom: 8px;
     }
 
@@ -2925,7 +2961,7 @@
       font-size: clamp(24px, 3vw, 34px);
       line-height: 1.05;
       font-weight: 700;
-      color: var(--gold-dark);
+      color: #4c2c19; /* High-contrast royal bronze on beige */
       margin: 0;
     }
 
@@ -3221,17 +3257,20 @@
     /* Offer section mobile readability */
     @media (max-width: 767px) {
       #offer .offer-card p {
-        color: var(--brown-soft);
+        color: #3b2214;
         opacity: 1;
       }
 
-      #offer .offer-card h3,
+      #offer .offer-card h3 {
+        color: #4c2c19;
+      }
+
       #offer .offer-number {
-        color: var(--gold-dark);
+        color: #54331d;
       }
 
       #offer .offer-card {
-        color: var(--ink);
+        color: #3b2214;
       }
 
       #offer .offer-card:hover p {
@@ -3576,6 +3615,7 @@
       min-width: 0;
     }
 
+    .review-author-info h3,
     .review-author-info h4 {
       font-family: var(--serif);
       font-size: 18px;
@@ -3655,23 +3695,35 @@
 
     .reviews-pagination-dots {
       display: flex;
-      gap: 8px;
+      gap: 4px;
       align-items: center;
     }
 
     .review-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      position: relative;
+    }
+
+    .review-dot::before {
+      content: "";
       width: 8px;
       height: 8px;
       border-radius: 50%;
       background: rgba(197, 161, 91, 0.3);
-      border: none;
-      cursor: pointer;
       transition: all 0.3s ease;
-      padding: 0;
     }
 
-    .review-dot.active {
-      width: 24px;
+    .review-dot.active::before {
+      width: 22px;
       border-radius: 10px;
       background: var(--gold-light);
       box-shadow: 0 0 8px rgba(197, 161, 91, 0.5);
@@ -3764,6 +3816,7 @@
         min-width: 0;
         flex: 1 1 auto;
       }
+      .review-author-info h3,
       .review-author-info h4 {
         font-size: 16px;
         white-space: normal;
@@ -3806,7 +3859,7 @@
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="loader-inner">
-      <img class="preloader-logo" src="logo.PNG" alt="Rathore Heritage Developers — Raj Virasat">
+      <img class="preloader-logo" src="logo-header.webp" alt="Rathore Heritage Developers — Raj Virasat" width="200" height="200">
     </div>
   </div>
 
@@ -3816,11 +3869,11 @@
     <div class="container nav">
       <a href="#home" class="brand" onclick="goHome()">
         <div class="brand-symbol">
-          <img src="logo.PNG" alt="Rathore Logo">
+          <img src="logo-header.webp" alt="Rathore Logo" width="54" height="54">
         </div>
          
       </a>
-      <button class="menu-trigger" id="menuTrigger" aria-label="Heritage RHD">
+      <button class="menu-trigger" id="menuTrigger" aria-label="Explore RHD menu">
         <span> Explore RHD</span>
       </button>
     </div>
@@ -3848,8 +3901,9 @@
 
     <!-- HERO SECTION WITH VIDEO -->
     <section class="hero" id="home">
-      <video class="hero-video" autoplay muted loop playsinline>
-        <source src="hero.mp4" type="video/mp4">
+      <video class="hero-video" autoplay muted loop playsinline poster="hero-poster.webp">
+        <source src="hero_mobile.mp4" type="video/mp4" media="(max-width: 768px)">
+        <source src="hero_optimized.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
         <div class="hero-kicker">Heritage Restoration · Luxury Havelis · Palaces · Interiors · Heritage Consultancy</div>
@@ -3875,7 +3929,10 @@
     <section class="section brown" id="legacy">
       <div class="container legacy-grid">
         <div class="legacy-image-wrap">
-          <img class="legacy-image" src="about.jpg" alt="Raj Virasat — Rathore Heritage Developers">
+          <picture>
+            <source srcset="about.webp" type="image/webp">
+            <img class="legacy-image" src="about.jpg" alt="Raj Virasat — Rathore Heritage Developers" width="1075" height="716" loading="lazy" decoding="async">
+          </picture>
           <div class="image-frame"></div>
         </div>
         <div class="legacy-copy">
@@ -3906,7 +3963,10 @@
           <div class="leader-card">
             <div class="leader-header">
               <div class="leader-avatar">
-                <img src="ff.jpeg" alt="Balveer Rathore">
+                <picture>
+                  <source srcset="ff.webp" type="image/webp">
+                  <img src="ff.jpeg" alt="Balveer Rathore" width="85" height="85" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="leader-titles">
                 <h3>Balveer Rathore</h3>
@@ -3914,16 +3974,17 @@
               </div>
             </div>
             <div class="leader-body">
-              
               <p>
                 Under the vision and leadership of our Founder and Chief Visionary, our work brings together the timeless soul of Indian heritage with contemporary craftsmanship and modern standards. With over 15 years of experience as a Heritage Developer, he has delivered numerous heritage projects with a focus on authenticity, cultural elegance, and architectural excellence.
-
-His expertise spans luxury havelis, heritage residences, palaces, resorts, heritage hotels, and bespoke traditional interiors. With deep knowledge of Rajasthani architecture, he provides expert guidance across heritage design, proportions, materials, craftsmanship, and traditional elements such as domes, chhatris, jharokhas, jaalis, mehraabs, intricate stonework, and marble detailing.
-
-His vision is to preserve the royal soul of Rajasthan while creating timeless spaces that combine heritage, luxury, functionality, and enduring beauty—where every project carries a distinctive story of craftsmanship and culture.
- <p>
-
-   
+              </p>
+              <p style="margin-top: 12px;">
+                His expertise spans luxury havelis, heritage residences, palaces, resorts, heritage hotels, and bespoke traditional interiors. With deep knowledge of Rajasthani architecture, he provides expert guidance across heritage design, proportions, materials, craftsmanship, and traditional elements such as domes, chhatris, jharokhas, jaalis, mehraabs, intricate stonework, and marble detailing.
+              </p>
+              <p style="margin-top: 12px;">
+                His vision is to preserve the royal soul of Rajasthan while creating timeless spaces that combine heritage, luxury, functionality, and enduring beauty—where every project carries a distinctive story of craftsmanship and culture.
+              </p>
+            </div>
+    
             <div class="leader-footer">
               Rathore Heritage Developers
             </div>
@@ -3933,7 +3994,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           <div class="leader-card">
             <div class="leader-header">
               <div class="leader-avatar">
-                <img src="md.jpeg" alt="Yashvardhan Singh Rathore" style="object-position: top center;">
+                <picture>
+                  <source srcset="md.webp" type="image/webp">
+                  <img src="md.jpeg" alt="Yashvardhan Singh Rathore" width="85" height="85" loading="lazy" decoding="async" style="object-position: top center;">
+                </picture>
               </div>
               <div class="leader-titles">
                 <h3>Yashvardhan Singh Rathore</h3>
@@ -4017,7 +4081,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           <!-- Top Full Width Card: Oladar Haveli — image inside card, text below -->
           <div class="project-featured-card oladar-featured-card" onclick="openProject('oladar')">
             <div class="project-featured-image">
-              <img src="oladar1.jpeg" alt="Oladar Haveli">
+              <picture>
+                <source srcset="oladar1.webp" type="image/webp">
+                <img src="oladar1.jpeg" alt="Oladar Haveli" width="1200" height="800" loading="lazy" decoding="async">
+              </picture>
             </div>
             <div class="project-featured-content">
               <div class="eyebrow">Udaipur · Heritage Haveli Construction</div>
@@ -4037,7 +4104,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="project-card-box" onclick="openProject('roopmahal')">
               <div class="beige-card-wrap">
                 <div class="project-card-img shape-dome">
-                  <img src="roop1.jpeg" alt="Roop Mahal">
+                  <picture>
+                    <source srcset="roop1.webp" type="image/webp">
+                    <img src="roop1.jpeg" alt="Roop Mahal" width="800" height="600" loading="lazy" decoding="async">
+                  </picture>
                 </div>
                 <div class="project-card-info">
                   <div class="eyebrow">Udaipur · Luxury Heritage Villa</div>
@@ -4054,7 +4124,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="project-card-box" onclick="openProject('mohan')">
               <div class="beige-card-wrap">
                 <div class="project-card-img">
-                  <img src="mohan1.jpeg" alt="Mohan Villa">
+                  <picture>
+                    <source srcset="mohan1.webp" type="image/webp">
+                    <img src="mohan1.jpeg" alt="Mohan Villa" width="800" height="600" loading="lazy" decoding="async">
+                  </picture>
                 </div>
                 <div class="project-card-info">
                   <div class="eyebrow">Udaipur · Heritage Style Villa / Farmhouse</div>
@@ -4071,7 +4144,10 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="project-card-box" onclick="openProject('salon')">
               <div class="beige-card-wrap">
                 <div class="project-card-img shape-dome">
-                  <img src="first1.jpeg" alt="First Impression Salon">
+                  <picture>
+                    <source srcset="first1.webp" type="image/webp">
+                    <img src="first1.jpeg" alt="First Impression Salon" width="800" height="600" loading="lazy" decoding="async">
+                  </picture>
                 </div>
                 <div class="project-card-info">
                   <div class="eyebrow">Udaipur · Premium Commercial Interior</div>
@@ -4115,9 +4191,9 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           <div class="beige-card-wrap">
             <div class="consultancy-slider-wrap" id="consultancySlider">
               <div class="consultancy-video-slide active">
-                <video class="consultancy-video" muted loop playsinline preload="metadata">
+                <video class="consultancy-video" muted loop playsinline preload="none" poster="cons1_poster.webp">
+                  <source src="cons1_optimized.mp4" type="video/mp4">
                   <source src="cons1.mp4" type="video/mp4">
-                  <source src="cons1.MOV" type="video/quicktime">
                 </video>
                 <button class="consultancy-play-stop" type="button" aria-label="Play Video 1" aria-pressed="false">
                   <i class="fa-solid fa-play"></i>
@@ -4125,9 +4201,9 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               </div>
 
               <div class="consultancy-video-slide">
-                <video class="consultancy-video" muted loop playsinline preload="metadata">
-                  <source src="cons2.mp4" type="video/mp4">
-                  <source src="cons2.MOV" type="video/quicktime">
+                <video class="consultancy-video" muted loop playsinline preload="none" poster="cons2_poster.webp">
+                  <source data-src="cons2_optimized.mp4" type="video/mp4">
+                  <source data-src="cons2.mp4" type="video/mp4">
                 </video>
                 <button class="consultancy-play-stop" type="button" aria-label="Play Video 2" aria-pressed="false">
                   <i class="fa-solid fa-play"></i>
@@ -4135,9 +4211,9 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               </div>
 
               <div class="consultancy-video-slide">
-                <video class="consultancy-video" muted loop playsinline preload="metadata">
-                  <source src="cons3.mp4" type="video/mp4">
-                  <source src="cons3.MOV" type="video/quicktime">
+                <video class="consultancy-video" muted loop playsinline preload="none" poster="cons3_poster.webp">
+                  <source data-src="cons3_optimized.mp4" type="video/mp4">
+                  <source data-src="cons3.mp4" type="video/mp4">
                 </video>
                 <button class="consultancy-play-stop" type="button" aria-label="Play Video 3" aria-pressed="false">
                   <i class="fa-solid fa-play"></i>
@@ -4145,9 +4221,9 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               </div>
 
               <div class="consultancy-video-slide">
-                <video class="consultancy-video" muted loop playsinline preload="metadata">
-                  <source src="cons4.mp4" type="video/mp4">
-                  <source src="cons4.MOV" type="video/quicktime">
+                <video class="consultancy-video" muted loop playsinline preload="none" poster="cons4_poster.webp">
+                  <source data-src="cons4_optimized.mp4" type="video/mp4">
+                  <source data-src="cons4.mp4" type="video/mp4">
                 </video>
                 <button class="consultancy-play-stop" type="button" aria-label="Play Video 4" aria-pressed="false">
                   <i class="fa-solid fa-play"></i>
@@ -4155,9 +4231,9 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               </div>
 
               <div class="consultancy-video-slide">
-                <video class="consultancy-video" muted loop playsinline preload="metadata">
-                  <source src="cons5.mp4" type="video/mp4">
-                  <source src="cons5.MOV" type="video/quicktime">
+                <video class="consultancy-video" muted loop playsinline preload="none" poster="cons5_poster.webp">
+                  <source data-src="cons5_optimized.mp4" type="video/mp4">
+                  <source data-src="cons5.mp4" type="video/mp4">
                 </video>
                 <button class="consultancy-play-stop" type="button" aria-label="Play Video 5" aria-pressed="false">
                   <i class="fa-solid fa-play"></i>
@@ -4165,14 +4241,17 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               </div>
 
               <div class="consultancy-video-slide">
-                <video class="consultancy-video" muted loop playsinline preload="metadata">
-                  <source src="cons6.mp4" type="video/mp4">
+                <video class="consultancy-video" muted loop playsinline preload="none" poster="cons6_poster.webp">
+                  <source data-src="cons6_optimized.mp4" type="video/mp4">
+                  <source data-src="cons6.mp4" type="video/mp4">
                 </video>
                 <button class="consultancy-play-stop" type="button" aria-label="Play Video 6" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
               </div>
+
               <div class="consultancy-video-slide">
-                <video class="consultancy-video" muted loop playsinline preload="metadata">
-                  <source src="cons7.mp4" type="video/mp4">
+                <video class="consultancy-video" muted loop playsinline preload="none" poster="cons7_poster.webp">
+                  <source data-src="cons7_optimized.mp4" type="video/mp4">
+                  <source data-src="cons7.mp4" type="video/mp4">
                 </video>
                 <button class="consultancy-play-stop" type="button" aria-label="Play Video 7" aria-pressed="false"><i class="fa-solid fa-play"></i></button>
               </div>
@@ -4256,20 +4335,20 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         <form class="form" id="consultancyForm">
           <h3 id="consultancyModalHeading">BOOK CONSULTANCY</h3>
           <div class="field">
-            <label>Your Name</label>
-            <input type="text" name="name" required placeholder="Enter your name">
+            <label for="consultancyName">Your Name</label>
+            <input type="text" id="consultancyName" name="name" required placeholder="Enter your name">
           </div>
           <div class="field">
-            <label>Phone Number</label>
-            <input type="tel" name="phone" required placeholder="Enter your phone">
+            <label for="consultancyPhone">Phone Number</label>
+            <input type="tel" id="consultancyPhone" name="phone" required placeholder="Enter your phone">
           </div>
           <div class="field">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Enter your email">
+            <label for="consultancyEmail">Email</label>
+            <input type="email" id="consultancyEmail" name="email" placeholder="Enter your email">
           </div>
           <div class="field">
-            <label>Project Type</label>
-            <select name="projectType">
+            <label for="consultancyProjectType">Project Type</label>
+            <select name="projectType" id="consultancyProjectType">
               <option value="">Select project type</option>
               <option>Heritage Haveli</option>
               <option>Luxury Heritage Villa</option>
@@ -4279,8 +4358,8 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             </select>
           </div>
           <div class="field">
-            <label>Your Vision</label>
-            <textarea name="message" placeholder="Tell us about your project..."></textarea>
+            <label for="consultancyMessage">Your Vision</label>
+            <textarea id="consultancyMessage" name="message" placeholder="Tell us about your project..."></textarea>
           </div>
           <button type="submit" class="luxury-btn" style="color:var(--ink); border-color:var(--gold-dark);">
             Send Enquiry <i class="fa-solid fa-arrow-right"></i>
@@ -4296,8 +4375,8 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         <div class="raw-material-layout">
           <div class="raw-material-card">
             <div class="raw-material-image-wrap">
-              <img id="rawMaterialImage" src="raw1.jpg" alt="Raw Material Element 1" loading="lazy">
-              <video id="rawMaterialVideo" muted loop playsinline preload="metadata"></video>
+              <img id="rawMaterialImage" src="raw1.jpg" alt="Raw Material Element 1" width="1440" height="1920" loading="lazy" decoding="async">
+              <video id="rawMaterialVideo" muted loop playsinline preload="none"></video>
             </div>
 
             <div class="raw-material-caption">
@@ -4456,19 +4535,19 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         <div class="principles">
           <div class="principle">
             <div class="principle-number">01</div>
-            <h4>Traditional Craftsmanship</h4>
+            <h3>Traditional Craftsmanship</h3>
           </div>
           <div class="principle">
             <div class="principle-number">02</div>
-            <h4>Authentic Materials</h4>
+            <h3>Authentic Materials</h3>
           </div>
           <div class="principle">
             <div class="principle-number">03</div>
-            <h4>Architectural Detailing</h4>
+            <h3>Architectural Detailing</h3>
           </div>
           <div class="principle">
             <div class="principle-number">04</div>
-            <h4>Modern Construction Understanding</h4>
+            <h3>Modern Construction Understanding</h3>
           </div>
         </div>
       </div>
@@ -4524,7 +4603,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
           <!-- Trust & Rating Badge -->
           <div class="reviews-trust-badge">
-            <div class="stars-cluster" aria-label="5 Star Rating">
+            <div class="stars-cluster" role="img" aria-label="5 Star Rating">
               <i class="fa-solid fa-star"></i>
               <i class="fa-solid fa-star"></i>
               <i class="fa-solid fa-star"></i>
@@ -4556,7 +4635,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div class="review-author-wrap">
                 <div class="review-avatar-seal">DS</div>
                 <div class="review-author-info">
-                  <h4>Raja Digvijay Singh</h4>
+                  <h3>Raja Digvijay Singh</h3>
                   <div class="review-author-role">Heritage Haveli Custodian</div>
                   <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> 180-Yr Haveli Restoration</div>
                   <div class="review-location"><i class="fa-solid fa-location-dot"></i> Udaipur, Rajasthan</div>
@@ -4578,7 +4657,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div class="review-author-wrap">
                 <div class="review-avatar-seal">VD</div>
                 <div class="review-author-info">
-                  <h4>Maharaj Vikramaditya Deora</h4>
+                  <h3>Maharaj Vikramaditya Deora</h3>
                   <div class="review-author-role">Palace Estate Owner</div>
                   <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Palace-Style Farmhouse</div>
                   <div class="review-location"><i class="fa-solid fa-location-dot"></i> Jodhpur, Rajasthan</div>
@@ -4600,7 +4679,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div class="review-author-wrap">
                 <div class="review-avatar-seal">GD</div>
                 <div class="review-author-info">
-                  <h4>Thakurain Gayatri Devi</h4>
+                  <h3>Thakurain Gayatri Devi</h3>
                   <div class="review-author-role">Boutique Heritage Resort Director</div>
                   <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Heritage Resort & Courtyards</div>
                   <div class="review-location"><i class="fa-solid fa-location-dot"></i> Kumbhalgarh, Rajasthan</div>
@@ -4622,7 +4701,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div class="review-author-wrap">
                 <div class="review-avatar-seal">RR</div>
                 <div class="review-author-info">
-                  <h4>Kunwar Raghavendra Rathore</h4>
+                  <h3>Kunwar Raghavendra Rathore</h3>
                   <div class="review-author-role">Luxury Heritage Villa Patron</div>
                   <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Bespoke Heritage Villa</div>
                   <div class="review-location"><i class="fa-solid fa-location-dot"></i> Jaipur, Rajasthan</div>
@@ -4644,7 +4723,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div class="review-author-wrap">
                 <div class="review-avatar-seal">HC</div>
                 <div class="review-author-info">
-                  <h4>Dr. Harshwardhan Chauhan</h4>
+                  <h3>Dr. Harshwardhan Chauhan</h3>
                   <div class="review-author-role">Heritage Collector & Connoisseur</div>
                   <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Darbar Commercial Suites</div>
                   <div class="review-location"><i class="fa-solid fa-location-dot"></i> Mount Abu, Rajasthan</div>
@@ -4666,7 +4745,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div class="review-author-wrap">
                 <div class="review-avatar-seal">MS</div>
                 <div class="review-author-info">
-                  <h4>Bannaji Mahendra Singh</h4>
+                  <h3>Bannaji Mahendra Singh</h3>
                   <div class="review-author-role">Heritage Estate Trustee</div>
                   <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> Chhatri & Stone Jaali Architecture</div>
                   <div class="review-location"><i class="fa-solid fa-location-dot"></i> Ranakpur, Rajasthan</div>
@@ -4709,16 +4788,16 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             Honor us with your experience. Your reflection will be shared with fellow connoisseurs of royal Rajasthan architecture.
           </p>
           <div class="field">
-            <label>Full Name</label>
-            <input type="text" name="name" required placeholder="e.g., Rawat Ranveer Singh">
+            <label for="reviewName">Full Name</label>
+            <input type="text" id="reviewName" name="name" required placeholder="e.g., Rawat Ranveer Singh">
           </div>
           <div class="field">
-            <label>Royal Title / Estate Role</label>
-            <input type="text" name="role" required placeholder="e.g., Haveli Owner, Heritage Resort Director">
+            <label for="reviewRole">Royal Title / Estate Role</label>
+            <input type="text" id="reviewRole" name="role" required placeholder="e.g., Haveli Owner, Heritage Resort Director">
           </div>
           <div class="field">
-            <label>Heritage Project Type</label>
-            <select name="project" required>
+            <label for="reviewProjectType">Heritage Project Type</label>
+            <select name="project" id="reviewProjectType" required>
               <option value="">Select project type</option>
               <option value="Heritage Haveli Restoration">Heritage Haveli Restoration</option>
               <option value="Luxury Heritage Villa">Luxury Heritage Villa</option>
@@ -4729,13 +4808,13 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             </select>
           </div>
           <div class="field">
-            <label>City & State</label>
-            <input type="text" name="city" required placeholder="e.g., Udaipur, Rajasthan">
+            <label for="reviewCity">City & State</label>
+            <input type="text" id="reviewCity" name="city" required placeholder="e.g., Udaipur, Rajasthan">
           </div>
           <div class="field">
             <label>Patron Rating</label>
             <input type="hidden" name="rating" id="reviewRatingInput" value="5">
-            <div class="star-rating-select" id="starRatingSelect" aria-label="Select Rating">
+            <div class="star-rating-select" id="starRatingSelect" role="group" aria-label="Select Rating">
               <i class="fa-solid fa-star" data-val="1"></i>
               <i class="fa-solid fa-star" data-val="2"></i>
               <i class="fa-solid fa-star" data-val="3"></i>
@@ -4744,8 +4823,8 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             </div>
           </div>
           <div class="field">
-            <label>Your Patron Reflection</label>
-            <textarea name="message" required placeholder="Share your experience working with Rathore Heritage Developers..." style="min-height:90px;"></textarea>
+            <label for="reviewMessage">Your Patron Reflection</label>
+            <textarea id="reviewMessage" name="message" required placeholder="Share your experience working with Rathore Heritage Developers..." style="min-height:90px;"></textarea>
           </div>
           <button type="submit" class="luxury-btn" style="width:100%; justify-content:center; color:var(--ink); border-color:var(--gold-dark); margin-top:6px;">
             Submit Patron Reflection <i class="fa-solid fa-arrow-right"></i>
@@ -4781,7 +4860,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
                 <strong>rathoreheritagedevelopers@gmail.com</strong>
               </div>
             </a>
-            <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener" aria-label="Location">
+            <a class="contact-item contact-address" href="https://maps.google.com/?q=Oladar+Haveli,+Lake+Palace+Road,+Kalaji+Goraji,+Udaipur,+Rajasthan+313001" target="_blank" rel="noopener">
               <div class="contact-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
               <div class="contact-address-text">
                 <span class="addr-desktop">Building No. 14/21,<br>Oladar Haveli, Lake Palace Road,<br>Kalaji Goraji, Udaipur, Rajasthan - 313001, India</span>
@@ -4794,20 +4873,20 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         <form class="form" id="enquiryForm">
           <h3>Padharo Sa</h3>
           <div class="field">
-            <label>Your Name</label>
-            <input type="text" name="name" required placeholder="Enter your name">
+            <label for="enquiryName">Your Name</label>
+            <input type="text" id="enquiryName" name="name" required placeholder="Enter your name">
           </div>
           <div class="field">
-            <label>Phone Number</label>
-            <input type="tel" name="phone" required placeholder="Enter your phone">
+            <label for="enquiryPhone">Phone Number</label>
+            <input type="tel" id="enquiryPhone" name="phone" required placeholder="Enter your phone">
           </div>
           <div class="field">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Enter your email">
+            <label for="enquiryEmail">Email</label>
+            <input type="email" id="enquiryEmail" name="email" placeholder="Enter your email">
           </div>
           <div class="field">
-            <label>Project Type</label>
-            <select name="projectType">
+            <label for="enquiryProjectType">Project Type</label>
+            <select name="projectType" id="enquiryProjectType">
               <option value="">Select project type</option>
               <option>Heritage Haveli</option>
               <option>Luxury Heritage Villa</option>
@@ -4817,8 +4896,8 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             </select>
           </div>
           <div class="field">
-            <label>Your Vision</label>
-            <textarea name="message" placeholder="Tell us about your project..."></textarea>
+            <label for="enquiryMessage">Your Vision</label>
+            <textarea id="enquiryMessage" name="message" placeholder="Tell us about your project..."></textarea>
           </div>
           <button type="submit" class="luxury-btn" style="color:var(--ink); border-color:var(--gold-dark);">
             Send Enquiry <i class="fa-solid fa-arrow-right"></i>
@@ -4833,12 +4912,12 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <img class="footer-logo" src="logo.PNG" alt="Rathore Heritage Developers Logo">
+            <img class="footer-logo" src="logo-header.webp" alt="Rathore Heritage Developers Logo" width="80" height="80" loading="lazy">
             <h2>Rathore Heritage Developers</h2>
             <p>Preserving the soul of Rajasthan. Creating living heritage. Authentic craftsmanship interpreted for spaces of today and tomorrow.</p>
           </div>
           <div class="footer-col">
-            <h4>Heritage</h4>
+            <h3 class="footer-col-title">Heritage</h3>
             <a href="#home">Home</a>
             <a href="#legacy">Our Legacy</a>
             <a href="#leadership">Leadership</a>
@@ -4850,7 +4929,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <a href="#contact">Contact</a>
           </div>
           <div class="footer-col">
-            <h4>Sampark</h4>
+            <h3 class="footer-col-title">Sampark</h3>
             <a href="tel:+917850015839"><i class="fa-solid fa-phone"></i> Call</a>
             <a href="https://wa.me/917850015839" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             <a href="mailto:rathoreheritagedevelopers@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
@@ -4895,6 +4974,18 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       vid.preload = "none";
     });
 
+    function ensureVideoSource(vid) {
+      if (!vid) return;
+      const deferred = vid.querySelectorAll("source[data-src]");
+      if (deferred.length > 0) {
+        deferred.forEach(s => {
+          s.src = s.getAttribute("data-src");
+          s.removeAttribute("data-src");
+        });
+        vid.load();
+      }
+    }
+
     function updatePlayStopButton(index, isPlaying) {
       const button = consultancyPlayStopButtons[index];
       if (!button) return;
@@ -4926,6 +5017,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
         if (isActive) {
           consultancySlides[i].classList.add("active");
+          ensureVideoSource(vid);
         } else {
           consultancySlides[i].classList.remove("active");
           stopConsultancyVideo(i, true);
@@ -4949,6 +5041,8 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
           showSlide(currentSlide);
           return;
         }
+
+        ensureVideoSource(vid);
 
         if (vid.paused) {
           const startPlayback = () => {
@@ -5073,11 +5167,12 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
       const shapeClass = (index % 2 === 0) ? "shape-square" : "shape-dome";
       const div = document.createElement("div");
       div.className = `craft-card-item ${shapeClass}`;
+      const imgSrc = (typeof card.image === 'string' && /^card\d+\.(jpeg|jpg)$/i.test(card.image)) ? card.image.replace(/\.(jpeg|jpg)$/i, '.webp') : card.image;
       div.innerHTML = `
         <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;">
           <div>
             <div class="craft-card-img-wrap">
-              <img src="${card.image}" alt="${card.title}" loading="lazy">
+              <img src="${imgSrc}" alt="${card.title}" loading="lazy" decoding="async">
             </div>
             <div class="craft-card-info">
               <h3>${card.title}</h3>
@@ -5217,9 +5312,9 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
             <div class="material-element-card material-item shape-rectangle">
               <div class="beige-card-wrap">
                 <div class="material-img-wrap">
-                  <img src="${item.image}" alt="${item.title}" loading="eager">
+                  <img src="${item.image}" alt="${item.title}" width="400" height="400" loading="lazy" decoding="async">
                 </div>
-                <h4>${item.title}</h4>
+                <h3>${item.title}</h3>
               </div>
             </div>
           `;
@@ -5230,7 +5325,18 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         updateSlideUI();
 
         if (materialAutoSlide) {
-          startTimer();
+          if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+              if (entries[0].isIntersecting) {
+                startTimer();
+              } else {
+                stopTimer();
+              }
+            }, { threshold: 0.1 });
+            obs.observe(stage);
+          } else {
+            startTimer();
+          }
         }
       };
     })();
@@ -5418,10 +5524,22 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
     function restartHeritageTimer() {
       clearInterval(heritageTimer);
-      heritageTimer = setInterval(nextHeritageSlide, 5000);
+      heritageTimer = setInterval(nextHeritageSlide, 6000);
     }
 
-    restartHeritageTimer();
+    const darbarSection = document.getElementById("darbar");
+    if ('IntersectionObserver' in window && darbarSection) {
+      const darbarObs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          restartHeritageTimer();
+        } else {
+          clearInterval(heritageTimer);
+        }
+      }, { threshold: 0.1 });
+      darbarObs.observe(darbarSection);
+    } else {
+      setTimeout(restartHeritageTimer, 5000);
+    }
 
 
     /* PROJECTS DATABASE FOR SUB-PAGES */
@@ -5430,7 +5548,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         title: "OLADAR HAVELI",
         location: "UDAIPUR",
         type: "HERITAGE HAVELI CONSTRUCTION",
-        hero: "oladar1.jpeg",
+        hero: "oladar1.webp",
         description: [
           "THE OLADAR HAVELI PROJECT HAS BEEN DESIGNED AND EXECUTED IN A COMPLETE TRADITIONAL HERITAGE STYLE WHILE ENSURING MODERN STRUCTURAL STRENGTH, QUALITY CONTROL AND DURABILITY FROM FOUNDATION TO FINAL FINISHING.",
           "THE PROJECT COMBINES TRADITIONAL RAJASTHANI HERITAGE ARCHITECTURE WITH MODERN CIVIL ENGINEERING STANDARDS TO ENSURE BOTH AESTHETIC BEAUTY AND STRUCTURAL SAFETY.",
@@ -5442,7 +5560,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         title: "ROOP MAHAL",
         location: "UDAIPUR",
         type: "LUXURY HERITAGE VILLA",
-        hero: "roop1.jpeg",
+        hero: "roop1.webp",
         description: [
           "ROOP MAHAL IS A MAGNIFICENT HERITAGE-STYLE PROJECT INSPIRED BY THE TIMELESS ARCHITECTURE OF RAJASTHAN.",
           "THE EXTERIOR SHOWCASES BEAUTIFULLY CRAFTED HERITAGE-STYLE WINDOWS, TRADITIONAL ARCHES AND ELEGANT FAÇADE DETAILING THAT REFLECTS THE CHARM OF ROYAL HAVELIS.",
@@ -5454,7 +5572,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         title: "MOHAN VILLA",
         location: "UDAIPUR",
         type: "HERITAGE STYLE VILLA / FARMHOUSE",
-        hero: "mohan1.jpeg",
+        hero: "mohan1.webp",
         description: [
           "MOHAN VILLA IS A LUXURIOUS HERITAGE-STYLE VILLA INSPIRED BY THE TRADITIONAL ARCHITECTURE OF RAJASTHANI HAVELIS.",
           "THE DESIGN SHOWCASES BEAUTIFULLY CARVED ARCHES, DECORATIVE WALL ARTWORK AND VIBRANT STAINED-GLASS WINDOWS THAT ENHANCE NATURAL LIGHT.",
@@ -5466,7 +5584,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
         title: "FIRST IMPRESSION SALON",
         location: "UDAIPUR",
         type: "PREMIUM COMMERCIAL INTERIOR",
-        hero: "first1.jpeg",
+        hero: "first1.webp",
         description: [
           "FIRST IMPRESSION SALON IS A LUXURIOUS HERITAGE-THEMED SALON INSPIRED BY THE ROYAL CHARM OF RAJASTHAN.",
           "THE SPACE FEATURES HERITAGE-STYLE INTERIORS, TRADITIONAL FURNITURE, BELGIUM GLASS WORK AND INTRICATE THEKRI GLASS WORK.",
@@ -5487,11 +5605,17 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
     let detailReturnState = null;
     let detailWasOpen = false;
 
-    const pageStartTime = performance.now();
-    window.addEventListener("load", () => {
-      const remaining = Math.max(0, 3000 - (performance.now() - pageStartTime));
-      setTimeout(() => preloader.classList.add("hide"), remaining);
-    });
+    function hidePreloader() {
+      if (!preloader || preloader.classList.contains("hide")) return;
+      preloader.classList.add("hide");
+      setTimeout(() => { preloader.style.display = "none"; }, 250);
+    }
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      hidePreloader();
+    } else {
+      document.addEventListener("DOMContentLoaded", hidePreloader);
+    }
+    window.addEventListener("load", hidePreloader);
 
     menuTrigger.addEventListener("click", () => {
       menuTrigger.classList.toggle("active");
@@ -5869,7 +5993,19 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
 
       buildDots();
       updateSlider();
-      restartAutoplay();
+
+      if ('IntersectionObserver' in window && carouselWrap) {
+        const revObs = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            restartAutoplay();
+          } else {
+            clearInterval(autoplayTimer);
+          }
+        }, { threshold: 0.1 });
+        revObs.observe(carouselWrap);
+      } else {
+        restartAutoplay();
+      }
 
       // Expose refresh function for CMS sync
       window.refreshReviewsCarousel = function() {
@@ -5967,7 +6103,7 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
               <div class="review-author-wrap">
                 <div class="review-avatar-seal">${initials}</div>
                 <div class="review-author-info">
-                  <h4>${name}</h4>
+                  <h3>${name}</h3>
                   <div class="review-author-role">${role}</div>
                   <div class="review-project-badge"><i class="fa-solid fa-circle-check"></i> ${project}</div>
                   <div class="review-location"><i class="fa-solid fa-location-dot"></i> ${city}</div>
@@ -5997,17 +6133,17 @@ His vision is to preserve the royal soul of Rajasthan while creating timeless sp
   </script>
 
   <!-- Firebase App, Auth, Firestore & Analytics Client SDKs (CDN) -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
   <!-- Client-Safe Config & Database Service -->
-  <script src="firebase-config.js?v=20"></script>
-  <script src="js/default-data.js?v=20"></script>
-  <script src="js/database.js?v=20"></script>
+  <script defer src="firebase-config.js?v=21"></script>
+  <script defer src="js/default-data.js?v=21"></script>
+  <script defer src="js/database.js?v=21"></script>
 
   <!-- Rathore Heritage Dynamic CMS Synchronizer -->
-  <script src="client-cms.js?v=20"></script>
+  <script defer src="client-cms.js?v=21"></script>
 </body>
 </html>

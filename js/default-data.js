@@ -27,7 +27,7 @@ const DEFAULT_DATA = {
       description: 'Welcome to a World of Timeless Heritage — where the soul of Rajasthan is shaped into enduring architecture.',
       ctaText: 'Enter Raj Nirmaan',
       ctaLink: '#projects',
-      videoSrc: 'hero.mp4',
+      videoSrc: 'hero_optimized.mp4',
     },
     legacy: {
       eyebrow: 'Raj Virasat',
