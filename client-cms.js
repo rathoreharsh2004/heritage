@@ -407,7 +407,7 @@
         const shapeClass = (index % 2 === 0) ? "shape-square" : "shape-dome";
         const div = document.createElement("div");
         div.className = `craft-card-item ${shapeClass}`;
-        const imgSrc = (typeof card.image === 'string' && /^card\d+\.(jpeg|jpg)$/i.test(card.image)) ? card.image.replace(/\.(jpeg|jpg)$/i, '.webp') : card.image;
+        const imgSrc = (typeof card.image === 'string' && /^card([1-9]|10)\.(jpeg|jpg)$/i.test(card.image)) ? card.image.replace(/\.(jpeg|jpg)$/i, '.webp') : card.image;
         div.innerHTML = `
           <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;">
             <div>
