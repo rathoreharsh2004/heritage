@@ -3965,7 +3965,7 @@
               <div class="leader-avatar">
                 <picture>
                   <source srcset="ff.webp" type="image/webp">
-                  <img src="ff.jpeg" alt="Balveer Rathore" width="85" height="85" loading="lazy" decoding="async">
+                  <img src="ff.jpeg" alt="Balveer Rathore" width="85" height="85" loading="lazy" decoding="async" onerror="if(this.src!=='ff.jpeg'){this.src='ff.jpeg';}">
                 </picture>
               </div>
               <div class="leader-titles">
@@ -4423,7 +4423,7 @@
           </div>
 
           <div class="heritage-featured-image">
-            <img id="heritageFeaturedImage" src="Darbar 1.jpg" alt="Darbar Gallery">
+            <img id="heritageFeaturedImage" src="Darbar 1.jpg" alt="Darbar Gallery" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='Darbar%201.jpg';}">
           </div>
 
           <div class="heritage-slider-dots" id="heritageSliderDots"></div>
@@ -5172,7 +5172,7 @@
         <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;">
           <div>
             <div class="craft-card-img-wrap">
-              <img src="${imgSrc}" alt="${card.title}" loading="lazy" decoding="async">
+              <img src="${imgSrc}" alt="${card.title}" loading="lazy" decoding="async" onerror="if(this.src!=='${card.image}'){this.src='${card.image}';}">
             </div>
             <div class="craft-card-info">
               <h3>${card.title}</h3>
@@ -5367,7 +5367,7 @@
       { type: "video", src: "raw9.mp4", tagline: "TRADITIONAL PROPORTION AND HONEST FORM" },
       { type: "image", src: "raw10.jpg", tagline: "FROM RAW ELEMENTS TO TIMELESS HERITAGE" },
       { type: "video", src: "raw10.mp4", tagline: "THE LIVING SOUL OF ARCHITECTURE" },
-      { type: "image", src: "Raw11.jpeg", tagline: "WHERE RAW MATERIAL BECOMES LIVING HERITAGE" }
+      { type: "image", src: "raw11.jpg", tagline: "WHERE RAW MATERIAL BECOMES LIVING HERITAGE" }
     ];
 
     let rawMaterialIndex = 0;
@@ -5419,9 +5419,11 @@
           if (rawMaterialVideo) rawMaterialVideo.style.display = "none";
           if (rawMaterialImage) {
             rawMaterialImage.onerror = function() {
-              if (this.src.includes('Raw%2011.jpg') || this.src.includes('Raw 11.jpg')) {
-                this.onerror = null;
-                this.src = 'raw11.jpg';
+              if (!this.dataset.fallbackTried) {
+                this.dataset.fallbackTried = '1';
+                if (/raw.*11/i.test(this.src)) {
+                  this.src = 'raw11.jpg';
+                }
               }
             };
             rawMaterialImage.src = slide.src;
@@ -5489,6 +5491,14 @@
       const slide = heritageSlides[heritageCurrent];
       heritageFeaturedImage.style.opacity = "0";
       setTimeout(() => {
+        heritageFeaturedImage.onerror = function() {
+          if (!this.dataset.triedWebp && slide.image.endsWith('.jpg')) {
+            this.dataset.triedWebp = '1';
+            this.src = slide.image.replace('.jpg', '.webp');
+          } else if (slide.image.includes(' ')) {
+            this.src = encodeURI(slide.image);
+          }
+        };
         heritageFeaturedImage.src = slide.image;
         heritageFeaturedImage.alt = `Darbar Gallery ${heritageCurrent + 1}`;
         heritageSlideNumber.textContent = `${String(heritageCurrent + 1).padStart(2, "0")} / 10`;

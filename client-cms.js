@@ -353,11 +353,24 @@
     if (!leaders || leaders.length === 0) return;
     const leadGrid = document.querySelector('.leadership-grid');
     if (leadGrid) {
-      leadGrid.innerHTML = leaders.map(leader => `
+      const activeLeaders = leaders.filter(l => l.isActive !== false);
+      const list = activeLeaders.length > 0 ? activeLeaders : leaders;
+      leadGrid.innerHTML = list.map(leader => {
+        let avatar = (leader.avatar && typeof leader.avatar === 'string' && leader.avatar.trim()) ? leader.avatar.trim() : '';
+        if (!avatar) {
+          if (/balveer/i.test(leader.name)) avatar = 'ff.jpeg';
+          else if (/yashvardhan/i.test(leader.name)) avatar = 'md.jpeg';
+          else avatar = 'ff.jpeg';
+        }
+        const webpAvatar = avatar.replace(/\.(jpeg|jpg)$/i, '.webp');
+        return `
         <div class="leader-card">
           <div class="leader-header">
             <div class="leader-avatar">
-              <img src="${leader.avatar}" alt="${leader.name}" loading="lazy" decoding="async" ${/md\.jpeg/i.test(leader.avatar) ? 'style="object-position: top center;"' : ''}>
+              <picture>
+                <source srcset="${webpAvatar}" type="image/webp">
+                <img src="${avatar}" alt="${leader.name}" loading="lazy" decoding="async" ${/md\.(jpeg|webp)/i.test(avatar) ? 'style="object-position: top center;"' : ''} onerror="if(this.src!=='ff.jpeg'&&this.src!=='founder.jpeg'){this.src='ff.jpeg';}">
+              </picture>
             </div>
             <div class="leader-titles">
               <h3>${leader.name}</h3>
@@ -371,7 +384,8 @@
             ${leader.company || 'Rathore Heritage Developers'}
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
   }
 
@@ -398,7 +412,7 @@
           <div class="beige-card-wrap" style="height:100%; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;">
             <div>
               <div class="craft-card-img-wrap">
-                <img src="${imgSrc}" alt="${card.title}" loading="lazy" decoding="async">
+                <img src="${imgSrc}" alt="${card.title}" loading="lazy" decoding="async" onerror="if(this.src!=='${card.image}'){this.src='${card.image}';}">
               </div>
               <div class="craft-card-info">
                 <h3>${card.title}</h3>
@@ -499,7 +513,7 @@
       rawMaterialSlides.length = 0;
       rawMaterials.forEach(rm => {
         if (rm && rm.src && /raw\s*11\.(jpg|jpeg)/i.test(rm.src)) {
-          rm.src = 'Raw 11.jpg';
+          rm.src = 'raw11.jpg';
         }
         rawMaterialSlides.push(rm);
       });

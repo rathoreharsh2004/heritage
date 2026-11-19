@@ -159,7 +159,7 @@ const DEFAULT_DATA = {
       id: 'leader-1',
       name: 'Balveer Rathore',
       designation: 'Founder & Chief Visionary',
-      avatar: 'founder.jpeg',
+      avatar: 'ff.jpeg',
       company: 'Rathore Heritage Developers',
       order: 1,
       bio: [
@@ -376,7 +376,7 @@ const DEFAULT_DATA = {
     { id: 'raw-18', type: 'video', src: 'raw9.mp4', tagline: 'TRADITIONAL PROPORTION AND HONEST FORM', order: 18 },
     { id: 'raw-19', type: 'image', src: 'raw10.jpg', tagline: 'FROM RAW ELEMENTS TO TIMELESS HERITAGE', order: 19 },
     { id: 'raw-20', type: 'video', src: 'raw10.mp4', tagline: 'THE LIVING SOUL OF ARCHITECTURE', order: 20 },
-    { id: 'raw-21', type: 'image', src: 'Raw 11.jpg', tagline: 'WHERE RAW MATERIAL BECOMES LIVING HERITAGE', order: 21 },
+    { id: 'raw-21', type: 'image', src: 'raw11.jpg', tagline: 'WHERE RAW MATERIAL BECOMES LIVING HERITAGE', order: 21 },
   ],
 
   darbarSlides: [

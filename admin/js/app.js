@@ -4,6 +4,17 @@
  */
 
 const App = (() => {
+  // Asset Path Resolver for Admin Panel (resolves root-relative static assets)
+  function resolveAdminAsset(path) {
+    if (!path || typeof path !== 'string') return '../logo.PNG';
+    path = path.trim();
+    if (!path) return '../logo.PNG';
+    if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:') || path.startsWith('/')) {
+      return path;
+    }
+    return '../' + path;
+  }
+
   // Toast Notification System
   function showToast(message, type = 'info') {
     const toast = document.createElement('div');
@@ -51,7 +62,7 @@ const App = (() => {
         const item = document.createElement('div');
         item.className = 'media-item';
         const isVideo = (m.mimeType && m.mimeType.startsWith('video')) || (m.filename && m.filename.endsWith('.mp4'));
-        const displaySrc = m.url || m.filename;
+        const displaySrc = resolveAdminAsset(m.url || m.filename);
         item.innerHTML = `
           ${isVideo 
             ? `<video src="${displaySrc}" preload="metadata"></video>` 
@@ -409,7 +420,7 @@ const App = (() => {
             <div class="form-group">
               <label class="form-label">Brand Logo</label>
               <div class="image-picker-field">
-                <img src="${s.logo || 'logo.PNG'}" class="image-preview-thumb" id="logoPreview">
+                <img src="${resolveAdminAsset(s.logo || 'logo.PNG')}" class="image-preview-thumb" id="logoPreview">
                 <input type="text" class="form-control" name="logo" id="logoInput" value="${s.logo || ''}">
                 <button type="button" class="btn btn-secondary btn-sm" onclick="App.openMediaPicker((fn, url) => { document.getElementById('logoInput').value = fn; document.getElementById('logoPreview').src = url; })">Browse</button>
               </div>
@@ -547,7 +558,7 @@ const App = (() => {
         <div class="form-group">
           <label class="form-label">Featured Image</label>
           <div class="image-picker-field">
-            <img src="${d.image}" class="image-preview-thumb" id="thumb_${sec.sectionKey}">
+            <img src="${resolveAdminAsset(d.image)}" class="image-preview-thumb" id="thumb_${sec.sectionKey}">
             <input type="text" class="form-control" data-key="image" id="input_${sec.sectionKey}" value="${d.image}">
             <button type="button" class="btn btn-secondary btn-sm" onclick="App.openMediaPicker((fn, url) => { document.getElementById('input_${sec.sectionKey}').value = fn; document.getElementById('thumb_${sec.sectionKey}').src = url; })">Browse</button>
           </div>
@@ -827,7 +838,7 @@ const App = (() => {
         <div class="form-group">
           <label class="form-label">${field.label}</label>
           <div class="image-picker-field">
-            <img src="${value || 'logo.PNG'}" class="image-preview-thumb" id="${uid}_thumb">
+            <img src="${resolveAdminAsset(value || 'logo.PNG')}" class="image-preview-thumb" id="${uid}_thumb">
             <input type="text" class="form-control" name="${field.name}" id="${uid}_input" value="${value}">
             <button type="button" class="btn btn-secondary btn-sm" onclick="App.openMediaPicker((fn, url) => { document.getElementById('${uid}_input').value = fn; document.getElementById('${uid}_thumb').src = url; })">Browse</button>
           </div>
@@ -896,7 +907,7 @@ const App = (() => {
     title: 'Signature Projects (Raj Nirmaan)',
     endpoint: 'projects',
     columns: [
-      { label: 'Cover', render: (i) => `<img src="${i.hero}" class="table-thumb">` },
+      { label: 'Cover', render: (i) => `<img src="${resolveAdminAsset(i.hero)}" class="table-thumb">` },
       { label: 'Title', render: (i) => `<strong>${i.title}</strong><br><small style="color:var(--text-muted);">${i.location} · ${i.type}</small>` },
       { label: 'Gallery Size', render: (i) => `${(i.images || []).length} photos` },
       { label: 'Featured', render: (i) => i.isFeatured ? '<span class="badge badge-warning">Featured</span>' : '<span class="badge badge-info">Standard</span>' },
@@ -921,7 +932,7 @@ const App = (() => {
     title: 'Heritage Craftsmanship (Shilp Kala)',
     endpoint: 'craftsmanship',
     columns: [
-      { label: 'Cover', render: (i) => `<img src="${i.image}" class="table-thumb">` },
+      { label: 'Cover', render: (i) => `<img src="${resolveAdminAsset(i.image)}" class="table-thumb">` },
       { label: 'Title', render: (i) => `<strong>${i.title}</strong><br><small style="color:var(--text-muted);">${i.tagline ? i.tagline.slice(0, 45) + '...' : ''}</small>` },
       { label: 'Details', render: (i) => `${(i.subImages || []).length} Sub-images` },
       { label: 'Order', key: 'order' },
@@ -945,7 +956,7 @@ const App = (() => {
     title: 'Leadership & Vision Team',
     endpoint: 'leaders',
     columns: [
-      { label: 'Avatar', render: (i) => `<img src="${i.avatar}" class="table-thumb" style="border-radius:50%;">` },
+      { label: 'Avatar', render: (i) => `<img src="${resolveAdminAsset(i.avatar || (/balveer/i.test(i.name) ? 'ff.jpeg' : 'md.jpeg'))}" class="table-thumb" style="border-radius:50%;">` },
       { label: 'Name', render: (i) => `<strong>${i.name}</strong><br><small style="color:var(--text-muted);">${i.designation}</small>` },
       { label: 'Company', key: 'company' },
       { label: 'Order', key: 'order' },
@@ -969,7 +980,7 @@ const App = (() => {
     title: 'The Royal Material Palette',
     endpoint: 'materials',
     columns: [
-      { label: 'Image', render: (i) => `<img src="${i.image}" class="table-thumb">` },
+      { label: 'Image', render: (i) => `<img src="${resolveAdminAsset(i.image)}" class="table-thumb">` },
       { label: 'Code', key: 'code' },
       { label: 'Title', key: 'title' },
       { label: 'Order', key: 'order' },
@@ -1013,7 +1024,7 @@ const App = (() => {
     title: 'Darbar Gallery Slider',
     endpoint: 'darbar',
     columns: [
-      { label: 'Slide Image', render: (i) => `<img src="${i.image}" class="table-thumb">` },
+      { label: 'Slide Image', render: (i) => `<img src="${resolveAdminAsset(i.image)}" class="table-thumb">` },
       { label: 'Tagline', key: 'tagline' },
       { label: 'Subline', render: (i) => `<small style="color:var(--text-muted);">${(i.subline || '').slice(0, 50)}...</small>` },
       { label: 'Order', key: 'order' },
@@ -1272,7 +1283,7 @@ const App = (() => {
         const item = document.createElement('div');
         item.className = 'media-item';
         const isVideo = (m.mimeType && m.mimeType.startsWith('video')) || (m.filename && m.filename.endsWith('.mp4'));
-        const displaySrc = m.url || m.filename;
+        const displaySrc = resolveAdminAsset(m.url || m.filename);
 
         item.innerHTML = `
           ${isVideo 
@@ -1315,7 +1326,7 @@ const App = (() => {
     modalBackdrop.classList.add('active');
     document.getElementById('crudModalTitle').textContent = `Media Details: ${m.filename}`;
 
-    const displayUrl = m.url || m.filename;
+    const displayUrl = resolveAdminAsset(m.url || m.filename);
     const mediaId = m.id || m._id;
 
     const form = document.getElementById('crudForm');
